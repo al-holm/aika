@@ -155,7 +155,7 @@ class _GermanChatState extends State {
       _messages.add(text);
       _messages.add("Echo: $text");
     });
-
+/*
     // Send message to backend
     final response = await http.post(
       Uri.parse('https://your-backend-api.com/messages'), // Replace with your backend API URL
@@ -173,6 +173,7 @@ class _GermanChatState extends State {
     } else {
       // Handle error
     }
+*/
   }
 
 
@@ -186,7 +187,7 @@ class _GermanChatState extends State {
             child: ListView.builder(
               padding: const EdgeInsets.all(8),
               reverse: true,
-              itemBuilder: (_, int index) => _buildMessageTile(_messages.reversed.toList()[index]),
+              itemBuilder: (_, int index) => _buildMessageTile(_messages.reversed.toList()[index], context),
                 itemCount: _messages.length,
               ),
           ),
@@ -198,50 +199,52 @@ class _GermanChatState extends State {
   }
 }
 
-Widget _buildMessageTile(String message) {
+Widget _buildMessageTile(String message, BuildContext context) {
   bool isBot = message.startsWith('Echo');
-
-  return Align(
-      alignment: isBot ? Alignment.centerLeft : Alignment.centerRight,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        decoration: BoxDecoration(
-          color: isBot ? Colors.orange : Colors.grey,
-          borderRadius: isBot 
+  const double radius = 6;
+  var borderRadius = isBot 
           ? const BorderRadius.only(
-            topLeft: Radius.circular(5), 
-            topRight: Radius.circular(5),
+            topLeft: Radius.circular(radius), 
+            topRight: Radius.circular(radius),
             bottomLeft: Radius.circular(0),
-            bottomRight: Radius.circular(5)
+            bottomRight: Radius.circular(radius)
           )
           : const BorderRadius.only(
-            topLeft: Radius.circular(5), 
-            topRight: Radius.circular(5),
-            bottomLeft: Radius.circular(5),
+            topLeft: Radius.circular(radius), 
+            topRight: Radius.circular(radius),
+            bottomLeft: Radius.circular(radius),
             bottomRight: Radius.circular(0)
+          );
+          
+  return Row(
+    mainAxisAlignment: isBot? MainAxisAlignment.start : MainAxisAlignment.end,
+    children: [
+      if (isBot)
+        const CircleAvatar(
+          child:  Text('B'),
+          backgroundColor: Colors.orange,
+          foregroundColor: Colors.grey,
           ),
+      Container(
+        margin: const EdgeInsets.symmetric( horizontal: 8, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
+        decoration: BoxDecoration(
+          color: isBot ? Colors.orange : Colors.grey,
+          borderRadius: borderRadius,
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (!isBot) const Icon(Icons.android_rounded, color: Colors.grey, size:24),
-            const SizedBox(width: 10,),
-            Expanded(
-              child: Text(
-                message.replaceFirst("Echo: ", ""), 
-                textAlign: isBot ? TextAlign.left : TextAlign.right,
-                softWrap: true,
-                style: TextStyle(fontSize: 16),
-                )
-            ),
-            if (isBot) const Icon(Icons.person, color: Colors.orange, size:24),
-            const SizedBox(width: 10,),
-          ],
-        )
-      )
+        child: Text(message),
+      ),
+      if (!isBot)
+        const CircleAvatar(
+          child:  Text('U'),
+          backgroundColor: Colors.grey,
+          foregroundColor: Colors.orange,
+          ),
+    ],
     );
 }
+  
 
 Widget _buildTextInput(_controller, _handleSubmitted) {
   return Padding(
@@ -254,14 +257,19 @@ Widget _buildTextInput(_controller, _handleSubmitted) {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: TextField(
-                      controller: _controller,
-                      onSubmitted: _handleSubmitted,
-                      decoration: const InputDecoration.collapsed(hintText: '  Tippen Sie hier...'),
-                    ),
+                    child: Container(
+                      margin: EdgeInsets.only(left:10),
+                      constraints: BoxConstraints(maxHeight: 200),
+                       child: TextField(
+                        controller: _controller,
+                        onSubmitted: _handleSubmitted,
+                        decoration: const InputDecoration.collapsed(hintText: '  Tippen Sie hier...'),
+                      ),
+                    )
                   ),
                   IconButton(
-                    onPressed:() => _handleSubmitted(_controller.text), 
+                    onPressed:() => _controller.text.isNotEmpty ?
+                    _handleSubmitted(_controller.text) : null, 
                     icon: const Icon(Icons.send))
                 ],
       )
