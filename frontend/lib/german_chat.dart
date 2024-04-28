@@ -14,15 +14,27 @@ class GermanChatPage extends StatefulWidget {
 }
 
 class _GermanChatState extends State {
+  late String _userId;
   final TextEditingController _controller = TextEditingController();
   List<Message> _messages = [];
-  late String _userId;
+
 
   @override
   void initState() {
     super.initState();
     _initUserId();
+    _initMessages();
   }
+
+  Future<void> _initMessages() async {
+    String initString = "Hallo, ich bin AIKA! Ich kann dir helfen, Deutsch zu lernen, Formulare auszufüllen und rechtliche Fragen zu beantworten.\n Meine Tipps sind aber nur orientierend, bei Fragen wende dich an eine qualifizierte Beratung.";
+    Message initMessage = _buildMessage(initString, 'bot', 'init');
+    setState(() {
+         _messages.add(initMessage);
+      }
+    );
+  }
+  
 
   Future<void> _initUserId() async {
     final prefs = await shared_preferences.SharedPreferences.getInstance();
@@ -44,10 +56,14 @@ class _GermanChatState extends State {
     return uuid.Uuid().v4();
   }
 
-  Message _addMessage(String text, String role) {
+  Message _buildMessage(String text, String role, [String userID_ = '']) {
     String timestamp = getCurrenTimestamp();
     String messageID = generateMessageID();
-    return Message(text: text, userID: _userId, 
+    String userID = 'null';
+    if (userID_ == '') {
+      userID = _userId;
+    }
+    return Message(text: text, userID: userID, 
                   messageID: messageID, role: role, 
                   timestamp: timestamp);
 
@@ -72,16 +88,8 @@ class _GermanChatState extends State {
     if (text == '') return;
     _controller.clear();
     
-    Message userMessage = Message(text: text, userID: _userId, 
-                          messageID: generateMessageID(), 
-                          role: 'user', 
-                          timestamp: getCurrenTimestamp());
-
-
-    Message botMessage = Message(text: "Echo: $text", userID: _userId, 
-                          messageID: generateMessageID(), 
-                          role: 'bot', 
-                          timestamp: getCurrenTimestamp());
+    Message userMessage = _buildMessage(text, 'user');
+    Message botMessage = _buildMessage("Echo: $text", 'bot');
 
     botMessage.displayMessage();
     setState(() {
@@ -138,7 +146,7 @@ class _GermanChatState extends State {
 }
 
 Widget _buildMessageTile(Message message, BuildContext context) {
-  bool isBot = message.text.startsWith('Echo');
+  bool isBot = message.role == 'bot';
   const double radius = 6;
   var borderRadius = isBot 
           ? const BorderRadius.only(
