@@ -1,11 +1,10 @@
 import { Controller, Get, Body } from '@nestjs/common';
-import { Interface } from 'readline';
-import { AnswerGermanChat } from 'src/dto/answer-german-chat.dto';
+import { GermanChatQuestion } from 'src/german_chat/dto/german-chat-question.dto';
 
 @Controller('german-chat')
 export class GermanChatController {
     @Get()
-    getAnswer(@Body() request: AnswerGermanChat) : { answer_text: string; }{
+    getAnswer(@Body() request: GermanChatQuestion) : { answer_text: string; }{
         /**
          * Handle a user message reply request 
          * Parameters:
