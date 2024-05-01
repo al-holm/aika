@@ -27,7 +27,7 @@ class _GermanChatState extends State {
   }
 
   Future<void> _initMessages() async {
-    String initString = "Hallo, ich bin AIKA! Ich kann dir helfen, Deutsch zu lernen, Formulare auszufüllen und rechtliche Fragen zu beantworten.\n Meine Tipps sind aber nur orientierend, bei Fragen wende dich an eine qualifizierte Beratung.";
+    String initString = "Hallo, ich bin AIKA! Ich kann dir helfen, Deutsch zu lernen, Formulare auszufüllen und rechtliche Fragen zu beantworten.\n\nMeine Tipps sind aber nur orientierend, bei Fragen wende dich an eine qualifizierte Beratung.";
     Message initMessage = _buildMessage(initString, 'bot', 'init');
     setState(() {
          _messages.add(initMessage);
@@ -126,6 +126,7 @@ class _GermanChatState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(238, 229, 222, 1),
       appBar: appBarAIKA(context),
       body: Column(
         children: <Widget>[
@@ -147,7 +148,7 @@ class _GermanChatState extends State {
 
 Widget _buildMessageTile(Message message, BuildContext context) {
   bool isBot = message.role == 'bot';
-  const double radius = 6;
+  const double radius = 15;
   var borderRadius = isBot 
           ? const BorderRadius.only(
             topLeft: Radius.circular(radius), 
@@ -163,30 +164,34 @@ Widget _buildMessageTile(Message message, BuildContext context) {
           );
           
   return Row(
-    mainAxisAlignment: isBot? MainAxisAlignment.start : MainAxisAlignment.end,
+    mainAxisAlignment: isBot? MainAxisAlignment.start: MainAxisAlignment.end,
+    crossAxisAlignment: CrossAxisAlignment.end,
     children: [
       if (isBot)
-        const CircleAvatar(
-          child:  Text('B'),
-          backgroundColor: Colors.orange,
-          foregroundColor: Colors.grey,
+        Container(
+            width: 60.0,  // Diameter of the circle
+            height: 60.0, // Diameter of the circle
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/bot_avatar.png'), // Path to your image asset
+                fit: BoxFit.scaleDown,
+              ),
+              shape: BoxShape.circle,
+            ),
           ),
       Container(
         margin: const EdgeInsets.symmetric( horizontal: 8, vertical: 10),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
         decoration: BoxDecoration(
-          color: isBot ? Colors.orange : Colors.grey,
+          color: Colors.white,
           borderRadius: borderRadius,
+          border: Border.all(color: Colors.black, width: 1.5)
         ),
-        child: Text(message.text),
+        child: Text(message.text, 
+                style: TextStyle(fontFamily: 'SFMono')
+        ),
       ),
-      if (!isBot)
-        const CircleAvatar(
-          child:  Text('U'),
-          backgroundColor: Colors.grey,
-          foregroundColor: Colors.orange,
-          ),
     ],
     );
 }
@@ -198,6 +203,7 @@ Widget _buildTextInput(_controller, _handleSubmitted) {
             child: Container(
               decoration: BoxDecoration( 
                 border: Border.all(color: Colors.black),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Row(

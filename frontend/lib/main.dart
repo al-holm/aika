@@ -11,8 +11,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'AIKA',
       theme: ThemeData(
-        fontFamily: 'SF Pro',
-        primarySwatch: Colors.deepOrange, 
         visualDensity: VisualDensity.adaptivePlatformDensity, // scaling - VisualDensity that is adaptive based on the current platform 
       ),
       debugShowCheckedModeBanner: false,
