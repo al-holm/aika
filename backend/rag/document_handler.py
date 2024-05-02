@@ -8,8 +8,11 @@ from haystack import Pipeline
 from haystack.components.embedders import OpenAIDocumentEmbedder
 from pathlib import Path
 from haystack_integrations.document_stores.opensearch import OpenSearchDocumentStore
+from haystack.document_stores.in_memory import InMemoryDocumentStore
 from dotenv import load_dotenv
 import os
+import glob
+
 
 load_dotenv()
 
@@ -19,7 +22,7 @@ load_dotenv()
 class DocumentStoreHandler:
     def __init__(self, data_dir) -> None:
         self.data_dir = data_dir
-        self.document_store = OpenSearchDocumentStore()
+        self.document_store = InMemoryDocumentStore()
         self.file_type_router = FileTypeRouter(mime_types=["application/pdf"])
         self.pdf_converter = PyPDFToDocument()
         self.document_joiner = DocumentJoiner()
@@ -31,6 +34,8 @@ class DocumentStoreHandler:
         self.document_embedder = OpenAIDocumentEmbedder(model="text-embedding-3-large")
         self.document_writer = DocumentWriter(self.document_store)
         self.preprocessing_pipeline = Pipeline()
+
+        self.init_pipeline()
 
     def init_pipeline(self) -> None:
         self.preprocessing_pipeline.add_component(instance=self.file_type_router, name="file_type_router")
@@ -47,7 +52,10 @@ class DocumentStoreHandler:
         self.preprocessing_pipeline.connect("document_cleaner", "document_splitter")
         self.preprocessing_pipeline.connect("document_splitter", "document_embedder")
         self.preprocessing_pipeline.connect("document_embedder", "document_writer")
+        print('Pipeline initialised')
 
     def write_docs2docstore(self):
-        self.preprocessing_pipeline.run({"file_type_router": {"sources": list(Path(self.data_dir))}})
+        print(glob.glob(self.data_dir))
+        self.preprocessing_pipeline.run({"file_type_router": {"sources": list(Path(self.data_dir).glob("**/*"))}})
+        print('Docs saved')
 
