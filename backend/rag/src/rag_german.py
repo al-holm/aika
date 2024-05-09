@@ -1,36 +1,54 @@
 from document_handler import DocumentStoreHandler
 from langchain_core.prompts import PromptTemplate
-from langchain_core.output_parsers import StrOutputParser
-from langchain_community.llms import LlamaCpp
 from langchain_core.runnables import RunnablePassthrough
-from langchain.chains import LLMChain
 from langchain_community.llms import Ollama
-from langchain.retrievers import EnsembleRetriever
-from langchain_community.retrievers import BM25Retriever
-
+from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain import hub
+from langchain.agents import AgentExecutor, create_react_agent
+from langchain_community.tools.tavily_search import TavilySearchResults
+import boto3
+from langchain_community.llms.bedrock import Bedrock
+from langchain.tools.retriever import create_retriever_tool
 """
 A class for Retrieval Augmented Generation that combines different retrievers and language models for question answering.
 @param model_path - the path to the model
 @param documents_path - the path to the documents
 """
-class RetrievalAugmentedGeneration:
-    def __init__(self, model_path, documents_path='backend/rag/data'):
+class LLMAgent:
+    def __init__(self, model_path='', bedrock=None, documents_path='backend/rag/data'):
         self.model_path = model_path
+        self.bedrock = bedrock
         self.doc_handler = DocumentStoreHandler(documents_path)
         self.doc_store = self.doc_handler.doc_store
         self.embedder = self.doc_handler.embedder
-        self.retriever = self.doc_store.as_retriever(search_kwargs={"k": 5})
+        self.retriever = self.doc_store.as_retriever(search_kwargs={"k": 3})
+        tool_search = create_retriever_tool(
+            retriever=self.retriever,
+            name="Suche in Lehrbücher",
+            description="Sucht nach Beispielen und Erklärungen in Textbücher",
+        )
+        self.tools = [TavilySearchResults(max_results=2), tool_search]
+        # Get the prompt to use - you can modify this!
+        #self.prompt = hub.pull("hwchase17/react")
         self.build_prompt()
         self.configure_llm()
-        self.configure_rag_chain()
-        print('RAG Build')
+        #self.configure_rag_chain()
+        # Construct the ReAct agent
+        self.agent = create_react_agent(self.llm, self.tools, self.prompt)
+        # Create an agent executor by passing in the agent and tools
+        self.agent_executor = AgentExecutor(agent=self.agent, tools=self.tools, verbose=True)
+        print('Agent Build')
 
     def configure_llm(self):
         '''The function `configure_llm` sets the `llm` attribute of an object to an instance of the
         `Ollama` class with a specific model parameter.
         
         '''
-        self.llm = Ollama(model="mixtral:8x7b")
+        if self.bedrock==None:
+            self.llm = Ollama(model="mixtral:8x7b")
+        else:
+            self.llm = Bedrock(model_id="mistral.mixtral-8x7b-instruct-v0:1", 
+                    client=self.bedrock, model_kwargs={"max_tokens": 512})
 
     def configure_rag_chain(self):
         '''The function `configure_rag_chain` creates a chain of components including an LLM chain and a
@@ -60,18 +78,30 @@ class RetrievalAugmentedGeneration:
         object with the `query` parameter.
         
         '''
-        return self.rag_chain.invoke(query)
+        return self.agent_executor.invoke({'input' : query})
 
     def build_prompt(self):
         template = """
         [INST] 
-Du bist ein Deutschlehrer. Beantworte die Fragen deines Studenten. Benutze einfache Sprache. Benutze Information unten zur Hilfe.
+Du bist ein Deutschlehrer. Beantworte die Fragen deines Studenten. Benutze einfache Sprache. 
+Beantworte die folgenden Fragen so gut du kannst. Du hast Zugang zu den folgenden Tools:
+{tools}
+
+Verwende das folgende Format:
+
+Thought: die Eingangsfrage, die Du beantworten musst
+Gedanke: Du solltest immer darüber nachdenken, was zu tun ist
+Action: die zu ergreifende Maßnahme, sollte eine von [{tool_names}] sein
+Action Input: die Eingabe für die Aktion
+Observation: das Ergebnis der Handlung
+... (dieser Thought/Action/Action Input/Observation kann N-mal wiederholt werden)
+Thought: Ich kenne jetzt die endgültige Antwort
+Final Answer: die endgültige Antwort auf die ursprüngliche Eingangsfrage
+
+Beginne! Antworte immer auf Deutsch!!!
 [/INST]
-{context}
+Question: {input}
 
-Frage:
-{question} 
-
-Antwort: """
+Thought:{agent_scratchpad} """
 
         self.prompt = PromptTemplate.from_template(template)
