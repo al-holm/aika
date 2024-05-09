@@ -1,6 +1,6 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { GermanChatMessageDto } from 'src/german_chat/dto/german-chat-question.dto';
 import { GermanChatService } from './german_chat.service';
+import { GermanChatMessageDto } from './dto/german-chat-question.dto';
 
 @Controller('german-chat')
 export class GermanChatController {
