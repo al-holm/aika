@@ -88,7 +88,7 @@ class _GermanChatState extends State {
   /// or the default userID value. The message also includes a generated messageID and a current
   /// timestamp.
   Message _buildMessage(String text, String role, [String userID_ = '']) {
-    String timestamp = getCurrenTimestamp();
+    DateTime timestamp = getCurrenTimestamp();
     String messageID = generateMessageID();
     String userID = 'null';
     if (userID_ == '') {
@@ -100,19 +100,19 @@ class _GermanChatState extends State {
 
   }
   
-  String getCurrenTimestamp() {
-    return intl.DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+  DateTime getCurrenTimestamp() {
+    return DateTime.now();
   }
 
-  Map<String, dynamic> getMessageBodyHTTP(Message message) {
+  String getMessageBodyHTTP(Message message) {
   // Construct message body with userId, role, and timestamp
-    return  {
-      'message': message.getText(),
-      'userId': message.getUserID(),
-      'messageId': message.getMessageID(),
+    return  jsonEncode(<String, dynamic>{
+      'message_text': message.getText(),
+      'user_id': message.getUserID(),
+      'message_id': message.getMessageID(),
       'role': message.getRole(),
-      'timestamp':message.getTimestamp(),
-    };
+      'timestamp':message.getTimestamp().toIso8601String(),
+    });
   }
 
   Future<void> _handleSubmitted(String text) async {
@@ -120,37 +120,38 @@ class _GermanChatState extends State {
     _controller.clear();
     
     Message userMessage = _buildMessage(text, 'user');
-    Message botMessage = _buildMessage("Echo: $text", 'bot');
+    //Message botMessage = _buildMessage("Echo: $text", 'bot');
 
-    botMessage.displayMessage();
     setState(() {
       _messages.add(userMessage);
-      _messages.add(botMessage);
+      //_messages.add(botMessage);
     });
-/*
     // Send message to backend
-    messageBody = getMessageBodyHTTP(userMessage);
+    var messageBody = getMessageBodyHTTP(userMessage);
+    final url = Uri.parse('http://10.0.2.2:3000/german-chat/message/'); // IP of Android emulator
     final response = await http.post(
-      Uri.parse('https://your-backend-api.com/messages'), // Replace with your backend API URL
+      url, // Replace with your backend API URL
+      headers: {"Content-Type": "application/json"},
       body: messageBody,
     );
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       // Decode response JSON
-      final responseData = jsonDecode(response.body);
+      final responseData = jsonDecode(response.body)['message'];
+      print(responseData);
       // Check if response contains a message
-      if (responseData.containsKey('message')) {
-        Message botMessage = Message(text: responseData['message'], userID: _userId, 
-                          messageID: generateMessageID(), 
-                          role: 'bot', 
-                          timestamp: getCurrenTimestamp());
+      if (responseData.containsKey('message_text')) {
+        Message botMessage = Message(text: responseData['message_text'], 
+                          userID: responseData['user_id'], 
+                          messageID: responseData['message_id'], 
+                          role: responseData['role'], 
+                          timestamp: DateTime.parse(responseData['timestamp']));
         setState(() {
           _messages.add(botMessage);
         });
       }
     } else {
-      // Handle error
+      print(response.statusCode);
     }
-*/
   }
 
 

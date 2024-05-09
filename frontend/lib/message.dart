@@ -3,7 +3,7 @@ class Message {
   String userID;
   String messageID;
   String role;
-  String timestamp;
+  DateTime timestamp;
 
   Message({required this.text, 
         required this.userID,
@@ -26,7 +26,7 @@ class Message {
     return role;
   }
 
-  String getTimestamp() {
+  DateTime getTimestamp() {
     return timestamp;
   }
   
