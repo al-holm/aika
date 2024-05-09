@@ -19,6 +19,8 @@ load_dotenv()
 #openai.api_key = os.getenv('OPENAI_API_KEY')
 
 
+# The `DocumentStoreHandler` class initializes a preprocessing pipeline for handling documents,
+# including routing, conversion, cleaning, splitting, embedding, and writing to a document store.
 class DocumentStoreHandler:
     def __init__(self, data_dir) -> None:
         self.data_dir = data_dir
@@ -38,6 +40,10 @@ class DocumentStoreHandler:
         self.init_pipeline()
 
     def init_pipeline(self) -> None:
+        """
+        The `init_pipeline` function sets up a preprocessing pipeline with components for routing,
+        converting, joining, cleaning, splitting, embedding, and writing documents.
+        """
         self.preprocessing_pipeline.add_component(instance=self.file_type_router, name="file_type_router")
         self.preprocessing_pipeline.add_component(instance=self.pdf_converter, name="pypdf_converter")
         self.preprocessing_pipeline.add_component(instance=self.document_joiner, name="document_joiner")
@@ -54,7 +60,11 @@ class DocumentStoreHandler:
         self.preprocessing_pipeline.connect("document_embedder", "document_writer")
         print('Pipeline initialised')
 
-    def write_docs2docstore(self):
+    def write_docs2docstore(self)-> None:
+        """
+        The function `write_docs2docstore` prints the list of files in a specified directory, runs a
+        preprocessing pipeline on the files, and then prints 'Docs saved'.
+        """
         print(glob.glob(self.data_dir))
         self.preprocessing_pipeline.run({"file_type_router": {"sources": list(Path(self.data_dir).glob("**/*"))}})
         print('Docs saved')

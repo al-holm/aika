@@ -3,6 +3,7 @@ import logging
 
 logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
 logging.getLogger("haystack").setLevel(logging.INFO)
+
 if __name__ == "__main__":
     rag = RAG()
     print(rag.run('Erklär mir, wie man kausale Nebensätze bildet? Gib ein paar Beispiele.'))

@@ -13,6 +13,8 @@ class GermanChatPage extends StatefulWidget {
 
 }
 
+/// The `_GermanChatState` class in Dart implements a chat interface with message handling, user ID
+/// management, message building, and UI components for sending and displaying messages.
 class _GermanChatState extends State {
   late String _userId;
   final TextEditingController _controller = TextEditingController();
@@ -26,6 +28,8 @@ class _GermanChatState extends State {
     _initMessages();
   }
 
+  /// The `_initMessages` function initializes a chat message with a predefined string and adds it to a
+  /// list of messages.
   Future<void> _initMessages() async {
     String initString = "Hallo, ich bin AIKA! Ich kann dir helfen, Deutsch zu lernen, Formulare auszufüllen und rechtliche Fragen zu beantworten.\n\nMeine Tipps sind aber nur orientierend, bei Fragen wende dich an eine qualifizierte Beratung.";
     Message initMessage = _buildMessage(initString, 'bot', 'init');
@@ -36,6 +40,8 @@ class _GermanChatState extends State {
   }
   
 
+  /// The `_initUserId` function checks if a user ID exists in SharedPreferences, generates a new UUID
+  /// if not, and saves it in SharedPreferences.
   Future<void> _initUserId() async {
     final prefs = await shared_preferences.SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
@@ -52,10 +58,35 @@ class _GermanChatState extends State {
     }
   }
 
+  /// The function generates a unique message ID using the Uuid package in Dart.
+  /// 
+  /// Returns
+  /// -------
+  /// 	A randomly generated UUID (Universally Unique Identifier) version 4 string is being returned.
   String generateMessageID() {
     return uuid.Uuid().v4();
   }
 
+  /// The _buildMessage function creates a Message object with the provided text, role, and optional
+  /// userID.
+  /// 
+  /// Parameters
+  /// ----------
+  /// text : String
+  /// 	The `text` parameter is the content of the message that will be sent.
+  /// role : String
+  /// 	The `role` parameter in the `_buildMessage` function is used to specify the role of the user
+  /// sending the message. It could be something like "bot", "user".
+  /// userID_ : String, optional
+  /// 	The `userID_` parameter in the `_buildMessage` function is an optional parameter with a default
+  /// value of an empty string `''`. If no value is provided for `userID_`, it will default to an empty
+  /// string.
+  /// 
+  /// Returns
+  /// -------
+  /// 	A Message object is being returned with the provided text, role, and either the specified userID
+  /// or the default userID value. The message also includes a generated messageID and a current
+  /// timestamp.
   Message _buildMessage(String text, String role, [String userID_ = '']) {
     String timestamp = getCurrenTimestamp();
     String messageID = generateMessageID();

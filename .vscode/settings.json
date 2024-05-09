@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "/home/ali/Documents/aika/frontend/linux/flutter"
+    "cmake.sourceDirectory": "/home/ali/Documents/aika/frontend/linux/flutter",
+    "docwriter.style": "NumPy"
 }
