@@ -8,6 +8,8 @@ from langchain_experimental.text_splitter import SemanticChunker
 from langchain_openai.embeddings import OpenAIEmbeddings
 import weaviate
 from langchain_weaviate.vectorstores import WeaviateVectorStore
+from langchain_community.embeddings import HuggingFaceEmbeddings
+
 
 load_dotenv()
 
@@ -24,7 +26,7 @@ class DocumentStoreHandler:
         if parse_pdf:
             self.parse_pdf()
         self.loader = DirectoryLoader(data_dir, glob="**/*.md", loader_cls=UnstructuredMarkdownLoader)
-        self.embedder = OpenAIEmbeddings()
+        self.embedder = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-large-instruct")
         self.text_splitter = SemanticChunker(self.embedder)
         self.load_data()
 
