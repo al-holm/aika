@@ -132,14 +132,14 @@ class _GermanChatState extends State {
         children: <Widget>[
           Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.only(top: 20, left: 8, right: 8, bottom: 20),
               reverse: true,
               itemBuilder: (_, int index) => _buildMessageTile(_messages.reversed.toList()[index], context),
                 itemCount: _messages.length,
               ),
           ),
           const Divider(height: 1),
-          _buildTextInput(_controller, _handleSubmitted)
+          _buildTextInput(_controller, _handleSubmitted, context)
         ],
       ),
     );
@@ -197,36 +197,45 @@ Widget _buildMessageTile(Message message, BuildContext context) {
 }
   
 
-Widget _buildTextInput(_controller, _handleSubmitted) {
+Widget _buildTextInput(TextEditingController _controller, Function _handleSubmitted, BuildContext context) {
+  Size screenSize = MediaQuery.of(context).size;
+
+  // Define a local method that handles text submission and also hides the keyboard.
+  void _localHandleSubmitted(String text) {
+    _handleSubmitted(text); // Call the original handle submitted method
+    FocusScope.of(context).requestFocus(new FocusNode()); // This will hide the keyboard
+  }
+
   return Padding(
-            padding: const EdgeInsets.all(8),
-            child: Container(
-              decoration: BoxDecoration( 
-                border: Border.all(color: Colors.black),
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5),
+    padding: EdgeInsets.only(left: 8, right: 8, top: 10, bottom: screenSize.height * 0.03),
+    child: Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: TextField(
+                controller: _controller,
+                keyboardType: TextInputType.multiline,
+                maxLines: 7,
+                minLines: 1,
+                onSubmitted: _localHandleSubmitted,  // Update to use local handle submitted
+                decoration: const InputDecoration.collapsed(hintText: 'Tippen Sie hier...'),
               ),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                        padding: EdgeInsets.only(left:10),
-                        child:TextField(
-                          controller: _controller,
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 7,
-                          minLines: 1,
-                          onSubmitted: _handleSubmitted,
-                          decoration: const InputDecoration.collapsed(hintText: '  Tippen Sie hier...'),
-                        ),
-                      ),
-                    ),
-                  IconButton(
-                    onPressed:() => _handleSubmitted(_controller.text), 
-                    icon: const Icon(Icons.send))
-                ],
-      )
-    )
+            ),
+          ),
+          IconButton(
+            onPressed: () => _localHandleSubmitted(_controller.text),  // Use the local function to hide keyboard
+            icon: const Icon(Icons.send),
+          ),
+        ],
+      ),
+    ),
   );
 }
 
