@@ -1,71 +1,56 @@
-from haystack.components.writers import DocumentWriter
-from haystack.components.converters import PyPDFToDocument
-from haystack.components.preprocessors import DocumentSplitter, DocumentCleaner
-from haystack.components.routers import FileTypeRouter
-from haystack.components.joiners import DocumentJoiner
-from haystack.components.embedders import SentenceTransformersDocumentEmbedder
-from haystack import Pipeline
-from haystack.components.embedders import OpenAIDocumentEmbedder
-from pathlib import Path
-from haystack_integrations.document_stores.opensearch import OpenSearchDocumentStore
-from haystack.document_stores.in_memory import InMemoryDocumentStore
-from dotenv import load_dotenv
-import os
-import glob
 
+from llama_parse import LlamaParse
+from dotenv import load_dotenv
+from os import listdir
+from os.path import isfile, join
+from langchain_community.document_loaders import UnstructuredMarkdownLoader, DirectoryLoader
+from langchain_experimental.text_splitter import SemanticChunker
+from langchain_openai.embeddings import OpenAIEmbeddings
+import weaviate
+from langchain_weaviate.vectorstores import WeaviateVectorStore
 
 load_dotenv()
 
-#openai.api_key = os.getenv('OPENAI_API_KEY')
-
-
-# The `DocumentStoreHandler` class initializes a preprocessing pipeline for handling documents,
-# including routing, conversion, cleaning, splitting, embedding, and writing to a document store.
+# The `DocumentStoreHandler` class initializes with a data directory, parses PDF files to extract
+# text, loads and splits documents, connects to a Weaviate client, and creates a Weaviate vector store
+# from the documents using an embedder.
 class DocumentStoreHandler:
-    def __init__(self, data_dir) -> None:
+    def __init__(self, data_dir, parse_pdf=False) -> None:
         self.data_dir = data_dir
-        self.document_store = InMemoryDocumentStore()
-        self.file_type_router = FileTypeRouter(mime_types=["application/pdf"])
-        self.pdf_converter = PyPDFToDocument()
-        self.document_joiner = DocumentJoiner()
+        self.parser = LlamaParse(
+            result_type="markdown",  # "markdown" and "text" are available
+            verbose=True
+        )
+        if parse_pdf:
+            self.parse_pdf()
+        self.loader = DirectoryLoader(data_dir, glob="**/*.md", loader_cls=UnstructuredMarkdownLoader)
+        self.embedder = OpenAIEmbeddings()
+        self.text_splitter = SemanticChunker(self.embedder)
+        self.load_data()
 
-        self.document_cleaner = DocumentCleaner()
-        self.document_splitter = DocumentSplitter(
-            split_by="word", split_length=150, split_overlap=50
-            )
-        self.document_embedder = OpenAIDocumentEmbedder(model="text-embedding-3-large")
-        self.document_writer = DocumentWriter(self.document_store)
-        self.preprocessing_pipeline = Pipeline()
+    def parse_pdf(self):
+        '''The function `parse_pdf` takes PDF files from a directory, extracts text from them using a
+        parser, and saves the text in Markdown format in new files.    
+        '''
+        files = [join(self.data_dir, f) for f in listdir(self.data_dir) if isfile(join(self.data_dir, f)) and f.endswith('.pdf')]
+        documents = self.parser.load_data(files)
+        for i in range(len(documents)):
+            doc = documents[i]
+            file_name = files[i].split('/')[-1].split('.')[0]
+            name = file_name + str(i) + '.md'
+            path = join(self.data_dir, name)
+            with open(path, "w") as f:
+                f.write(doc.text)
+    
+    def load_data(self):
+        '''The `load_data` function loads documents, splits text, connects to a Weaviate client, and
+        creates a Weaviate vector store from the documents using an embedder.  
+        '''
+        docs = self.loader.load()
+        docs = self.text_splitter.split_documents(docs)
+        self.weaviate_client = weaviate.connect_to_local()
+        self.doc_store = WeaviateVectorStore.from_documents(docs, self.embedder, client=self.weaviate_client)
 
-        self.init_pipeline()
 
-    def init_pipeline(self) -> None:
-        """
-        The `init_pipeline` function sets up a preprocessing pipeline with components for routing,
-        converting, joining, cleaning, splitting, embedding, and writing documents.
-        """
-        self.preprocessing_pipeline.add_component(instance=self.file_type_router, name="file_type_router")
-        self.preprocessing_pipeline.add_component(instance=self.pdf_converter, name="pypdf_converter")
-        self.preprocessing_pipeline.add_component(instance=self.document_joiner, name="document_joiner")
-        self.preprocessing_pipeline.add_component(instance=self.document_cleaner, name="document_cleaner")
-        self.preprocessing_pipeline.add_component(instance=self.document_splitter, name="document_splitter")
-        self.preprocessing_pipeline.add_component(instance=self.document_embedder, name="document_embedder")
-        self.preprocessing_pipeline.add_component(instance=self.document_writer, name="document_writer")  
 
-        self.preprocessing_pipeline.connect("file_type_router.application/pdf", "pypdf_converter.sources")
-        self.preprocessing_pipeline.connect("pypdf_converter", "document_joiner")
-        self.preprocessing_pipeline.connect("document_joiner", "document_cleaner")
-        self.preprocessing_pipeline.connect("document_cleaner", "document_splitter")
-        self.preprocessing_pipeline.connect("document_splitter", "document_embedder")
-        self.preprocessing_pipeline.connect("document_embedder", "document_writer")
-        print('Pipeline initialised')
-
-    def write_docs2docstore(self)-> None:
-        """
-        The function `write_docs2docstore` prints the list of files in a specified directory, runs a
-        preprocessing pipeline on the files, and then prints 'Docs saved'.
-        """
-        print(glob.glob(self.data_dir))
-        self.preprocessing_pipeline.run({"file_type_router": {"sources": list(Path(self.data_dir).glob("**/*"))}})
-        print('Docs saved')
 

@@ -1,153 +1,77 @@
-
-from haystack.components.retrievers.in_memory import InMemoryBM25Retriever, InMemoryEmbeddingRetriever
-from haystack.components.embedders import OpenAITextEmbedder
 from document_handler import DocumentStoreHandler
-from haystack.components.joiners import DocumentJoiner
-from haystack.components.rankers import TransformersSimilarityRanker
-from haystack_integrations.components.generators.llama_cpp import LlamaCppGenerator
-from haystack import Pipeline
-from haystack.components.builders.answer_builder import AnswerBuilder
-from haystack.components.builders import PromptBuilder
-from dotenv import load_dotenv
-load_dotenv()
+from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from langchain_community.llms import LlamaCpp
+from langchain_core.runnables import RunnablePassthrough
+from langchain.chains import LLMChain
+from langchain_community.llms import Ollama
+from langchain.retrievers import EnsembleRetriever
+from langchain_community.retrievers import BM25Retriever
 
-# The `RAG` class initializes a Retrieval-Augmented Generation (RAG) model for question answering,
-# incorporating components for document retrieval, text embedding, answer generation, and prompt
-# building.
-class RAG:
-    def __init__(self, model_path="backend/rag/models/llama-2-13b.Q4_K_M.gguf") -> None:
-        self.doc_store_handler = DocumentStoreHandler('backend/rag/data')
-        self.doc_store_handler.write_docs2docstore()
-
-        self.document_store = self.doc_store_handler.document_store
-        self.text_embedder = OpenAITextEmbedder(model="text-embedding-3-large")
-        self.build_hybrid_retrieval()
-        # Load the LLM using LlamaCppGenerator
-        self.generator = LlamaCppGenerator(model=model_path, n_ctx=4096, n_batch=128)
-        self.build_rag()
-        print('RAG initialised')
-
-    def build_rag(self):
-        '''The `build_rag` function in Python sets up a pipeline for a RAG (Retrieval-Augmented Generation)
-        model by adding components and connecting them together.
-        
-        '''
-        self.rag_pipeline = self.retrieval
-        self.build_prompt()
-
-        self.rag_pipeline.add_component(instance=self.prompt_builder, name="prompt_builder")
-        self.rag_pipeline.add_component(instance=self.generator, name="llm")
-        self.rag_pipeline.add_component(instance=AnswerBuilder(), name="answer_builder")
-        
-        self.rag_pipeline.connect("embedding_retriever", "prompt_builder.documents")
-        self.rag_pipeline.connect("prompt_builder", "llm")
-        self.rag_pipeline.connect("llm.replies", "answer_builder.replies")
-        #self.rag_pipeline.connect("ranker.documents", "answer_builder.documents")
-
-
-    def build_hybrid_retrieval(self):
-        '''The function `build_hybrid_retrieval` sets up a pipeline for hybrid document retrieval using
-        embedding and BM25 retrievers.
-        
-        '''
-        self.embedding_retriever = InMemoryEmbeddingRetriever(self.document_store)
-        self.bm25_retriever = InMemoryBM25Retriever(self.document_store)
-        self.document_joiner = DocumentJoiner(join_mode="concatenate")
-        #self.ranker = TransformersSimilarityRanker(model="BAAI/bge-reranker-large")
-        #self.ranker.warm_up()
-        
-        self.retrieval = Pipeline()
-        self.retrieval.add_component("text_embedder", self.text_embedder)
-        self.retrieval.add_component("embedding_retriever", self.embedding_retriever)
-        #self.retrieval.add_component("bm25_retriever", self.bm25_retriever)
-        
-        #self.retrieval.add_component("document_joiner", self.document_joiner)
-        #self.retrieval.add_component("ranker", self.ranker)
-
-        self.retrieval.connect("text_embedder", "embedding_retriever.query_embedding")
-        #self.retrieval.connect("bm25_retriever", "document_joiner")
-        #self.retrieval.connect("embedding_retriever", "document_joiner")
-        #self.retrieval.connect("document_joiner", "ranker")
-
-    def visualize_retrieval(self): 
-        '''The function `visualize_retrieval` saves a visualization of retrieval results to a file named
-        "retrieval.png".
-        
-        '''
-        self.retrieval.draw("retrieval.png")
-
-    def run_retrieval(self, query:str):
-        '''This function takes a query as input, runs retrieval using different methods, and returns the
-        result from the ranker.
-        
-        Parameters
-        ----------
-        query : str
-            The `run_retrieval` method takes a query string as input and runs a retrieval process using
-        different components such as a text embedder, a BM25 retriever, and a ranker. The query string
-        is used as input for each of these components to retrieve relevant information.
-        
-        Returns
-        -------
-            The code snippet is returning the result from the "ranker" component after running retrieval
-        with the given query.
-        
-        '''
-        result = self.retrieval.run(
-            {"text_embedder": {"text": query}, 
-             "bm25_retriever": {"query": query}, 
-             "ranker": {"query": query}}
-             )
-        return result["ranker"]
-    
-    def run(self, query:str): 
-        '''The `run` function takes a query as input, processes it through various components in a
-        pipeline, and returns the answers generated by the pipeline.
-        
-        Parameters
-        ----------
-        query : str
-            The `run` method takes a `query` parameter as input, which is a string representing the text
-        for which you want to generate answers. The method then runs a pipeline that processes this
-        query through various components such as text embedder, prompt builder, llm (language model),
-        and answer builder
-        
-        Returns
-        -------
-            The function `run` takes a query as input and runs a pipeline that processes the query using
-        various components such as text embedder, prompt builder, llm, and answer builder. The function
-        then returns the answers generated by the answer builder component.
-        
-        '''
-        result = self.rag_pipeline.run(
-            {
-                "text_embedder": {"text": query},
-                #"bm25_retriever": {"query": query}, 
-                #"ranker": {"query": query},
-                "prompt_builder": {"question": query},
-                "llm": {"generation_kwargs": {"max_tokens": 128, "temperature": 0.1}},
-                "answer_builder": {"query": query},
-            }
-        )
-        return result["answer_builder"]["answers"]
-    
-    def build_prompt(self):
-        '''The `build_prompt` function defines a template for generating prompts for a German teacher to
-        answer questions from students, incorporating information from provided documents when relevant.
-        '''
-        template = """
-Du bist ein Deutschlehrer. Antworte auf die Fragen von deinen Schülern. 
-Wenn die Frage kein Bezug zur deutschen Sprache hat, schreib: 'Ich kann keine Antwort geben'.
-Benutze Information unten, um die Frage, wenn die Frage über Deutsch ist, zu beantworten. 
-{% for document in documents %}
-    {{ document.content }}
-{% endfor %}
-
-Question: {{question}}
-Answer:
 """
-        self.prompt_builder = PromptBuilder(template=template)
-    
+A class for Retrieval Augmented Generation that combines different retrievers and language models for question answering.
+@param model_path - the path to the model
+@param documents_path - the path to the documents
+"""
+class RetrievalAugmentedGeneration:
+    def __init__(self, model_path, documents_path='backend/rag/data'):
+        self.model_path = model_path
+        self.doc_handler = DocumentStoreHandler(documents_path)
+        self.doc_store = self.doc_handler.doc_store
+        self.embedder = self.doc_handler.embedder
+        self.retriever = self.doc_store.as_retriever(search_kwargs={"k": 5})
+        self.build_prompt()
+        self.configure_llm()
+        self.configure_rag_chain()
+        print('RAG Build')
 
-    
+    def configure_llm(self):
+        '''The function `configure_llm` sets the `llm` attribute of an object to an instance of the
+        `Ollama` class with a specific model parameter.
+        
+        '''
+        self.llm = Ollama(model="mixtral:8x7b")
 
+    def configure_rag_chain(self):
+        '''The function `configure_rag_chain` creates a chain of components including an LLM chain and a
+        RAG chain.
+        
+        '''
+        # Creating an LLM Chain 
+        self.llm_chain = self.prompt | self.llm
+
+        # RAG Chain
+        self.rag_chain = ( 
+        {"context": self.retriever, "question": RunnablePassthrough()}
+            | self.llm_chain 
+        )
+
+    def run(self,  query: str):
+        '''The `run` function takes a query as input and invokes the `rag_chain` method with that query.
+        Parameters
+        ----------
+        query : str
+            The `query` parameter in the `run` method is a string that represents the query to be passed to
+        the `invoke` method of the `rag_chain` object.
+        
+        Returns
+        -------
+            The `run` method is returning the result of invoking the `invoke` method of the `rag_chain`
+        object with the `query` parameter.
+        
+        '''
+        return self.rag_chain.invoke(query)
+
+    def build_prompt(self):
+        template = """
+        [INST] 
+Du bist ein Deutschlehrer. Beantworte die Fragen deines Studenten. Benutze einfache Sprache. Benutze Information unten zur Hilfe.
+[/INST]
+{context}
+
+Frage:
+{question} 
+
+Antwort: """
+
+        self.prompt = PromptTemplate.from_template(template)
