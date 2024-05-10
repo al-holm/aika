@@ -89,11 +89,12 @@ Beantworte die folgenden Fragen so gut du kannst. Du hast Zugang zu den folgende
 
 Verwende das folgende Format:
 
-Thought: die Eingangsfrage, die Du beantworten musst
-Gedanke: Du solltest immer darüber nachdenken, was zu tun ist
+Question: die Eingangsfrage, die Du beantworten musst
+Thought: Du solltest immer darüber nachdenken, was zu tun ist
 Action: die zu ergreifende Maßnahme, sollte eine von [{tool_names}] sein
 Action Input: die Eingabe für die Aktion
-Observation: das Ergebnis der Handlung
+Observation: wie schätzt du das Ergebnis der Handlung ein?
+...
 ... (dieser Thought/Action/Action Input/Observation kann N-mal wiederholt werden)
 Thought: Ich kenne jetzt die endgültige Antwort
 Final Answer: die endgültige Antwort auf die ursprüngliche Eingangsfrage
