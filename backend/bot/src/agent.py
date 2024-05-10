@@ -36,7 +36,8 @@ class LLMAgent:
         # Construct the ReAct agent
         self.agent = create_react_agent(self.llm, self.tools, self.prompt)
         # Create an agent executor by passing in the agent and tools
-        self.agent_executor = AgentExecutor(agent=self.agent, tools=self.tools, verbose=True)
+        self.agent_executor = AgentExecutor(agent=self.agent, tools=self.tools, verbose=True, 
+                                            handle_parsing_errors="Check you output and make sure it conforms! Do not output an action and a final answer at the same time.")
         print('Agent Build')
 
     def configure_tools(self):
@@ -51,7 +52,7 @@ class LLMAgent:
             name="Übersetzer",
             description="Hilfreich, wenn man Text übersetzen möchte",
         )
-        self.tools = [TavilySearchResults(max_results=2), tool_search, self.tranlation_tool]
+        self.tools = [TavilySearchResults(max_results=4), tool_search, self.tranlation_tool]
     
     def translate_function(self, text : str):
         return self.translator.translate_text(text, target_lang='RU', formality='more') # use more polite language
@@ -118,6 +119,7 @@ Final Answer: die endgültige Antwort auf die ursprüngliche Eingangsfrage
 
 Beginne! Übersetze immer kurze Erklärungen und kurze Beispiele ins Russisch!!!
 Such minimal in Lehrbücher & benutzte immer Prefixe wie Thought/Action/Action Input/Observation/Final Answer.
+Wenn du die endgültige Antwort gefunden hast, gib "Final Answer: [deine Antwort]." zurück. 
 [/INST]
 Question: {input}
 
