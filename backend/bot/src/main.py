@@ -4,6 +4,11 @@ from rag import RetrievalAugmentedGeneration
 import logging
 import boto3
 import warnings
+import uuid
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
 warnings.filterwarnings("ignore")
 if __name__ == "__main__":
     #ds = DocumentStoreHandler()
@@ -13,6 +18,6 @@ if __name__ == "__main__":
     model = LLMAgent(bedrock=bedrock)
     #model_path = 'backend/rag/models/mixtral-8x7b-v0.1.Q4_K_M.gguf'
     #model = RetrievalAugmentedGeneration(model_path)
-    response = model.run('wo kann ich einen Integrationskurs in Marburg besuchen?')
-    #response = rag.run("Generiere bitte Aufgaben für das Thema 'Nebensätze mit weil'")
+    #response = model.run('wo kann ich einen Integrationskurs in Marburg besuchen?')
+    response = model.run("Generiere bitte eine Hörtext zum Thema 'Meine Familie' für das Niveau A2.")
     print(response)
