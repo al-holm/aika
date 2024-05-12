@@ -20,7 +20,7 @@ A class for Retrieval Augmented Generation that combines different retrievers an
 @param documents_path - the path to the documents
 """
 class LLMAgent:
-    def __init__(self, model_path='', bedrock=None, documents_path='backend/german-chat-answer-microservice/res'):
+    def __init__(self, model_path='', bedrock=None, documents_path='backend/gca-microservice/res'):
         self.model_path = model_path
         self.bedrock = bedrock
         self.doc_handler = DocumentStoreHandler(documents_path)
