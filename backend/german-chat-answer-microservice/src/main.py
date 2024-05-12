@@ -13,6 +13,6 @@ if __name__ == "__main__":
     model = LLMAgent(bedrock=bedrock)
     #model_path = 'backend/rag/models/mixtral-8x7b-v0.1.Q4_K_M.gguf'
     #model = RetrievalAugmentedGeneration(model_path)
-    response = model.run('wo kann ich einen Integrationskurs in Marburg besuchen?')
+    response = model.run('Wie sagt man "наступить на что-то?"')
     #response = rag.run("Generiere bitte Aufgaben für das Thema 'Nebensätze mit weil'")
     print(response)
