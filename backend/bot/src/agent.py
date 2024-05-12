@@ -2,7 +2,7 @@ from document_handler import DocumentStoreHandler
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_community.llms import Ollama
-from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_community.utilities import GoogleSerperAPIWrapper
 from langchain import hub
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain_community.tools.tavily_search import TavilySearchResults
@@ -10,8 +10,10 @@ import boto3
 from langchain_community.llms.bedrock import Bedrock
 from langchain.tools.retriever import create_retriever_tool
 from langchain.tools import StructuredTool
+from langchain_community.tools import ElevenLabsText2SpeechTool
 import deepl
 import os
+import uuid
 import warnings
 warnings.filterwarnings("ignore")
 """
@@ -41,10 +43,16 @@ class LLMAgent:
         print('Agent Build')
 
     def configure_tools(self):
-        tool_search = create_retriever_tool(
+        self.tool_search = create_retriever_tool(
             retriever=self.retriever,
             name="Suche in Lehrbücher",
             description="Hilfreich, wenn man nach Erklärungen oder Beispielen sucht",
+        )
+        self.web_search = GoogleSerperAPIWrapper()
+        self.web_search_tool = StructuredTool.from_function(
+            name="Web-Suche",
+            func=self.web_search.run,
+            description="Hilfreich, wenn man Informationen im Internet nachschauen möchte",
         )
         self.translator = deepl.Translator(os.environ["DEEPL_AUTH_KEY"])
         self.tranlation_tool = StructuredTool.from_function(
@@ -52,10 +60,49 @@ class LLMAgent:
             name="Übersetzer",
             description="Hilfreich, wenn man Text übersetzen möchte",
         )
-        self.tools = [TavilySearchResults(max_results=4), tool_search, self.tranlation_tool]
+        self.lesson_tool = StructuredTool.from_function(
+            func=self.lesson_info_function,
+            name="Erstellung von Lektionen/Aufgaben",
+            description="Lies unbedingt als erstes, wenn man eine Lektion/Aufgabe/Lesetexte/Hörtexte/Grammatikerklärungen erstellen möchte.",
+        )
+        self.audio_gen = ElevenLabsText2SpeechTool()
+        self.audio_gen_tool = StructuredTool.from_function(
+            name="Audio Generation",
+            func=self.generate_audio,
+            description="Hilfreich, wenn man das Audio für einen kurzen Text erstellen möchte. Benutze nur, wenn es sich um Hörverstehenaufgaben handelt!",
+        )
+        self.tools = [self.lesson_tool, self.web_search_tool, self.tool_search, self.tranlation_tool, self.audio_gen_tool, TavilySearchResults()]
     
     def translate_function(self, text : str):
         return self.translator.translate_text(text, target_lang='RU', formality='more') # use more polite language
+    
+    def lesson_info_function(self, text:str):
+        return """
+    Wenn deine Aufgabe darin besteht, eine Lektion zu erstellen, folge den unten stehenden Anweisungen.
+
+    Für die Leseaufgabe: 
+    Suche Texte im Internet und in Schulbüchern. Die Texte sollten aus 6-7 Sätzen bestehen, die miteinander verbunden sind. Der Text sollte eine Geschichte sein und den spezifischen Wortschatz verwenden.
+    Erfinde eine Geschichte. Generiere keine Fragen zum Text.
+    Benutzte das folgende Format für deine Antwort: 
+    Lesetext: [deine Geschichte]
+
+    Für die Aufgaben zum Hörverstehen:
+    Gehe wie bei den Leseaufgaben vor und erfinde eine Geschichte zum vorgegebenen Thema (max. 6-7 Sätze). Generiere keine Fragen zum Text.
+    Wichtig, benutze nachdem du Geschichte generiert hast unbedingt das Audio GenerationTool!!! (um das Audio zu deiner Höraufgabe zu erstellen).
+    Benutzte das folgende Format für deine Antwort: 
+    Audio wurde erfolgreich generiert! Script: [deine generierte Geschichte]
+
+    Für die Grammatik:
+    Finde eine gute Erklärung für das Grammatikthema. Generiere keine Fragen zum Text. Versuche es so einfach wie möglich zu erklären und benutze Beispiele. 
+    Benutzte das folgende Format: 
+    Erklärung: [deine Erklärung]
+    """
+
+    def generate_audio(self, story : str) :
+        speech_file = self.audio_gen.run(story)
+        id = str(uuid.uuid4())
+        os.replace(speech_file, "backend/bot/audio/" + id +".wav")
+        return 'Audio wurde erfolgreich generiert!'
 
     def configure_llm(self):
         '''The function `configure_llm` sets the `llm` attribute of an object to an instance of the
@@ -117,7 +164,7 @@ Observation: wie schätzt du das Ergebnis der Handlung ein?
 Thought: Ich kenne jetzt die endgültige Antwort
 Final Answer: die endgültige Antwort auf die ursprüngliche Eingangsfrage
 
-Beginne! Übersetze immer kurze Erklärungen und kurze Beispiele ins Russisch!!!
+Beginne!
 Such minimal in Lehrbücher & benutzte immer Prefixe wie Thought/Action/Action Input/Observation/Final Answer.
 Wenn du die endgültige Antwort gefunden hast, gib "Final Answer: [deine Antwort]." zurück. 
 [/INST]

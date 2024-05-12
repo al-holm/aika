@@ -51,8 +51,6 @@ class DocumentStoreHandler:
         docs = self.loader.load()
         docs = self.text_splitter.split_documents(docs)
         self.weaviate_client = weaviate.connect_to_local()
-        self.doc_store = WeaviateVectorStore.from_documents(docs, self.embedder, client=self.weaviate_client)
-
-
+        self.doc_store = WeaviateVectorStore.from_documents(docs, self.embedder, client=self.weaviate_client,)
 
 
