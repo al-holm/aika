@@ -19,5 +19,5 @@ if __name__ == "__main__":
     #model_path = 'backend/rag/models/mixtral-8x7b-v0.1.Q4_K_M.gguf'
     #model = RetrievalAugmentedGeneration(model_path)
     #response = model.run('wo kann ich einen Integrationskurs in Marburg besuchen?')
-    response = model.run("Generiere bitte eine Hörtext zum Thema 'Meine Familie' für das Niveau A2.")
+    response = model.run("Generiere bitte einen Hörtext zum Thema 'Meine Familie' für das Niveau A2.")
     print(response)
