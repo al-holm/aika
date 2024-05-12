@@ -1,8 +1,0 @@
-python-dotenv==1.0.1
-haystack-ai==2.0.1
-transformers==4.40.1
-sentence-transformers>=2.2.0
-llama_cpp_python==0.2.65
-llama-cpp-haystack==0.3.0
-opensearch-haystack==0.3.0
-openai==1.23.6 
