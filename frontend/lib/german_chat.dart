@@ -189,7 +189,7 @@ Widget _buildMessageTile(Message message, BuildContext context) {
           border: Border.all(color: Colors.black, width: 1.5)
         ),
         child: Text(message.text, 
-                style: TextStyle(fontFamily: 'SFMono')
+                style: const TextStyle(fontFamily: 'SFMono', fontSize: 17)
         ),
       ),
     ],
