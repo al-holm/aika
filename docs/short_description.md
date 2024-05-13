@@ -1,6 +1,6 @@
 # Kurzbeschreibung
 
-AIKA ist eine KI-gestützte Sprachlern-App, die als Ersatz oder zur Unterstützung der früheren Stufen des Integrationskurses für Flüchtlinge eingesetzt werden kann. 
+AIKA ist eine KI-gestützte Sprachlern-App, die als Ersatz oder zur Unterstützung der früheren Stufen des Integrationskurses für Migrant:innen eingesetzt werden kann. 
 
 ## Motivation
 
