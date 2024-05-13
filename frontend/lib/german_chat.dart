@@ -178,6 +178,18 @@ class _GermanChatState extends State {
   }
 }
 
+/// The _buildMessageTile function creates a message tile
+/// @param {Message} message - The `message` parameter in the `_buildMessageTile` function represents an
+/// object of type `Message`. It contains information about a message, such as the role (e.g., 'bot' or
+/// user) and the text content of the message. The function uses this information to construct a visual
+/// representation
+/// @param {BuildContext} context - The `context` parameter in the `_buildMessageTile` function is of
+/// type `BuildContext`. It represents the location of the widget in the widget tree. The `BuildContext`
+/// is used to access information about the location of the widget in the widget tree, such as the
+/// theme, media query data,
+/// @returns A widget representing a message tile is being returned. The message tile includes an avatar
+/// (if the message is from a bot), a container displaying the message text, and styling based on
+/// whether the message is from a bot or not.
 Widget _buildMessageTile(Message message, BuildContext context) {
   bool isBot = message.role == 'bot';
   const double radius = 15;
@@ -229,6 +241,23 @@ Widget _buildMessageTile(Message message, BuildContext context) {
 }
   
 
+/// The _buildTextInput function creates a text input field with a send button that calls a
+/// handleSubmitted function and hides the keyboard after submission.
+/// @param {TextEditingController} _controller - The `_controller` parameter in the `Widget
+/// _buildTextInput` function is of type `TextEditingController`. This controller is used to control the
+/// text field widget in the UI. It allows you to read the text that has been entered into the text
+/// field and also to set or update the text programmatically
+/// @param {Function} _handleSubmitted - The `_handleSubmitted` function is a callback function that is
+/// called when the user submits text input. It is used to handle the submitted text in some way, such
+/// as processing it or sending it to a server. In the provided code snippet, it is passed as a
+/// parameter to the `_buildTextInput
+/// @param {BuildContext} context - The `context` parameter in the `_buildTextInput` function represents
+/// the build context of the widget. It is typically used to access information about the location of
+/// the widget in the widget tree and to interact with other widgets or services in the app.
+/// @returns The function `_buildTextInput` is returning a `Padding` widget containing a `Container`
+/// widget with a border, color, and borderRadius. Inside the `Container`, there is a `Row` widget with
+/// two children: an `Expanded` widget containing a `TextField` and an `IconButton`. The `TextField`
+/// allows multiline input and has a hint text. The `IconButton` triggers the `_local
 Widget _buildTextInput(TextEditingController _controller, Function _handleSubmitted, BuildContext context) {
   Size screenSize = MediaQuery.of(context).size;
 
