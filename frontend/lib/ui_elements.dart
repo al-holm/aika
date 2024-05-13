@@ -21,7 +21,10 @@ AppBar appBarAIKA(BuildContext context) {
     leading: IconButton(
       icon: const Icon(Icons.arrow_back, color: Colors.white,),
       onPressed: () {
-        Navigator.of(context).pop(); // this takes you back to the previous page
+        /// `Navigator.of(context).pop();` is a method call in Flutter that is used to pop (remove) the
+        /// current route from the navigation stack. In simpler terms, it navigates back to the previous
+        /// page or screen in the app.
+        Navigator.of(context).pop(); 
       },
     )
     );

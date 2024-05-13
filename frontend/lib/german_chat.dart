@@ -137,7 +137,6 @@ class _GermanChatState extends State {
     if (response.statusCode == 201) {
       // Decode response JSON
       final responseData = jsonDecode(response.body)['message'];
-      print(responseData);
       // Check if response contains a message
       if (responseData.containsKey('message_text')) {
         Message botMessage = Message(text: responseData['message_text'], 
@@ -264,7 +263,7 @@ Widget _buildTextInput(TextEditingController _controller, Function _handleSubmit
   // Define a local method that handles text submission and also hides the keyboard.
   void _localHandleSubmitted(String text) {
     _handleSubmitted(text); // Call the original handle submitted method
-    FocusScope.of(context).requestFocus(new FocusNode()); // This will hide the keyboard
+    FocusScope.of(context).requestFocus(FocusNode()); // This will hide the keyboard
   }
 
   return Padding(
@@ -279,7 +278,7 @@ Widget _buildTextInput(TextEditingController _controller, Function _handleSubmit
         children: <Widget>[
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.only(left: 10),
               child: TextField(
                 controller: _controller,
                 keyboardType: TextInputType.multiline,
