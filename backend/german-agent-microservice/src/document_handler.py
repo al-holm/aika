@@ -5,30 +5,45 @@ from os import listdir
 from os.path import isfile, join
 from langchain_community.document_loaders import UnstructuredMarkdownLoader, DirectoryLoader
 from langchain_experimental.text_splitter import SemanticChunker
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai.embeddings import OpenAIEmbeddings
 import weaviate
 from langchain_weaviate.vectorstores import WeaviateVectorStore
 from langchain_community.embeddings import HuggingFaceEmbeddings
+import logging
 
+logging.getLogger("langchain_community").setLevel(logging.CRITICAL)
+logging.getLogger("langchain_text_splitters").setLevel(logging.CRITICAL)
+logging.getLogger("unstructured").setLevel(logging.CRITICAL)
+logging.getLogger("llama_parse").setLevel(logging.CRITICAL)
+logging.getLogger("markdown").setLevel(logging.CRITICAL)
 
-load_dotenv()
 
 # The `DocumentStoreHandler` class initializes with a data directory, parses PDF files to extract
 # text, loads and splits documents, connects to a Weaviate client, and creates a Weaviate vector store
 # from the documents using an embedder.
 class DocumentStoreHandler:
-    def __init__(self, data_dir='backend/gca-microservice/res', parse_pdf=False) -> None:
+    def __init__(self, data_dir, parse_pdf=False) -> None:
         self.data_dir = data_dir
         self.parser = LlamaParse(
             result_type="markdown",  # "markdown" and "text" are available
             verbose=True
         )
+        logging.debug(data_dir)
         if parse_pdf:
             self.parse_pdf()
         self.loader = DirectoryLoader(data_dir, glob="**/*.md", loader_cls=UnstructuredMarkdownLoader)
         self.embedder = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-large-instruct")
-        self.text_splitter = SemanticChunker(self.embedder)
+        #self.text_splitter = SemanticChunker(self.embedder)
+        self.text_splitter = RecursiveCharacterTextSplitter(
+            # Set a really small chunk size, just to show.
+            chunk_size=220,
+            chunk_overlap=20,
+            length_function=len,
+        )
+        logging.info('...loading documents...')
         self.load_data()
+        logging.info('...document store built...')
 
     def parse_pdf(self):
         '''The function `parse_pdf` takes PDF files from a directory, extracts text from them using a

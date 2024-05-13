@@ -3,4 +3,4 @@
 models/
 __pycache__/
 .vscode/settings.json
-backend/bot/audio
+backend/german-agent-microservice/tmp/audio
