@@ -17,7 +17,7 @@ load_dotenv()
 # text, loads and splits documents, connects to a Weaviate client, and creates a Weaviate vector store
 # from the documents using an embedder.
 class DocumentStoreHandler:
-    def __init__(self, data_dir='backend/bot/data', parse_pdf=False) -> None:
+    def __init__(self, data_dir='backend/gca-microservice/res', parse_pdf=False) -> None:
         self.data_dir = data_dir
         self.parser = LlamaParse(
             result_type="markdown",  # "markdown" and "text" are available
