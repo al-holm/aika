@@ -1,6 +1,6 @@
 # Use Cases
 
-## Definitions
+# Definitions
 
 **Progress tracker** is a component within the German chat interface that monitors, records, and displays a user's progress through users messages and task completion.
 
@@ -8,15 +8,39 @@
 
 **Curriculum** is organized in a graph structure, where each node represents a specific learning objective or topic, and edges between nodes indicate prerequisite relationships. Each node has other metadata such as type (e.g. Grammar or Vocabulary).
 
-## Welcome Screen
+# Table of contents
+<!-- TOC start -->
+- [Welcome Screen](#welcome-screen)
+   * [1a. Authentication - Log in (Optional)](#1a-authentication-log-in-optional)
+   * [1b. Authentication - New account (Optional)](#1b-authentication-new-account-optional)
+   * [1c. Guide - New account (Optional)](#1c-guide-new-account-optional)
+   * [1d. Interaction with main menu](#1d-interaction-with-main-menu)
+- [Chat with German Bot](#chat-with-german-bot)
+   * [2a. Send a message & get a response](#2a-send-a-message-get-a-response)
+   * [2b. Restore the message history](#2b-restore-the-message-history)
+   * [2c. Start a new lesson](#2c-start-a-new-lesson)
+   * [2d. Automatic translation](#2d-automatic-translation)
+   * [2e. Task Widget](#2e-task-widget)
+   * [2f. Progress tracker](#2f-progress-tracker)
+   * [2g. Update learning state](#2g-update-learning-state)
+   * [3. Persisting message data in the data base](#3-persisting-message-data-in-the-data-base)
+- [Chat with Recht und Alltag Bot](#chat-with-recht-und-alltag-bot)
+   * [4a. Send a message & get a response](#4a-send-a-message-get-a-response)
+<!-- TOC end -->
 
-### 1a. Authentication - Log in
+<!-- TOC --><a name="welcome-screen"></a>
+# Welcome Screen
+
+<!-- TOC --><a name="1a-authentication-log-in-optional"></a>
+## 1a. Authentication - Log in (Optional)
 
 **Actor:** User
 
 **Goal:** To securely log into the system using a username and password.
 
 **Basic Flow:**
+
+---
 
 => The user enters their username and password.
 
@@ -26,7 +50,10 @@
 
 => If the credentials are incorrect, the user is prompted either to create a new account or try again.
 
-### 1b. Authentication - New account
+---
+
+<!-- TOC --><a name="1b-authentication-new-account-optional"></a>
+## 1b. Authentication - New account (Optional)
 
 **Actor:** User
 
@@ -34,13 +61,18 @@
 
 **Basic Flow:**
 
+---
+
 => The user presses on "Create new account" in the welcome menu.
 
 => The user enters their username and password.
 
 => New account details are added to the database with user data.
 
-### 1c. Guide - New account
+---
+
+<!-- TOC --><a name="1c-guide-new-account-optional"></a>
+## 1c. Guide - New account (Optional)
 
 **Actor:** User
 
@@ -49,6 +81,8 @@
 **Prerequisites**: User is logged in for the first time.
 
 **Basic Flow:**
+
+---
 
 => The system displays a widget with a welcome message & a button 'Continue'.
 
@@ -60,7 +94,10 @@
 
 => A next widget tells the user about learning German with the app and  the main functionalities such as chat interface, buttons, tasks widgets, translation and progress tracker.
 
-### 1d. Interaction with main menu
+---
+
+<!-- TOC --><a name="1d-interaction-with-main-menu"></a>
+## 1d. Interaction with main menu
 
 **Actor:** User
 
@@ -70,15 +107,21 @@
 
 **Basic Flow:**
 
+---
+
 => The system displays a screen with a welcome message, buttons "Deutsch" and "Recht & Alltag" at the bottom of the screen. At the top right corner there is a setting icon. 
 
 => After pressing the button, the according chat interface is displayed.
 
 => After pressing on a setting icon, the user can adjust their language.
 
-## Chat with German Bot
+---
 
-### 2a. Send a message & get a response
+<!-- TOC --><a name="chat-with-german-bot"></a>
+# Chat with German Bot
+
+<!-- TOC --><a name="2a-send-a-message-get-a-response"></a>
+## 2a. Send a message & get a response
 
 **Actor:** User
 
@@ -87,6 +130,8 @@
 **Prerequisites**: User is logged in.
 
 **Basic Flow:**
+
+---
 
 => The user presses a button 'Deutsch'.
 
@@ -104,8 +149,10 @@
 
 => If the message contains audio, an audio player component is displayed under the message.
 
+---
 
-### 2b. Restore the message history
+<!-- TOC --><a name="2b-restore-the-message-history"></a>
+## 2b. Restore the message history
 
 **Actor:** User
 
@@ -115,11 +162,16 @@
 
 **Basic Flow:**
 
+---
+
 => The user presses a button 'Deutsch'.
 
 => The system fetches the message history from the data base and displays it in the chat insterface.
 
-### 2c. Start a new lesson
+---
+
+<!-- TOC --><a name="2c-start-a-new-lesson"></a>
+## 2c. Start a new lesson
 
 **Actor:** User
 
@@ -128,6 +180,9 @@
 **Prerequisites**: User is logged in and navigated to the german chat interface.
 
 **Basic Flow:**
+
+
+---
 
 => the system displays the message histroy and the new message with a button under the message 'New lesson'. 
 
@@ -139,7 +194,11 @@
 
 => If all tasks are done and there is no question, the system informs the user that they completed the lesson.
 
-### 2d. Automatic translation
+
+---
+
+<!-- TOC --><a name="2d-automatic-translation"></a>
+## 2d. Automatic translation
 
 **Actor:** User
 
@@ -149,6 +208,9 @@
 
 **Basic Flow:**
 
+
+---
+
 => The user sends a message to the system and gets a response.
 
 => Under the system message is a small standard translation icon displayed.
@@ -157,7 +219,11 @@
 
 => The system tranlates a message into the selected interface language.
 
-### 2e. Task Widget
+
+---
+
+<!-- TOC --><a name="2e-task-widget"></a>
+## 2e. Task Widget
 
 **Actor:** User
 
@@ -167,6 +233,9 @@
 
 **Basic Flow:**
 
+
+---
+
 => The user clicks the "tasks" button under the system message to open the task widget.
 
 => System displays tasks relevant to the current learning context.
@@ -175,7 +244,11 @@
 
 => System logs task completion to progress tracker and switches back to the main chat interface.
 
-### 2f. Progress tracker
+
+---
+
+<!-- TOC --><a name="2f-progress-tracker"></a>
+## 2f. Progress tracker
 
 **Actor:** User
 
@@ -185,13 +258,20 @@
 
 **Basic Flow:**
 
+
+---
+
 => The user selects to view the curriculum and clicks the icon of a graph at top right corner of the screen.
 
 => The system display the progress of the user in form of table of contents with different header styles. 
 
 => The unit with the lowest header level has a progress bar displaying a user progress. 
 
-### 2g. Update learning state
+
+---
+
+<!-- TOC --><a name="2g-update-learning-state"></a>
+## 2g. Update learning state
 
 **Actor:** User
 
@@ -201,6 +281,9 @@
 
 **Basic Flow:**
 
+
+---
+
 => After each user message, the system checks the spelling and grammar mistakes and matches the mistakes with the according elements from the curriculum.
 
 => The learning state is updates.
@@ -208,7 +291,11 @@
 => The progress tracker updates the progress interface (2f).
 
 
-### 3. Persisting message data in the data base
+
+---
+
+<!-- TOC --><a name="3-persisting-message-data-in-the-data-base"></a>
+## 3. Persisting message data in the data base
 
 **Actor:** System
 
@@ -218,14 +305,22 @@
 
 **Basic Flow:**
 
+
+---
+
 => The system creates a DTO object including message text, timestamp, generated message_id, username, role. 
 
 => The system persists data into a SQL data base.
 
 
-## Chat with Recht und Alltag Bot
 
-### 4a. Send a message & get a response
+---
+
+<!-- TOC --><a name="chat-with-recht-und-alltag-bot"></a>
+# Chat with Recht und Alltag Bot
+
+<!-- TOC --><a name="4a-send-a-message-get-a-response"></a>
+## 4a. Send a message & get a response
 
 **Actor:** User
 
@@ -234,6 +329,9 @@
 **Prerequisites**: User is logged in.
 
 **Basic Flow:**
+
+
+---
 
 => The user presses a button 'Recht & Alltag'.
 
@@ -250,3 +348,6 @@
 => The system response with a metadata is persisted to a SQL data base as well.
 
 => The system display the response in the chat.
+
+---
+
