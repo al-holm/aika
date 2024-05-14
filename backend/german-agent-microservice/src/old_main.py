@@ -18,5 +18,7 @@ if __name__ == "__main__":
     # Load the Bedrock client using Boto3.
     bedrock = boto3.client(service_name='bedrock-runtime')
     model = LLMAgent(bedrock=bedrock)
-    response = model.run('Erstelle bitte einen Lesetext zum Thema Familie für das Niveau A2')
+    print('\n\n')
+    query = str(input('Input your query:'))
+    response = model.run(query)
     print(response)

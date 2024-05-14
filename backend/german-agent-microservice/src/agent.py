@@ -67,6 +67,7 @@ class LLMAgent:
         success, new_query = self.validate_answer(query, response['output'], response["intermediate_steps"])
         # self.tool_master.audio_created = False
         # self.tool_master.reading_task_gen.reading = False
+        return response
 
 
     def validate_answer(self, query, assistant_response, intermediate_steps):
