@@ -18,7 +18,7 @@ load_dotenv()
 class ToolMaster:
     DOCS_PATH = Path('backend/german-agent-microservice/res/data')
     def __init__(self, bedrock):
-        self.web_search = GoogleSerperAPIWrapper(gl='de', hl='de')
+        self.web_search = GoogleSerperAPIWrapper(gl='de', hl='de', k=15)
         self.translator = deepl.Translator(os.environ["DEEPL_AUTH_KEY"])
         self.audio_gen = ElevenLabsText2SpeechTool()
         self.llm = Bedrock(model_id="mistral.mixtral-8x7b-instruct-v0:1", 
