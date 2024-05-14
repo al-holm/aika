@@ -8,9 +8,31 @@
 
 **Curriculum** is organized in a graph structure, where each node represents a specific learning objective or topic, and edges between nodes indicate prerequisite relationships. Each node has other metadata such as type (e.g. Grammar or Vocabulary).
 
+## Table of contents
+<!-- TOC start -->
+- [Welcome Screen](#welcome-screen)
+   * [1a. Authentication - Log in (Optional)](#1a-authentication-log-in-optional)
+   * [1b. Authentication - New account (Optional)](#1b-authentication-new-account-optional)
+   * [1c. Guide - New account (Optional)](#1c-guide-new-account-optional)
+   * [1d. Interaction with main menu](#1d-interaction-with-main-menu)
+- [Chat with German Bot](#chat-with-german-bot)
+   * [2a. Send a message & get a response](#2a-send-a-message-get-a-response)
+   * [2b. Restore the message history](#2b-restore-the-message-history)
+   * [2c. Start a new lesson](#2c-start-a-new-lesson)
+   * [2d. Automatic translation](#2d-automatic-translation)
+   * [2e. Task Widget](#2e-task-widget)
+   * [2f. Progress tracker](#2f-progress-tracker)
+   * [2g. Update learning state](#2g-update-learning-state)
+   * [3. Persisting message data in the data base](#3-persisting-message-data-in-the-data-base)
+- [Chat with Recht und Alltag Bot](#chat-with-recht-und-alltag-bot)
+   * [4a. Send a message & get a response](#4a-send-a-message-get-a-response)
+<!-- TOC end -->
+
+<!-- TOC --><a name="welcome-screen"></a>
 ## Welcome Screen
 
-### 1a. Authentication - Log in
+<!-- TOC --><a name="1a-authentication-log-in-optional"></a>
+### 1a. Authentication - Log in (Optional)
 
 **Actor:** User
 
@@ -26,7 +48,8 @@
 
 => If the credentials are incorrect, the user is prompted either to create a new account or try again.
 
-### 1b. Authentication - New account
+<!-- TOC --><a name="1b-authentication-new-account-optional"></a>
+### 1b. Authentication - New account (Optional)
 
 **Actor:** User
 
@@ -40,7 +63,8 @@
 
 => New account details are added to the database with user data.
 
-### 1c. Guide - New account
+<!-- TOC --><a name="1c-guide-new-account-optional"></a>
+### 1c. Guide - New account (Optional)
 
 **Actor:** User
 
@@ -60,6 +84,7 @@
 
 => A next widget tells the user about learning German with the app and  the main functionalities such as chat interface, buttons, tasks widgets, translation and progress tracker.
 
+<!-- TOC --><a name="1d-interaction-with-main-menu"></a>
 ### 1d. Interaction with main menu
 
 **Actor:** User
@@ -76,8 +101,10 @@
 
 => After pressing on a setting icon, the user can adjust their language.
 
+<!-- TOC --><a name="chat-with-german-bot"></a>
 ## Chat with German Bot
 
+<!-- TOC --><a name="2a-send-a-message-get-a-response"></a>
 ### 2a. Send a message & get a response
 
 **Actor:** User
@@ -105,6 +132,7 @@
 => If the message contains audio, an audio player component is displayed under the message.
 
 
+<!-- TOC --><a name="2b-restore-the-message-history"></a>
 ### 2b. Restore the message history
 
 **Actor:** User
@@ -119,6 +147,7 @@
 
 => The system fetches the message history from the data base and displays it in the chat insterface.
 
+<!-- TOC --><a name="2c-start-a-new-lesson"></a>
 ### 2c. Start a new lesson
 
 **Actor:** User
@@ -139,6 +168,7 @@
 
 => If all tasks are done and there is no question, the system informs the user that they completed the lesson.
 
+<!-- TOC --><a name="2d-automatic-translation"></a>
 ### 2d. Automatic translation
 
 **Actor:** User
@@ -157,6 +187,7 @@
 
 => The system tranlates a message into the selected interface language.
 
+<!-- TOC --><a name="2e-task-widget"></a>
 ### 2e. Task Widget
 
 **Actor:** User
@@ -175,6 +206,7 @@
 
 => System logs task completion to progress tracker and switches back to the main chat interface.
 
+<!-- TOC --><a name="2f-progress-tracker"></a>
 ### 2f. Progress tracker
 
 **Actor:** User
@@ -191,6 +223,7 @@
 
 => The unit with the lowest header level has a progress bar displaying a user progress. 
 
+<!-- TOC --><a name="2g-update-learning-state"></a>
 ### 2g. Update learning state
 
 **Actor:** User
@@ -208,6 +241,7 @@
 => The progress tracker updates the progress interface (2f).
 
 
+<!-- TOC --><a name="3-persisting-message-data-in-the-data-base"></a>
 ### 3. Persisting message data in the data base
 
 **Actor:** System
@@ -223,8 +257,10 @@
 => The system persists data into a SQL data base.
 
 
+<!-- TOC --><a name="chat-with-recht-und-alltag-bot"></a>
 ## Chat with Recht und Alltag Bot
 
+<!-- TOC --><a name="4a-send-a-message-get-a-response"></a>
 ### 4a. Send a message & get a response
 
 **Actor:** User
