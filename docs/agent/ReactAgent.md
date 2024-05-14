@@ -2,7 +2,7 @@
 
 ReAct Agent is a thought-action-observation loop that enables a LLM to use external tools such as web-searching, retrieving information from data bases, browsing, and to reason over a context provided from those tools ("observations") in order to solve diverse decision-making and language tasks.
 
-![](res/react_agent.png)
+[<img src="res/react_agent.png" width="750" />](res/react_agent.png)
 
 ## Introduction
 
@@ -38,7 +38,7 @@ while True:
 end
 response := action_input
 ```
-The agent produces thoughts based on the prompt and user query, selects a tool from the tool list, defines the the input for the tool. Then the tool is being executed, providing an "observation", the result of the tool use. Based, on the observation the agent generates a thought summurizing the observations and reasons towards the next suitable action. 
+The agent produces thoughts based on the prompt and user query, selects a tool from the tool list, defines the the input for the tool. Then the tool is being executed, providing an "observation" - the result of the tool use. Based on the observation, the agent generates a thought summarizing the observations and reasons towards the next suitable action. 
 
 
 
