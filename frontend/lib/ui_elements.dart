@@ -1,19 +1,7 @@
 import 'package:flutter/material.dart';
-
-/// The function `appBarAIKA` creates a custom AppBar with a title "AIKA" and a back button that
-/// navigates to the previous page.
-/// 
-/// Parameters
-/// ----------
-/// context : BuildContext
-/// 	The `context` parameter in the `appBarAIKA` function is of type `BuildContext`. It represents the
-/// location of a widget within the widget tree. The `BuildContext` is used to access information about
-/// the location in the widget tree and to interact with the framework. In this case, the
-/// 
-/// Returns
-/// -------
-/// 	An AppBar widget with a title "AIKA", a custom background color, and a leading IconButton with an
-/// arrow back icon.
+/// returns a widget app bar with the app title and back button
+/// after pressing on back button the current widget will be popped from the Navigator stack 
+/// and the user sees previous widget
 AppBar appBarAIKA(BuildContext context) { 
   return AppBar(
     backgroundColor: const Color.fromRGBO(20, 16, 16, 1),

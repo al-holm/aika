@@ -1,0 +1,57 @@
+@startuml
+
+title Class Diagram Frontend
+
+class GermanChatPage {
+     _GermanChatState createState() 
+}
+
+class _GermanChatState {
+    _userId : String
+    _controller : TextEditingController
+    messages : List<Message>
+    void initState()
+    Future<void> _initMessages()
+    Future<void> _initUserId()
+    String generateMessageID()
+    Message _buildMessage() 
+    DateTime getCurrenTimestamp()
+    String getMessageBodyHTTP()
+    Future<void> _handleSubmitted()
+    Widget build()
+    Widget _buildMessageTile()
+    Widget _buildTextInput()
+
+}
+
+class Message {
+  String text
+  String userID
+  String messageID
+  String role
+  DateTime timestamp
+  String getUserID()
+  String getText()
+  String getMessageID()
+  String getRole()
+  DateTime getTimestamp()
+  void displayMessage()
+}
+
+class HomePage {
+  Color accentColor
+  Color sandColor
+  void _navigateToGermanChat()
+  Widget build()
+}
+
+class MyApp {
+ Widget build()
+}
+
+GermanChatPage *-- _GermanChatState
+_GermanChatState *-- Message
+HomePage *-- GermanChatPage
+MyApp *-- HomePage
+
+@enduml

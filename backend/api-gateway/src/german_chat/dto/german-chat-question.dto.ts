@@ -1,7 +1,11 @@
 import { IsString, IsDateString } from 'class-validator';
+
+
+/**
+ * Data Transfer Object class for representing messages & enforces type safety for properties
+ * @class GermanChatMessageDto
+ */
 export class GermanChatMessageDto {
-  /* The `@IsString()` decorator is used in TypeScript with the class-validator library to enforce
-    that the `user_id` property of the `GermanChatMessageDto` class must be a string type. This helps ensure type safety and data integrity. */
   @IsString()
   user_id: string;
 
