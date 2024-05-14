@@ -60,6 +60,22 @@
 
 => A next widget tells the user about learning German with the app and  the main functionalities such as chat interface, buttons, tasks widgets, translation and progress tracker.
 
+### 1d. Interaction with main menu
+
+**Actor:** User
+
+**Goal:** To naviagate between the different components of the system.
+
+**Prerequisites**: User is logged into the app.
+
+**Basic Flow:**
+
+=> The system displays a screen with a welcome message, buttons "Deutsch" and "Recht & Alltag" at the bottom of the screen. At the top right corner there is a setting icon. 
+
+=> After pressing the button, the according chat interface is displayed.
+
+=> After pressing on a setting icon, the user can adjust their language.
+
 ## Chat with German Bot
 
 ### 2a. Send a message & get a response
