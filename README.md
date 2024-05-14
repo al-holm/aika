@@ -1,6 +1,6 @@
 # README
 
-[<img src="docs/res/logo.jpg" width="150" />](docs/res/logo.jpg) 
+[<img src="docs/res/logo.jpg" width="150" />](docs/general/res/logo.jpg) 
 
 AIKA is an AI-based app that can be used to replace or support the earlier stages of the integration course for migrants. 
 
@@ -13,7 +13,7 @@ The average waiting time for an integration course in 2023 was more than 5 month
 The user interacts with AIKA mainly via a chat in which he communicates with a bot whose responses are generated with the help of LLMs running on the server.
 
 
-![](docs/res/interface_ex.png)
+![](docs/general/res/interface_ex.png)
 
 
 AIKA's curriculum consists of three parts: Language, Law and Everyday Life. 
