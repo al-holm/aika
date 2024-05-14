@@ -10,7 +10,9 @@ The average waiting time for an integration course in 2023 was more than 5 month
 
 ## Implementierung
 
-The user interacts with AIKA mainly via a chat in which he communicates with a bot whose responses are generated with the help of LLMs running on the server. 
+The user interacts with AIKA mainly via a chat in which he communicates with a bot whose responses are generated with the help of LLMs running on the server.
+
+
 ![](docs/res/interface_ex.png)
 
 
