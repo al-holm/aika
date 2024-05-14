@@ -184,7 +184,7 @@
 
 ---
 
-=> the system displays the message histroy and the new message with a button under the message 'New lesson'. 
+=> the system displays the message history and the new message with a button under the message 'New lesson'. 
 
 => The user presses a button to start a new lesson.
 
