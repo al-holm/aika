@@ -5,6 +5,7 @@ class HomePage extends StatelessWidget {
   static const Color accentColor = Color.fromRGBO(224, 71, 23, 1);
   static const Color sandColor = Color.fromRGBO(238, 229, 222, 1);
 
+  /// pushes GermanChatPage to a Naviagtor stack if the button "Deutsch" is pressed
   void _navigateToGermanChat(BuildContext context) {
     Navigator.push(
       context,
