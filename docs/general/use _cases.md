@@ -236,7 +236,7 @@
 
 ---
 
-=> The user clicks the "tasks" button under the system message to open the task widget.
+=> The user clicks the "tasks" button under the system message to open the task widget. It can be multiple choice questions, open questions and fill the gap tasks.
 
 => System displays tasks relevant to the current learning context.
 
