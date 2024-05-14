@@ -1,6 +1,6 @@
 # German Chat ReAct Agent
 
-ReAct Agent is a thought-action-observation loop that enables a LLM to use external tools such as web-searching, retrieving information from data bases, browsing, and to reason over a context provided from those tools ("observations") in order to solve diverse decision-making and language tasks.
+ReAct Agent is a thought-action-observation loop that enables an LLM to use external tools such as web searches, database retrieval, and browsing, and to reason about a context provided by these tools ("observations") to solve various decision-making and language tasks.
 
 [<img src="res/react_agent.png" width="750" />](res/react_agent.png)
 
@@ -38,9 +38,11 @@ Below is a small example from our demo-system (15.5.2024). The user query was "Ã
 
 Why did we choose ReAct Agent as the system pattern? Standard prompting techniques such as Chain-Of-Thoughts (CoT) or Few Shot Prompting leverage the LLM's ability to reason. However, the reasoning process in these techniques is based on internal model knowledge, which could lead to hallucinations. Furthermore, Yao et al, 2023[[1]](#1) show that ReAct agents outperform CoT on several benchmarks (in combination with fine-tuning on all benchmarks). Since our agent should perform a variety of tasks, have an updateable knowledge base, and be resistant to hallucinations, using CoT would not help us achieve the desired system performance. 
 
-Why don't we use Retrieval Augmented Generation? We use retrieval as one of the tools in our agent, we extend our system with other tools to cover the tasks that retrieval couldn't solve (e.g. translation, audio generation, web search). 
+Why don't we use [Retrieval Augmented Generation](https://www.promptingguide.ai/research/rag)? We use retrieval as one of the tools in our agent, we extend our system with other tools to cover the tasks that retrieval couldn't solve (e.g. translation, audio generation, web search). 
 
 ## German Chat ReAct Agent 
+Our ReAct agent should consists of following parts:
+
 
 
 ## References
