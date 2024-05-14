@@ -198,6 +198,45 @@
 => The progress tracker updates the progress interface (2f).
 
 
+### 3. Persisting message data in the data base
+
+**Actor:** System
+
+**Goal:** To save message history.
+
+**Prerequisites**: User sent a message to the system.
+
+**Basic Flow:**
+
+=> The system creates a DTO object including message text, timestamp, generated message_id, username, role. 
+
+=> The system persists data into a SQL data base.
+
+
 ## Chat with Recht und Alltag Bot
 
-to be continued...
+### 4a. Send a message & get a response
+
+**Actor:** User
+
+**Goal:** Send a message to a Law & Daily life microservice.
+
+**Prerequisites**: User is logged in.
+
+**Basic Flow:**
+
+=> The user presses a button 'Recht & Alltag'.
+
+=> A chat interface with the welcome message appears.
+
+=> The user sends a message or question to the bot.
+
+=> The user can attach a PDF to their message. 
+
+=> The sent message with metadata are persisted to a SQL data base.
+
+=> The system processes the request using Retrieval-Augmented Generation System to generate a response based on the data in the vectordatabase.
+
+=> The system response with a metadata is persisted to a SQL data base as well.
+
+=> The system display the response in the chat.
