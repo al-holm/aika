@@ -1,6 +1,6 @@
 # README
 
-![](docs/res/logo.jpg)
+[<img src="docs/res/logo.jpg" width="150" />](docs/res/logo.jpg) 
 
 AIKA is an AI-based app that can be used to replace or support the earlier stages of the integration course for migrants. 
 
