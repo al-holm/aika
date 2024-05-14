@@ -11,8 +11,8 @@ Es liegt im Interesse aller, dass sich die geflüchteten Menschen so schnell wie
 Der Nutzer interagiert mit AIKA hauptsächlich über einen Chat, in dem er mit einem Bot kommuniziert, dessen Antworten mit Hilfe von LLMs generiert werden, die auf dem Server laufen. 
 
 ![](res/interface_ex.png)
-Beispiel von möglichen UI
 
+Beispiel von möglichen UI
 
 AIKAs Curriculum besteht aus drei Teilen: Sprache, Recht und Alltag. 
 
