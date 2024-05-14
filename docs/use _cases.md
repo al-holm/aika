@@ -34,15 +34,9 @@
 
 **Basic Flow:**
 
+=> The user presses on "Create new account" in the welcome menu.
+
 => The user enters their username and password.
-
-=> The system validates the credentials.
-
-=> Upon successful validation, the user is granted access to the system.
-
-=> If the validation is unsuccessfull, the user is prompted to create a new account or try again.
-
-=> The user selects to create new account
 
 => New account details are added to the database with user data.
 
