@@ -42,8 +42,18 @@ Why don't we use [Retrieval Augmented Generation](https://www.promptingguide.ai/
 
 ## German Chat ReAct Agent 
 Our ReAct agent should consists of following parts:
+[<img src="res/agent_flow.png" width="1050" />](res/agent_flow.png)
 
+With a following tool list:
+[<img src="res/tools.png" width="1050" />](res/tools.png)
 
+## Other examples from the live Demo
+### Grammar explanation
+[<img src="res/react_ex2.png" width="1050" />](res/react_ex2.png)
+### Web Search
+[<img src="res/react_ex3.png" width="1050" />](res/react_ex3.png)
+### Reading task generation
+[<img src="res/react_ex4.png" width="1050" />](res/react_ex4.png)
 
 ## References
 <a id="1">[1]</a> 
