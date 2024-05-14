@@ -1,0 +1,40 @@
+@startuml
+!theme plain
+
+package "German Agent" {
+  [Flask App] <-- http
+  [Agent]
+  [DocumentHandler]
+  [Flask App] <--> [Agent]
+  [DocumentHandler] <--> [Agent]
+}
+
+package "API Gateway" {
+  () HTTP
+  HTTP --> [GermanChatController] 
+  [GermanChatService] --> http
+  [GermanChatService]
+  [GermanChatController] --> [GermanChatService]
+}
+
+
+package "Frontend" {
+  [GermanChatPage] --> HTTP 
+  [HomePage]
+  [MyApp]
+}
+
+
+database "PostgreSql" {
+  folder "User Data" {
+ }
+}
+
+database "WeviateVectorStore" {
+  folder "German Chat Index" {
+ }
+}
+
+[DocumentHandler]--> [German Chat Index]
+[GermanChatService] --> [User Data]
+@enduml
