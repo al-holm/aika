@@ -41,10 +41,10 @@ Why did we choose ReAct Agent as the system pattern? Standard prompting techniqu
 Why don't we use [Retrieval Augmented Generation](https://www.promptingguide.ai/research/rag)? We use retrieval as one of the tools in our agent, we extend our system with other tools to cover the tasks that retrieval couldn't solve (e.g. translation, audio generation, web search). 
 
 ## German Chat ReAct Agent 
-Our ReAct agent should consists of following parts:
+### Basic flow
 [<img src="res/agent_flow.png" width="1050" />](res/agent_flow.png)
 
-With a following tool list:
+### Tool list
 [<img src="res/tools.png" width="1050" />](res/tools.png)
 
 ## Other examples from the live Demo
