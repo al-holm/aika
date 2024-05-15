@@ -25,7 +25,7 @@ def getAnswer():
     """
     Returns "Hello World!"
     """
-    return {"answer": model.run(request.json["question"])}
+    return {"answer": model.run(request.json["question"])["output"]}
 
 if __name__ == "__main__":
     app.run(debug=True)

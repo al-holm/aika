@@ -98,7 +98,7 @@ class ToolMaster:
         '''The function generates audio from a given text and saves it as a WAV file in a specified directory. '''
         if len(story) < 20: # better way to detect if the input contain a story?
             return 'Du muss das Audio neu generieren. Action Input soll deinen Text beinthalten. Benutze noch mal das "Audio Generation" Tool.'
-        if self.reading:
+        if self.reading_task_gen.reading:
             return 'Das ist ein Lesetext, du muss kein Audio generieren.'
         speech_file = None
         while speech_file is None:
