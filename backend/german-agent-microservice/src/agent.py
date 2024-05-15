@@ -64,7 +64,8 @@ class LLMAgent:
         input query.
         """
         response = self.agent_executor.invoke({'input' : query,})
-        success, new_query = self.validate_answer(query, response['output'], response["intermediate_steps"])
+        logging.debug(response)
+        #success, new_query = self.validate_answer(query, response['output'], response["intermediate_steps"])
         # self.tool_master.audio_created = False
         # self.tool_master.reading_task_gen.reading = False
         return response
@@ -117,7 +118,7 @@ Answer Suggestion: Suggest your own answer for the  student question in German.
 Improved Chain: Suggest improvements for the Chain and intermediate steps. Use keywords Question,Thought,Action,Action Input,Observation,...,Thought,Final Answer and the tools list above. The generated content should be in German (with English chain keywords).
 """
         try:
-            response = openai.Completion.create(
+            response = openai.completions.create(
                 model="gpt-3.5-turbo-instruct",
                 prompt=prompt,
                 max_tokens=300,
@@ -188,9 +189,24 @@ Improved Chain: Suggest improvements for the Chain and intermediate steps. Use k
         """
         id = str(uuid.uuid4()) + '.json'
         path = os.path.join(self.OUTPUT_PATH, id)
-        with open(path, 'w', encoding='utf-8') as f:
-            json.dump(data_dict, f, indent=4, ensure_ascii=False)
-        logging.info('Written result of validation as JSON')
+        # with open(path, 'w', encoding='utf-8') as f:
+        #     json.dump(data_dict, f, indent=4, ensure_ascii=False)
+        # logging.info('Written result of validation as JSON')
+
+        try:
+            # This will either write to an existing file or create and write to it if it doesn't exist
+            with open(path, 'w', encoding='utf-8') as f:
+                json.dump(data_dict, f, indent=4, ensure_ascii=False)
+            logging.info(f'Written result of validation as JSON to {path}')
+        except FileNotFoundError as e:
+            # This block will run only if the OUTPUT_PATH does not exist
+            os.makedirs(self.OUTPUT_PATH)
+            with open(path, 'w', encoding='utf-8') as f:
+                json.dump(data_dict, f, indent=4, ensure_ascii=False)
+            logging.info(f'Output path was created and result of validation written as JSON to {path}')
+        except Exception as e:
+            # General exception block to catch other potential issues
+            logging.error(f'Failed to write JSON to {path}: {str(e)}')
 
     def build_prompt(self):
         template = """
