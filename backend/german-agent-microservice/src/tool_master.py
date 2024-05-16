@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from language_task_generator import LanguageTaskGenerator
 from time import sleep
+import logging
 load_dotenv()
 
 # The `ToolMaster` class sets up various tools for tasks such as searching, translation, text
@@ -103,7 +104,8 @@ class ToolMaster:
         speech_file = None
         while speech_file is None:
             try:
-                speech_file = self.audio_gen.run(story)
+                #speech_file = self.audio_gen.run(story)
+                logging.info('Audio generated')
             except RuntimeError:
                 sleep(15)
             
