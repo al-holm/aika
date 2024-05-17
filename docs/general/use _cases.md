@@ -97,11 +97,11 @@
 ---
 
 <!-- TOC --><a name="1d-interaction-with-main-menu"></a>
-## 1d. Interaction with main menu
+## 1d. Navigate in the main menu
 
 **Actor:** User
 
-**Goal:** To naviagate between the different components of the system.
+**Goal:** To naviagate between the different components in the main menu.
 
 **Prerequisites**: User is logged into the app.
 
@@ -138,6 +138,8 @@
 => A chat interface with the welcome message appears.
 
 => The user sends a message or question to the German bot.
+
+=> The user sees 3 dots appearing on the screen to indicate message preprocessing.
 
 => The sent message with metadata are persisted to a SQL data base.
 
