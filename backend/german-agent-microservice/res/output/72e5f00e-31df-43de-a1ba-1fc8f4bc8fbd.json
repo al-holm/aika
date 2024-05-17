@@ -1,9 +1,0 @@
-{
-    "user_query": "Übersetze für mich die Aussage: 'In Rahmen von dieser Arbeit lernen wir viel über Softwareentwicklung und Deployment von Intelligenten Agenten'. ",
-    "agent_response": "Die Übersetzung der Aussage lautet: 'В рамках этой работы мы узнаем много нового о разработке программного обеспечения и развертывании интеллектуальных агентов'.",
-    "intermediate_steps": "Thought: \nUm diese Aufgabe zu erfüllen, muss ich lediglich die vorgegebene Aussage übersetzen. Da ich kein neues Wissen benötige, um die Übersetzung durchzuführen, kann ich das Übersetzer-Tool verwenden.\n\n\nAction: Übersetzer\nAction Input: 'In Rahmen von dieser Arbeit lernen wir viel über Softwareentwicklung und Deployment von Intelligenten Agenten'\n\nObserv\nObservation: 'В рамках этой работы мы узнаем много нового о разработке программного обеспечения и развертывании интеллектуальных агентов'.\n\nObserv\n\n",
-    "success": "False",
-    "next_query_suggestion": "Kannst du die Texterstellungstechnik verbessern, um dem Schüler eine bessere Übersetzung zu geben?",
-    "answer_suggestion": "Die Übersetzung der Aussage lautet: 'Im Rahmen dieser Arbeit lernen wir viel über Softwareentwicklung und die Umsetzung von intelligenten Agenten'.",
-    "improved_chain": "Text: Frage von der SchÃ¼lerübersetze fÃ¼r mich die Aussage: 'In Rahmen von dieser Arbeit lernen wir viel Ã¼ber Softwareentwicklung und Deployment von Intelligenten Agenten'."
-}
