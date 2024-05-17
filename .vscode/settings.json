@@ -1,4 +1,11 @@
 {
     "cmake.sourceDirectory": "/home/ali/Documents/aika/frontend/linux/flutter",
-    "docwriter.style": "Auto-detect"
+    "docwriter.style": "Auto-detect",
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./backend",
+        "-p",
+        "test*.py"
+    ],
 }
