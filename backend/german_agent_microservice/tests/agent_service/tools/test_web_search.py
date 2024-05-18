@@ -1,10 +1,12 @@
 import sys, os
+from config import SRC
+srcdir = SRC
 testdir = os.path.dirname(__file__)
-srcdir = '../../../src/agent_service/tools/'
 sys.path.insert(0, os.path.abspath(os.path.join(testdir, srcdir)))
-import web_search_tool
-import json
+
+from agent_service.tools import web_search_tool
 import unittest
+
 sys.path.insert(0, os.path.abspath(testdir))
 class TestWebSearchTool(unittest.TestCase):
     res_dict = { "organic_results":[
@@ -22,52 +24,6 @@ class TestWebSearchTool(unittest.TestCase):
                 "coffee",
                 "coffee"
             ],
-            "sitelinks": {
-                "inline": [
-                {
-                    "title": "Coffee bean",
-                    "link": "https://en.wikipedia.org/wiki/Coffee_bean"
-                },
-                {
-                    "title": "History",
-                    "link": "https://en.wikipedia.org/wiki/History_of_coffee"
-                },
-                {
-                    "title": "Coffee production",
-                    "link": "https://en.wikipedia.org/wiki/Coffee_production"
-                },
-                {
-                    "title": "Coffee preparation",
-                    "link": "https://en.wikipedia.org/wiki/Coffee_preparation"
-                }
-                ]
-            },
-            "rich_snippet": {
-                "bottom": {
-                "extensions": [
-                    "Region of origin: Kaffa in Horn of Africa",
-                    "Introduced: 15th century",
-                    "Ingredients: Roasted coffee beans",
-                    "Flavor: Distinctive, somewhat bitter"
-                ],
-                "detected_extensions": {
-                    "introduced_th_century": 15
-                }
-                }
-            },
-            "about_this_result": {
-                "source": {
-                "description": "Wikipedia is a multilingual free online encyclopedia written and maintained by a community of volunteers, known as Wikipedians, through open collaboration and using a wiki-based editing system called MediaWiki. Wikipedia is the largest and most-read reference work in history.",
-                "source_info_link": "https://en.wikipedia.org/wiki/Coffee",
-                "security": "secure",
-                "icon": "https://serpapi.com/searches/644b696a15afff2c2fdb8474/images/ed8bda76b255c4dc4634911fb134de53068293b1c92f91967eef45285098b61516f2cf8b6f353fb18774013a1039b1fb.png"
-                }
-            },
-            "about_page_link": "https://www.google.com/search?q=About+https://en.wikipedia.org/wiki/Coffee&tbm=ilp&ilps=ADJL0izANxNmAZazzpMAeGlkd2tXrw-aIQ",
-            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&ilps=ADJL0izANxNmAZazzpMAeGlkd2tXrw-aIQ&q=About+https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FCoffee",
-            "cached_page_link": "https://webcache.googleusercontent.com/search?q=cache:U6oJMnF-eeUJ:https://en.wikipedia.org/wiki/Coffee&cd=19&hl=en&ct=clnk&gl=us",
-            "related_pages_link": "https://www.google.com/search?gl=us&hl=en&q=related:https://en.wikipedia.org/wiki/Coffee+Coffee",
-            "source": "Wikipedia"
             },
             {
             "position": 2,
@@ -80,42 +36,10 @@ class TestWebSearchTool(unittest.TestCase):
             "snippet_highlighted_words": [
                 "Coffee"
             ],
-            "sitelinks": {
-                "inline": [
-                {
-                    "title": "Store locator",
-                    "link": "https://www.coffeebean.com/store-locator"
-                },
-                {
-                    "title": "Coffee",
-                    "link": "https://www.coffeebean.com/cafe-menu/coffee"
-                },
-                {
-                    "title": "Cafe Menu",
-                    "link": "https://www.coffeebean.com/cafe-menu"
-                },
-                {
-                    "title": "Coffee Sourcing",
-                    "link": "https://www.coffeebean.com/our-story/coffee-sourcing"
-                }
-                ]
-            },
-            "about_this_result": {
-                "source": {
-                "description": "The Coffee Bean & Tea Leaf is an American coffee shop chain founded in 1963. Since 2019, it is a trade name of Ireland-based Super Magnificent Coffee Company Ireland Limited. Its 80% stake is by multinational company Jollibee Foods Corporation.",
-                "source_info_link": "https://www.coffeebean.com/",
-                "security": "secure",
-                "icon": "https://serpapi.com/searches/644b696a15afff2c2fdb8474/images/ed8bda76b255c4dc4634911fb134de536aae041ac4d3ec38c806b5ac043223330ee0f1a11b201598d2e5fe218962b69a.png"
-                }
-            },
-            "about_page_link": "https://www.google.com/search?q=About+https://www.coffeebean.com/&tbm=ilp&ilps=ADJL0iyEMfWcc_F0sQp68evlFpMNONzA7w",
-            "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&ilps=ADJL0iyEMfWcc_F0sQp68evlFpMNONzA7w&q=About+https%3A%2F%2Fwww.coffeebean.com%2F",
-            "cached_page_link": "https://webcache.googleusercontent.com/search?q=cache:WpQxSYo2c6AJ:https://www.coffeebean.com/&cd=20&hl=en&ct=clnk&gl=us",
-            "related_pages_link": "https://www.google.com/search?gl=us&hl=en&q=related:https://www.coffeebean.com/+Coffee",
-            "source": "Coffee Bean"
-            }
-        ]
-    }
+        }
+    ]
+}
+    
     def test_parse_contains(self):
         """
         The function `test_simple_substitute` tests the parsing of search results for specific text patterns
@@ -133,8 +57,8 @@ class TestWebSearchTool(unittest.TestCase):
         """
         tool = web_search_tool.WebSearch()
         res = tool.parse_results(self.res_dict)
-        self.assertNotRegexpMatches(res, r"https://en.wikipedia.org/wiki/Coffee")
-        self.assertNotRegexpMatches(res, r"Wikipedia is a multilingual free online encyclopedia written and maintained by")
+        self.assertNotRegexpMatches(res, r"https://www.coffeebean.com/")
+        self.assertNotRegexpMatches(res, r"https://en.wikipedia.org › wiki › Coffee")
 
 
 if __name__ == '__main__':

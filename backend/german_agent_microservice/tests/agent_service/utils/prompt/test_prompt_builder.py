@@ -18,7 +18,7 @@ class TestPromptBuidler(unittest.TestCase):
 
     def test_double_substitute(self):
         """
-        The function `test_double_substitute` tests the functionality of substituting multiple variables in a
+        The function `test_double_substitute` tests the functionality of substituting  variables in a
         prompt string using a PromptBuilder class in Python.
         """
         prompt = prompt_builder.PromptBuidler("It's your ${x} ${y}.")
