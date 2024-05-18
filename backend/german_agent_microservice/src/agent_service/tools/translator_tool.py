@@ -1,6 +1,6 @@
 import deepl
 import os
-from tools import Tool
+from agent_service.tools.tool import Tool
 class Translator(Tool):
     def __init__(self, target_language:str="RU"):
         self.name = "Übersetzer"

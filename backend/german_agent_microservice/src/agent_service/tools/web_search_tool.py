@@ -1,6 +1,6 @@
 import serpapi
 import os
-from tool import Tool
+from agent_service.tools.tool import Tool
 
 class WebSearch(Tool):
     def __init__(self, k:int=5):
@@ -9,11 +9,19 @@ class WebSearch(Tool):
         self.k = k
 
     def run(self, input:str):
+        """
+        The function uses the SerpApi library to search Google for results based on the input string.
+        """
         out = serpapi.search(q=input, engine="google", location="Marburg, Germany", hl="de", gl="de")
         return self.parse_results(out)
 
     
     def parse_results(self, results : dict):
+        """
+        The function `parse_results` extracts and formats snippets and attributes from a dictionary of
+        search results, returning a concatenated string of the extracted information or a message if no
+        relevant results are found.
+        """
         snippets = []
         for result in results["organic_results"][:self.k]:
             if "snippet" in result:

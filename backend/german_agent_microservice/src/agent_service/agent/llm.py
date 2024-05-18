@@ -22,6 +22,10 @@ class LLMBedrock(LLM):
                                 )
 
     def run(self, prompt: str):
+        """
+        This Python function takes a prompt, retrieves the body, invokes a model with the body, and
+        returns the text output from the model response.
+        """
         body = self.get_body(prompt)
         response = self.client.invoke_model(
             body=body, modelId=self.model_id, 
@@ -32,6 +36,9 @@ class LLMBedrock(LLM):
         return response_body['outputs'][0]['text']
 
     def get_body(self, prompt:str):
+        """
+        The `get_body` function returns a JSON object with a prompt, max tokens, and temperature.
+        """
         return json.dumps({
             "prompt": prompt,
             "max_tokens": self.max_tokens,
