@@ -1,0 +1,14 @@
+{
+    "query": "Wo kann ich einen Integrationskurs in Marburg finden?",
+    "reasoning_steps": [
+        {
+            "thought": "I need to look up information about integration courses in Marburg.",
+            "action": "Web-Suche",
+            "action_input": "Integrationskurs Marburg",
+            "observation": "Zulassung zum Integrationskurs beantragenVerfahrensablauf. Sie können Ihre Teilnahme am Integrationskurs online oder per Post beim Bundesamt für Migration und Flüchtlinge (BAMF) beantragen: Online:.\nDeutsch lernenIntegrationskurse. Die vhs Marburg bietet im Rahmen des Zuwanderungsgesetzes Integrationskurse mit Förderung durch das Bundesamt für Migration und Flüchtlinge ( ...\nIntegrationskurseInformationen zur Öffnung der Integrationsmaßnahmen in Marburg · – Die Migrationsberatung für Erwachsene (MBE) Link · – Die „MiA-Kurse“ (Migrantinnen einfach ...\nSprachkurs A1 bis B1 - MarburgDie allgemeinen BAMF-Integrationskurse beinhalten 600 Stunden Sprachunterricht und 100 Stunden Orientierungskurs (Leben in Deutschland). ... 35039 Marburg, bitte ...\nSprachkursträger des Landkreises Marburg- ...Sprechzeiten: Montag bis Freitag: 08:00 – 16:30 Uhr. Kurse: allgemeiner Integrationskurs, Integrationskurs mit Alphabetisierung, Integrationskurs.6 Seiten\nDeutsch als FremdspracheEine Anmeldung ist ab dem 05.02.2024 möglich. Intensivkurs - Stufe 2 (A1/2) Integrationskurs. Wer: Zahra Mashadi Bagher.\nKurse in MarburgIntegrationskurs mit Alphabetisierung. ab 10.06.2024. Integrationskurse ; Allgemeiner Integrationskurs. ab 21.05.2024. Integrationskurse ; Berufssprachkurs mit ...\nMarburgIntegrationskurse (BAMF) · Individuelles Bewerbungscoaching. Weiterbildungen in Marburg: Zertifizierte/r Fachplaner/in Elektrotechnik · Professionelle Nachhilfe ...\nIntensivkurse A1-B1 (allgemein)Integrationskurse A1-B1 in Marburg (Vormittagskurse):. Modul 1 (A1.1)- Juni 2024. Datum: 03.06.2024 – 05.07.2024. Kurszeiten: Montag – Freitag. 09:00 – 13:15 ...\nIntegrationskurseDas BAMF-NAvI liefert Adressen von Einrichtungen, zeigt angebotene Integrationskurse in der Nähe des Wohnortes und macht es möglich, die Zuständigkeiten von ...\n"
+        },
+        {
+            "final_answer": "\nYou can find an Integrationskurs in Marburg at the Volkshochschule (vhs) Marburg."
+        }
+    ]
+}
