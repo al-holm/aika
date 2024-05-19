@@ -8,7 +8,6 @@ class Config:
         self.config = configparser.ConfigParser()
         self.class_name = class_name
         self.filename = os.path.abspath(os.path.join(self.DIR, f'config-{class_name}.ini'))
-        print(self.filename)
         self._settings = {}
         self.load_config()
 
