@@ -2,6 +2,8 @@ from agent_service.tools.translator_tool import Translator
 from agent_service.tools.reading_generation_tool import ReadingGenerator
 from agent_service.tools.web_search_tool import WebSearch
 
+# The ToolFactory class initializes tools based on configuration attributes and adds them to a tool
+# list.
 class ToolFactory:
     def __init__(self, config):
         self.tool_map = {
@@ -16,6 +18,10 @@ class ToolFactory:
         self.initialize_tools()
 
     def initialize_tools(self):
+        '''The `initialize_tools` function initializes tools based on configuration attributes and adds them to
+        a tool list.
+        
+        '''
         for config_attr, tool_class in self.tool_map.items():
             if getattr(self.config, config_attr, False):
                 tool_instance = tool_class()
