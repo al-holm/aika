@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from configparser import ConfigParser
 from pathlib import Path
-from agent_service.utils.prompt.prompt_builder import PromptBuidler
 import boto3
 import json
 from dotenv import load_dotenv

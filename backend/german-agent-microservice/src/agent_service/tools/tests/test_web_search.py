@@ -1,13 +1,6 @@
-import sys, os
-from config import SRC
-srcdir = SRC
-testdir = os.path.dirname(__file__)
-sys.path.insert(0, os.path.abspath(os.path.join(testdir, srcdir)))
-
-from agent_service.tools import web_search_tool
+from tools import web_search_tool
 import unittest
 
-sys.path.insert(0, os.path.abspath(testdir))
 class TestWebSearchTool(unittest.TestCase):
     res_dict = { "organic_results":[
             {
