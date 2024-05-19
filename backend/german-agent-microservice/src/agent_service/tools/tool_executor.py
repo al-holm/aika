@@ -36,6 +36,14 @@ class ToolExecutor:
                 return tool
         return ValueError
     
+    def toolstoString(self) -> str:
+        res = "Tools:\n"
+        for tool in self.tools:
+            res += tool.toString()
+            res += "\n"
+        return res
+
+    
     def parse_config(self):
         '''The function `parse_config` reads settings from a configuration file and creates a
         `ToolExecutorConfigModel` object.
