@@ -4,7 +4,9 @@ from agent_service.tools.reading_generation_tool import ReadingGenerator
 import logging
 from agent_service.core.log import ColoredFormatter
 from agent_service.agent.agent_step import AgentStep
+from agent_service.agent.agent import Agent
 from agent_service.tools.tool_executor import ToolExecutor
+from time import sleep
 def setup_logging():
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
@@ -15,9 +17,6 @@ def setup_logging():
 
 setup_logging()
 if __name__ == "__main__":
-    te = ToolExecutor()
-    print(te.tools)
-    print(te.tool_names)
-
-
+    a = Agent()
+    print(a.run("Gib mir wichtige Wortschtatz für Artztbesuch."))
     

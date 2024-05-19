@@ -1,0 +1,14 @@
+{
+    "query": "Gib mir wichtige Wortschtatz für Artztbesuch.",
+    "reasoning_steps": [
+        {
+            "thought": "Um dem Schüler den richtigen Wortschatz für einen Arztbesuch zu geben, sollte ich einige medizinischen Begriffe und Redewendungen zusammentragen.",
+            "action": "Lesetext erstellen",
+            "action_input": "wichtige Begriffe und Redewendungen für einen Arztbesuch",
+            "observation": "\"Script:\nTheresa hat heute einen Termin bei ihrer Hausärztin, Dr. Schmidt. Sie klopft an die Tür und betritt das Zimmer.\n\"Guten Tag, Frau Dr. Schmidt\", sagt Theresa und reicht ihrer Ärztin die Hand. \"Ich habe Schmerzen in der Brust und habe Angst, dass es etwas Ernsthaftes sein könnte.\"\nDr. Schmidt lächelt Theresa beruhigend an. \"Setzen Sie sich bitte und erzählen Sie mir mehr über Ihre Symptome.\"\nNach der Untersuchung stellt Dr. Schmidt fest, dass Theresa unter einer harmlosen Muskelverspannung leidet. Sie gibt ihr ein Rezept für Schmerztabletten und empfiehlt ihr, sich zu entspannen und Yoga zu machen.\n\"Vielen Dank, Frau Dr. Schmidt\", sagt Theresa erleichtert. \"Ich werde Ihren Ratschlägen folgen.\"\""
+        },
+        {
+            "final_answer": "\nHier sind einige wichtige Begriffe und Redewendungen für einen Arztbesuch:\n\n- \"Guten Tag, Frau Dr. Schmidt\" (Begrüßung)\n- \"Ich habe Schmerzen in der Brust\" (Symptom)\n- \"Ich habe Angst, dass es etwas Ernsthaftes sein könnte\" (Befürchtung)\n- \"Setzen Sie sich bitte und erzählen Sie mir mehr über Ihre Symptome\" (Aufforderung)\n- \"Sie leiden unter einer harmlosen Muskelverspannung\" (Diagnose)\n- \"Ich gebe Ihnen ein Rezept für Schmerztabletten\" (Empfehlung)\n- \"Ich empfehle Ihnen, sich zu entspannen und Yoga zu machen\" (Empfehlung)\n- \"Vielen Dank, Frau Dr. Schmidt\" (Dank)\n- \"Ich werde Ihren Ratschlägen folgen\" (Absicht)"
+        }
+    ]
+}
