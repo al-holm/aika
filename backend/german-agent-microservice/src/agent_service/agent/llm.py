@@ -1,23 +1,33 @@
 from abc import ABC, abstractmethod
-from configparser import ConfigParser
-from pathlib import Path
+from pydantic import ValidationError
+import logging
 import boto3
 import json
 from dotenv import load_dotenv
+from agent_service.core.config import Config
+from agent_service.core.llm_pydantic import BedrockLLMConfigModel
 load_dotenv()
+# The class LLM is an abstract base class for running LLM with a method run that takes a prompt as input.
 class LLM(ABC):
     @abstractmethod
     def run(prompt: str):
+        '''The function "run" takes a prompt as input and does not perform any specific actions.
+        Parameters
+        ----------
+        prompt : str
+            The `run` function takes a single parameter `prompt` of type `str`.
+        '''
         pass
 
+# The `LLMBedrock` class is a Python class that extends `LLM`, initializes configuration settings, and
+# provides methods to run a language model using AWS Bedrock and retrieve the model response.
 class LLMBedrock(LLM):
-    CONFIG_PATH = Path("/Users/ali/Desktop/code/aika/backend/german_agent_microservice/src/agent_service/core/llm-config.ini")
     def __init__(self) -> None:
         super().__init__()
         self.parse_config()
         self.client = boto3.client(
-                                    service_name=self.service_name, 
-                                    region_name=self.region_name,
+                                    service_name=self.config.service_name, 
+                                    region_name=self.config.region_name,
                                 )
 
     def run(self, prompt: str):
@@ -27,8 +37,8 @@ class LLMBedrock(LLM):
         """
         body = self.get_body(prompt)
         response = self.client.invoke_model(
-            body=body, modelId=self.model_id, 
-            accept=self.accept, contentType=self.contentType
+            body=body, modelId=self.config.llm_id, 
+            accept=self.config.accept, contentType=self.config.content_type
             )
 
         response_body = json.loads(response.get('body').read())
@@ -40,22 +50,19 @@ class LLMBedrock(LLM):
         """
         return json.dumps({
             "prompt": prompt,
-            "max_tokens": self.max_tokens,
-            "temperature": self.temperature,
+            "max_tokens": self.config.max_tokens,
+            "temperature": self.config.temperature,
             }
         )
 
     def parse_config(self):
-        # instantiate
-        config = ConfigParser()
-
-        # parse existing file
-        config.read(self.CONFIG_PATH)
-
-        self.service_name = config.get("bedrock", "service_name")
-        self.region_name = config.get("bedrock", "region_name")
-        self.max_tokens = config.getint("bedrock", "max_tokens")
-        self.temperature = config.getfloat("bedrock", "temperature")
-        self.model_id = config.get("bedrock", "model_id")
-        self.accept = config.get("bedrock", "accept")
-        self.contentType = config.get("bedrock", "contentType")
+        '''The function `parse_config` reads settings from a configuration file (*.ini), 
+        validates types, creates a pydantic model object config with those settings.
+        '''
+        try:
+            config = Config("llm-bedrock")
+            settings = config.get_settings()
+            print(settings)
+            self.config = BedrockLLMConfigModel(**settings) # parse & validate dict from config, create attributes
+        except ValidationError as e:
+            logging.ERROR(f'Bedrock attributes error: {e}')
