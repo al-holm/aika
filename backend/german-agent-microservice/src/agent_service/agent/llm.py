@@ -5,7 +5,7 @@ import boto3
 import json
 from dotenv import load_dotenv
 from agent_service.core.config import Config
-from agent_service.core.llm_pydantic import BedrockLLMConfigModel
+from agent_service.core.pydantic_llm import BedrockLLMConfigModel
 load_dotenv()
 # The class LLM is an abstract base class for running LLM with a method run that takes a prompt as input.
 class LLM(ABC):

@@ -1,5 +1,6 @@
-from configparser import ConfigParser
-from pathlib import Path
+from agent_service.core.config import Config
+from agent_service.core.pydantic_agent import AgentConfigModel
+from pydantic import ValidationError
 from llm import LLMBedrock
 from typing import List
 from agent_step import AgentStep
@@ -8,9 +9,8 @@ from agent_service.prompts.prompt_builder import PromptBuidler
 from agent_service.tools.tool_executor import ToolExecutor
 from agent_service.parsers.agent_answer_parser import AnswerParser
 from agent_service.parsers.agent_step_parser import StepParser
-
+import logging
 class Agent:
-    CONFIG_PATH = Path("/backend/german_agent_microservice/src/core/llm-config.ini")
     def __init__(self) -> None:
         self.parse_config()
         self.reasoning_trace : List[AgentStep] = []
@@ -29,15 +29,15 @@ class Agent:
         pass
 
     def parse_config(self):
-        # instantiate
-        config = ConfigParser()
+        try:
+            config = Config("agent")
+            settings = config.get_settings()
 
-        # parse existing file
-        config.read(self.CONFIG_PATH)
-
-        llm = config.get("agent", "llm")
-        if llm=='bedrock':
-            self.llm = LLMBedrock()
-        self.max_iterations = config.getint("agent", "max_iterations")
+            self.config = AgentConfigModel(**settings)
+            if self.config.llm=='bedrock':
+                self.llm = LLMBedrock()
+            self.max_iterations = self.config.max_iterations
+        except ValidationError as e:
+            logging.ERROR(f'Agent attributes error: {e}')
 
 
