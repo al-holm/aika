@@ -1,9 +1,12 @@
 from typing import List, Union
 from agent_service.agent.agent_step import AgentStep, AgentFinalStep
-import json
+import json, uuid
+from pathlib import Path
+import os
 class ReasoningTrace:
     def __init__(self) -> None:
         self.steps : List[Union[AgentStep, AgentFinalStep]] = []
+        self.query = None
     
     def add_step(self, step: Union[AgentStep, AgentFinalStep]):
         self.steps.append(step)
@@ -25,6 +28,13 @@ class ReasoningTrace:
             res += step.toString() + "\n"
         return res
 
-    def to_json(self, filepath: str):
-        with open(filepath, 'w') as file:
-            json.dump([step.model_dump(mode='json') for step in self.steps], file, indent=4)
+    def to_json(self):
+        filepath = Path("backend/german-agent-microservice/src/out/" + str(uuid.uuid4()) + ".json")
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        with open(filepath, 'w', encoding='utf8') as file:
+            dict_f = {"query": self.query}
+            dict_f["reasoning_steps"] = [step.model_dump() for step in self.steps]
+            json.dump(dict_f, file, indent=4, ensure_ascii=False)
+    
+    def set_query(self, query:str):
+        self.query = query

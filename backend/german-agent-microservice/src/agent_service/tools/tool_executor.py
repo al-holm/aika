@@ -13,6 +13,7 @@ class ToolExecutor:
         self.factory = ToolFactory(self.config)
         self.tools: List[Tool] = self.factory.tools
         self.tool_names: List[str] = self.factory.tool_names
+        self.logger = logging.getLogger("Observation")
 
     def execute(self, tool_name:str, input:str) -> str:
         '''The function executes a specified tool with a given input 
@@ -24,6 +25,7 @@ class ToolExecutor:
             observation = tool.run(input)
         except ValueError as e:
             observation = "Invalid tool or tool input"
+        self.logger.info("Observation: " + observation)
         return observation
 
     def get_tool_by_name(self, name:str)->Tool:

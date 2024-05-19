@@ -1,9 +1,12 @@
 from agent_service.agent.agent_step import AgentStep
 from typing import List
 import re
+import logging
 class StepParser:
     def __init__(self, tool_names:List[str]):
         self.tool_names:List[str]=tool_names
+        self.logger = logging.getLogger('StepParser')
+
 
     def parse_step(self, input:str) -> AgentStep:
         # Define regex patterns for each component
@@ -39,8 +42,10 @@ class StepParser:
         if action_input.startswith('"') and action_input.endswith('"'):
             action_input = action_input[1:-1]
 
-        return AgentStep(
+        step = AgentStep(
             thought=thought,
             action=action,
             action_input=action_input
         )
+        self.logger.info(step.toString())
+        return step 

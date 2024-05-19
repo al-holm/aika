@@ -8,9 +8,9 @@ class ColoredFormatter(logging.Formatter):
     """Custom formatter to add colors to log levels based on the class name."""
 
     COLORS = {
-        'Translator': Fore.CYAN,
-        'WebSearch': Fore.GREEN,
-        'ReadingGenerator': Fore.YELLOW,
+        'StepParser': Fore.CYAN,
+        'Observation': Fore.YELLOW,
+        'FinalAnswer': Fore.GREEN,
     }
 
     def format(self, record):
