@@ -1,7 +1,7 @@
-from agent_service.utils.prompt.reading_generation_prompt import READING_TEMPLATE
+from agent_service.prompts.reading_generation_prompt import READING_TEMPLATE
 from agent_service.tools.tool import Tool
 from agent_service.agent.llm import LLMBedrock
-from agent_service.utils.prompt.prompt_builder import PromptBuidler
+from agent_service.prompts.prompt_builder import PromptBuidler
 import logging 
 class ReadingGenerator(Tool):
     def __init__(self):

@@ -1,13 +1,6 @@
-import sys, os
-from config import SRC
-srcdir = SRC
-testdir = os.path.dirname(__file__)
-sys.path.insert(0, os.path.abspath(os.path.join(testdir, srcdir)))
-
-from agent_service.tools import reading_generation_tool 
+from tools import reading_generation_tool 
 import unittest
 
-sys.path.insert(0, os.path.abspath(testdir))
 class TestReadingGenTool(unittest.TestCase):
     def test_prompt(self):
         """
