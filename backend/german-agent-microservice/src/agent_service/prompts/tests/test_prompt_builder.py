@@ -34,6 +34,17 @@ class TestPromptBuidler(unittest.TestCase):
         result = prompt.update(noun="dog", adj="white")
         self.assertEqual(result, "It's your white dog.")
 
+    def test_consequent_substitute(self):
+        """
+        The function `test_double_substitute` tests the functionality of substituting  variables in a
+        prompt string using a PromptBuilder class in Python.
+        """
+        prompt = PromptBuidler("It's your ${adj} ${noun}. I like ${obj}.")
+        result = prompt.update(noun="dog")
+        result = prompt.update(adj="black")
+        result = prompt.update(obj="pythons")
+        self.assertEqual(prompt.get_prompt(), "It's your black dog. I like pythons.")
+
     def test_last_substitute(self):
         """
         The function `test_last_substitute` tests the functionality of updating a specific placeholder in a
