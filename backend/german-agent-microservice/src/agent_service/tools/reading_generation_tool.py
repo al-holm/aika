@@ -5,7 +5,7 @@ from agent_service.prompts.prompt_builder import PromptBuidler
 import logging 
 class ReadingGenerator(Tool):
     def __init__(self):
-        self.name = "Erstellung von Lesetexten"
+        self.name = "Lesetext erstellen"
         self.description = "Benutzte als Erste zur Erstellung von Lesetexten (keine Hörtexte)."
         self.llm = LLMBedrock()
         self.prompt = PromptBuidler(READING_TEMPLATE)

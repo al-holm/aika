@@ -9,9 +9,9 @@ class Translator(Tool):
         self.translator = deepl.Translator(os.environ["DEEPL_AUTH_KEY"])
 
     def run(self, input:str)->str:
-        return self.translator.translate_text(
+        return str(self.translator.translate_text(
             input, target_lang=self._target_language
-            )
+            ))
 
     def set_target_language(self, lang:str)->None:
         self._target_language =lang

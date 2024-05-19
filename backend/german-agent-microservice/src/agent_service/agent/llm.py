@@ -62,7 +62,6 @@ class LLMBedrock(LLM):
         try:
             config = Config("llm-bedrock")
             settings = config.get_settings()
-            print(settings)
             self.config = BedrockLLMConfigModel(**settings) # parse & validate dict from config, create attributes
         except ValidationError as e:
             logging.ERROR(f'Bedrock attributes error: {e}')
