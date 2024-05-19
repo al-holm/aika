@@ -5,3 +5,8 @@ class Tool(ABC):
     def run(self, input:str):
         pass
 
+    def toString(self) -> str:
+        res = "Tool: " + self.name
+        res += " : " + self.description + "\n"
+        return res
+
