@@ -1,4 +1,9 @@
-from tools import reading_generation_tool 
+import os
+import sys, os
+testdir = os.path.dirname(__file__)
+sys.path.insert(0, os.path.abspath(os.path.join(testdir, '../../../')))
+
+from agent_service.tools.reading_generation_tool import ReadingGenerator
 import unittest
 
 class TestReadingGenTool(unittest.TestCase):
@@ -7,7 +12,7 @@ class TestReadingGenTool(unittest.TestCase):
         The `test_prompt` function tests the `update` method of a `ReadingGenerator` object by checking
         if the updated text matches a specific regular expression pattern.
         """
-        rg = reading_generation_tool.ReadingGenerator()
+        rg = ReadingGenerator()
         res = rg.prompt.update(text="Generiere einen Lesetext zum Thema 'Familie'.")
         self.assertRegexpMatches(res, r"Generiere einen Lesetext zum Thema 'Familie'.")
 
