@@ -1,4 +1,9 @@
-from tools import web_search_tool
+import os
+import sys, os
+testdir = os.path.dirname(__file__)
+sys.path.insert(0, os.path.abspath(os.path.join(testdir, '../../../')))
+
+from agent_service.tools import web_search_tool
 import unittest
 
 class TestWebSearchTool(unittest.TestCase):
