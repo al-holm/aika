@@ -1,6 +1,5 @@
 {
     "cmake.sourceDirectory": "/home/ali/Documents/aika/frontend/linux/flutter",
-    "docwriter.style": "Auto-detect",
     "python.testing.unittestArgs": [
         "-v",
         "-s",
@@ -10,4 +9,5 @@
     ],
     "python.testing.pytestEnabled": false,
     "python.testing.unittestEnabled": true,
+    "docwriter.style": "NumPy",
 }
