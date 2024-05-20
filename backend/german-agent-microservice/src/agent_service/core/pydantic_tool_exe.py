@@ -5,6 +5,5 @@ class ToolExecutorConfigModel(BaseModel):
     translator:bool
     reading_generator:bool
     listening_generator:bool
-    text2speech:bool
     task_generator:bool
     retriever:bool

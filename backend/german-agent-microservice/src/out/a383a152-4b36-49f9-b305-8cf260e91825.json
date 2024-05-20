@@ -1,0 +1,24 @@
+{
+    "query": "Wie bilde ich Sätze in Vergängenheit?",
+    "reasoning_steps": [
+        {
+            "thought": "Erstmal muss ich die Regeln für die Bildung von Sätzen in der Vergangenheit kennen.",
+            "action": "Übersetzer",
+            "action_input": "rules for forming sentences in past tense in German",
+            "observation": "Правила формирования предложений в прошедшем времени в немецком языке"
+        },
+        {
+            "validation_thought": "Die Antwort ist nicht vorhanden, da die Übersetzung keine Informationen zur Bildung von Sätzen in der Vergangenheit in Deutsch enthält."
+        },
+        {
+            "thought": "Jetzt weiß ich, dass ich die Regeln für die Bildung von Sätzen in der Vergangenheit in Deutsch benötige.",
+            "action": "Web-Suche",
+            "action_input": "Regeln für die Bildung von Sätzen in der Vergangenheit in Deutsch",
+            "observation": "Vergangenheitsform zu bilden, brauchst du eines der beiden Hilfsverben „sein“ oder „haben“. Dabei benutzt du immer die Gegenwartsform (Präsens) für das Hilfsverb. Als Nächstes folgt das Verb, das die vergangene Handlung beschreibt. Das Verb wird hier zu einer besonderen Wortart geformt, die du Partizip II nennst.24.01.2024"
+        },
+        {
+            "validation_thought": "Die Antwort ist vorhanden. Die Informationen zur Bildung von Sätzen in der Vergangenheit in Deutsch wurden bereitgestellt."
+        }
+    ],
+    "errors": []
+}

@@ -1,4 +1,5 @@
 from agent_service.tools.tool import Tool
+from agent_service.agent.agent_step import AgentStep
 from agent_service.tools.tool_factory import ToolFactory
 from agent_service.core.config import Config
 from agent_service.core.pydantic_tool_exe import ToolExecutorConfigModel
@@ -20,6 +21,12 @@ class ToolExecutor:
         and returns the observation or anerror message if the tool or input is invalid.
         
         '''
+        if  "Aufgaben zu einem Text" in tool_name:
+            for i in reversed(self.reasoning_trace.steps):
+                if isinstance(i, AgentStep):
+                    if "Lese" or "Hör" in i.action:
+                        input=i.observation
+                        break
         try:
             tool = self.get_tool_by_name(tool_name)
             observation = tool.run(input)

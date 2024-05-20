@@ -1,0 +1,24 @@
+Type: single-choice
+Question: Was kochen Lena und ihre Familie?
+Answer options: [Spaghetti Bolognese, Nudeln mit Tomatensoße, Pommes mit Ketchup]
+Solution: Spaghetti Bolognese
+2. 
+Type: single-choice
+Question: Wer bereitet den Nudelteig zu?
+Answer options: [Lena, ihre Mutter, ihr Vater, ihre Großmutter]
+Solution: ihre Großmutter
+3. 
+Type: gaps
+Question: Setze die fehlenden Wörter in die Lücken.
+Answer options: Lena freut sich auf das Wochenende, denn ihre [Eltern, Großeltern, Tanten] und ihre [Eltern, Großeltern, Onkel] kommen zu [Besuch, Hause, Stadt]. Gemeinsam kochen sie ihr [Lieblingsessen, Essen, Nahrung]: [Spaghetti Bolognese, Nudeln mit Tomatensoße, Pommes mit Ketchup].
+Solution: [Eltern, Großeltern, Besuch, Spaghetti Bolognese]
+4. 
+Type: open
+Question: Weshalb ist Lena dankbar für ihre Familie?
+Answer options: None
+Solution: Lena ist dankbar für ihre Familie, weil sie liebevoll und unterstützend ist, auch in schwierigen Zeiten.
+5. 
+Type: open
+Question: Was ist mit Lenas Opa passiert?
+Answer options: None
+Solution: Lenas Opa ist vor einigen Monaten gestorben.

@@ -1,9 +1,11 @@
-from agent_service.agent.agent_step import AgentFinalStep
+from agent_service.agent.agent_step import AgentValidationStep 
 import logging
-class AnswerParser:
+class ValidationParser:
     def __init__(self) -> None:
         self.logger = logging.getLogger("FinalAnswer")
-    def parse_step(self, input:str) -> AgentFinalStep:
-        fin_answer = input.split("Final Answer:")[-1]
-        self.logger.info(fin_answer)
-        return AgentFinalStep(final_answer=fin_answer)
+         
+    def parse_step(self, input:str) -> AgentValidationStep:
+        validation_thought = input.split("\n")[0]
+        self.logger.info(validation_thought)
+        return AgentValidationStep(validation_thought=validation_thought)
+    

@@ -1,0 +1,24 @@
+Type: single-choice
+Question: Wie viele Personen leben in der Familie Meier?
+Answers: [3, 4, 5, 6]
+Solution: 5
+2. 
+Type: single-choice
+Question: Wer ist das älteste Kind in der Familie Meier?
+Answers: [Anna, Max, Paul]
+Solution: Anna
+3. 
+Type: gaps
+Question: Setze die fehlenden Wörter in die Lücken.
+Answers: Die Familie [ besteht, besteht aus, besteht über] aus fünf Personen: Vater, Mutter, Anna, Max und Paul. Die Familie [lebt, leben, gelebt] seit vielen Jahren in Berlin.
+Solution: [besteht aus, lebt]
+4. 
+Type: open
+Question: Wie heißen die Eltern von Anna, Max und Paul?
+Answers: None
+Solution: Die Eltern von Anna, Max und Paul heißen Herr und Frau Meier.
+5. 
+Type: open
+Question: Wie alt sind Anna, Max und Paul?
+Answers: None
+Solution: Anna ist 20 Jahre alt, Max ist 18 Jahre alt und Paul ist 15 Jahre alt.
