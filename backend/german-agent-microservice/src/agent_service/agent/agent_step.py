@@ -31,6 +31,18 @@ class AgentFinalStep(BaseModel):
         """
         res = "Final Answer: " + self.final_answer + "\n"
         return res
+    
+
+class AgentValidationStep(BaseModel):
+    validation_thought:str
+
+    def toString(self):
+        """
+        The `toString` function in Python creates a formatted string representation of an object's
+        attributes.
+        """
+        res = "Hint : " + self.validation_thought + "\n"
+        return res
 
 
 

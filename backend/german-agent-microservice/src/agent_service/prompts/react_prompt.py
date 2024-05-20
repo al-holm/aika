@@ -14,8 +14,7 @@ Action Input: die Eingabe für die Aktion
 
 ---
 Wichtig! Deine Antwort soll nur Thought, Action und Action Input beinthalten.
-
-Bei Erstellung von Hörtexten, benutze abschliessend das 'Audio Generation' Tool. Bei Erstellung von Lesetexte, muss du KEIN Audio generieren. 
+Wenn du Aufgaben generieren solltest, gib deine generierte Lese oder Hörtext oder Grammatikerklärung als Action Input ein.
 Benutzte Web-Suche nur dann, wenn du alle anderen Tools ausprobiert hast.
 Beginne!
 [/INST]

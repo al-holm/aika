@@ -25,16 +25,21 @@ class LLMBedrock(LLM):
     def __init__(self) -> None:
         super().__init__()
         self.parse_config()
+        self.max_tokens = self.config.max_tokens
         self.client = boto3.client(
                                     service_name=self.config.service_name, 
                                     region_name=self.config.region_name,
                                 )
 
-    def run(self, prompt: str):
+    def run(self, prompt: str, mode="plan"):
         """
         This Python function takes a prompt, retrieves the body, invokes a model with the body, and
         returns the text output from the model response.
         """
+        if mode == "val":
+            self.max_tokens = 90
+        else:
+            self.max_tokens = self.config.max_tokens
         body = self.get_body(prompt)
         response = self.client.invoke_model(
             body=body, modelId=self.config.llm_id, 
@@ -50,7 +55,7 @@ class LLMBedrock(LLM):
         """
         return json.dumps({
             "prompt": prompt,
-            "max_tokens": self.config.max_tokens,
+            "max_tokens": self.max_tokens,
             "temperature": self.config.temperature,
             }
         )
