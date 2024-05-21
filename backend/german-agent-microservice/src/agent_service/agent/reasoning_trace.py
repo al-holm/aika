@@ -3,6 +3,8 @@ from agent_service.agent.agent_step import AgentStep, AgentValidationStep, Agent
 import json, uuid
 from pathlib import Path
 import os
+# The `ReasoningTrace` class represents a trace of reasoning steps with methods to add steps, store
+# exceptions, and generate a JSON output.
 class ReasoningTrace:
     def __init__(self) -> None:
         self.steps : List[Union[AgentStep, AgentValidationStep, AgentFinalStep]] = []
@@ -10,31 +12,47 @@ class ReasoningTrace:
         self.errors : List[Exception] = []
     
     def add_exception(self, e:Exception):
+        '''appends an Exception object to a list of errors.
+        
+        '''
         self.errors.append(e)
     
     def add_step(self, step: Union[AgentStep, AgentValidationStep, AgentFinalStep]):
+        '''appends a step object to a list of steps.
+        
+        '''
         self.steps.append(step)
 
     def remove_step(self, index: int) -> None:
+        '''removes a step object from a list of steps.
+        
+        '''
         if 0 <= index < len(self.steps):
             self.steps.pop(index)
 
     def get_last_step(self) -> Union[AgentStep, AgentValidationStep, AgentFinalStep]:
+        '''returns the last step object from a list of steps.
+        
+        '''
         if self.steps:
             return self.steps[-1]
         return None
 
-    def toString(self):
+    def __str__(self) -> str:
         res = ""
         if len(self.steps) == 0:
             return res
         for step in self.steps:
-            res += step.toString() + "\n"
+            res += str(step) + "\n"
         return res
 
     def to_json(self):
+        '''converts an object's attributes into a JSON format and writes it to a file.
+        
+        '''
         dict_f = {"query": self.query}
         dict_f["reasoning_steps"] = [step.model_dump() for step in self.steps]
+        dict_f["final_answer"] = self.final_answer
         dict_f["errors"] = self.errors
 
         filepath = Path("backend/german-agent-microservice/src/out/" + str(uuid.uuid4()) + ".json")
@@ -44,12 +62,21 @@ class ReasoningTrace:
             json.dump(dict_f, file, indent=4, ensure_ascii=False)
     
     def set_query(self, query:str):
+        '''sets the query attribute of an object to the provided query string.
+               
+        '''
         self.query = query
 
-    def get_final_answer(self):
+    def build_final_answer(self):
+        '''finds the last instance of AgentStep in the step list,
+        creates a final step with the observation in this step as final answer, 
+        
+        '''
         for i in reversed(self.steps):
             if isinstance(i, AgentStep):
-                self.add_step(AgentFinalStep(final_answer=i.observation))
+                step = AgentFinalStep(final_answer=i.observation)
+                self.add_step(step)
+                self.final_answer = i.observation
                 break
 
 
