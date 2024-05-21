@@ -2,6 +2,8 @@ import configparser
 import sys, os
 import logging
 from pathlib import Path
+# The `Config` class reads a configuration file and stores settings in a dictionary for a
+# specified class.
 class Config:
     DIR = os.path.dirname(__file__)
     def __init__(self, class_name):
@@ -12,7 +14,9 @@ class Config:
         self.load_config()
 
     def load_config(self):
-        """Read the config file and store all settings in a dictionary."""
+        '''reads the config file and store all settings in a dictionary.
+        
+        '''
         try:
             self.config.read(self.filename)
             if 'Settings' in self.config:
@@ -22,5 +26,7 @@ class Config:
             logging.ERROR(f"config file for clas {self.class_name} not found.")
 
     def get_settings(self):
-        """Return the entire settings dictionary."""
+        '''returns the entire settings dictionary.
+
+        '''
         return self._settings
