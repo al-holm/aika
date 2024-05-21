@@ -14,7 +14,5 @@ def setup_logging():
 setup_logging()
 if __name__ == "__main__":
     a = Agent()
-    a.run("Wie bilde ich Sätze in Vergängenheit?")
+    a.run("Übersetze für mich auf Russisch 'In Rahmen dieser Arbeit werden viel über KI erfahren.'.")
     
-# to do average tokens not used from the answer
-# to do if not final answer, do again.
