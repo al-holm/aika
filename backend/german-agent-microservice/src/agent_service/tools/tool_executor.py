@@ -9,8 +9,9 @@ from typing import List
 # The `ToolExecutor` class is responsible for executing tools based on user input and configuration
 # settings (tool list).
 class ToolExecutor:
-    def __init__(self) -> None:
+    def __init__(self, reasoning_trace=None) -> None:
         self.parse_config()
+        self.reasoning_trace = reasoning_trace
         self.factory = ToolFactory(self.config)
         self.tools: List[Tool] = self.factory.tools
         self.tool_names: List[str] = self.factory.tool_names
@@ -45,10 +46,10 @@ class ToolExecutor:
                 return tool
         return ValueError
     
-    def toolstoString(self) -> str:
+    def __str__(self) -> str:
         res = "Tools:\n"
         for tool in self.tools:
-            res += tool.toString()
+            res += str(tool)
             res += "\n"
         return res
 
