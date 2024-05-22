@@ -5,7 +5,8 @@ class PromptBuilder:
         self._prompts = {}
 
     def create_prompts(self, prompt_dict:dict):
-        '''initializes prompts based on a dictionary input.
+        """
+        initializes prompts based on a dictionary input.
         
         Parameters
         ----------
@@ -13,49 +14,53 @@ class PromptBuilder:
             a dictionary that contains prompts where the keys are the names
         of the prompts and the values are the actual prompt content.
         
-        '''
+        """
         self._prompts = {}
         for name, prompt in prompt_dict.items():
             prompt = Prompt(name, prompt)
             self._prompts[name] = prompt
 
     def generate_prompt(self, name_id, *args, **kwargs) -> str:
-        ''' gets the prmopt by name id & substitutes the keywords from the kwargs
+        """ 
+        gets the prmopt by name id & substitutes the keywords from the kwargs
         with values from the kwargs
 
         Returns
         -------
-            str - substitued prompt
-        '''
+        new_prompt : str 
+            substitued prompt
+        """
         prompt = self._prompts[name_id].prompt
         new_prompt = string.Template(prompt).safe_substitute(**kwargs)
         return new_prompt
     
     def update_prompt(self, name_id, *args, **kwargs) -> str:
-        ''' gets the prmopt by name id, substitutes the keywords from the kwargs
+        """ 
+        gets the prmopt by name id, substitutes the keywords from the kwargs
         with values from the kwargs, updates the prompt in the Prompt object
-
-        '''
+        """ 
         new_prompt = self.generate_prompt(name_id=name_id, **kwargs)
         self._prompts[name_id].prompt = new_prompt 
         return new_prompt
     
     def get_prompt(self, name):
-        ''' returns the prompt by name id
-
-        '''
+        """  
+        returns the prompt by name id
+        """ 
         prompt = self._prompts[name].prompt
         return prompt
     
     def set_prompt(self, name, prompt:str):
-        ''' sets the new prompt by name id
-
-        '''
+        """  
+        sets the new prompt by name id
+        """ 
         self._prompts[name].prompt = prompt
 
         
-# The `Prompt` class represents a prompt with a name and a message.
 class Prompt:
+    """
+    represents a prompt with a name and a message
+    """
     def __init__(self, name: str, prompt : str):
         self._name = name
         self._prompt = prompt

@@ -5,33 +5,37 @@ import re
 import logging
 from abc import ABC, abstractmethod
 
-# The class `Parser` is an abstract class with a method `parse_step` that must be implemented by
-# subclasses.
 class Parser(ABC):
+    """
+    an abstract class with a method `parse_step` that must be implemented by subclasses
+    """
     @abstractmethod
     def parse_step(self, input:str):
-        '''takes an input string and parses it
-        
-        '''
+        """
+        takes an input string and parses it
+        """
         pass
 
-# This class `StepParser` parses input text to extract thought, action, and action input for an
-# `AgentStep` object, validating the action and action input.
+
 class StepParser(Parser):
+    """
+    parses input text to extract thought, action, and action input for an 
+    AgentStep object, validating the action and action input.
+    """
     def __init__(self, tool_names:List[str]):
         self.tool_names:List[str]=tool_names
         self.logger = logging.getLogger('StepParser')
 
 
     def parse_step(self, input:str) -> AgentStep:
-        '''parses input text to extract thought, action, and action input
+        """
+        parses the input text to extract thought, action, and action input
         for an `AgentStep` object.
         
         Returns
         -------
-            An instance of the `AgentStep`
-        
-        '''
+        step : AgentStep
+        """
         lines = input.split('\n')
         first_line = lines[0].strip()
         thought = self.extract_thought(first_line)
@@ -51,10 +55,19 @@ class StepParser(Parser):
         return step 
 
     def validate_action(self, action, action_input):
-        '''checks if the provided action and action input are valid, raising
+        """
+        checks if the provided action and action input are valid, raising
         exceptions if they are missing or unknown.
          
-        '''
+        Raises
+        ------
+        ActionNotFoundException
+            If the action is missing
+        InvalidToolException
+            If the action is the name of some unexisting tool
+        ActionInputNotFoundException
+            If the action input is missing
+        """
         if action is None:
             raise ActionNotFoundException("Missing 'Action:' in input")
         elif action not in self.tool_names:
@@ -63,10 +76,10 @@ class StepParser(Parser):
             raise ActionInputNotFoundException("Missing 'Action Input:' in input")
 
     def extract_action(self, remaining_text):
-        '''extracts action and action input values from a given text,
+        """
+        extracts action and action input values from the given text,
         removing any surrounding quotes.
-        
-        '''
+        """
         action_pattern = r'Action:\s*(.*?)(?=\n|$)'
         action_input_pattern = r'Action Input:\s*(.*?)(?=\n|$)'
         action_match = re.search(action_pattern, remaining_text, re.DOTALL)
@@ -81,9 +94,9 @@ class StepParser(Parser):
         return action, action_input
 
     def extract_thought(self, first_line):
-        '''extracts thought in the first line from the input
-
-        '''
+        """
+        extracts the thought from the first line parameter
+        """
         if first_line.startswith('Thought:'):
             thought = first_line[len('Thought:'):].strip()
         else:
@@ -91,9 +104,9 @@ class StepParser(Parser):
         return thought
 
     def remove_quotes(self, input):
-        '''removes quotation marks from the beginning and end of a string input.
-        
-        '''
+        """
+        removes quotation marks from the beginning and end of the given input string.
+        """
         if input is None:
             return None
         if input.startswith('"') and input.endswith('"'):
@@ -105,15 +118,18 @@ class StepParser(Parser):
 # This class `ValidationParser` parses an input string to extract validation thought
 # in an `AgentValidationStep` object.
 class ValidationParser(Parser):
+    """
+    parses an input string to extract the validation thought
+    into an AgentValidationStep object
+    """
     def __init__(self) -> None:
         self.logger = logging.getLogger("FinalAnswer")
          
     def parse_step(self, input:str) -> AgentValidationStep:
-        '''parses an input string to extract the first line and returns it as an
+        """
+        parses an input string to extract the first line and returns it as an
         AgentValidationStep object.
-        
-        
-        '''
+        """
         validation_thought = input.split("\n")[0]
         self.logger.info(validation_thought)
         return AgentValidationStep(validation_thought=validation_thought)
