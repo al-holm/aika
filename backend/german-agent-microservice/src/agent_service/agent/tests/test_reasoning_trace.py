@@ -6,13 +6,13 @@ from pathlib import Path
 import unittest
 from unittest.mock import patch, mock_open
 from agent_service.agent.agent_step import AgentStep, AgentValidationStep, AgentFinalStep
-from agent_service.agent.reasoning_trace import ReasoningTrace
+from agent_service.agent.reasoning_trace import ReasoningLogger
 import uuid, json
 
-class TestReasoningTrace(unittest.TestCase):
+class TestReasoningLogger(unittest.TestCase):
 
     def setUp(self):
-        self.trace = ReasoningTrace()
+        self.trace = ReasoningLogger()
 
     def test_add_exception(self):
         exception = Exception("Test exception")
@@ -22,7 +22,7 @@ class TestReasoningTrace(unittest.TestCase):
     def test_add_step(self):
         step = AgentStep(thought="Test thought", action="Test action", action_input="Test input", observation="Test observation")
         self.trace.add_step(step)
-        self.assertIn(step, self.trace.steps)
+        self.assertIn(step, self.trace.trace)
 
     def test_remove_step(self):
         step1 = AgentStep(thought="Thought1", action="Action1", action_input="Input1", observation="Observation1")
@@ -30,14 +30,14 @@ class TestReasoningTrace(unittest.TestCase):
         self.trace.add_step(step1)
         self.trace.add_step(step2)
         self.trace.remove_step(0)
-        self.assertNotIn(step1, self.trace.steps)
-        self.assertIn(step2, self.trace.steps)
+        self.assertNotIn(step1, self.trace.trace)
+        self.assertIn(step2, self.trace.trace)
 
     def test_remove_step_invalid_index(self):
         step = AgentStep(thought="Test thought", action="Test action", action_input="Test input", observation="Test observation")
         self.trace.add_step(step)
         self.trace.remove_step(5)  # No error should be raised
-        self.assertIn(step, self.trace.steps)
+        self.assertIn(step, self.trace.trace)
 
     def test_get_last_step(self):
         step1 = AgentStep(thought="Thought1", action="Action1", action_input="Input1", observation="Observation1")
@@ -62,13 +62,15 @@ class TestReasoningTrace(unittest.TestCase):
         step = AgentStep(thought="Test thought", action="Test action", action_input="Test input", observation="Test observation")
         self.trace.add_step(step)
         self.trace.set_query("Test query")
-        
+        self.trace.build_final_answer()
+        final_step = AgentFinalStep(final_answer="Test observation")
         self.trace.to_json()
 
         expected_dict = {
             "query": "Test query",
-            "reasoning_steps": [step.model_dump()],
-            "errors": []
+            "reasoning_steps": [step.model_dump(), final_step.model_dump()],
+            "final_answer" : "Test observation",
+            "errors": [],
         }
         
         expected_json = json.dumps(expected_dict, indent=4, ensure_ascii=False)
