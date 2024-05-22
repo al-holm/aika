@@ -20,6 +20,7 @@ class _GermanChatState extends State {
   late String _userId;
   final TextEditingController _controller = TextEditingController();
   List<Message> _messages = [];
+  bool isLoading = false;
 
 
   @override
@@ -104,7 +105,7 @@ class _GermanChatState extends State {
 
     setState(() {
       _messages.add(userMessage);
-      //_messages.add(botMessage);
+      isLoading = true;
     });
     // Send message to backend
     var messageBody = getMessageBodyHTTP(userMessage);
@@ -126,6 +127,7 @@ class _GermanChatState extends State {
                           timestamp: DateTime.parse(responseData['timestamp']));
         setState(() {
           _messages.add(botMessage);
+          isLoading = false;
         });
       }
     } else {
@@ -150,6 +152,11 @@ class _GermanChatState extends State {
                 itemCount: _messages.length,
               ),
           ),
+          if (isLoading) // Display loading indicator when loading
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: _buildLoadingIndicator(),
+              ),
           const Divider(height: 1),
           _buildTextInput(_controller, _handleSubmitted, context)
         ],
@@ -254,3 +261,57 @@ Widget _buildTextInput(TextEditingController _controller, Function _handleSubmit
   );
 }
 
+Widget _buildLoadingIndicator() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: <Widget>[
+      Dot(),
+      SizedBox(width: 4),
+      Dot(),
+      SizedBox(width: 4),
+      Dot(),
+    ],
+  );
+}
+
+class Dot extends StatefulWidget {
+  @override
+  _DotState createState() => _DotState();
+}
+
+class _DotState extends State<Dot> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: Duration(milliseconds: 1000),
+      vsync: this,
+    )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: _controller.drive(
+        CurveTween(curve: Curves.easeInOut),
+      ),
+      child: Container(
+        margin: EdgeInsets.all(15),
+        width: 8,
+        height: 8,
+        decoration: BoxDecoration(
+          color: Colors.black,
+          shape: BoxShape.circle,
+        ),
+      ),
+    );
+  }
+}

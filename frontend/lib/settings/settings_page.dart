@@ -21,7 +21,7 @@ class SettingsPage extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.all(padding),
-              margin: EdgeInsets.all(padding*3),
+              margin: EdgeInsets.all(padding*1),
               decoration: BoxDecoration(
                 color: AppStyles.accentColor,
                 borderRadius: BorderRadius.circular(4),
