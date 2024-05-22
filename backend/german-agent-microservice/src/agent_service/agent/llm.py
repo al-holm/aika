@@ -6,22 +6,32 @@ import json
 from dotenv import load_dotenv
 from agent_service.core.config import Config
 from agent_service.core.pydantic_llm import BedrockLLMConfigModel
+
 load_dotenv()
-# The class LLM is an abstract base class for running LLM with a method run that takes a prompt as input.
+
 class LLM(ABC):
+    """
+    an abstract base class for running LLM with the run method that takes a prompt as input.
+    """
     @abstractmethod
     def run(prompt: str):
-        '''The function "run" takes a prompt as input and does not perform any specific actions.
+        """
+        an abstract method that every child class must implement
+        takes a prompt and returns the text output from the model response
         Parameters
         ----------
         prompt : str
-            The `run` function takes a single parameter `prompt` of type `str`.
-        '''
+        """
         pass
 
 # The `LLMBedrock` class is a Python class that extends `LLM`, initializes configuration settings, and
 # provides methods to run a language model using AWS Bedrock and retrieve the model response.
 class LLMBedrock(LLM):
+    """
+    a child class of LLM
+    initializes configuration settings and
+    provides methods to run a language model using AWS Bedrock and retrieve the model response.
+    """
     def __init__(self) -> None:
         super().__init__()
         self.parse_config()
@@ -33,7 +43,7 @@ class LLMBedrock(LLM):
 
     def run(self, prompt: str, mode="plan"):
         """
-        This Python function takes a prompt, retrieves the body, invokes a model with the body, and
+        takes a prompt, retrieves the body, invokes a model with the body, and
         returns the text output from the model response.
         """
         if mode == "val":
@@ -51,7 +61,7 @@ class LLMBedrock(LLM):
 
     def get_body(self, prompt:str):
         """
-        The `get_body` function returns a JSON object with a prompt, max tokens, and temperature.
+        returns a JSON object with a prompt, max tokens, and temperature.
         """
         return json.dumps({
             "prompt": prompt,
@@ -61,9 +71,10 @@ class LLMBedrock(LLM):
         )
 
     def parse_config(self):
-        '''The function `parse_config` reads settings from a configuration file (*.ini), 
+        """
+        reads settings from a configuration file (*.ini), 
         validates types, creates a pydantic model object config with those settings.
-        '''
+        """
         try:
             config = Config("llm-bedrock")
             settings = config.get_settings()

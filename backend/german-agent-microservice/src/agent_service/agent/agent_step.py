@@ -1,8 +1,12 @@
 from pydantic import BaseModel
 
-# defines attributes for a step in an agent's decision-making process,
-# including thought, action, action input, and observation.
+
 class AgentStep(BaseModel):
+    """
+    contains attributes for a single step in the agent's decision-making process, 
+    such as the agent's thought, the required action, the necessary input for the action, and 
+    an observation
+    """
     thought:str
     action:str
     action_input:str
@@ -18,8 +22,11 @@ class AgentStep(BaseModel):
         res += "\n"
         return res
     
-# Final Answer class
+
 class AgentFinalStep(BaseModel):
+    """
+    represents the final step of the agent loop with the final answer
+    """
     final_answer:str
 
     def __str__(self) -> str:
@@ -27,8 +34,10 @@ class AgentFinalStep(BaseModel):
         return res
     
 
-# This class represents an AgentValidationStep with a validation thought attribute.
 class AgentValidationStep(BaseModel):
+    """
+    represents a validation step
+    """
     validation_thought:str
 
     def __str__(self) -> str:

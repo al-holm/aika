@@ -23,7 +23,7 @@ class WebSearch(Tool):
 
     def run(self, input: str):
         """
-        The function uses the requests library to search SearxNG for results based on the input string.
+        uses the requests library to search SearxNG for results based on the input string.
         """
         def_answer = "Request time out"
         answer = def_answer
@@ -57,7 +57,7 @@ class WebSearch(Tool):
 
     def setup_request(self, input: str):
         """
-        The function sets up the request parameters and headers for the SearxNG API.
+        sets up the request parameters and headers for the SearxNG API.
         """
         querystring = {"q": input , 
                        "categories": "general",
