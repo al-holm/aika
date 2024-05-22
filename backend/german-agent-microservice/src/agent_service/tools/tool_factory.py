@@ -3,9 +3,11 @@ from agent_service.tools.reading_generation_tool import ReadingGenerator
 from agent_service.tools.web_search_tool import WebSearch
 from agent_service.tools.listening_generation_tool import ListeningGenerator
 from agent_service.tools.task_generation_tool import TaskGenerator
-# The ToolFactory class initializes tools based on configuration attributes and adds them to a tool
-# list.
+
 class ToolFactory:
+    """
+    initializes tools based on configuration attributes and adds them to the tools list.
+    """
     def __init__(self, config):
         self.tool_map = {
             'web_search': WebSearch,
@@ -21,10 +23,10 @@ class ToolFactory:
         self.initialize_tools()
 
     def initialize_tools(self):
-        '''The `initialize_tools` function initializes tools based on configuration attributes and adds them to
-        a tool list.
-        
-        '''
+        """
+        initializes tools based on configuration attributes and adds them to
+        the tools list.
+        """
         for config_attr, tool_class in self.tool_map.items():
             if getattr(self.config, config_attr, False):
                 tool_instance = tool_class()

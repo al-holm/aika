@@ -2,8 +2,11 @@ from agent_service.prompts.task_generation_prompt import READING_TEMPLATE
 from agent_service.tools.tool import Tool
 from agent_service.agent.llm import LLMBedrock
 from agent_service.prompts.prompt_builder import PromptBuilder
-# The ReadingGenerator class implements a tool for a reading task generation
+
 class ReadingGenerator(Tool):
+    """
+    a tool for the reading task generation
+    """
     PROMPT_ID = "reading"
     TEMPLATE = READING_TEMPLATE
     def __init__(self):
@@ -16,9 +19,9 @@ class ReadingGenerator(Tool):
             )
 
     def run(self, input:str):
-        '''runs LLM with input. 
-
-        '''
+        """
+        runs LLM with input. 
+        """
         self.query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, text=input)
         answer = self.llm.run(self.query)
         return answer
