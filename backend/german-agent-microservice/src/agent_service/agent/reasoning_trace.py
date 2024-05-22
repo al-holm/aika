@@ -3,11 +3,11 @@ from agent_service.agent.agent_step import AgentStep, AgentValidationStep, Agent
 import json, uuid
 from pathlib import Path
 import os
-# The `ReasoningTrace` class represents a trace of reasoning steps with methods to add steps, store
+# The `ReasoningLogger` class represents a trace of reasoning steps with methods to add steps, store
 # exceptions, and generate a JSON output.
-class ReasoningTrace:
+class ReasoningLogger:
     def __init__(self) -> None:
-        self.steps : List[Union[AgentStep, AgentValidationStep, AgentFinalStep]] = []
+        self.trace : List[Union[AgentStep, AgentValidationStep, AgentFinalStep]] = []
         self.query = None
         self.errors : List[Exception] = []
     
@@ -21,28 +21,28 @@ class ReasoningTrace:
         '''appends a step object to a list of steps.
         
         '''
-        self.steps.append(step)
+        self.trace.append(step)
 
     def remove_step(self, index: int) -> None:
         '''removes a step object from a list of steps.
         
         '''
-        if 0 <= index < len(self.steps):
-            self.steps.pop(index)
+        if 0 <= index < len(self.trace):
+            self.trace.pop(index)
 
     def get_last_step(self) -> Union[AgentStep, AgentValidationStep, AgentFinalStep]:
         '''returns the last step object from a list of steps.
         
         '''
-        if self.steps:
-            return self.steps[-1]
+        if self.trace:
+            return self.trace[-1]
         return None
 
     def __str__(self) -> str:
         res = ""
-        if len(self.steps) == 0:
+        if len(self.trace) == 0:
             return res
-        for step in self.steps:
+        for step in self.trace:
             res += str(step) + "\n"
         return res
 
@@ -51,7 +51,7 @@ class ReasoningTrace:
         
         '''
         dict_f = {"query": self.query}
-        dict_f["reasoning_steps"] = [step.model_dump() for step in self.steps]
+        dict_f["reasoning_steps"] = [step.model_dump() for step in self.trace]
         dict_f["final_answer"] = self.final_answer
         dict_f["errors"] = self.errors
 
@@ -72,7 +72,7 @@ class ReasoningTrace:
         creates a final step with the observation in this step as final answer, 
         
         '''
-        for i in reversed(self.steps):
+        for i in reversed(self.trace):
             if isinstance(i, AgentStep):
                 step = AgentFinalStep(final_answer=i.observation)
                 self.add_step(step)

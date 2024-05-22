@@ -45,14 +45,14 @@ class TestAgent(unittest.TestCase):
                 unittest.mock.call(name_id=self.agent.VAL, **update)
             ]
             mock_update_prompt.assert_has_calls(calls, any_order=True)
-            self.assertEqual(self.agent.reasoning_trace.query, query)
+            self.assertEqual(self.agent.reasoning_logger.query, query)
 
     def test_get_current_prompt(self):
-        self.agent.reasoning_trace.add_step(AgentStep(thought="Test thought", action="Test action", action_input="Test input", observation="Test observation"))
+        self.agent.reasoning_logger.add_step(AgentStep(thought="Test thought", action="Test action", action_input="Test input", observation="Test observation"))
         with patch.object(PromptBuilder, 'generate_prompt', return_value="Generated Prompt") as mock_generate_prompt:
             result = self.agent.get_current_prompt(mode="plan")
             self.assertEqual(result, "Generated Prompt")
-            mock_generate_prompt.assert_called_once_with(name_id=self.agent.PLAN, reasoning_trace=str(self.agent.reasoning_trace))
+            mock_generate_prompt.assert_called_once_with(name_id=self.agent.PLAN, reasoning_trace=str(self.agent.reasoning_logger))
 
 if __name__ == '__main__':
     unittest.main()
