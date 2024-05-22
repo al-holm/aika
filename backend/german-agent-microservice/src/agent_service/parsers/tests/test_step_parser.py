@@ -6,7 +6,6 @@ from pydantic import ValidationError
 import unittest
 from agent_service.agent.agent_step import AgentStep
 from agent_service.exeptions.step_exception import ActionInputNotFoundException, ActionNotFoundException, InvalidToolException
-from agent_service.parsers.parser import Parser
 from agent_service.parsers.agent_step_parser import StepParser  # Ensure this import matches your module's structure
 
 class TestStepParser(unittest.TestCase):

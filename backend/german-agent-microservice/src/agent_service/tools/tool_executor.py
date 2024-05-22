@@ -1,5 +1,6 @@
 from agent_service.tools.tool import Tool
 from agent_service.agent.agent_step import AgentStep
+from agent_service.agent.reasoning_trace import ReasoningLogger
 from agent_service.tools.tool_factory import ToolFactory
 from agent_service.core.config import Config
 from agent_service.core.pydantic_tool_exe import ToolExecutorConfigModel
@@ -9,9 +10,9 @@ from typing import List
 # The `ToolExecutor` class is responsible for executing tools based on user input and configuration
 # settings (tool list).
 class ToolExecutor:
-    def __init__(self, reasoning_trace=None) -> None:
+    def __init__(self, reasoning_logger:ReasoningLogger) -> None:
         self.parse_config()
-        self.reasoning_trace = reasoning_trace
+        self.reasoning_logger = reasoning_logger
         self.factory = ToolFactory(self.config)
         self.tools: List[Tool] = self.factory.tools
         self.tool_names: List[str] = self.factory.tool_names
@@ -23,7 +24,7 @@ class ToolExecutor:
         
         '''
         if  "Aufgaben zu einem Text" in tool_name:
-            for i in reversed(self.reasoning_trace.steps):
+            for i in reversed(self.reasoning_logger.trace):
                 if isinstance(i, AgentStep):
                     if "Lese" or "Hör" in i.action:
                         input=i.observation
