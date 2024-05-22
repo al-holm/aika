@@ -22,7 +22,7 @@
     - Durchführung von Code Reviews. (rotierend)
     - Schreiben und Pflegen von Tests (Unit-Tests, Integrationstests, Widget-Tests). (rotierend)
 
-- **Yurij Eschkin**
+- **Yury Kazantsev**
   - Student B.Sc. Informatik
   - Hauptverantwortlich:
     - Entwicklung und Pflege der Server-Logik und SQL-Datenbank.
