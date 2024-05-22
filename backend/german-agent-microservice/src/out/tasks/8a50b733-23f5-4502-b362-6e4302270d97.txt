@@ -1,0 +1,19 @@
+Type: single-choice
+Question: Wie alt ist Lara?
+Answer options: [20, 23, 25]
+Solution: 23
+2. 
+Type: single-choice
+Question: Was möchte Lara nach ihrem Psychologiestudium machen?
+Answer options: [Arbeitslos sein, eine eigene Praxis eröffnen, in einer Fabrik arbeiten]
+Solution: eine eigene Praxis eröffnen
+3. 
+Type: gaps
+Question: Setze die fehlenden Wörter in die Lücken.
+Answer options: Hallo, ich bin [Lara, Laura, Lena]. Ich bin [20, 23, 25] Jahre alt und komme aus [Berlin, München, Hamburg]. Ich studiere [Soziologie, Psychologie, Biologie] an der [Friedrich-Alexander-Universität, Ludwig-Maximilians-Universität, Humboldt-Universität]. In meiner Freizeit [lese, schreibe, spiele] und [lese, schreibe, male] gerne. Ich interessiere mich sehr für [menschliches Verhalten, Tierverhalten, Pflanzenverhalten]. Deshalb habe ich mich für das [Soziologiestudium, Psychologiestudium, Biologiestudium] entschieden. Nach meinem Abschluss möchte ich gerne [eine eigene Praxis eröffnen, in einer Fabrik arbeiten, eine Ausbildung machen]. Ich freue mich darauf, neue [Menschen, Tiere, Pflanzen] und [Kulturen, Sprachen, Länder] kennenzulernen.
+Solution: [Lara, 23, München, Psychologie, Ludwig-Maximilians-Universität, lese und schreibe, menschliches Verhalten, Psychologiestudium, eine eigene Praxis eröffnen, Menschen und Kulturen]
+4. 
+Type: open
+Question: Warum hat Lara sich für das Psychologiestudium entschieden?
+Answer options: None
+Solution: Lara hat sich für das Psychologiest

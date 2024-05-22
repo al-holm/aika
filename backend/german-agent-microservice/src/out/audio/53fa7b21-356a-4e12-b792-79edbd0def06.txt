@@ -1,0 +1,7 @@
+Die Familie Meyer ist eine typische deutsche Familie. Vater Markus arbeitet als Ingenieur, Mutter Susanne ist Lehrerin. Sie haben zwei Kinder: Lena (15) und Tim (12).
+Als Familie Meyer am Wochenende zusammenkommt, kochen sie gemeinsam und spielen Brettspiele. Jeden Sommer machen sie eine Reise in den Süden Europas.
+Letztes Jahr waren sie in Italien und haben die schöne Toskana erkundet. Dieses Jahr wollen sie nach Spanien fahren und die Costa Brava besuchen.
+Die Familie Meyer ist sehr glücklich und liebt es, Zeit miteinander zu verbringen."
+```arduino
+
+```
