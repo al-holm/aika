@@ -23,7 +23,7 @@ model = LLMAgent(bedrock=bedrock)
 @app.route("/get_answer", methods=["Post"])
 def getAnswer():
     """
-    Returns "Hello World!"
+    Returns agent's answer
     """
     return {"answer": model.run(request.json["question"])["output"]}
 
