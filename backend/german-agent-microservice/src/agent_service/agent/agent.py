@@ -54,7 +54,7 @@ class Agent:
             the final answer obtained after running the agent loop.
         """
 
-        self.set_prompts_for_query(query)
+        self.update_prompts_for_query(query)
         logging.info("Entering agent loop...")
         iteration = 0
         while iteration < self.max_iterations:
@@ -78,7 +78,7 @@ class Agent:
         is_final : bool 
             whether the result is the final answer or not
         """
-        step = self.plan()
+        step = self.plan_step()
         self.execute_step(step)
         is_final = self.validate()
         return is_final
@@ -98,7 +98,7 @@ class Agent:
         is_final = self.process_validation_thought(validation_thought)
         return is_final
 
-    def plan(self) -> AgentStep:
+    def plan_step(self) -> AgentStep:
         """
         retrieves the current prompt, runs it through the llm, parses the
         output.
@@ -198,7 +198,7 @@ class Agent:
         logging.info(final_answer)
         return final_answer
 
-    def set_prompts_for_query(self, query:str) -> None:
+    def update_prompts_for_query(self, query:str) -> None:
         """
         updates prompts with a query and availiable tools
         
