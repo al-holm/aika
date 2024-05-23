@@ -25,7 +25,7 @@ export class GermanChatService {
     answerMessageDTO.timestamp = new Date();
     //answerMessageDTO.message_text = await this.get_answer(messageDTO.message_text); // await the get_answer call
     answerMessageDTO.message_text = messageDTO.message_text;
-
+    await new Promise(r => setTimeout(r, 2000));
     return Promise.resolve(answerMessageDTO);
   }
 
