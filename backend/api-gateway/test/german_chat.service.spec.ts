@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GermanChatService } from './german_chat.service';
-import { GermanChatMessageDto } from './dto/german-chat-question.dto';
+import { Message } from '../src/german_chat/models/message.dto';
+import { GermanChatService } from './../src/german_chat/german_chat.service';
 
 /**
  * Test suite for the GermanChatService class.
@@ -27,15 +27,15 @@ describe('GermanChatService', () => {
    */
   describe('processMessage', () => {
     it('should return a formatted echo of the input message', async () => {
-      const mockDto = new GermanChatMessageDto();
-      mockDto.user_id = '12345';
-      mockDto.message_text = 'Hallo! Wie geht’s?';
+      const mockDto = new Message();
+      mockDto.userId= '12345';
+      mockDto.text = 'Hallo! Wie geht’s?';
       const result = await service.processMessage(mockDto);
       expect(result).toBeDefined();
-      expect(result.user_id).toEqual(mockDto.user_id);
-      expect(result.message_id).toBeDefined(); // Ensure a UUID is generated
+      expect(result.userId).toEqual(mockDto.userId);
+      expect(result.messageId).toBeDefined(); // Ensure a UUID is generated
       expect(result.role).toEqual('bot');
-      expect(result.message_text).toContain('Hallo! Wie geht’s?');
+      expect(result.text).toContain('Hallo! Wie geht’s?');
       expect(result.timestamp).toBeInstanceOf(Date);
     });
   });
