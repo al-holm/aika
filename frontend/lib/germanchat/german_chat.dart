@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart' as shared_preferences;
 import 'package:uuid/uuid.dart' as uuid;
 import 'message.dart';
-import 'ui_elements.dart';
+import '../shared/ui_elements.dart';
 
 
 class GermanChatPage extends StatefulWidget {
@@ -32,7 +32,7 @@ class _GermanChatState extends State {
   /// The `_initMessages` function initializes a chat message with a predefined string and adds it to a
   /// list of messages.
   Future<void> _initMessages() async {
-    String initString = "Hallo, ich bin AIKA! Ich kann dir helfen, Deutsch zu lernen, Formulare auszufüllen und rechtliche Fragen zu beantworten.\n\nMeine Tipps sind aber nur orientierend, bei Fragen wende dich an eine qualifizierte Beratung.";
+    String initString = "Hallo, ich bin AIKA! Ich kann dir helfen, Deutsch zu lernen.\n\nWillst du mit dem neuen Untericht starten oder hast Fragen?";
     Message initMessage = _buildMessage(initString, 'bot', 'init');
     setState(() {
          _messages.add(initMessage);
@@ -136,9 +136,10 @@ class _GermanChatState extends State {
 /// builds widget
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+        child: Scaffold(
       backgroundColor: Color.fromRGBO(238, 229, 222, 1),
-      appBar: appBarAIKA(context),
+      appBar: appBarAIKA(context, 'AIKA Chat'),
       body: Column(
         children: <Widget>[
           Expanded(
@@ -153,6 +154,7 @@ class _GermanChatState extends State {
           _buildTextInput(_controller, _handleSubmitted, context)
         ],
       ),
+    )
     );
   }
 }

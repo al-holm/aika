@@ -23,7 +23,8 @@ export class GermanChatService {
     answerMessageDTO.message_id = uuidv4();
     answerMessageDTO.role = 'bot';
     answerMessageDTO.timestamp = new Date();
-    answerMessageDTO.message_text = await this.get_answer(messageDTO.message_text); // await the get_answer call
+    //answerMessageDTO.message_text = await this.get_answer(messageDTO.message_text); // await the get_answer call
+    answerMessageDTO.message_text = messageDTO.message_text;
 
     return Promise.resolve(answerMessageDTO);
   }
