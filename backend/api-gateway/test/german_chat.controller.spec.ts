@@ -1,7 +1,7 @@
+import { GermanChatController } from './../src/german_chat/german_chat.controller';
+import { Message } from '../src/german_chat/models/message.dto';
+import { GermanChatService } from './../src/german_chat/german_chat.service';
 import { Test, TestingModule } from '@nestjs/testing';
-import { GermanChatService } from './german_chat.service';
-import { GermanChatMessageDto } from './dto/german-chat-question.dto';
-import { GermanChatController } from './german_chat.controller';
 
 /**
  * Test suite for the GermanChatController class.
@@ -43,9 +43,9 @@ describe('GermanChatController', () => {
    */
   describe('POST /message', () => {
     it('should return the processed message', async () => {
-      const messageDto = new GermanChatMessageDto();
-      messageDto.message_text = 'Hello';
-      messageDto.user_id = '123';
+      const messageDto = new Message();
+      messageDto.text = 'Hello';
+      messageDto.messageId = '123';
 
       const response = await controller.getAnswer(messageDto);
 
