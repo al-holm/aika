@@ -10,9 +10,9 @@ class ChatService {
 
   String generateMessageBody(Message message) {
     return jsonEncode(<String, dynamic>{
-      'message_text': message.getText(),
-      'user_id': message.getUserID(),
-      'message_id': message.getMessageID(),
+      'text': message.getText(),
+      'userId': message.getUserID(),
+      'messageId': message.getMessageID(),
       'role': message.getRole(),
       'timestamp': message.getTimestamp().toIso8601String(),
     });
@@ -30,11 +30,12 @@ class ChatService {
 
     if (response.statusCode == 201) {
       final responseData = jsonDecode(response.body)['message'];
-      if (responseData.containsKey('message_text')) {
+      print(DateTime.parse(responseData['timestamp']));
+      if (responseData.containsKey('text')) {
         return Message(
-          text: responseData['message_text'],
-          userID: responseData['user_id'],
-          messageID: responseData['message_id'],
+          text: responseData['text'],
+          userID: responseData['userId'],
+          messageID: responseData['messageId'],
           role: responseData['role'],
           timestamp: DateTime.parse(responseData['timestamp']),
         );
