@@ -1,17 +1,5 @@
 import 'package:flutter/material.dart';
 
-Widget _buildLoadingIndicator() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-      Dot(),
-      SizedBox(width: 4),
-      Dot(),
-      SizedBox(width: 4),
-      Dot(),
-    ],
-  );
-}
 
 class Dot extends StatefulWidget {
   @override
@@ -25,7 +13,7 @@ class _DotState extends State<Dot> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 1000),
       vsync: this,
     )..repeat(reverse: true);
   }
@@ -38,18 +26,41 @@ class _DotState extends State<Dot> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    double unitW = screenSize.width * 0.01;
+    double unitH = screenSize.height * 0.01;
     return FadeTransition(
       opacity: _controller.drive(
         CurveTween(curve: Curves.easeInOut),
       ),
       child: Container(
-        width: 8,
-        height: 8,
-        decoration: BoxDecoration(
+        margin: EdgeInsets.all(unitW),
+        width: unitW*2,
+        height: unitH*2,
+        decoration: const BoxDecoration(
           color: Colors.black,
           shape: BoxShape.circle,
         ),
       ),
+    );
+  }
+}
+
+
+class LoadingIndicator extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    double padding = screenSize.width * 0.01;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children:  <Widget>[
+        Dot(),
+        SizedBox(width: padding*0.5),
+        Dot(),
+        SizedBox(width: padding*0.5),
+        Dot(),
+      ],
     );
   }
 }
