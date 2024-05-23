@@ -1,32 +1,33 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
-import { GermanChatMessageDto } from './dto/german-chat-question.dto';
+import { Message, UserRole } from './models/message.dto';
 import { v4 as uuidv4 } from 'uuid';
 import axios, { AxiosResponse, AxiosRequestConfig, RawAxiosRequestHeaders } from 'axios';
-
+import { ApiTags } from '@nestjs/swagger';
 /**
  * Service class for processing German chat messages.
  * @class GermanChatService
  */
+@ApiTags('API-Gateway')
 @Injectable()
 export class GermanChatService {
   /**
    * Processes a German chat message DTO and echoes back a formatted string.
-   * @param {GermanChatMessageDto} messageDTO - The German chat message DTO to process.
+   * @param {Message} userMessage - The German chat message DTO to process.
    * @returns {Promise<String>} A promise that resolves to a string containing the echoed message.
    */
   async processMessage(
-    messageDTO: GermanChatMessageDto,
-  ): Promise<GermanChatMessageDto> {
-    const answerMessageDTO = new GermanChatMessageDto();
-    answerMessageDTO.user_id = messageDTO.user_id;
-    answerMessageDTO.message_id = uuidv4();
-    answerMessageDTO.role = 'bot';
-    answerMessageDTO.timestamp = new Date();
+    userMessage: Message,
+  ): Promise<Message> {
+    const botMessage = new Message();
+    botMessage.userId= userMessage.userId;
+    botMessage.messageId= uuidv4();
+    botMessage.role = UserRole.Bot;
+    botMessage.timestamp = new Date();
     //answerMessageDTO.message_text = await this.get_answer(messageDTO.message_text); // await the get_answer call
-    answerMessageDTO.message_text = messageDTO.message_text;
+    botMessage.text = userMessage.text;
     await new Promise(r => setTimeout(r, 2000));
-    return Promise.resolve(answerMessageDTO);
+    return Promise.resolve(botMessage);
   }
 
   /**

@@ -1,6 +1,5 @@
 .venv/
 .env
-models/
 __pycache__/
 .vscode/settings.json
 backend/german-agent-microservice/tmp/audio
