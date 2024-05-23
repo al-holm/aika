@@ -40,5 +40,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// read more about TextEditingController, Expanded, Divider, ListView, ListTile
