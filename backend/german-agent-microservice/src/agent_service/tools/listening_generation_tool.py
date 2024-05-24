@@ -10,10 +10,10 @@ class ListeningGenerator(Tool):
     """
     PROMPT_ID = "listening"
     TEMPLATE = LISTENING_TEMPLATE
-    def __init__(self):
+    def __init__(self, llm):
         self.name = "Hörtext mit Audiodatei erstellen"
         self.description = "Benutzte zur Erstellung von Hörtexten, Generierung von Hörtexten und Audiodatei."
-        self.llm = LLMBedrock()
+        self.set_llm(llm)
         self.prompt = PromptBuilder()
         self.prompt.create_prompts(
             {self.PROMPT_ID : self.TEMPLATE}
