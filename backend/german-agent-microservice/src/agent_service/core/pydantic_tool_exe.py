@@ -7,3 +7,4 @@ class ToolExecutorConfigModel(BaseModel):
     listening_generator:bool
     task_generator:bool
     retriever:bool
+    llm:str

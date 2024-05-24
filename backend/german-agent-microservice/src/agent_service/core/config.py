@@ -11,7 +11,7 @@ class Config:
     def __init__(self, class_name):
         self.config = configparser.ConfigParser()
         self.class_name = class_name
-        self.filename = os.path.abspath(os.path.join(self.DIR, f'config-{class_name}.ini'))
+        self.filename = os.path.abspath(os.path.join(self.DIR, f'configs/config-{class_name}.ini'))
         self._settings = {}
         self.load_config()
 
@@ -32,3 +32,16 @@ class Config:
         returns the settings dictionary.
         """
         return self._settings
+    
+    def update_llm(self, llm:str):
+        self.config.read(self.filename)
+        self.config.set('Settings', 'llm', llm)
+        # save to a file
+        with open(self.filename, 'w') as configfile:
+            self.config.write(configfile)
+
+    def set_llm(llm, task_type):
+        config_agent = Config('agent')
+        config_agent.update_llm(llm)
+        config_tools = Config(f"tool-exe-{task_type.value}")
+        config_tools.update_llm(llm)
