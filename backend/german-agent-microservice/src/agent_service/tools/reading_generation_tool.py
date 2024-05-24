@@ -9,10 +9,10 @@ class ReadingGenerator(Tool):
     """
     PROMPT_ID = "reading"
     TEMPLATE = READING_TEMPLATE
-    def __init__(self):
+    def __init__(self, llm):
         self.name = "Lesetext erstellen"
         self.description = "Benutzte als Erste zur Erstellung von Lesetexten (NICHT FÜR HÖRTEXTE BENUTZTEN)."
-        self.llm = LLMBedrock()
+        self.set_llm(llm)
         self.prompt = PromptBuilder()
         self.prompt.create_prompts(
             {self.PROMPT_ID : self.TEMPLATE}
