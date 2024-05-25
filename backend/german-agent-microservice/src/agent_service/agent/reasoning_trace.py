@@ -10,7 +10,7 @@ class ReasoningLogger:
     represents a trace of agent steps with methods to add steps, store
     exceptions, and generate JSON output.
     """
-    def init(self, query_id: str, model_id:str, task_type) -> None:
+    def __init__(self, query_id: str, model_id:str, task_type) -> None:
         self.query_id = query_id
         self.model_id = model_id
         self.task_type = task_type.value
