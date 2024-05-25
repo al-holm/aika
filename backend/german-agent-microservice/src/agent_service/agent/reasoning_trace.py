@@ -11,7 +11,7 @@ class ReasoningLogger:
     exceptions, and generate JSON output.
     """
     def __init__(self) -> None:
-        self.trace : List[Union[AgentStep, AgentValidationStep, AgentFinalStep]] = []
+        self.trace:List[Union[AgentStep, AgentValidationStep, AgentFinalStep]] = []
         self.query = None
         self.errors : List[Exception] = []
     

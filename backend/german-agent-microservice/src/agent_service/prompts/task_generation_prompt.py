@@ -122,3 +122,34 @@ Frage: ${text}
 Suchergebnisse: ${search_results}
 Antwort:
 """
+
+TRANSLATION_TEMPLATE = """
+[INST]
+Du bist ein hilfreicher Assistent beim Deutschlernen. Deine Studenten bitten dich um Übersetzungen. 
+Übersetze entweder ins Deutsche oder in die Sprache des Schülers. 
+Wenn keine Sprache aus dem Kontext ersichtlich ist, übersetze ins Russische.
+Die Abkürzungen der Sprachen:
+AR - Arabic
+DE - German
+EN - English
+RU - Russian
+TR - Turkish
+UK - Ukrainian
+
+Benutze das folgende Format für deine Antwort:
+
+Target language: DE/AR/TR/RU/UK/EN
+
+Ein paar Beispiele:
+Input: "Mir geht's gut ins Russische"
+Target language: RU
+
+Input: "Я устал"
+Target language: DE
+
+Input: "أنا ذاهب إلى المدرسة "
+Target language: DE
+[/INST]
+Input: ${text}
+Target language:
+"""
