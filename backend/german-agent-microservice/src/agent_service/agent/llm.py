@@ -5,7 +5,7 @@ import boto3
 import json
 from dotenv import load_dotenv
 from agent_service.core.config import Config
-from agent_service.core.pydantic_llm import BedrockLLMConfigModel
+from agent_service.core.pydantic_llm import BedrockLLMConfigModel, RunpodLLMConfigModel
 import requests
 
 load_dotenv()
@@ -95,9 +95,10 @@ class LLMRunPod(LLM):
     """
     def __init__(self) -> None:
         super().__init__()
-        self.max_tokens = 512
-        self.temperature = 0.5
-        self.model_id = 'aya:35b'
+        self.parse_config()
+        self.max_tokens = self.config.max_tokens
+        self.temperature = self.config.temperature
+        self.config.llm_id = self.config.llm_id
         self.url = os.environ['RUNPOD_URL']
 
 
@@ -109,7 +110,7 @@ class LLMRunPod(LLM):
         self.set_max_tokens_by_mode(mode)
         
         data = {
-            "model": self.model_id,
+            "model": self.llm_id,
             "prompt": prompt,
             "stream": False,
             "options": {
@@ -119,4 +120,16 @@ class LLMRunPod(LLM):
 
         response = requests.post(self.url, json=data)    
         return response.json()["response"]
+    
+    def parse_config(self):
+        """
+        reads settings from a configuration file (*.ini), 
+        validates types, creates a pydantic model object config with those settings.
+        """
+        try:
+            config = Config("llm-runpod")
+            settings = config.get_settings()
+            self.config = RunpodLLMConfigModel(**settings) # parse & validate dict from config, create attributes
+        except ValidationError as e:
+            logging.ERROR(f'Bedrock attributes error: {e}')
 
