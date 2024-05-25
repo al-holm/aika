@@ -7,8 +7,8 @@ from agent_service.core.config import Config
 if __name__ == "__main__":
     setup_logging()
     llm = 'bedrock' # bedrock or runpod
-    task_type = TaskType.LESSON
+    task_type = TaskType.ANSWERING
     Config.set_llm(llm, task_type)
 
-    a = Agent(task_type)
-    a.run("Bitte erstelle eine Grammatikerklärung mit Beispiele für das Thema 'Konjuktiv 2 (II)' und benutze danach ein Tool zur Aufgabenerstellung, damit du 5 Aufgaben erstellst.")
+    a = Agent(query_id="q001", task_type=task_type)
+    a.run("Übersetze wie kann ich 'ich komme später' auf turkisch sagen.")
