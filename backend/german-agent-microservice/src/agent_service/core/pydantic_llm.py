@@ -8,3 +8,9 @@ class BedrockLLMConfigModel(BaseModel):
     content_type: str
     max_tokens: int = Field(gt=0, description="The maximum number of tokens to generate.")
     temperature: float = Field(ge=0.0, le=1.0, description="The randomness of the output.")
+
+
+class RunpodLLMConfigModel(BaseModel):
+    llm_id: str
+    max_tokens: int = Field(gt=0, description="The maximum number of tokens to generate.")
+    temperature: float = Field(ge=0.0, le=1.0, description="The randomness of the output.")
