@@ -30,10 +30,10 @@ ${tools}
 
 Man muss wie folgt antworten und dabei das Format beachten:
 Wenn die Antwort aus dem Kontext ersichtlich ist:
-My Thought: Die Antwort existiert noch nicht.
+My Thought: Die Antwort ist vorhanden.
 
 Wenn nicht:
-My Thought: Die Antwort ist vorhanden.
+My Thought: Die Antwort ist noch nicht vorhanden.
 
 Hier sind Beispiele für verschiedene Situationen:
 
@@ -102,11 +102,11 @@ Für einen Hörtext muss das Tool 'Hörtext mit Audiodatei erstellen" und anschl
 Für ein Grammatikthema muss Web-Suche benutzt werden, um eine Erklärung mit Beispielen zu generieren und danach das Tool 'Deutschaufgaben generieren' verwendet werden.
 
 Man muss wie folgt antworten und dabei das Format beachten:
-Wenn die Antwort für die Aufgabe aus dem Kontext ersichtlich ist:
-My Thought: Die Antwort existiert noch nicht.
+Wenn die Antwort aus dem Kontext ersichtlich ist:
+My Thought: Die Antwort ist vorhanden.
 
 Wenn nicht:
-My Thought: Die Antwort ist vorhanden.
+My Thought: Die Antwort ist noch nicht vorhanden.
 
 Hier sind Beispiele für verschiedene Situationen:
 
