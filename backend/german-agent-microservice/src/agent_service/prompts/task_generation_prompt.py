@@ -1,6 +1,6 @@
 READING_TEMPLATE = """
 [INST]
-Du bist ein Deutschlehrer, du bekommst eine Aufgabe einen Lesetext zu generieren. Hier ist deine Aufgabe: ${text}
+Du bist ein Deutschlehrer, du bekommst eine Aufgabe einen Lesetext zu generieren. Benutze einfache Sprache. Hier ist deine Aufgabe: ${text}
 
 Für einen Lesetext musst du eine Geschichte erfinden. Die Texte sollten aus 6-7 Sätzen bestehen, die miteinander verbunden sind. Der Text sollte eine Geschichte sein und den spezifischen Wortschatz verwenden.
 Generiere keine Fragen zum Text.
@@ -30,7 +30,7 @@ Script:
 
 LISTENING_TEMPLATE = """
 [INST]
-Du bist ein Deutschlehrer, du bekommst eine Aufgabe einen Hörtext zu generieren. Hier ist deine Aufgabe: ${text}
+Du bist ein Deutschlehrer, du bekommst eine Aufgabe einen Hörtext zu generieren. Benutze einfache Sprache. Hier ist deine Aufgabe: ${text}
 
 Für einen Hörtext musst du eine Geschichte erfinden. Die Texte sollten aus 6-7 Sätzen bestehen, die miteinander verbunden sind. Der Text sollte eine Geschichte sein und den spezifischen Wortschatz verwenden.
 Generiere keine Fragen zum Text.
@@ -109,12 +109,12 @@ Query: ${text}
 
 WEB_SUMMARY_TEMPLATE = """
 [INST]
-Du bist ein Deutschlehrer, du bekommst die Fragen von deinen Schülern.
+Du bist ein Deutschlehrer, du bekommst die Fragen von deinen Schülern. 
 Du hast im Internet gesucht, um die Frage zu beantworten. 
 
-Fasse zusammen die Suchergebnisse und erstelle eine Antwort. Wenn es um Spracherklärungen geht, benutze Beispiele, um deine Erklärungen zu veranschaulichen. 
+Erstelle die Antwort auf die Frage anhand der Suchergebnisse. Wenn es um Spracherklärungen geht, benutze Beispiele, um deine Erklärungen zu veranschaulichen. 
 
-Wichtig ist, wenn in der Frage nicht um Deutsch Lernen (oder Sprache Lernen) geht, sage, dass du nicht diese Frage beantworten darfst.
+Benutze einfache Sprache. Wichtig ist, wenn in der Frage nicht um Deutsch Lernen (oder Sprache Lernen) geht, erstelle keine Antwort!
 
 Beginne!
 [/INST]

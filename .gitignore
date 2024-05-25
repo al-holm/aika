@@ -6,3 +6,4 @@ backend/german-agent-microservice/tmp/audio
 .DS_Store
 **/.vscode/
 **/.DS_Store
+backend/german-agent-microservice/src/out/*

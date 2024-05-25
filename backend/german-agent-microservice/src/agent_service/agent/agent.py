@@ -1,15 +1,24 @@
 from agent_service.core.config import Config
 from agent_service.core.pydantic_agent import AgentConfigModel
 from agent_service.agent.agent_step import AgentStep
+from agent_service.agent.task_type import TaskType
 from pydantic import ValidationError
-from agent_service.agent.llm import LLMBedrock
-from agent_service.prompts.react_prompt import REACT_PROMPT
-from agent_service.prompts.final_answer_prompt import VALIDATION_PROMPT, VAL_STOP_PREFIX
+from agent_service.agent.llm import LLMBedrock, LLMRunPod
+from agent_service.prompts.react_prompt import VAL_STOP_PREFIX, ACTION_PROMPT_QA, ACTION_PROMPT_LESSON, VALIDATION_PROMPT_LESSON, VALIDATION_PROMPT_QA
 from agent_service.agent.reasoning_trace import ReasoningLogger
 from agent_service.prompts.prompt_builder import PromptBuilder
 from agent_service.tools.tool_executor import ToolExecutor
 from agent_service.parsers.agent_step_parser import StepParser, ValidationParser
 import logging
+from enum import Enum
+
+class AgentMode(Enum):
+    """ 
+    defines an enumeration `AgentMode` with two members `PLAN` and `VAL` representing
+    different modes for an agent: action proposal & action validation.
+    """
+    PLAN = "plan"
+    VAL = "validate"
 
 class Agent:
     """
@@ -17,25 +26,32 @@ class Agent:
     validate results, and provide final answers based on reasoning traces and prompts.
     """
 
-    PLAN = "plan"
-    VAL = "validate"
-    def __init__(self) -> None:
+    def __init__(self, task_type: TaskType = TaskType.ANSWERING) -> None:
         self.parse_config()
         self.reasoning_logger = ReasoningLogger()
-        self.tool_executor = ToolExecutor(self.reasoning_logger)
+        self.tool_executor = ToolExecutor(
+            reasoning_logger=self.reasoning_logger,
+            task_type=task_type
+            )
         self.prompt_builder = PromptBuilder()
-        self.init_prompts() 
+        self.init_prompts(task_type) 
         self.validation_parser = ValidationParser()
         self.step_parser = StepParser(self.tool_executor.tool_names)
 
-    def init_prompts(self):
+    def init_prompts(self, task_type: TaskType):
         """
         sets prompt templates for a given plan and validation steps
         """
+        if task_type == TaskType.ANSWERING:
+            plan_prompt = ACTION_PROMPT_QA
+            val_prompt = VALIDATION_PROMPT_QA
+        else:
+            plan_prompt = ACTION_PROMPT_LESSON
+            val_prompt = VALIDATION_PROMPT_LESSON
         self.prompt_builder.create_prompts(
             {
-                self.PLAN : REACT_PROMPT,
-                self.VAL : VALIDATION_PROMPT
+                AgentMode.PLAN : plan_prompt,
+                AgentMode.VAL : val_prompt
             }
         )
 
@@ -93,8 +109,8 @@ class Agent:
         is_final : bool 
             whether the result is the final answer or not
         """
-        validation_prompt = self.get_current_prompt(mode="val")
-        validation_thought = self.llm.run(validation_prompt, mode="val")
+        validation_prompt = self.get_current_prompt(mode=AgentMode.VAL)
+        validation_thought = self.llm.run(validation_prompt, mode=AgentMode.VAL.value)
         is_final = self.process_validation_thought(validation_thought)
         return is_final
 
@@ -108,7 +124,7 @@ class Agent:
         step: AgentStep 
                    
         """
-        current_prompt = self.get_current_prompt(mode="plan")
+        current_prompt = self.get_current_prompt(mode=AgentMode.PLAN)
         llm_answer = self.llm.run(current_prompt)
         step = self.step_parser.parse_step(llm_answer)
         return step
@@ -150,13 +166,13 @@ class Agent:
         self.reasoning_logger.add_step(step)
 
     
-    def get_current_prompt(self, mode="plan") -> str:
+    def get_current_prompt(self, mode=AgentMode.PLAN) -> str:
         """
         returns a prompt with a reasoning trace based on the specified mode.
         
         Parameters
         ----------
-        mode, optional : str
+        mode, optional : AgentMode
             the type of prompt to be generated.
 
         Returns
@@ -165,13 +181,7 @@ class Agent:
             a prompt with a reasoning trace based on the specified mode
         """
         reasoning_steps = str(self.reasoning_logger)
-        if mode=="val":
-            name_id = self.VAL
-        elif mode=="plan":
-            name_id = self.PLAN
-        else:
-            raise NotImplementedError
-        current_prompt = self.prompt_builder.generate_prompt(name_id=name_id,
+        current_prompt = self.prompt_builder.generate_prompt(name_id=mode,
                                                              reasoning_trace=reasoning_steps)
         return current_prompt
 
@@ -210,12 +220,12 @@ class Agent:
         } 
 
         self.prompt_builder.update_prompt(
-            name_id=self.PLAN,
+            name_id=AgentMode.PLAN,
             **update
         )
         
         self.prompt_builder.update_prompt(
-            name_id=self.VAL,
+            name_id=AgentMode.VAL,
             **update
         )
         self.reasoning_logger.set_query(query)
@@ -232,6 +242,8 @@ class Agent:
             self.config = AgentConfigModel(**settings)
             if self.config.llm=='bedrock':
                 self.llm = LLMBedrock()
+            elif self.config.llm=='runpod':
+                self.llm = LLMRunPod()
             self.max_iterations = self.config.max_iterations
         except ValidationError as e:
             logging.ERROR(f'Agent attributes error: {e}')
