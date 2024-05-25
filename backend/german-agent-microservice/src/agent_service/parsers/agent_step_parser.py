@@ -91,7 +91,16 @@ class StepParser(Parser):
 
         action_input = self.remove_quotes(action_input)
         action = self.remove_quotes(action)
+        action = self.find_tool(action)
         return action, action_input
+
+    def find_tool(self, action):
+        if action is None:
+            return None
+        for tool in self.tool_names:
+                if tool in action:
+                    action = tool
+        return action
 
     def extract_thought(self, first_line):
         """
