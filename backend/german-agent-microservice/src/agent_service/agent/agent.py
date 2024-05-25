@@ -26,9 +26,9 @@ class Agent:
     validate results, and provide final answers based on reasoning traces and prompts.
     """
 
-    def __init__(self, task_type: TaskType = TaskType.ANSWERING) -> None:
+    def __init__(self, query_id:str, task_type: TaskType = TaskType.ANSWERING) -> None:
         self.parse_config()
-        self.reasoning_logger = ReasoningLogger()
+        self.reasoning_logger = ReasoningLogger(query_id, self.llm.config.llm_id, task_type)
         self.tool_executor = ToolExecutor(
             reasoning_logger=self.reasoning_logger,
             task_type=task_type
