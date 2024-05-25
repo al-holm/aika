@@ -29,9 +29,6 @@ class ToolFactory:
         """
         for config_attr, tool_class in self.tool_map.items():
             if getattr(self.config, config_attr, False):
-                if config_attr == 'translator':
-                    tool_instance = tool_class()
-                else:
-                    tool_instance = tool_class(llm=self.config.llm)
+                tool_instance = tool_class(llm=self.config.llm)
                 self.tools.append(tool_instance)
                 self.tool_names.append(tool_instance.name)
