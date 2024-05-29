@@ -6,7 +6,7 @@ from agent_service.agent.task_type import TaskType
 from agent_service.core.config import Config
 from typing import Literal
 
-def run_queries(queries: pd.DataFrame, task_type: TaskType, llm: Literal["bedrock", "runpod"]) -> None:
+def run_queries(queries: pd.DataFrame, task_type: TaskType) -> None:
     """
     Calls Agent.run for each query in the provided list of strings
 
@@ -16,8 +16,6 @@ def run_queries(queries: pd.DataFrame, task_type: TaskType, llm: Literal["bedroc
         the queries for which the Agent.run method should be run
     task_type : TaskType
         a value from the TaskType Enum, can be either LESSON or ANSWERING
-    llm : str
-        a type of the llm model being used
     """
 
     logging.info("Entered run_queries")
@@ -45,18 +43,17 @@ def load_queries_csv(path: str):
         contains only ID and queries
     """
 
-    df = pd.read_csv(path, sep=";")
+    df = pd.read_csv(path, sep=";").iloc[:38, :]    
 
     return df[["ID","query"]]
 
 
 def run_test_script():
-
-    llm = 'bedrock'
+    llm = 'runpod'
     task_type = TaskType.ANSWERING
     Config.set_llm(llm, task_type)
 
-    run_queries(queries=load_queries_csv("in/queries - QA.csv"), task_type=task_type, llm=llm)
+    run_queries(queries=load_queries_csv("/Users/ali/Desktop/code/aika/backend/german-agent-microservice/src/in/queries_qa.csv"), task_type=task_type)
 
 
 if __name__ == "__main__":

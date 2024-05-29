@@ -70,7 +70,7 @@ class ReasoningLogger:
         dict_f["task_type"] = self.task_type
         dict_f["query_id"] = self.query_id
 
-        filepath = Path("backend/german-agent-microservice/src/out/" + self.query_id + "_" + self.model_id + ".json")
+        filepath = Path("/Users/ali/Desktop/code/aika/backend/german-agent-microservice/src/out/" + self.query_id + "_" + self.model_id + ".json")
         os.makedirs(os.path.dirname(filepath), exist_ok=True)
 
         with open(filepath, 'w', encoding='utf8') as file:

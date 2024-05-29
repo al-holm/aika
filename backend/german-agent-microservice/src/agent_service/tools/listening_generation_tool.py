@@ -26,7 +26,7 @@ class ListeningGenerator(Tool):
         """
         self.query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, text=input)
         answer = self.llm.run(self.query)
-        filepath = "backend/german-agent-microservice/src/out/audio/" + str(uuid.uuid4()) + ".txt"
+        filepath = "out/audio/" + str(uuid.uuid4()) + ".txt"
         with open(filepath, 'w', encoding='utf8') as file:
             file.write(answer)
         return answer
