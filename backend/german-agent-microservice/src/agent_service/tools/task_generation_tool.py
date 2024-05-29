@@ -18,7 +18,7 @@ class TaskGenerator(Tool):
     def run(self, input:str):
         self.query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, text=input)
         answer = self.llm.run(self.query)
-        filepath = "backend/german-agent-microservice/src/out/tasks/" + str(uuid.uuid4()) + ".txt"
+        filepath = "out/tasks/" + str(uuid.uuid4()) + ".txt"
         with open(filepath, 'w', encoding='utf8') as file:
             file.write(answer)
         return input + "\n\n" + answer
