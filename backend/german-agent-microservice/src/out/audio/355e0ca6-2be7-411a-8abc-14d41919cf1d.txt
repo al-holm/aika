@@ -1,6 +1,0 @@
-Die Familie Müller lebt in einer kleinen Stadt in Deutschland. Vater Wilhelm arbeitet als Ingenieur, Mutter Maria ist Krankenschwester und ihre beiden Kinder, Lena und Max, besuchen die örtliche Schule.
-Am Wochenende unternehmen sie oft Ausflüge in die Natur oder machen Picknicks im Park. Sie spielen Brettspiele und lesen Bücher.
-An Feiertagen kochen sie traditionelle Gerichte und verbringen Zeit miteinander. Die Familie Müller ist sehr eng und genießt ihre gemeinsame Zeit."
-```arduino
-
-```

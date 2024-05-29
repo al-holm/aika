@@ -1,6 +1,0 @@
-In der Familie von Jakob spielt jeder eine wichtige Rolle. Seine Mutter kümmert sich um den Haushalt und kocht leckere Mahlzeiten. Sein Vater arbeitet als Ingenieur und bringt das Geld nach Hause. Jakob und seine Schwester helfen bei den Hausaufgaben und spielen mit den Großeltern Karten.
-Die Großeltern erzählen oft von der guten alten Zeit, während sie die Kinder hochhalten. Alle respektieren einander und unterstützen sich gegenseitig in guten und schlechten Zeiten.
-Deshalb ist die Familie von Jakob ein Ort, an dem man Liebe, Unterstützung und Verständnis findet. Jeder fühlt sich sicher und geborgen in seiner Familie."
-```sql
-
-```
