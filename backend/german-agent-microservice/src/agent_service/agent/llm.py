@@ -101,7 +101,7 @@ class LLMRunPod(LLM):
         self.parse_config()
         self.max_tokens = self.config.max_tokens
         self.temperature = self.config.temperature
-        self.config.llm_id = self.config.llm_id
+        self.llm_id = self.config.llm_id
         self.url = os.environ['RUNPOD_URL']
 
 
