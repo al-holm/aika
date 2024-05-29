@@ -2,7 +2,7 @@ from typing import List, Union
 from agent_service.agent.agent_step import AgentStep, AgentValidationStep, AgentFinalStep
 import json, uuid
 from pathlib import Path
-import os
+import os, logging
 
 
 class ReasoningLogger:
@@ -70,7 +70,16 @@ class ReasoningLogger:
         dict_f["task_type"] = self.task_type
         dict_f["query_id"] = self.query_id
 
-        filepath = Path("/Users/ali/Desktop/code/aika/backend/german-agent-microservice/src/out/" + self.query_id + "_" + self.model_id + ".json")
+        # remove all dots in the model ID
+        clean_model_id = ""
+        for char in self.model_id:
+            if char == "." or char == ":":
+                clean_model_id += "_"
+            else:
+                clean_model_id += char
+
+        filepath = Path("C:/Users/tommc/OneDrive/Dokumente/progs/nest/aika/backend/german-agent-microservice/src/out/" + self.query_id + "_" + clean_model_id + ".json")
+        logging.info(filepath)
         os.makedirs(os.path.dirname(filepath), exist_ok=True)
 
         with open(filepath, 'w', encoding='utf8') as file:

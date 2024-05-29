@@ -2,7 +2,7 @@ from agent_service.prompts.task_generation_prompt import LISTENING_TEMPLATE
 from agent_service.agent.llm import LLMBedrock
 from agent_service.prompts.prompt_builder import PromptBuilder
 from agent_service.tools.tool import Tool
-import uuid
+import uuid, os
 
 class ListeningGenerator(Tool):
     """
@@ -26,7 +26,8 @@ class ListeningGenerator(Tool):
         """
         self.query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, text=input)
         answer = self.llm.run(self.query)
-        filepath = "out/audio/" + str(uuid.uuid4()) + ".txt"
+        filepath = "C:/Users/tommc/OneDrive/Dokumente/progs/nest/aika/backend/german-agent-microservice/src/out/audio/" + str(uuid.uuid4()) + ".txt"
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
         with open(filepath, 'w', encoding='utf8') as file:
             file.write(answer)
         return answer
