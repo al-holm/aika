@@ -18,7 +18,8 @@ class _GermanChatState extends State<GermanChatPage> {
   final TextEditingController _controller = TextEditingController();
   List<Message> _messages = [];
   bool isLoading = false;
-  final ChatService chatService = ChatService(apiUrl: 'http://10.0.2.2:3000/german-chat/message/');
+  // 'http://10.0.2.2:3000/ - for Android emulation
+  final ChatService chatService = ChatService(apiUrl: 'http://192.168.178.149:3000/german-chat/message/'); //http://127.0.0.1 for ios
   final MetadataService metadataService = MetadataService();
 
   @override

@@ -24,7 +24,7 @@ export class GermanChatService {
     botMessage.messageId= uuidv4();
     botMessage.role = UserRole.Bot;
     botMessage.timestamp = new Date();
-    //answerMessageDTO.message_text = await this.get_answer(messageDTO.message_text); // await the get_answer call
+    //botMessage.text = await this.get_answer(userMessage.text); // await the get_answer call
     botMessage.text = userMessage.text;
     await new Promise(r => setTimeout(r, 2000));
     return Promise.resolve(botMessage);
