@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/germanchat/german_chat.dart';
+import 'package:frontend/chat/consult_chat.dart';
+import 'package:frontend/chat/german_chat.dart';
 import 'package:frontend/homepage/widgets/home_buttons.dart';
 import 'package:frontend/homepage/widgets/home_logo.dart';
 import 'package:frontend/homepage/widgets/home_title.dart';
@@ -12,6 +13,13 @@ class HomePage extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => GermanChatPage()),
+    );
+  }
+
+  void _navigateToConsultChat(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ConsultChatPage()),
     );
   }
 
@@ -60,7 +68,7 @@ class HomePage extends StatelessWidget {
               HomeButton(
                 text: AppLocalizations.of(context).translate('law&daily'),
                 onPressed: () {
-                  print("pressed Recht");
+                   _navigateToConsultChat(context);
                 },
               ),
             ],

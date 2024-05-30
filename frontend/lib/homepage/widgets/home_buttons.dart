@@ -32,7 +32,7 @@ class HomeButton extends StatelessWidget {
     return ElevatedButton(
       style: buttonStyle,
       onPressed: onPressed,
-      child: Text(text, style: HomeStyles.buttonTextStyle(fontSize)),
+      child: Text(text, style: AppStyles.buttonTextStyle(fontSize, AppStyles.accentColor)),
     );
   }
 }
