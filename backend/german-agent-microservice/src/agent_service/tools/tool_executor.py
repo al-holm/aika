@@ -40,7 +40,8 @@ class ToolExecutor:
         if  "Deutschaufgaben generieren" in tool_name:
             for i in reversed(self.reasoning_logger.trace):
                 if isinstance(i, AgentStep):
-                    if "Lese" or "Hör" in i.action:
+                    if "Lese" in i.action or "Hör" in i.action or "Web-Suche" in i.action:
+                        logging.info(f"add_trace_for_task_generation: action {i.action}, observation {i.observation}")
                         input=i.observation
                         break
         return input
