@@ -43,17 +43,17 @@ def load_queries_csv(path: str):
         contains only ID and queries
     """
 
-    df = pd.read_csv(path, sep=";").iloc[:38, :]    
+    df = pd.read_csv(path, sep=",").sample(3)
 
     return df[["ID","query"]]
 
 
 def run_test_script():
-    llm = 'runpod'
+    llm = 'bedrock'
     task_type = TaskType.ANSWERING
     Config.set_llm(llm, task_type)
 
-    run_queries(queries=load_queries_csv("/Users/ali/Desktop/code/aika/backend/german-agent-microservice/src/in/queries_qa.csv"), task_type=task_type)
+    run_queries(queries=load_queries_csv("/Users/ali/Desktop/code/aika/backend/german-agent-microservice/src/in/queries_qa_translation.csv"), task_type=task_type)
 
 
 if __name__ == "__main__":
