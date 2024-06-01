@@ -9,6 +9,7 @@ if __name__ == "__main__":
     llm = 'bedrock' # bedrock or runpod
     task_type = TaskType.ANSWERING
     Config.set_llm(llm, task_type)
-    tj = TrajectoryInjector(True)
-    #a = Agent(query_id="q001", task_type=task_type)
-    #a.run("Übersetze wie kann ich 'ich komme später' auf turkisch sagen.")
+    #tj = TrajectoryInjector(True)
+    a = Agent(task_type=task_type)
+    a.run("Übersetze wie kann ich 'ich komme später' auf turkisch sagen.")
+    a.run("Как я могу объяснить Ausländerbehörde, что мне сначала надо продлить загранпаспорт, перед получением визы?")

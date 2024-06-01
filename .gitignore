@@ -7,3 +7,4 @@ backend/german-agent-microservice/tmp/audio
 **/.vscode/
 **/.DS_Store
 backend/german-agent-microservice/src/out/*
+backend/german-agent-microservice/src/agent_service/prompts/res/chromadb/*
