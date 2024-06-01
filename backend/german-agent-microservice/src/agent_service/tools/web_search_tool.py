@@ -16,6 +16,7 @@ class WebSearch(Tool):
         self.api_host = "searxng.p.rapidapi.com"
         self.url = "https://searxng.p.rapidapi.com/search"
         self.set_llm(llm)
+        self.llm.set_max_tokens(280)
         self.prompt = PromptBuilder()
         self.prompt.create_prompts(
             {self.PROMPT_ID : self.TEMPLATE}
@@ -25,25 +26,24 @@ class WebSearch(Tool):
         """
         uses the requests library to search SearxNG for results based on the input string.
         """
-        def_answer = "Request time out"
+        def_answer = "Wiederhole die Anfrage noch mal"
         answer = def_answer
         querystring, headers = self.setup_request(input_str)
         requests_n = 0
-        while requests_n < 10:
+        while requests_n < 20:
             try:
                 response = requests.post(self.url, headers=headers, params=querystring)
                 results = response.json()
                 answer = self.parse_results(results)
                 requests_n = 100
             except Exception:
-                sleep(2)
+                sleep(1)
             requests_n += 1  
         if answer != def_answer:
             self.query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, 
                                                      text=input_str,
                                                      search_results=answer)
             answer = self.llm.run(self.query) 
-        print(answer)
         return answer
     
     def parse_results(self, results):
