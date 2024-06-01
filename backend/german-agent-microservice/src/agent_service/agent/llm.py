@@ -47,6 +47,7 @@ class LLMBedrock(LLM):
         super().__init__()
         self.parse_config()
         self.max_tokens = self.config.max_tokens
+        self.llm_id = self.config.llm_id
         self.client = boto3.client(
                                     service_name=self.config.service_name, 
                                     region_name=self.config.region_name,

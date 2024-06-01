@@ -79,9 +79,14 @@ class Agent:
         Injects relevant trajectory examples into the agent's prompt.
     """
 
-    def __init__(self, query_id:str, task_type: TaskType = TaskType.ANSWERING) -> None:
+    def __init__(self, query_id:str=None, task_type: TaskType = TaskType.ANSWERING) -> None:
         self.parse_config()
-        self.reasoning_logger = ReasoningLogger(query_id, self.llm.config.llm_id, task_type)
+        self.reasoning_logger = ReasoningLogger(
+            query_id=query_id, 
+            model_id=self.llm.llm_id, 
+            task_type=task_type
+            )
+        self.task_type = task_type
         self.tool_executor = ToolExecutor(
             reasoning_logger=self.reasoning_logger,
             task_type=task_type
@@ -91,6 +96,17 @@ class Agent:
         self.validation_parser = ValidationParser()
         self.step_parser = StepParser(self.tool_executor.tool_names)
         self.trajectory_injector = TrajectoryInjector()
+
+    def reset(self):
+        """
+        resets the reasoning trace and recreates prompts
+
+        """
+        self.reasoning_logger = ReasoningLogger(
+             model_id=self.llm.llm_id, 
+             task_type=self.task_type
+            )
+        self.init_prompts(self.task_type) 
 
     def init_prompts(self, task_type: TaskType):
         """
@@ -136,7 +152,9 @@ class Agent:
                 self.reasoning_logger.add_exception(str(e))
             iteration += 1
         logging.info("Exiting agent loop...")
-        return self.get_final_response(iteration)
+        final_answer = self.get_final_response(iteration)
+        self.reset()
+        return final_answer
 
     def take_step(self) -> bool:
         """
@@ -254,7 +272,7 @@ class Agent:
             the final answer
         """
         if iteration == self.max_iterations:
-            return "Reached iterations limit"
+            return "Etwas ist fehlgeschlagen, versuche es erneut!"
         self.reasoning_logger.build_final_answer()
         self.reasoning_logger.to_json()
         final_answer = self.reasoning_logger.final_answer

@@ -32,7 +32,6 @@ class Translator(Tool):
 
     def run(self, input:str)->str:
         target_language = self.parse_target_language(input)
-        print(target_language)
         if target_language=="":
             answer="Du hast das falsche Format als Action Input gegeben. Bitte benutzte das Action Input Format: der zu übersetzende Text in der Originalsprache - [DE/RU/EN/TR/AR]"
         else:
