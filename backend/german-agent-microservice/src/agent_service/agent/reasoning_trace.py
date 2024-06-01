@@ -10,7 +10,7 @@ class ReasoningLogger:
     represents a trace of agent steps with methods to add steps, store
     exceptions, and generate JSON output.
     """
-    def __init__(self, query_id: str, model_id:str, task_type) -> None:
+    def __init__(self, task_type, query_id: str=None, model_id:str=None) -> None:
         self.query_id = query_id
         self.model_id = model_id
         self.task_type = task_type.value
@@ -62,6 +62,8 @@ class ReasoningLogger:
         """
         converts the trace into JSON and writes it to the out file
         """
+        if self.query_id is None:
+            self.query_id  = str(uuid.uuid4())
         dict_f = {"query": self.query}
         dict_f["reasoning_steps"] = [step.model_dump() for step in self.trace]
         dict_f["final_answer"] = self.final_answer
@@ -71,14 +73,9 @@ class ReasoningLogger:
         dict_f["query_id"] = self.query_id
 
         # remove all dots in the model ID
-        clean_model_id = ""
-        for char in self.model_id:
-            if char == "." or char == ":":
-                clean_model_id += "_"
-            else:
-                clean_model_id += char
+        clean_model_id = self.model_id.replace(".", "_").replace(":", "_")
 
-        filepath = Path("C:/Users/tommc/OneDrive/Dokumente/progs/nest/aika/backend/german-agent-microservice/src/out/" + self.query_id + "_" + clean_model_id + ".json")
+        filepath = Path("out/" + self.query_id + "_" + clean_model_id + ".json")
         logging.info(filepath)
         os.makedirs(os.path.dirname(filepath), exist_ok=True)
 

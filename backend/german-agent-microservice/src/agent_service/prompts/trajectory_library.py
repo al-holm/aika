@@ -98,7 +98,9 @@ class TrajectoryInjector:
             except Exception:
                 logging.warning("No collection found")
             logging.info("Reinitializing a vector store")
-        self.collection = self.client.get_or_create_collection(name=self.COLLECTION_NAME, embedding_function=self.ef)
+            self.collection = self.client.create_collection(name=self.COLLECTION_NAME, embedding_function=self.ef)
+        else:
+            self.collection = self.client.get_collection(name=self.COLLECTION_NAME, embedding_function=self.ef)
 
     def add_docs(self):
         """
@@ -130,8 +132,7 @@ class TrajectoryInjector:
         Tuple[str, str]
             A tuple containing containing the parsed examples for planning and validation.
         """
-        print(query)
-        patience = 5
+        patience = 3
         i=0
         while i<patience:
             try:
