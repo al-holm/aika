@@ -3,6 +3,8 @@ import 'package:frontend/chat/models/message.dart';
 import 'package:frontend/chat/widgets/message_button.dart';
 import 'package:frontend/task_widget/fill_gaps.dart';
 import 'package:frontend/task_widget/models/task.dart';
+import 'package:frontend/task_widget/open_ended.dart';
+import 'package:frontend/task_widget/task_widget.dart';
 
 
 class MessageTile extends StatelessWidget {
@@ -134,7 +136,7 @@ class GermanMessageTile extends MessageTile{
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => FillInTheGapScreen()
+                    builder: (context) => TaskSequenceScreen(),
                   ),
                 );
               },

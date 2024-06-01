@@ -36,19 +36,28 @@ class TaskControlButton extends StatelessWidget {
 }
 
 
+
+
 class TaskButtonGroup extends StatelessWidget {
+  final VoidCallback? onBack;
+  final VoidCallback? onNext;
+
+  TaskButtonGroup({this.onBack, this.onNext});
+
   @override
   Widget build(BuildContext context) {
     return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TaskControlButton(text: 'Back', onPressed: () {
-                  },
-                ),
-                TaskControlButton(text: 'Continue', onPressed: () {
-                  },
-                ),
-              ],
-      );
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+       TaskControlButton(
+          text: 'Back',
+          onPressed: onBack ?? () {},  
+        ),
+        TaskControlButton(
+          text: 'Continue',
+          onPressed: onNext ?? () {},  
+        ),
+      ],
+    );
   }
 }

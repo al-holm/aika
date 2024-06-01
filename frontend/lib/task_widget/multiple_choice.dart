@@ -4,77 +4,86 @@ import 'package:frontend/shared/ui_elements.dart';
 import 'package:frontend/task_widget/models/task.dart';
 import 'package:frontend/task_widget/styles/task_styles.dart';
 import 'package:frontend/task_widget/widgets/buttons.dart';
-
-class MultipleChoiceTask extends StatefulWidget {
+import 'package:frontend/utils/app_localization.dart';
+class MultipleChoiceTask extends StatelessWidget {
   final Task task;
 
   MultipleChoiceTask({required this.task});
-  @override
-  _MultipleChoiceTaskState createState() => _MultipleChoiceTaskState();
-}
-
-class _MultipleChoiceTaskState extends State<MultipleChoiceTask> {
-  int? _selectedOption;
-
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    double unitW = screenSize.width * 0.01;
+    double unitH = screenSize.height * 0.01;
     return Scaffold(
-      appBar: appBarAIKA(context, "Tasks"),
       backgroundColor: AppStyles.sandColor,
       body: SafeArea(
-      child: Container(
-        color: AppStyles.sandColor,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Text(
-              widget.task.question,
-              style: TaskStyles.questionTextStyle,
-              textAlign: TextAlign.center,
-            ),
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TaskQuestionText(task.question),
+              SizedBox(height: 16),
+              MultipleChoiceOptions(task.answerOptions),
+              SizedBox(height: 16),
+            ],
           ),
-           Expanded(
-            child: ListView.builder(
-              itemCount: widget.task.answerOptions.length,
-              itemBuilder: (context, index) {
-                return RadioListTile<int>(
-                  title: Text(widget.task.answerOptions[index],
-                  style: TaskStyles.optionTextStyle,
-                  ),
-                  value: index,
-                  groupValue: _selectedOption,
-                  activeColor: AppStyles.accentColor,
-                  onChanged: (int? value) {
-                    setState(() {
-                      _selectedOption = value;
-                    });
-                  },
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TaskControlButton(text: 'Back', onPressed: () {
-                    // Handle back action
-                  },
-                ),
-                TaskControlButton(text: 'Continue', onPressed: () {
-                    // Handle back action
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
-    )
-    )
+    );
+  }
+}
+
+class TaskQuestionText extends StatelessWidget {
+  final String question;
+
+  TaskQuestionText(this.question);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      question,
+      style: TaskStyles.questionTextStyle,
+      textAlign: TextAlign.left,
+    );
+  }
+}
+
+class MultipleChoiceOptions extends StatefulWidget {
+  final List<List<String>> options;
+
+  MultipleChoiceOptions(this.options);
+
+  @override
+  _MultipleChoiceOptionsState createState() => _MultipleChoiceOptionsState();
+}
+
+class _MultipleChoiceOptionsState extends State<MultipleChoiceOptions> {
+  int? _selectedOption;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: widget.options[0].length,
+        itemBuilder: (context, index) {
+          return RadioListTile<int>(
+            title: Text(
+              widget.options[0][index],
+              style: TaskStyles.optionTextStyle,
+            ),
+            value: index,
+            groupValue: _selectedOption,
+            activeColor: AppStyles.accentColor,
+            onChanged: (int? value) {
+              setState(() {
+                _selectedOption = value;
+              });
+            },
+          );
+        },
+      ),
     );
   }
 }

@@ -11,7 +11,7 @@ class TaskStyles{
   static const TextStyle optionTextStyle = TextStyle(
       color: AppStyles.darkColor,
       fontFamily: 'SFMono',
-      height: 1.1,
+      height: 3,
       fontSize: 18,
     );
 }
