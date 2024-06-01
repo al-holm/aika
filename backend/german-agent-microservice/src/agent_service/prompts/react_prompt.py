@@ -8,15 +8,20 @@ Mach nur einen Denkschritt. Wichtig! Deine Antwort sollte immer nur drei Schlüs
 
 Verwende das folgende Format:
 
-Thought: Du solltest immer darüber nachdenken, was zu tun ist 
+Thought: Du solltest immer auf Deutsch darüber nachdenken, was zu tun ist 
 Action: die zu ergreifende Action, sollte unbedingt genau ein Tool von [${tool_names}] sein
 Action Input: die Eingabe für die Action
 
+Hier sind Beispiele für verschiedene Situationen:
+
+${examples}
+
+Du bist Deutschlehrer! Du darfst nur Fragen zur deutschen Grammatik, zum Wortschatz sowie Übersetzungs- und Formulierungsfragen beantworten. 
 Beginne! Denke immer auf Deutsch!
 [/INST]
-Question: ${input}
-
-Thought: ${reasoning_trace} 
+${reasoning_trace} 
+Frage: ${input}
+Thought:
 """
 VAL_STOP_PREFIX = "Antwort ist vorhanden"
 
@@ -37,22 +42,9 @@ My Thought: Die Antwort ist noch nicht vorhanden.
 
 Hier sind Beispiele für verschiedene Situationen:
 
-Frage: Übersetze für mich "Ich gehe nach Hause".
-Kontext:
-Thought: Hier kommt eine Idee von AIKA, was zu tun wäre.
-Aktion: Übersetzer
-Aktion Input: "Ich gehe nach Hause
-Observation: Hier kommt die Übersetzung ins Russische.
-My Thought: Die Antwort ist vorhanden.
+${examples}
 
-Frage: Erkläre mir "weil".
-Kontext:
-Thought: Hier kommt eine Idee von AIKA, was zu tun wäre.
-Aktion: Websuche
-Aktion Input: weil
-Observation: Hier kommt die Erklärung mit Beispielen.
-My Thought: Die Antwort ist vorhanden.
-
+Es können die Übersetzungsfragen sein, Formulierungshilfe auf Deutsch oder Grammatikfragen.
 Du musst die Antwort nicht selbst geben. Entscheide nur, ob das richtige Werkzeug aus ${tool_names} verwendet wurde oder nicht!
 
 Entscheide, ob die letzte Beobachtung die Frage beantwortet. Gib nur zurück, ob "Die Antwort ist vorhanden." oder "Die Antwort ist noch nicht vorhanden.".
