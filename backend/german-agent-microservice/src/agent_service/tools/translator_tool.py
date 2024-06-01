@@ -8,7 +8,19 @@ class Translator(Tool):
     TEMPLATE = TRANSLATION_TEMPLATE
     def __init__(self, llm, target_language:str="RU")->None:
         self.name = "Übersetzer"
-        self.description = "Hilfreich, wenn man Text übersetzen möchte"
+        self.description = """
+        Hilfreich bei der Übersetzung von Texten. Verfügbare Sprachen: Deutsch [DE], Russisch [Ru], Englisch [EN], Türkisch [TR], Arabisch [AR], Ukrainisch [UK].
+        Action Input Format: der zu übersetzende Text in der Originalsprache - [DE/RU/EN/TR/AR/UK]
+        Beispiele: 
+        Как я могу сказать "Меня зовут Али" по-немецки?
+        Action: Übersetzer
+        Action Input: Меня зовут Али - [DE]
+
+        Перекладіть "Ich habe heute eine Katze gesehen".
+        Action: Übersetzer
+        Action Input: Ich habe heute eine Katze gesehen - [UK]
+
+        """
         self._target_language = target_language
         self.translator = deepl.Translator(os.environ["DEEPL_AUTH_KEY"])
         self.set_llm(llm)
@@ -21,22 +33,23 @@ class Translator(Tool):
     def run(self, input:str)->str:
         target_language = self.parse_target_language(input)
         print(target_language)
-        try:
+        if target_language=="":
+            answer="Du hast das falsche Format als Action Input gegeben. Bitte benutzte das Action Input Format: der zu übersetzende Text in der Originalsprache - [DE/RU/EN/TR/AR]"
+        else:
+            input = input.split("- [")[0]
             answer = str(self.translator.translate_text(
             input, target_lang=target_language
-            ))
-        except Exception:
-            answer = str(self.translator.translate_text(
-            input, target_lang=self._target_language
             ))
         return answer
 
     def parse_target_language(self, input):
-            self.query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, 
-                                                                text=input)
-            target_language = self.llm.run(self.query) 
-            target_language = target_language.split("\n")[0].replace("Target language:", "").replace(" ", "")[:2]
-            return target_language
+        lang = input.split("[")[1].split("]")[0]
+        if str.lower(lang) in ["de", "ru", "tr", "uk", "ar", "en"]:
+            if str.lower(lang) == "en":
+                lang = "en-us"
+            return lang
+        else:
+            return ""
 
     def set_target_language(self, lang:str)->None:
         self._target_language =lang
