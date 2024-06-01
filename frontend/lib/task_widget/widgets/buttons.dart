@@ -34,3 +34,21 @@ class TaskControlButton extends StatelessWidget {
     );
   }
 }
+
+
+class TaskButtonGroup extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TaskControlButton(text: 'Back', onPressed: () {
+                  },
+                ),
+                TaskControlButton(text: 'Continue', onPressed: () {
+                  },
+                ),
+              ],
+      );
+  }
+}
