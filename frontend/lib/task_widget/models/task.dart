@@ -5,12 +5,12 @@ enum TaskType{
 class Task {
   TaskType type;
   String question;
-  List<String> answerOptions;
+  List<List<String>> answerOptions;
   List<String> solutions;
-  List<String> userAnswers;
+  late List<String> userAnswers;
   bool completed = false; 
 
-  Task(this.type, this.question, this.answerOptions, this.solutions, this.userAnswers);
+  Task(this.type, this.question, this.answerOptions, this.solutions);
 
   
 }
