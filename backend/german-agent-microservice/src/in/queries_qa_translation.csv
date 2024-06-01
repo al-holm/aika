@@ -1,0 +1,48 @@
+,ID,query,context
+0,q01,"Bitte übersetze mir folgenden Satz: ""Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat""",translation
+2,q03,"Переведи мне, пожалуйста, следующее предложение: ""Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat""",translation
+3,q04,"Bitte übersetze mir folgenden Satz: ""Он мне очень помог, переняв задачу""",translation
+4,q05,"Bitte übersetze mir folgenden Satz ins Russische: ""Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat""",translation
+5,q06,"Übersetzen mir das Sazt ins Russische Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat",translation
+6,q07,"Bitte übersetze mir folgenden Satz Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat ins Russische",translation
+27,q28,"""Я учу немецкий"" як сказати німецькою?",translation
+28,q29,"Wie sage ich ""я хочу есть"" auf Deutsch?",translation
+29,q30,"""Ich bin glücklich"" nasıl Türkçe'ye çevrilir?",translation
+33,q34,"كيف أقول ""أريد حجز موعد"" بالألمانية؟",translation
+34,q35,"Wie sage ich ""какой сегодня день?"" auf Deutsch?",translation
+35,q36,"Wie sage ich ""какое у вас расписание?"" auf Deutsch?",translation
+165,q166,"كيف أقول ""Ich bin müde"" بالعربية؟",translation
+166,q167,"أرجوك ترجم لي الجملة ""Ich habe Hunger"".",translation
+168,q169,"ساعدني في ترجمة ""Ich brauche Wasser"".",translation
+169,q170,"أريد ترجمة ""Ich habe gestern einen interessanten Artikel über Wissenschaft gelesen"" إلى الألمانية.",translation
+170,q171,"كيف أقول ""Die Reise nach Deutschland war eine unvergessliche Erfahrung"" بالألمانية؟",translation
+171,q172,"أرجوك ترجم لي ""Die Umweltverschmutzung nimmt weltweit zu"".",translation
+172,q173,"ساعدني في ترجمة ""Ich plane, nächstes Jahr nach Europa zu reisen"".",translation
+173,q174,"Как сказать ""Ich bin hungrig"" по-русски?",translation
+174,q175,"Переведите, пожалуйста, ""Ich habe Durst"".",translation
+175,q176,"Как будет ""Wie viel kostet das?"" на русском языке?",translation
+176,q177,"Помогите перевести ""Ich liebe meine Familie"".",translation
+177,q178,"Как сказать ""Ich habe gestern eine sehr interessante Dokumentation gesehen"" по-русски?",translation
+178,q179,"Переведите ""Die kulturellen Unterschiede zwischen den Ländern sind faszinierend"" на русский язык.",translation
+179,q180,"Как будет ""Es ist wichtig, regelmäßig Sport zu treiben"" на русском?",translation
+180,q181,"Помогите перевести ""Ich freue mich darauf, neue Menschen kennenzulernen"".",translation
+181,q182,"Як сказати ""Ich bin glücklich"" українською?",translation
+182,q183,"Перекладіть, будь ласка, ""Ich mag Musik"".",translation
+183,q184,"Як буде ""Wo ist die nächste Apotheke?"" українською мовою?",translation
+184,q185,"Допоможіть перекласти ""Ich habe ein Auto"".",translation
+185,q186,"Як сказати ""Gestern habe ich ein wunderbares Buch über Geschichte gelesen"" українською?",translation
+186,q187,"Перекладіть ""Die wirtschaftliche Lage des Landes hat sich verbessert"" на українську мову.",translation
+187,q188,"Як буде ""Es ist schwer, eine neue Sprache zu lernen"" українською?",translation
+188,q189,"Допоможіть перекласти ""Ich freue mich auf die Reise nächstes Jahr"".",translation
+189,q190,"Lütfen ""Ich bin traurig"" cümlesini Türkçeye çevirir misiniz?",translation
+190,q191,"""Ich habe Durst"" ifadesini Türkçeye nasıl çeviririm?",translation
+191,q192,"""Wie komme ich zum Bahnhof?"" Türkçe nasıl söylenir?",translation
+192,q193,"Bana ""Ich habe einen Hund"" cümlesinin Türkçesini verir misin?",translation
+197,q198,"Bitte übersetze mir folgenden Satz ins Arabische: ""Ich habe meine Hausaufgaben vergessen"".",translation
+198,q199,"Übersetze ""Ich gehe jeden Tag zur Arbeit"" ins Russische.",translation
+199,q200,"Übersetze bitte ""Ich habe Angst vor Spinnen"" ins Ukrainische.",translation
+200,q201,"Bitte übersetze ""Ich spiele gerne Basketball"" ins Türkische.",translation
+201,q202,"Übersetze ""Morgen werde ich meine Großeltern besuchen"" ins Arabische.",translation
+202,q203,"Bitte übersetze ""Es ist wichtig, gesund zu bleiben"" ins Russische.",translation
+203,q204,"Übersetze ""Ich habe gestern ein tolles Konzert besucht"" ins Ukrainische.",translation
+204,q205,"Bitte übersetze ""Ich möchte eine neue Sprache lernen"" ins Türkische.",translation
