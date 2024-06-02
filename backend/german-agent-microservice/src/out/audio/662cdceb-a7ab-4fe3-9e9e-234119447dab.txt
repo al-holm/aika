@@ -1,5 +1,0 @@
-Die Familie Meier ist eine typische deutsche Familie. Vater Markus arbeitet als Ingenieur, Mutter Susanne ist Lehrerin. Sie haben zwei Kinder: Lena, die im letzten Jahr ihr Abitur gemacht hat und nun studiert, und Tim, der noch zur Schule geht.
-Am Wochenende fahren sie oft gemeinsam in den Schwarzwald, um zu wandern oder Rad zu fahren. Abends kochen sie zusammen und essen im Garten. Sie sind eine sehr enge Familie und halten viel zusammen. Auch wenn sie alle sehr beschäftigt sind, nehmen sie sich immer Zeit füreinander."
-```arduino
-
-```

@@ -3,7 +3,7 @@ from agent_service.tools.reading_generation_tool import ReadingGenerator
 from agent_service.tools.web_search_tool import WebSearch
 from agent_service.tools.listening_generation_tool import ListeningGenerator
 from agent_service.tools.task_generation_tool import TaskGenerator
-
+from agent_service.tools.phrasing_tool import PhrasingTool
 class ToolFactory:
     """
     initializes tools based on configuration attributes and adds them to the tools list.
@@ -14,7 +14,8 @@ class ToolFactory:
             'translator': Translator,
             'listening_generator':ListeningGenerator,
             'reading_generator': ReadingGenerator,
-            'task_generator':TaskGenerator
+            'task_generator':TaskGenerator,
+            'phrasing_tool':PhrasingTool
         } # for now implemented tools mapping, 
         # toDo add other tools later to the mapping
         self.config = config

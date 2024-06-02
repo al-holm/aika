@@ -4,6 +4,5 @@ elevenlabs==0.2.27
 Flask
 Flask-API
 python-dotenv==1.0.1
-weaviate_client==4.5.7
 Werkzeug==2.3.0
 colorama==0.4.6 
