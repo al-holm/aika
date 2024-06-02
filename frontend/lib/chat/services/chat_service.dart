@@ -1,4 +1,4 @@
-import 'package:frontend/germanchat/services/metadata_service.dart';
+import 'package:frontend/chat/services/metadata_service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../models/message.dart';

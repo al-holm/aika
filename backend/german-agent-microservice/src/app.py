@@ -1,11 +1,9 @@
 from flask import request, url_for
 from flask_api import FlaskAPI
-from document_handler import DocumentStoreHandler
-from agent import LLMAgent
-from rag import RetrievalAugmentedGeneration
 import logging
 import boto3
-
+from agent_service.agent.agent import Agent
+from agent_service.agent.task_type import TaskType
 import warnings
 for _ in logging.root.manager.loggerDict:
     logging.getLogger(_).setLevel(logging.CRITICAL)
@@ -18,7 +16,7 @@ warnings.filterwarnings("ignore")
 app = FlaskAPI(__name__)
 
 bedrock = boto3.client(service_name='bedrock-runtime', region_name="eu-west-3")
-model = LLMAgent(bedrock=bedrock)
+model = Agent(task_type=TaskType.ANSWERING)
 
 @app.route("/get_answer", methods=["Post"])
 def getAnswer():
