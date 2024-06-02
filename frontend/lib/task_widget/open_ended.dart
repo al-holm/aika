@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/shared/styles/app_styles.dart';
-import 'package:frontend/shared/ui_elements.dart';
 import 'package:frontend/task_widget/models/task.dart';
 import 'package:frontend/task_widget/multiple_choice.dart';
-import 'package:frontend/task_widget/styles/task_styles.dart';
-import 'package:frontend/task_widget/widgets/buttons.dart';
-import 'package:frontend/utils/app_localization.dart';
 class OpenQuestionTask extends StatelessWidget {
   final Task task;
 
@@ -13,21 +9,24 @@ class OpenQuestionTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    double unitW = screenSize.width * 0.01;
+    double unitH = screenSize.height * 0.01;
     return Scaffold(
       backgroundColor: AppStyles.sandColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(unitW*5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TaskQuestionText(task.question),
-              SizedBox(height: 16),
+              SizedBox(height: unitH*3),
               Container(
-                decoration: BoxDecoration(color: Colors.white),
+                decoration: const BoxDecoration(color: Colors.white),
                 child: OpenQuestionInput(),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: unitH),
             ],
           ),
         ),
@@ -48,7 +47,7 @@ class _OpenQuestionInputState extends State<OpenQuestionInput> {
   Widget build(BuildContext context) {
     return TextField(
       controller: openQuestionController,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         border: OutlineInputBorder(),
         hintText: 'Type your answer here...',
       ),

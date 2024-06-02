@@ -30,16 +30,30 @@ class TaskWidget extends StatelessWidget {
 }
 
 class TaskSequenceScreen extends StatefulWidget {
+  final List<Task> tasks;
+  final int initialIndex;
+
+  TaskSequenceScreen({required this.tasks, this.initialIndex = 0});
+
   @override
   _TaskSequenceScreenState createState() => _TaskSequenceScreenState();
 }
+
 class _TaskSequenceScreenState extends State<TaskSequenceScreen> {
-  final PageController _pageController = PageController();
-  final List<Task> tasks = [multipleChoiceTask, fillInTheGapTask, openEndedTask];
-  int _currentIndex = 0;
+  late PageController _pageController;
+  int _currentIndex;
+
+  _TaskSequenceScreenState() : _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.initialIndex;
+    _pageController = PageController(initialPage: _currentIndex);
+  }
 
   void _onNext() {
-    if (_currentIndex < tasks.length - 1) {
+    if (_currentIndex < widget.tasks.length - 1) {
       setState(() {
         _currentIndex++;
       });
@@ -48,7 +62,7 @@ class _TaskSequenceScreenState extends State<TaskSequenceScreen> {
         curve: Curves.ease,
       );
     } else {
-      Navigator.pop(context);  
+      Navigator.pop(context);
     }
   }
 
@@ -61,6 +75,8 @@ class _TaskSequenceScreenState extends State<TaskSequenceScreen> {
         duration: Duration(milliseconds: 300),
         curve: Curves.ease,
       );
+    } else {
+      Navigator.pop(context);
     }
   }
 
@@ -71,21 +87,21 @@ class _TaskSequenceScreenState extends State<TaskSequenceScreen> {
       backgroundColor: AppStyles.sandColor,
       body: PageView.builder(
         controller: _pageController,
-        itemCount: tasks.length,
+        itemCount: widget.tasks.length,
         onPageChanged: (index) {
           setState(() {
             _currentIndex = index;
           });
         },
         itemBuilder: (context, index) {
-          return TaskWidget(task: tasks[index]);
+          return TaskWidget(task: widget.tasks[index]);
         },
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
         child: TaskButtonGroup(
-          onBack: _currentIndex > 0 ? _onBack : null,
-           onNext: _onNext,
+          onBack: _onBack,
+          onNext: _onNext,
         ),
       ),
     );
