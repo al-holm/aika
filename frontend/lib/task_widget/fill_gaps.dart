@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/shared/styles/app_styles.dart';
-import 'package:frontend/shared/ui_elements.dart';
 import 'package:frontend/task_widget/models/task.dart';
 import 'package:frontend/task_widget/styles/task_styles.dart';
-import 'package:frontend/task_widget/widgets/buttons.dart';
-import 'package:frontend/utils/app_localization.dart';
+
 class FillInTheGapTask extends StatelessWidget {
   final Task task;
 
@@ -19,18 +17,18 @@ class FillInTheGapTask extends StatelessWidget {
       backgroundColor: AppStyles.sandColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(unitW * 5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Fill in the gaps:',
                 style: TaskStyles.questionTextStyle,
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 16),
+              SizedBox(height: unitH * 2),
               FillInTheGapQuestion(task: task),
-              SizedBox(height: 16),
+              SizedBox(height: unitH),
             ],
           ),
         ),
@@ -49,22 +47,33 @@ class FillInTheGapQuestion extends StatefulWidget {
 }
 
 class _FillInTheGapQuestionState extends State<FillInTheGapQuestion> {
-  final List<String> selectedAnswers = ['', ''];
+  late List<String> selectedAnswers;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedAnswers = List<String>.from(widget.task.userAnswers.isNotEmpty
+        ? widget.task.userAnswers
+        : List.filled(widget.task.answerOptions.length, ''));
+  }
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    double unitW = screenSize.width * 0.01;
+    double unitH = screenSize.height * 0.01;
     final parts = widget.task.question.split('__');
     final List<InlineSpan> spans = [];
 
     for (int i = 0; i < parts.length; i++) {
       spans.add(TextSpan(text: parts[i], style: TaskStyles.optionTextStyle));
-      if (i < widget.task.answerOptions!.length) {
+      if (i < widget.task.answerOptions.length) {
         spans.add(WidgetSpan(
           alignment: PlaceholderAlignment.middle,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            padding: EdgeInsets.symmetric(horizontal: unitW),
             child: Transform.translate(
-              offset: const Offset(0, -2), // Adjust the offset to lower the dropdown
+              offset: Offset(0, -unitW / 1.5),
               child: buildDropdown(i),
             ),
           ),
@@ -83,7 +92,7 @@ class _FillInTheGapQuestionState extends State<FillInTheGapQuestion> {
     return DropdownButton<String>(
       value: selectedAnswers[index].isEmpty ? null : selectedAnswers[index],
       hint: Text(''),
-      items: widget.task.answerOptions![index].map((String value) {
+      items: widget.task.answerOptions[index].map((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value, style: TaskStyles.optionTextStyle),
@@ -92,6 +101,7 @@ class _FillInTheGapQuestionState extends State<FillInTheGapQuestion> {
       onChanged: (value) {
         setState(() {
           selectedAnswers[index] = value!;
+          widget.task.userAnswers = selectedAnswers;
         });
       },
     );

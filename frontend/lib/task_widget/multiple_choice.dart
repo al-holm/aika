@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/shared/styles/app_styles.dart';
-import 'package:frontend/shared/ui_elements.dart';
 import 'package:frontend/task_widget/models/task.dart';
 import 'package:frontend/task_widget/styles/task_styles.dart';
-import 'package:frontend/task_widget/widgets/buttons.dart';
-import 'package:frontend/utils/app_localization.dart';
+
 class MultipleChoiceTask extends StatelessWidget {
   final Task task;
 
@@ -19,14 +17,20 @@ class MultipleChoiceTask extends StatelessWidget {
       backgroundColor: AppStyles.sandColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(unitW * 5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TaskQuestionText(task.question),
-              SizedBox(height: 16),
-              MultipleChoiceOptions(task.answerOptions),
-              SizedBox(height: 16),
+              SizedBox(height: unitH * 2),
+              MultipleChoiceOptions(
+                options: task.answerOptions,
+                userAnswers: task.userAnswers,
+                onSelected: (selected) {
+                  task.userAnswers = [selected];
+                },
+              ),
+              SizedBox(height: unitH),
             ],
           ),
         ),
@@ -52,8 +56,14 @@ class TaskQuestionText extends StatelessWidget {
 
 class MultipleChoiceOptions extends StatefulWidget {
   final List<List<String>> options;
+  final List<String> userAnswers;
+  final ValueChanged<String> onSelected;
 
-  MultipleChoiceOptions(this.options);
+  MultipleChoiceOptions({
+    required this.options,
+    required this.userAnswers,
+    required this.onSelected,
+  });
 
   @override
   _MultipleChoiceOptionsState createState() => _MultipleChoiceOptionsState();
@@ -61,6 +71,14 @@ class MultipleChoiceOptions extends StatefulWidget {
 
 class _MultipleChoiceOptionsState extends State<MultipleChoiceOptions> {
   int? _selectedOption;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.userAnswers.isNotEmpty) {
+      _selectedOption = widget.options[0].indexOf(widget.userAnswers[0]);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +95,12 @@ class _MultipleChoiceOptionsState extends State<MultipleChoiceOptions> {
             groupValue: _selectedOption,
             activeColor: AppStyles.accentColor,
             onChanged: (int? value) {
-              setState(() {
-                _selectedOption = value;
-              });
+              if (value != null) {
+                setState(() {
+                  _selectedOption = value;
+                });
+                widget.onSelected(widget.options[0][value]);
+              }
             },
           );
         },
