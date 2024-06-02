@@ -1,0 +1,206 @@
+ID;query;generated;external check ;translation;context
+q01;"Bitte übersetze mir folgenden Satz: ""Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat""";no;de;"Bitte übersetze mir folgenden Satz: ""Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat""";translation
+q02;Übersetzen du mich Sazt Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat;no;de;Übersetzen du mich Sazt Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat;grammar
+q03;"Переведи мне, пожалуйста, следующее предложение: ""Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat""";no;ru;"Bitte übersetze den folgenden Satz für mich: ""Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat""";translation
+q04;"Bitte übersetze mir folgenden Satz: ""Он мне очень помог, переняв задачу""";no;ru;"Bitte übersetze mir folgenden Satz: ""Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat""";translation
+q05;"Bitte übersetze mir folgenden Satz ins Russische: ""Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat""";no;de;"Bitte übersetze mir folgenden Satz ins Russische: ""Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat""";translation
+q06;Übersetzen mir das Sazt ins Russische Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat;no;ru;Übersetzen mir das Sazt ins Russische Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat;translation
+q07;Bitte übersetze mir folgenden Satz Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat ins Russische;no;ru;Bitte übersetze mir folgenden Satz Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat ins Russische;translation
+q08;"Erkläre mir, wie man ""weil"" benutzt";no;de;"Erkläre mir, wie man ""weil"" benutzt";grammar
+q09;Erklärt wie Mann weil benutzt;no;de;Erklärt wie Mann weil benutzt;grammar
+q10;"Объясни мне, пожалуйста, как использовать ""weil""";no;ru;"Bitte erkläre mir, wie man ""weil"" verwendet.";grammar
+q11;"Erkläre mir, wie man ""weil"" benutzt, und gib dazu Beispiele";no;de;"Erkläre mir, wie man ""weil"" benutzt, und gib dazu Beispiele";grammar
+q12;Bitte schreibe mir einen Text zum Thema Politik in Deutschland;no;de;Bitte schreibe mir einen Text zum Thema Politik in Deutschland;situative
+q13;Bitte gib mir einen Text zum Thema Politik in Deutschland, den ich mir zuhören kann;no;de;Bitte gib mir einen Text zum Thema Politik in Deutschland, den ich mir zuhören kann;situative
+q14;Напиши мне, пожалуйста, текст к теме политика в Германии;no;ru;Напиши мне, пожалуйста, текст к теме политика в Германии;situative
+q15;Дай мне, пожалуйста, текст к теме политика в Германии, который я смогу послушать;no;ru;Bitte gib mir einen Text zum Thema Politik in Deutschland, den ich mir anhören kann;situative
+q16;"Как сказать ""я хочу пойти к врачу"" на немецком?";yes;ru;"Wie sagt man ""Ich möchte zum Arzt gehen"" auf Deutsch?";situative
+q17;"""Ben hasta oldum"" cümlesini Almanca nasıl söylerim?";yes;tr;"Wie sage ich den Satz ""Ich bin krank"" auf Deutsch?";situative
+q18;"Як сказати ""я хочу піти до лікаря"" німецькою?";yes;uk;"Wie sagt man ""Ich möchte zum Arzt gehen"" auf Deutsch?";situative
+q19;Какие глаголы часто используются на кухне?;yes;ru;Welche Verben werden oft in der Küche verwendet?;situative
+q20;Almancada mutfakta kullanılan yaygın fiiller nelerdir?;yes;tr;Welche Verben werden im Deutschen häufig in der Küche verwendet?;situative
+q21;Які дієслова часто використовуються на кухні?;yes;uk;Welche Verben werden oft in der Küche verwendet?;situative
+q22;"كيف أقول ""أريد الذهاب إلى الطبيب"" بالألمانية؟";yes;ar;"Wie sage ich ""Ich möchte zum Arzt gehen"" auf Deutsch?";situative
+q23;ما هي الأفعال الشائعة التي تستخدم في المطبخ؟;yes;ar;Welche Verben werden in der Küche häufig verwendet?;situative
+q24;"В чем разница между ""der"", ""die"" и ""das""?";yes;ru;"Was ist der Unterschied zwischen ""der"", ""die"" und ""das""?";grammar
+q25;"У чому різниця між ""der"", ""die"" та ""das""?";yes;uk;"Was ist der Unterschied zwischen ""der"", ""die"" und ""das""?";grammar
+q26;"""der"", ""die"" ve ""das"" arasındaki fark nedir?";yes;tr;"Was ist der Unterschied zwischen ""der"", ""die"" und ""das""?";grammar
+q27;"ما الفرق بين ""der"", ""die""، و""das""؟";yes;ar;"Was ist der Unterschied zwischen ""der"", ""die"" und ""das""?";grammar
+q28;"""Я учу немецкий"" як сказати німецькою?";yes;uk;"Wie sagt man ""Ich lerne Deutsch"" auf Deutsch?";translation
+q29;"Wie sage ich ""я хочу есть"" auf Deutsch?";yes;ru;"Wie sage ich ""Ich bin hungrig"" auf Deutsch?";translation
+q30;"""Ich bin glücklich"" nasıl Türkçe'ye çevrilir?";yes;tr;"Wie kann man ""Ich bin glücklich"" ins Türkische übersetzen?";translation
+q31;"كيف أقول ""أحتاج إلى مساعدة"" بالألمانية؟";yes;ar;"Wie sage ich ""Ich brauche Hilfe"" auf Deutsch?";situative
+q32;"Almanca'da ""gitmek"" fiilinin şimdiki zaman çekimi nedir?";yes;ar;"Wie lautet die Konjugation des Verbs ""gehen"" im Deutschen im Präsens?";situative
+q33;Какие немецкие слова важны для поездки на общественном транспорте?;yes;ru;Welche deutschen Wörter sind für die Fahrt mit öffentlichen Verkehrsmitteln wichtig?;situative
+q34;"كيف أقول ""أريد حجز موعد"" بالألمانية؟";yes;ar;"Wie sage ich ""Ich möchte einen Termin buchen"" auf Deutsch?";translation
+q35;"Wie sage ich ""какой сегодня день?"" auf Deutsch?";yes;ru;"Wie sage ich ""Welcher Tag ist heute?"" auf Deutsch?";translation
+q36;"Wie sage ich ""какое у вас расписание?"" auf Deutsch?";yes;ru;"Wie sage ich ""what is your schedule?"" auf Deutsch?";translation
+q37;как объяснить врачу на немецком, что у меня аллергия на определённые лекарства?;yes;ru;Wie kann ich dem Arzt auf Deutsch erklären, dass ich gegen bestimmte Medikamente allergisch bin?;situative
+q38;Yeni bir iş arıyorum ve iş görüşmesi için randevu almak istiyorum. Bunu Almanca nasıl ifade ederim?;yes;tr;Ich bin auf der Suche nach einem neuen Job und möchte einen Termin für ein Vorstellungsgespräch vereinbaren. Wie drücke ich das auf Deutsch aus?;situative
+q39;"كيف أقول ""أحتاج إلى تجديد إقامتي، هل يمكنك مساعدتي في ملء النموذج؟"" بالألمانية؟";yes;ar;"Wie sage ich ""Ich muss meine Aufenthaltsgenehmigung verlängern, kannst du mir helfen, das Formular auszufüllen?"" Auf Deutsch?";situative
+q40;ما هي الكلمات التي أحتاجها لشرح الأعراض إذا كان لدي ألم في البطن عند زيارة الطبيب؟;yes;ar;Welche Worte brauche ich, um die Symptome zu erklären, wenn ich Bauchschmerzen habe, wenn ich zum Arzt gehe?;situative
+q41;أريد أن أعرف كيف يمكنني الاستفسار عن فتح حساب بنكي باللغة الألمانية؟;yes;ar;Ich möchte wissen, wie ich mich über die Eröffnung eines Bankkontos auf Deutsch erkundigen kann?;situative
+q42;كيف أشرح لصاحب العمل أنني بحاجة لأخذ يوم إجازة بسبب مرضي؟;yes;ar;Wie erkläre ich meinem Arbeitgeber, dass ich wegen Krankheit einen Tag frei nehmen muss?;situative
+q43;Almanca'da bir kira sözleşmesini nasıl tartışırım? Özellikle kira bedeli ve depozito hakkında bilgi almak istiyorum.;yes;tr;Wie bespreche ich einen Mietvertrag auf Deutsch? Ich möchte vor allem Informationen über den Mietpreis und die Kaution erhalten.;situative
+q44;Doktora çocuklarımın aşı takvimi hakkında nasıl sorular sorabilirim? Almanca birkaç cümle örneği verir misiniz?;yes;tr;Welche Fragen kann ich dem Arzt über den Impfplan meiner Kinder stellen? Kannst du mir ein paar Beispiele für Sätze auf Deutsch geben?;situative
+q45;Komşularımla evin bahçesini ortak kullanım hakkında konuşmak istiyorum. Bunu Almanca nasıl söylerim?;yes;tr;Ich würde gerne mit meinen Nachbarn über die gemeinsame Nutzung des Gartens sprechen. Wie sage ich das auf Deutsch?;situative
+q46;Almanca olarak çocuklarımın okulda yaşadığı zorlukları öğretmene nasıl anlatabilirim?;yes;tr;Wie kann ich dem Lehrer auf Deutsch von den Schwierigkeiten meiner Kinder in der Schule erzählen?;situative
+q47;Какие фразы использовать, чтобы обсудить с арендодателем проблемы с отоплением в квартире?;yes;ru;Welche Formulierungen sollte ich verwenden, um mit meinem Vermieter über Heizungsprobleme in der Wohnung zu sprechen?;situative
+q48;Как сказать на немецком, что мне нужно отпроситься с работы на полдня для визита к врачу?;yes;ru;Wie sage ich auf Deutsch, dass ich mir einen halben Tag frei nehmen muss, um zum Arzt zu gehen?;situative
+q49;Как спросить в немецком магазине электроники о гарантии на купленный товар?;yes;ru;Wie frage ich in einem deutschen Elektronikgeschäft nach der Garantie für einen gekauften Artikel?;situative
+q50;Как на немецком рассказать воспитателю детского сада о привычках и предпочтениях моего ребёнка?;yes;ru;Wie kann ich der Erzieherin oder dem Erzieher von den Gewohnheiten und Vorlieben meines Kindes auf Deutsch erzählen?;situative
+q51;Як пояснити на німецькій мові в банку, що я хочу змінити свій тарифний план на більш вигідний?;yes;uk;Wie erkläre ich der Bank auf Deutsch, dass ich meinen Tarifplan auf einen günstigeren umstellen möchte?;situative
+q52;Які фрази використовувати, щоб домовитися про зустріч із директором школи для обговорення успішності дитини?;yes;uk;Welche Formulierungen sollte ich verwenden, um ein Treffen mit dem Schulleiter zu vereinbaren, um die Fortschritte meines Kindes zu besprechen?;situative
+q53;Як на німецькій мові поскаржитися на шум від сусідів у житловому комплексі?;yes;uk;Wie beschwere ich mich auf Deutsch über Lärm von Nachbarn in einer Wohnanlage?;situative
+q54;Як на німецькій мові звернутися до місцевої влади з проханням про ремонт дороги біля мого будинку?;yes;uk;Wie kann ich die örtlichen Behörden auf Deutsch bitten, die Straße in der Nähe meines Hauses zu reparieren?;situative
+q55;Welche Sätze kann ich verwenden, um in der Apotheke nach rezeptfreien Schmerzmitteln zu fragen?;yes;de;Welche Sätze kann ich verwenden, um in der Apotheke nach rezeptfreien Schmerzmitteln zu fragen?;situative
+q56;كيف أطلب من زملائي في العمل التحدث ببطء لأنني لا أفهم الألمانية جيداً؟;yes;ar;Wie kann ich meine Kolleginnen und Kollegen bitten, langsam zu sprechen, weil ich nicht gut Deutsch verstehe?;situative
+q57;Yeni taşındığım mahalledeki komşularımla tanışmak istiyorum. Almanca birkaç cümle önerir misiniz?;yes;tr;Ich möchte meine Nachbarn in dem Viertel kennenlernen, in das ich gerade gezogen bin. Kannst du mir ein paar Sätze auf Deutsch vorschlagen?;situative
+q58;Як на німецькій мові запитати в лікаря, чи потрібно мені робити спеціальні вправи для спини?;yes;uk;Wie frage ich einen Arzt auf Deutsch, ob ich spezielle Übungen für meinen Rücken machen muss?;situative
+q59;Wie erkläre ich meinem Nachbarn auf Deutsch, dass wir den Müll richtig trennen müssen?;yes;de;Wie erkläre ich meinem Nachbarn auf Deutsch, dass wir den Müll richtig trennen müssen?;situative
+q60;كيف أشرح لمعلمي الألمانية أنني بحاجة إلى المزيد من المساعدة في فهم القواعد اللغوية؟;yes;ar;Wie erkläre ich meinem Deutschlehrer, dass ich mehr Hilfe beim Verstehen der Grammatik brauche?;situative
+q61;Как обсудить на немецком с соседом, что его домашнее животное мешает моему сну по ночам?;yes;ru;Wie diskutiere ich auf Deutsch mit meinem Nachbarn, dass sein Haustier mich nachts im Schlaf stört?;situative
+q62;Wie kann ich meinem Arzt auf Deutsch erklären, dass ich seit einer Woche starke Kopfschmerzen habe?;yes;de;Wie kann ich meinem Arzt auf Deutsch erklären, dass ich seit einer Woche starke Kopfschmerzen habe?;situative
+q63;كيف أسأل في السوبرماركت إذا كان لديهم منتجات خالية من الجلوتين؟;yes;ar;Wie frage ich im Supermarkt, ob sie glutenfreie Produkte haben?;situative
+q64;Çocuğumun okulda zorbalığa uğradığını öğretmene nasıl anlatabilirim? Almanca birkaç cümle örneği verir misiniz?;yes;tr;Wie kann ich der Lehrerin/dem Lehrer sagen, dass mein Kind in der Schule gemobbt wird? Kannst du ein paar Beispiele für Sätze auf Deutsch nennen?;situative
+q65;Как на немецком языке попросить у страховой компании объяснить, почему мой случай не покрывается страховкой?;yes;ru;Wie erkläre ich der Versicherungsgesellschaft auf Deutsch, warum mein Fall nicht abgedeckt ist?;situative
+q66;Wie erkläre ich dem Elektriker auf Deutsch, dass der Strom in meiner Wohnung ständig ausfällt?;yes;de;Wie erkläre ich dem Elektriker auf Deutsch, dass der Strom in meiner Wohnung ständig ausfällt?;situative
+q67;كيف أطلب من الجيران تخفيض مستوى الضوضاء لأن لدي طفل صغير ينام في الليل؟;yes;ar;Wie kann ich meine Nachbarn bitten, den Lärmpegel zu reduzieren, weil ich ein Kleinkind habe, das die Nacht durchschläft?;situative
+q68;Almanca olarak ev sahibine evdeki su sızıntısını nasıl bildirebilirim?;yes;tr;Wie kann ich dem Vermieter ein Wasserleck auf Deutsch melden?;situative
+q69;Як пояснити на німецькій мові у відділі кадрів, що я потребую часткової зайнятості через сімейні обставини?;yes;uk;Wie erkläre ich der Personalabteilung auf Deutsch, dass ich aus familiären Gründen Teilzeitarbeit brauche?;situative
+q70;كيف أشرح للطبيب البيطري أن قطتي لا تأكل منذ يومين؟;yes;ar;Wie erkläre ich dem Tierarzt, dass meine Katze seit zwei Tagen nicht gefressen hat?;situative
+q71;Wie kann ich meinen Kollegen auf Deutsch fragen, ob wir die Besprechung um eine Stunde verschieben können?;yes;de;Wie kann ich meinen Kollegen auf Deutsch fragen, ob wir die Besprechung um eine Stunde verschieben können?;situative
+q72;Как спросить на немецком языке в фитнес-центре о наличии занятий по йоге для начинающих?;yes;ru;Wie erkundige ich mich in einem Fitnessstudio auf Deutsch nach der Verfügbarkeit von Yoga-Kursen für Anfänger?;situative
+q73;Almanca olarak yeni taşındığım evdeki internet bağlantısı hakkında bilgi almak istiyorum. Nasıl sorabilirim?;yes;tr;Ich möchte gerne Informationen über die Internetverbindung in dem Haus, in das ich gerade eingezogen bin, auf Deutsch bekommen. Wie kann ich fragen?;situative
+q74;Как объяснить на немецком, что я хочу вернуть товар в магазин и получить деньги обратно?;yes;ru;Wie erkläre ich auf Deutsch, dass ich die Ware an den Laden zurückgeben und mein Geld zurückbekommen möchte?;situative
+q75;Як на німецькій мові обговорити з вчителем дитини, що він потребує додаткових занять з німецької мови?;yes;uk;Wie kann ich mit dem Lehrer oder der Lehrerin meines Kindes besprechen, dass es zusätzlichen Deutschunterricht braucht?;situative
+q76;Wie erkläre ich dem Handwerker auf Deutsch, dass der Wasserhahn in der Küche nicht richtig funktioniert?;yes;uk;Wie erkläre ich dem Handwerker auf Deutsch, dass der Wasserhahn in der Küche nicht richtig funktioniert?;situative
+q77;كيف أطلب من مدير المدرسة تقديم تقرير عن تقدم ابني الأكاديمي؟;yes;ar;Wie kann ich den Schulleiter bitten, über die schulischen Fortschritte meines Kindes zu berichten?;situative
+q78;Как спросить на немецком языке в библиотеке, есть ли у них книги на русском языке?;yes;ru;Wie kann ich in einer Bibliothek auf Deutsch fragen, ob sie Bücher auf Russisch haben?;situative
+q79;Як на німецькій мові пояснити в службі підтримки, що у мене виникли проблеми з підключенням до Інтернету?;yes;uk;Wie erkläre ich dem Support-Team auf Deutsch, dass ich Probleme mit meiner Internetverbindung habe?;situative
+q80;كيف أطلب من ميكانيكي السيارة فحص الفرامل لأنني أشعر بأنها لا تعمل بشكل جيد؟;yes;ar;Wie kann ich meinen Automechaniker bitten, meine Bremsen zu überprüfen, weil ich das Gefühl habe, dass sie nicht gut funktionieren?;situative
+q81;Almanca olarak bankada birikim hesabı açmak istediğimi nasıl söylerim?;yes;tr;Wie sage ich auf Deutsch, dass ich ein Sparkonto bei der Bank eröffnen möchte?;situative
+q82;Как на немецком объяснить, что я хочу поменять тариф на мобильную связь на более выгодный?;yes;ru;Wie erkläre ich auf Deutsch, dass ich meinen Handytarif zu einem günstigeren Tarif wechseln möchte?;situative
+q83;Wie erkläre ich der Kinderbetreuung auf Deutsch, dass mein Kind spezielle Bedürfnisse hat?;yes;de;Wie erkläre ich der Kinderbetreuung auf Deutsch, dass mein Kind spezielle Bedürfnisse hat?;situative
+q84;Wie erkläre ich dem Vermieter auf Deutsch, dass ich die Wohnung renovieren möchte?;yes;de;Wie erkläre ich dem Vermieter auf Deutsch, dass ich die Wohnung renovieren möchte?;situative
+q85;كيف أشرح في مقابلة عمل لماذا أرغب في العمل في هذه الشركة؟;yes;ar;Wie erkläre ich in einem Vorstellungsgespräch, warum ich für dieses Unternehmen arbeiten möchte?;situative
+q86;Как на немецком языке обсудить с начальником возможность повышения зарплаты?;yes;ru;Wie bespreche ich die Möglichkeit einer Gehaltserhöhung mit meinem Chef auf Deutsch?;situative
+q87;Як на німецькій мові попросити сусіда допомогти мені з ремонтом квартири?;yes;uk;Wie bitte ich einen Nachbarn, mir bei einer Wohnungsreparatur auf Deutsch zu helfen?;situative
+q88;Как на немецком языке рассказать на собеседовании о своих сильных и слабых сторонах?;yes;ru;Wie sprichst du bei einem Vorstellungsgespräch über deine Stärken und Schwächen im Deutschen?;situative
+q89;Yeni bir iş buldum ve Almanca olarak işverenime önceki iş yerimden neden ayrıldığımı nasıl açıklarım?;yes;tr;Ich habe eine neue Stelle gefunden. Wie erkläre ich meinem Arbeitgeber auf Deutsch, warum ich meine vorherige Stelle verlassen habe?;situative
+q90;كيف أسأل في المكتبة عن إمكانية استعارة كتاب لفترة أطول من المعتاد؟;yes;ar;Wie frage ich in der Bibliothek, ob ich ein Buch länger als üblich ausleihen kann?;situative
+q91;Yeni taşındığım apartmanda yöneticiden otopark hakkında bilgi almak istiyorum. Bunu Almanca nasıl sorarım?;yes;tr;Ich möchte vom Verwalter meines neuen Wohnhauses Informationen über den Parkplatz erhalten. Wie frage ich das auf Deutsch?;situative
+q92;"كيف أفرق بين استخدام ""haben"" و""sein"" في الزمن الماضي؟";yes;ar;"Wie unterscheide ich zwischen der Verwendung von ""haben"" und ""sein"" in der Vergangenheitsform?";grammar
+q93;"ما هو ترتيب الكلمات الصحيح في جملة باستخدام ""weil""؟";yes;ar;"Was ist die richtige Wortfolge in einem Satz mit ""weil""?";grammar
+q94;"كيف أستخدم الصفات مع الأسماء التي تأخذ أداة التعريف ""die""؟";yes;ar;"Wie verwende ich Adjektive mit Substantiven, die den bestimmten Artikel ""die"" enthalten?";grammar
+q95;"ما هو الفرق بين ""dass"" و""das"" وكيف أستخدمهما؟";yes;ar;"Was ist der Unterschied zwischen ""dass"" und ""das"" und wie verwende ich sie?";grammar
+q96;"كيف أكتب جملة استفهامية باستخدام ""können""؟";yes;ar;"Wie schreibe ich einen Fragesatz mit ""können""?";grammar
+q97;"""Das"" ve ""dass"" kelimelerini nasıl ayırt ederim?";yes;tr;"Wie kann ich zwischen ""Das"" und ""dass"" unterscheiden?";grammar
+q98;"Almanca'da sıfatları kullanırken hangi durumlarda ""-e"" eki gelir?";yes;tr;"In welchen Fällen wird das Suffix ""-e"" bei Adjektiven im Deutschen verwendet?";grammar
+q99;"""Weil"" bağlacını kullanırken cümle yapısı nasıl değişir?";yes;tr;"Wie verändert sich der Satzbau, wenn du die Konjunktion ""weil"" verwendest?";grammar
+q100;"Almanca'da perfekt zamanında ""haben"" ve ""sein"" fiilleri nasıl kullanılır?";yes;tr;"Wie verwende ich die Verben ""haben"" und ""sein"" im Deutschen in perfekter Zeit?";grammar
+q101;"""Zu"" ve ""nach"" edatlarını nasıl doğru kullanırım?";yes;tr;"Wie verwende ich die Präpositionen ""zu"" und ""nach"" richtig?";grammar
+q102;"Как правильно использовать артикли ""der"", ""die"" и ""das""?";yes;ru;"Wie werden die Artikel ""der"", ""die"" und ""das"" richtig verwendet?";grammar
+q103;"В каких случаях используется конструкция ""zu + Infinitiv""?";yes;ru;"In welchen Fällen wird die Konstruktion ""zu + Infinitiv"" verwendet?";grammar
+q104;Как составить вопросительное предложение с модальными глаголами?;yes;ru;Wie machst du einen Fragesatz mit Modalverben?;grammar
+q105;"Когда используется предлог ""bei"", а когда ""mit""?";yes;ru;"Wann wird die Präposition ""bei"" und wann die Präposition ""mit"" verwendet?";grammar
+q106;Как образуются сравнительные степени прилагательных в немецком языке?;yes;ru;Wie werden die Komparativgrade von Adjektiven im Deutschen gebildet?;grammar
+q107;"Як правильно вживати ""für"" і ""um"" в реченнях?";yes;uk;"Wie verwendet man ""für"" und ""um"" richtig in Sätzen?";grammar
+q108;В яких випадках вживається знахідний відмінок?;yes;uk;Wann wird der Akkusativ verwendet?;grammar
+q109;"Як будувати заперечні речення з ""nicht"" і ""kein""?";yes;uk;"Wie bildest du negative Sätze mit ""nicht"" und ""kein""?";grammar
+q110;Як використовувати дієслова в минулому часі?;yes;uk;Wie verwende ich Verben in der Vergangenheitsform?;grammar
+q111;"Яка різниця між ""können"" і ""dürfen""?";yes;uk;"Was ist der Unterschied zwischen ""können"" und ""dürfen""?";grammar
+q112;"Wie benutze ich ""als"" und ""wie"" richtig im Vergleichssätzen?";yes;de;"Wie benutze ich ""als"" und ""wie"" richtig im Vergleichssätzen?";grammar
+q113;"Wann verwende ich ""denn"" und wann ""weil""?";yes;de;"Wann verwende ich ""denn"" und wann ""weil""?";grammar
+q114;"Wie bilde ich die Vergangenheit mit ""haben"" und ""sein""?";yes;de;"Wie bilde ich die Vergangenheit mit ""haben"" und ""sein""?";grammar
+q115;"Was ist der Unterschied zwischen ""müssen"" und ""sollen""?";yes;de;"Was ist der Unterschied zwischen ""müssen"" und ""sollen""?";grammar
+q116;Wie konjugiere ich regelmäßige Verben im Präteritum?;yes;de;Wie konjugiere ich regelmäßige Verben im Präteritum?;grammar
+q117;"كيف أستخدم ""immer"" في جملة؟";yes;ar;"Wie kann ich ""immer"" in einem Satz verwenden?";grammar
+q118;"Neden"" bağlacını kullanarak cümle nasıl kurulur?";yes;tr;"Wie baue ich einen Satz mit der Konjunktion ""warum""?";grammar
+q119;Как правильно использовать местоимения в дательном падеже?;yes;ru;Wie verwendet man Pronomen im Dativ richtig?;grammar
+q120;"Як будувати речення з підрядними сполучниками, такими як ""wenn"" і ""als""?";yes;uk;"Wie baue ich Sätze mit unterordnenden Konjunktionen wie ""wenn"" und ""als""?";grammar
+q121;Wie bilde ich eine Frage im Perfekt?;yes;de;Wie bilde ich eine Frage im Perfekt?;grammar
+q122;"""Seit"" edatını kullanarak cümle nasıl kurarım?";yes;tr;"Wie bilde ich einen Satz mit der Präposition ""Seit""?";grammar
+q123;Когда используется форма Konjunktiv II?;yes;ru;Wann wird das Konjunktiv II Formular verwendet?;grammar
+q124;"Wie unterscheide ich ""dieser"" und ""jener"" im Satz?";yes;de;"Wie unterscheide ich ""dieser"" und ""jener"" im Satz?";grammar
+q125;"كيف أكون جملة استفهامية باستخدام ""warum""؟";yes;ar;"Wie kann man einen Fragesatz mit ""warum"" bilden?";grammar
+q126;"""Mit"" edatının doğru kullanımını açıklayabilir misiniz?";yes;tr;"Kannst du die korrekte Verwendung der Präposition ""Mythos"" erklären?";grammar
+q127;"Як побудувати речення з ""um ... zu"" для вираження мети?";yes;uk;"Wie baut man einen Satz mit ""ähm ... zu"", um die Absicht auszudrücken?";grammar
+q128;"كيف أستخدم ""sollen"" في طلب النصيحة؟";yes;ar;"Wie benutze ich ""sollen"", um um Rat zu fragen?";grammar
+q129;"""Als"" ve ""wenn"" kullanımı arasındaki fark nedir?";yes;tr;"Was ist der Unterschied zwischen der Verwendung von ""als"" und ""wenn""?";grammar
+q130;"В каких случаях используется ""während"" и как меняется порядок слов в предложении?";yes;ru;"In welchen Fällen wird ""während"" verwendet und wie ändert sich die Wortfolge im Satz?";grammar
+q131;"Wie unterscheide ich ""ob"" und ""wenn""?";yes;de;"Wie unterscheide ich ""ob"" und ""wenn""?";grammar
+q132;"كيف أستخدم ""trotzdem"" في جملة؟";yes;ar;"Wie verwende ich ""trotzdem"" in einem Satz?";grammar
+q133;"""Ohne"" edatını kullanarak cümle nasıl kurarım?";yes;tr;"Wie bilde ich einen Satz mit der Präposition ""ohne""?";grammar
+q134;"Wie bilde ich eine Aufforderung mit ""bitte""?";yes;de;"Wie bilde ich eine Aufforderung mit ""bitte""?";grammar
+q135;"كيف أستخدم ""zu + Infinitiv"" لتكوين جملة؟";yes;ar;"Wie verwende ich ""zu + Infinitiv"", um einen Satz zu bilden?";grammar
+q136;"""Während"" bağlacı ile cümle nasıl kurulur?";yes;tr;"Wie konstruierst du einen Satz mit der Konjunktion ""Während""?";grammar
+q137;"Как образуются сложные предложения с союзом ""damit""?";yes;ru;"Wie werden zusammengesetzte Sätze mit der Konjunktion ""damit"" gebildet?";grammar
+q138;Wie benutze ich das Partizip II als Adjektiv?;yes;de;Wie benutze ich das Partizip II als Adjektiv?;grammar
+q139;"""Wegen"" edatı ile cümle nasıl kurarım?";yes;tr;"Wie kann ich einen Satz mit der Präposition ""Wegen"" bilden?";grammar
+q140;"كيف أستخدم ""genau"" في جملة؟";yes;ar;"Wie kann ich ""genau"" in einem Satz verwenden?";grammar
+q141;"В чем разница между ""durch"" и ""von""?";yes;ru;"Was ist der Unterschied zwischen ""durch"" und ""von""?";grammar
+q142;"Як вживати дієслова з ""sein"" у перфекті?";yes;uk;"Wie verwendet man Verben mit ""sein"" im Perfekt?";grammar
+q143;"Wie bilde ich eine Frage mit ""wohin""?";yes;de;"Wie bilde ich eine Frage mit ""wohin""?";grammar
+q144;"كيف أستخدم ""bevor"" و""nachdem"" في جملتين مختلفتين؟";yes;ar;"Wie kann ich ""bevor"" und ""nachdem"" in zwei verschiedenen Sätzen verwenden?";grammar
+q145;"""In"" ve ""auf"" edatlarının kullanımı arasındaki fark nedir?";yes;tr;"Was ist der Unterschied zwischen der Verwendung der Präpositionen ""in"" und ""auf""?";grammar
+q146;Как используются модальные глаголы в Konjunktiv II?;yes;ru;Wie werden die Modalverben in Konjunktiv II verwendet?;grammar
+q147;"Як будувати заперечні речення з ""weder ... noch""?";yes;uk;"Wie bildet man negative Sätze mit ""weder ... noch""?";grammar
+q148;Какие формы прилагательных существуют в сравнительной степени?;yes;ru;Welche Formen von Adjektiven gibt es im Komparativ?;grammar
+q149;"""Mit"" ve ""bei"" edatlarının doğru kullanımı nasıldır?";yes;tr;"Wie werden die Präpositionen ""mit"" und ""bei"" richtig verwendet?";grammar
+q150;"كيف أستخدم ""obwohl"" في جملة؟";yes;ar;"Wie verwende ich ""obwohl"" in einem Satz?";grammar
+q151;"Когда используется союз ""falls""?";yes;ru;"Wann wird die Konjunktion ""fällt"" verwendet?";grammar
+q152;"كيف أستخدم ""ob"" في جملة استفهامية غير مباشرة؟";yes;ar;"Wie verwende ich ""ob"" in einem indirekten Fragesatz?";grammar
+q153;"В чем разница между ""gegen"" и ""für""?";yes;ru;"Was ist der Unterschied zwischen ""gegen"" und ""für""?";grammar
+q154;Wie bilde ich das Perfekt von unregelmäßigen Verben?;yes;de;Wie bilde ich das Perfekt von unregelmäßigen Verben?;grammar
+q155;"كيف أستخدم ""damit"" في جملة؟";yes;ar;"Wie kann ich ""damit"" in einem Satz verwenden?";grammar
+q156;"Как использовать придаточные предложения с ""weil"" и ""obwohl""?";yes;ru;"Wie verwendet man adjektivische Sätze mit ""weil"" und ""obwohl""?";grammar
+q157;"Wie unterscheide ich ""seitdem"" und ""seit""?";yes;de;"Wie unterscheide ich ""seitdem"" und ""seit""?";grammar
+q158;"كيف أستخدم ""um ... zu"" لتكوين جملة؟";yes;ar;"Wie kann ich ""um ... zu"" in einem Satz verwenden?";grammar
+q159;"В чем разница между ""während"" и ""bis""?";yes;ru;"Was ist der Unterschied zwischen ""während"" und ""bis""?";grammar
+q160;"Як будувати складнопідрядні речення з ""dass""?";yes;uk;"Wie baut man komplexe Sätze mit ""dass""?";grammar
+q161;"Wie bilde ich eine Bedingung mit ""wenn""?";yes;de;"Wie bilde ich eine Bedingung mit ""wenn""?";grammar
+q162;Как используются пассивные конструкции в немецком языке?;yes;ru;Wie werden Passivkonstruktionen im Deutschen verwendet?;grammar
+q163;"""Von"" ve ""aus"" edatlarının farkı nedir?";yes;tr;"Was ist der Unterschied zwischen den Präpositionen ""von"" und ""aus""?";grammar
+q164;"""Neben"" ve ""zwischen"" edatlarının kullanımı nasıldır?";yes;tr;"Wie werden die Präpositionen ""neben"" und ""zwischen"" verwendet?";grammar
+q165;"Як будувати речення з ""damit"" для вираження мети?";yes;uk;"Wie kann man Sätze mit ""damit"" bilden, um den Zweck auszudrücken?";grammar
+q166;"كيف أقول ""Ich bin müde"" بالعربية؟";yes;ar;"Wie kann ich ""Ich bin müde"" auf Arabisch sagen?";translation
+q167;"أرجوك ترجم لي الجملة ""Ich habe Hunger"".";yes;ar;"Bitte übersetzen Sie den Satz ""Ich habe Hunger"" für mich.";translation
+q168;"كيف يمكنني أن أقول ""Wo ist die Bank?"" بالألمانية؟";yes;ar;"Wie kann ich ""Wo ist die Bank?"" auf Deutsch sagen?";translation
+q169;"ساعدني في ترجمة ""Ich brauche Wasser"".";yes;ar;"Hilf mir bei der Übersetzung von ""Ich brauche Wasser"".";translation
+q170;"أريد ترجمة ""Ich habe gestern einen interessanten Artikel über Wissenschaft gelesen"" إلى الألمانية.";yes;ar;"Ich möchte ""Ich habe gestern einen interessanten Artikel über Wissenschaft gelesen"" ins Deutsche übersetzen.";translation
+q171;"كيف أقول ""Die Reise nach Deutschland war eine unvergessliche Erfahrung"" بالألمانية؟";yes;ar;"Wie sage ich ""Die Reise nach Deutschland war ein unvergessliches Erlebnis"" auf Deutsch?";translation
+q172;"أرجوك ترجم لي ""Die Umweltverschmutzung nimmt weltweit zu"".";yes;ar;"Bitte übersetzen Sie für mich ""Die Umweltverschmutzung nimmt weltweit zu"".";translation
+q173;"ساعدني في ترجمة ""Ich plane, nächstes Jahr nach Europa zu reisen"".";yes;ar;"Helfen Sie mir bei der Übersetzung von ""Ich plane, nächstes Jahr nach Europa zu reisen"".";translation
+q174;"Как сказать ""Ich bin hungrig"" по-русски?";yes;ru;"Wie sagt man ""Ich bin hungrig"" auf Russisch?";translation
+q175;"Переведите, пожалуйста, ""Ich habe Durst"".";yes;ru;"Bitte übersetzen Sie ""Ich habe Durst"".";translation
+q176;"Как будет ""Wie viel kostet das?"" на русском языке?";yes;ru;"Was heißt ""Wie viel kostet das?"" auf Russisch?";translation
+q177;"Помогите перевести ""Ich liebe meine Familie"".";yes;ru;"Helfen Sie bei der Übersetzung von ""Ich liebe meine Familie"".";translation
+q178;"Как сказать ""Ich habe gestern eine sehr interessante Dokumentation gesehen"" по-русски?";yes;ru;"Wie sagt man: ""Gestern habe ich einen sehr interessanten Dokumentarfilm gesehen"" auf Russisch?";translation
+q179;"Переведите ""Die kulturellen Unterschiede zwischen den Ländern sind faszinierend"" на русский язык.";yes;ru;"Übersetzen Sie ""Kulturelle Unterschiede zwischen Ländern sind faszinierend"" ins Russische.";translation
+q180;"Как будет ""Es ist wichtig, regelmäßig Sport zu treiben"" на русском?";yes;ru;"Wie sagt man ""Es ist wichtig, regelmäßig Sport zu treiben"" auf Russisch?";translation
+q181;"Помогите перевести ""Ich freue mich darauf, neue Menschen kennenzulernen"".";yes;ru;"Helfen Sie bei der Übersetzung von ""Ich freue mich darauf, neue Leute kennenzulernen"".";translation
+q182;"Як сказати ""Ich bin glücklich"" українською?";yes;uk;"Wie sagt man ""Ich bin glücklich"" auf Ukrainisch?";translation
+q183;"Перекладіть, будь ласка, ""Ich mag Musik"".";yes;uk;"Bitte übersetzen Sie ""Ich mag Musik"".";translation
+q184;"Як буде ""Wo ist die nächste Apotheke?"" українською мовою?";yes;uk;"Wie sagt man ""Wo ist die nächste Apotheke?"" auf Ukrainisch?";translation
+q185;"Допоможіть перекласти ""Ich habe ein Auto"".";yes;uk;"Hilf mir bei der Übersetzung von ""Ich habe ein Auto"".";translation
+q186;"Як сказати ""Gestern habe ich ein wunderbares Buch über Geschichte gelesen"" українською?";yes;uk;"Wie sagt man ""Gestern habe ich ein tolles Buch über Geschichte gelesen"" auf Ukrainisch?";translation
+q187;"Перекладіть ""Die wirtschaftliche Lage des Landes hat sich verbessert"" на українську мову.";yes;uk;"Übersetzen Sie ""Die wirtschaftliche Lage des Landes hat sich verbessert"" ins Ukrainische.";translation
+q188;"Як буде ""Es ist schwer, eine neue Sprache zu lernen"" українською?";yes;uk;"Wie würden Sie ""Es ist schwer, eine neue Sprache zu lernen"" ins Ukrainische übersetzen?";translation
+q189;"Допоможіть перекласти ""Ich freue mich auf die Reise nächstes Jahr"".";yes;uk;"Helfen Sie uns bei der Übersetzung von ""Ich freue mich auf die Reise nächstes Jahr"".";translation
+q190;"Lütfen ""Ich bin traurig"" cümlesini Türkçeye çevirir misiniz?";yes;tr;"Könnten Sie bitte den Satz ""Ich bin traurig"" ins Türkische übersetzen?";translation
+q191;"""Ich habe Durst"" ifadesini Türkçeye nasıl çeviririm?";yes;tr;"Wie kann ich ""Ich habe Durst"" ins Türkische übersetzen?";translation
+q192;"""Wie komme ich zum Bahnhof?"" Türkçe nasıl söylenir?";yes;tr;"Wie sagt man ""Wie komme ich zum Bahnhof?"" auf Türkisch?";translation
+q193;"Bana ""Ich habe einen Hund"" cümlesinin Türkçesini verir misin?";yes;tr;"Können Sie mir die türkische Version von ""Ich habe einen Hund"" geben?";translation
+q194;"""Dün çok güzel bir film izledim"" ifadesini Türkçeye çevirir misiniz?";yes;tr;"Können Sie den Ausdruck ""Ich habe gestern einen sehr guten Film gesehen"" ins Türkische übersetzen?";translation
+q195;"""Ülkeler arasındaki kültürel farklılıklar büyüleyici"" cümlesinin Türkçesi nedir?";yes;tr;"Was ist die türkische Version von ""Kulturelle Unterschiede zwischen Ländern sind faszinierend""?";translation
+q196;"""Yeni bir dil öğrenmek zor"" ifadesini Türkçeye nasıl çeviririm?";yes;tr;"Wie übersetze ich den Ausdruck ""Es ist schwierig, eine neue Sprache zu lernen"" ins Türkische?";translation
+q197;"""Gelecek yıl seyahat etmeyi dört gözle bekliyorum"" cümlesinin Türkçesi nedir?";yes;tr;"Was ist die türkische Version von ""Ich freue mich darauf, nächstes Jahr zu reisen""?";translation
+q198;"Bitte übersetze mir folgenden Satz ins Arabische: ""Ich habe meine Hausaufgaben vergessen"".";yes;ar;"Bitte übersetze mir folgenden Satz ins Arabische: ""Ich habe meine Hausaufgaben vergessen"".";translation
+q199;"Übersetze ""Ich gehe jeden Tag zur Arbeit"" ins Russische.";yes;ru;"Übersetze ""Ich gehe jeden Tag zur Arbeit"" ins Russische.";translation
+q200;"Übersetze bitte ""Ich habe Angst vor Spinnen"" ins Ukrainische.";yes;ru;"Übersetze bitte ""Ich habe Angst vor Spinnen"" ins Ukrainische.";translation
+q201;"Bitte übersetze ""Ich spiele gerne Basketball"" ins Türkische.";yes;tr;"Bitte übersetze ""Ich spiele gerne Basketball"" ins Türkische.";translation
+q202;"Übersetze ""Morgen werde ich meine Großeltern besuchen"" ins Arabische.";yes;ar;"Übersetze ""Morgen werde ich meine Großeltern besuchen"" ins Arabische.";translation
+q203;"Bitte übersetze ""Es ist wichtig, gesund zu bleiben"" ins Russische.";yes;ru;"Bitte übersetze ""Es ist wichtig, gesund zu bleiben"" ins Russische.";translation
+q204;"Übersetze ""Ich habe gestern ein tolles Konzert besucht"" ins Ukrainische.";yes;uk;"Übersetze ""Ich habe gestern ein tolles Konzert besucht"" ins Ukrainische.";translation
+q205;"Bitte übersetze ""Ich möchte eine neue Sprache lernen"" ins Türkische.";yes;tr;"Bitte übersetze ""Ich möchte eine neue Sprache lernen"" ins Türkische.";translation

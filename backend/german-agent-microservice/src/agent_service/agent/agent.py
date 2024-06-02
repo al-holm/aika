@@ -7,6 +7,7 @@ from agent_service.agent.llm import LLMBedrock, LLMRunPod
 from agent_service.prompts.react_prompt import VAL_STOP_PREFIX, ACTION_PROMPT_QA, ACTION_PROMPT_LESSON, VALIDATION_PROMPT_LESSON, VALIDATION_PROMPT_QA
 from agent_service.agent.reasoning_trace import ReasoningLogger
 from agent_service.prompts.prompt_builder import PromptBuilder
+from agent_service.prompts.trajectory_library import TrajectoryInjector
 from agent_service.tools.tool_executor import ToolExecutor
 from agent_service.parsers.agent_step_parser import StepParser, ValidationParser
 import logging
@@ -22,13 +23,70 @@ class AgentMode(Enum):
 
 class Agent:
     """
-    represents a ReAct agent that can plan actions, execute steps using tools, 
+    Represents a ReAct agent that can plan actions, execute steps using tools, 
     validate results, and provide final answers based on reasoning traces and prompts.
+
+    Attributes
+    ----------
+    task_type : TaskType
+        The type of task the agent is performing, default is TaskType.ANSWERING.
+    reasoning_logger : ReasoningLogger
+        Logger for keeping track of the reasoning steps.
+    tool_executor : ToolExecutor
+        Executor for running tools based on the planned steps.
+    prompt_builder : PromptBuilder
+        Builder for generating prompts for the agent.
+    validation_parser : ValidationParser
+        Parser for processing validation steps.
+    step_parser : StepParser
+        Parser for processing planned steps.
+    config : AgentConfigModel
+        Configuration settings for the agent.
+    llm : Any
+        The large language model used for generating steps and validation.
+    max_iterations : int
+        The maximum number of iterations for the agent loop.
+    trajectory_injector : TrajectoryInjector
+        Injector of relevant trajectory examples into the agent's prompt.
+
+    Methods
+    -------
+    __init__(self, query_id: str, task_type: TaskType = TaskType.ANSWERING) -> None
+        Initializes the agent.
+    init_prompts(self, task_type: TaskType) -> None
+        Sets prompt templates for planning and validation steps.
+    run(self, query: str) -> str
+        Executes the agent loop to process the query until a final answer is obtained.
+    take_step(self) -> bool
+        Plans a step, executes it, and validates the result.
+    validate(self) -> bool
+        Retrieves and processes a validation prompt.
+    plan_step(self) -> AgentStep
+        Retrieves and processes the current planning prompt.
+    process_validation_thought(self, val_answer: str) -> bool
+        Parses the validation answer and updates the reasoning trace.
+    execute_step(self, step: AgentStep) -> None
+        Executes an action using the tool executor and updates the reasoning logger.
+    get_current_prompt(self, mode: AgentMode = AgentMode.PLAN) -> str
+        Returns a prompt with a reasoning trace based on the specified mode.
+    get_final_response(self, iteration: int) -> str
+        Builds and returns the final answer based on the last observation and iteration number.
+    update_prompts_for_query(self, query: str) -> None
+        Updates prompts with a query and available tools.
+    parse_config(self) -> None
+        Reads settings from a configuration file and sets attributes based on the configuration.
+    add_trajectory_examples_to_prompts -> None
+        Injects relevant trajectory examples into the agent's prompt.
     """
 
-    def __init__(self, task_type: TaskType = TaskType.ANSWERING) -> None:
+    def __init__(self, query_id:str=None, task_type: TaskType = TaskType.ANSWERING) -> None:
         self.parse_config()
-        self.reasoning_logger = ReasoningLogger()
+        self.reasoning_logger = ReasoningLogger(
+            query_id=query_id, 
+            model_id=self.llm.llm_id, 
+            task_type=task_type
+            )
+        self.task_type = task_type
         self.tool_executor = ToolExecutor(
             reasoning_logger=self.reasoning_logger,
             task_type=task_type
@@ -37,6 +95,18 @@ class Agent:
         self.init_prompts(task_type) 
         self.validation_parser = ValidationParser()
         self.step_parser = StepParser(self.tool_executor.tool_names)
+        self.trajectory_injector = TrajectoryInjector()
+
+    def reset(self):
+        """
+        resets the reasoning trace and recreates prompts
+
+        """
+        self.reasoning_logger = ReasoningLogger(
+             model_id=self.llm.llm_id, 
+             task_type=self.task_type
+            )
+        self.init_prompts(self.task_type) 
 
     def init_prompts(self, task_type: TaskType):
         """
@@ -69,7 +139,6 @@ class Agent:
         str 
             the final answer obtained after running the agent loop.
         """
-
         self.update_prompts_for_query(query)
         logging.info("Entering agent loop...")
         iteration = 0
@@ -83,7 +152,9 @@ class Agent:
                 self.reasoning_logger.add_exception(str(e))
             iteration += 1
         logging.info("Exiting agent loop...")
-        return self.get_final_response(iteration)
+        final_answer = self.get_final_response(iteration)
+        self.reset()
+        return final_answer
 
     def take_step(self) -> bool:
         """
@@ -201,7 +272,7 @@ class Agent:
             the final answer
         """
         if iteration == self.max_iterations:
-            return "Reached iterations limit"
+            return "Etwas ist fehlgeschlagen, versuche es erneut!"
         self.reasoning_logger.build_final_answer()
         self.reasoning_logger.to_json()
         final_answer = self.reasoning_logger.final_answer
@@ -229,6 +300,25 @@ class Agent:
             **update
         )
         self.reasoning_logger.set_query(query)
+
+        self.add_trajectory_examples_to_prompts(query)
+
+    def add_trajectory_examples_to_prompts(self, query)->None:
+        """
+        Injects relevant trajectory examples into the agent's prompt.
+
+        """
+        plan_examples, val_examples = self.trajectory_injector.inject_trajectories(query)
+        self.prompt_builder.update_prompt(
+            name_id=AgentMode.PLAN,
+            examples=plan_examples
+        )
+        
+        self.prompt_builder.update_prompt(
+            name_id=AgentMode.VAL,
+            examples=val_examples
+        )
+
 
     def parse_config(self) -> None:
         """

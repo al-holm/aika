@@ -1,0 +1,84 @@
+,ID,query,context
+1,q02,"Übersetzen du mich Sazt Er hat mir sehr geholfen, indem er die Aufgabe übernommen hat",grammar
+7,q08,"Erkläre mir, wie man ""weil"" benutzt",grammar
+8,q09,Erklärt wie Mann weil benutzt,grammar
+9,q10,"Объясни мне, пожалуйста, как использовать ""weil""",grammar
+10,q11,"Erkläre mir, wie man ""weil"" benutzt, und gib dazu Beispiele",grammar
+23,q24,"В чем разница между ""der"", ""die"" и ""das""?",grammar
+24,q25,"У чому різниця між ""der"", ""die"" та ""das""?",grammar
+25,q26,"""der"", ""die"" ve ""das"" arasındaki fark nedir?",grammar
+26,q27,"ما الفرق بين ""der"", ""die""، و""das""؟",grammar
+91,q92,"كيف أفرق بين استخدام ""haben"" و""sein"" في الزمن الماضي؟",grammar
+92,q93,"ما هو ترتيب الكلمات الصحيح في جملة باستخدام ""weil""؟",grammar
+93,q94,"كيف أستخدم الصفات مع الأسماء التي تأخذ أداة التعريف ""die""؟",grammar
+94,q95,"ما هو الفرق بين ""dass"" و""das"" وكيف أستخدمهما؟",grammar
+95,q96,"كيف أكتب جملة استفهامية باستخدام ""können""؟",grammar
+96,q97,"""Das"" ve ""dass"" kelimelerini nasıl ayırt ederim?",grammar
+97,q98,"Almanca'da sıfatları kullanırken hangi durumlarda ""-e"" eki gelir?",grammar
+98,q99,"""Weil"" bağlacını kullanırken cümle yapısı nasıl değişir?",grammar
+99,q100,"Almanca'da perfekt zamanında ""haben"" ve ""sein"" fiilleri nasıl kullanılır?",grammar
+100,q101,"""Zu"" ve ""nach"" edatlarını nasıl doğru kullanırım?",grammar
+101,q102,"Как правильно использовать артикли ""der"", ""die"" и ""das""?",grammar
+102,q103,"В каких случаях используется конструкция ""zu + Infinitiv""?",grammar
+103,q104,Как составить вопросительное предложение с модальными глаголами?,grammar
+104,q105,"Когда используется предлог ""bei"", а когда ""mit""?",grammar
+105,q106,Как образуются сравнительные степени прилагательных в немецком языке?,grammar
+106,q107,"Як правильно вживати ""für"" і ""um"" в реченнях?",grammar
+107,q108,В яких випадках вживається знахідний відмінок?,grammar
+108,q109,"Як будувати заперечні речення з ""nicht"" і ""kein""?",grammar
+109,q110,Як використовувати дієслова в минулому часі?,grammar
+110,q111,"Яка різниця між ""können"" і ""dürfen""?",grammar
+111,q112,"Wie benutze ich ""als"" und ""wie"" richtig im Vergleichssätzen?",grammar
+112,q113,"Wann verwende ich ""denn"" und wann ""weil""?",grammar
+113,q114,"Wie bilde ich die Vergangenheit mit ""haben"" und ""sein""?",grammar
+114,q115,"Was ist der Unterschied zwischen ""müssen"" und ""sollen""?",grammar
+115,q116,Wie konjugiere ich regelmäßige Verben im Präteritum?,grammar
+116,q117,"كيف أستخدم ""immer"" في جملة؟",grammar
+117,q118,"Neden"" bağlacını kullanarak cümle nasıl kurulur?",grammar
+118,q119,Как правильно использовать местоимения в дательном падеже?,grammar
+119,q120,"Як будувати речення з підрядними сполучниками, такими як ""wenn"" і ""als""?",grammar
+120,q121,Wie bilde ich eine Frage im Perfekt?,grammar
+121,q122,"""Seit"" edatını kullanarak cümle nasıl kurarım?",grammar
+122,q123,Когда используется форма Konjunktiv II?,grammar
+123,q124,"Wie unterscheide ich ""dieser"" und ""jener"" im Satz?",grammar
+124,q125,"كيف أكون جملة استفهامية باستخدام ""warum""؟",grammar
+125,q126,"""Mit"" edatının doğru kullanımını açıklayabilir misiniz?",grammar
+126,q127,"Як побудувати речення з ""um ... zu"" для вираження мети?",grammar
+127,q128,"كيف أستخدم ""sollen"" في طلب النصيحة؟",grammar
+128,q129,"""Als"" ve ""wenn"" kullanımı arasındaki fark nedir?",grammar
+129,q130,"В каких случаях используется ""während"" и как меняется порядок слов в предложении?",grammar
+130,q131,"Wie unterscheide ich ""ob"" und ""wenn""?",grammar
+131,q132,"كيف أستخدم ""trotzdem"" في جملة؟",grammar
+132,q133,"""Ohne"" edatını kullanarak cümle nasıl kurarım?",grammar
+133,q134,"Wie bilde ich eine Aufforderung mit ""bitte""?",grammar
+134,q135,"كيف أستخدم ""zu + Infinitiv"" لتكوين جملة؟",grammar
+135,q136,"""Während"" bağlacı ile cümle nasıl kurulur?",grammar
+136,q137,"Как образуются сложные предложения с союзом ""damit""?",grammar
+137,q138,Wie benutze ich das Partizip II als Adjektiv?,grammar
+138,q139,"""Wegen"" edatı ile cümle nasıl kurarım?",grammar
+139,q140,"كيف أستخدم ""genau"" في جملة؟",grammar
+140,q141,"В чем разница между ""durch"" и ""von""?",grammar
+141,q142,"Як вживати дієслова з ""sein"" у перфекті?",grammar
+142,q143,"Wie bilde ich eine Frage mit ""wohin""?",grammar
+143,q144,"كيف أستخدم ""bevor"" و""nachdem"" في جملتين مختلفتين؟",grammar
+144,q145,"""In"" ve ""auf"" edatlarının kullanımı arasındaki fark nedir?",grammar
+145,q146,Как используются модальные глаголы в Konjunktiv II?,grammar
+146,q147,"Як будувати заперечні речення з ""weder ... noch""?",grammar
+147,q148,Какие формы прилагательных существуют в сравнительной степени?,grammar
+148,q149,"""Mit"" ve ""bei"" edatlarının doğru kullanımı nasıldır?",grammar
+149,q150,"كيف أستخدم ""obwohl"" في جملة؟",grammar
+150,q151,"Когда используется союз ""falls""?",grammar
+151,q152,"كيف أستخدم ""ob"" في جملة استفهامية غير مباشرة؟",grammar
+152,q153,"В чем разница между ""gegen"" и ""für""?",grammar
+153,q154,Wie bilde ich das Perfekt von unregelmäßigen Verben?,grammar
+154,q155,"كيف أستخدم ""damit"" في جملة؟",grammar
+155,q156,"Как использовать придаточные предложения с ""weil"" и ""obwohl""?",grammar
+156,q157,"Wie unterscheide ich ""seitdem"" und ""seit""?",grammar
+157,q158,"كيف أستخدم ""um ... zu"" لتكوين جملة؟",grammar
+158,q159,"В чем разница между ""während"" и ""bis""?",grammar
+159,q160,"Як будувати складнопідрядні речення з ""dass""?",grammar
+160,q161,"Wie bilde ich eine Bedingung mit ""wenn""?",grammar
+161,q162,Как используются пассивные конструкции в немецком языке?,grammar
+162,q163,"""Von"" ve ""aus"" edatlarının farkı nedir?",grammar
+163,q164,"""Neben"" ve ""zwischen"" edatlarının kullanımı nasıldır?",grammar
+164,q165,"Як будувати речення з ""damit"" для вираження мети?",grammar

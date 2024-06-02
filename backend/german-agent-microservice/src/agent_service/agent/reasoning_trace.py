@@ -2,7 +2,7 @@ from typing import List, Union
 from agent_service.agent.agent_step import AgentStep, AgentValidationStep, AgentFinalStep
 import json, uuid
 from pathlib import Path
-import os
+import os, logging
 
 
 class ReasoningLogger:
@@ -10,7 +10,10 @@ class ReasoningLogger:
     represents a trace of agent steps with methods to add steps, store
     exceptions, and generate JSON output.
     """
-    def __init__(self) -> None:
+    def __init__(self, task_type, query_id: str=None, model_id:str=None) -> None:
+        self.query_id = query_id
+        self.model_id = model_id
+        self.task_type = task_type.value
         self.trace:List[Union[AgentStep, AgentValidationStep, AgentFinalStep]] = []
         self.query = None
         self.errors : List[Exception] = []
@@ -59,12 +62,21 @@ class ReasoningLogger:
         """
         converts the trace into JSON and writes it to the out file
         """
+        if self.query_id is None:
+            self.query_id  = str(uuid.uuid4())
         dict_f = {"query": self.query}
         dict_f["reasoning_steps"] = [step.model_dump() for step in self.trace]
         dict_f["final_answer"] = self.final_answer
         dict_f["errors"] = self.errors
+        dict_f["model"] = self.model_id
+        dict_f["task_type"] = self.task_type
+        dict_f["query_id"] = self.query_id
 
-        filepath = Path("backend/german-agent-microservice/src/out/" + str(uuid.uuid4()) + ".json")
+        # remove all dots in the model ID
+        clean_model_id = self.model_id.replace(".", "_").replace(":", "_")
+
+        filepath = Path("out/" + self.query_id + "_" + clean_model_id + ".json")
+        logging.info(filepath)
         os.makedirs(os.path.dirname(filepath), exist_ok=True)
 
         with open(filepath, 'w', encoding='utf8') as file:
