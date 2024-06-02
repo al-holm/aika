@@ -136,5 +136,3 @@ ${reasoning_trace}
 
 My Thought:
 """
-
-
