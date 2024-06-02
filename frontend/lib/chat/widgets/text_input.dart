@@ -20,7 +20,7 @@ class TextInput extends StatelessWidget {
 
     return Container(
       color: AppStyles.sandColor,
-      padding: EdgeInsets.only(left: unitW*2, right: unitW*2, top: unitH*2, bottom: unitH*4),
+      padding: EdgeInsets.only(left: unitW*2, right: unitW*2, top: unitH*2, bottom: unitH*2),
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.black),
