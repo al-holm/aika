@@ -8,6 +8,7 @@ import 'package:frontend/chat/widgets/message_tile.dart';
 import 'package:frontend/chat/widgets/text_input.dart';
 import 'package:frontend/shared/styles/app_styles.dart';
 import 'package:frontend/shared/ui_elements.dart';
+import 'package:frontend/task_widget/dummy_tasks.dart';
 
 abstract class ChatPage extends StatefulWidget {
   final String apiUrl;
@@ -91,6 +92,20 @@ class ChatState<T extends ChatPage> extends State<T> {
       log("Failed loading message.");
     }
   }
+
+  void handleNewLesson() {
+    setState(() {
+      Message lesson_message = Message(
+        text: dummyLesson,
+        userID: 'bot',
+        messageID: MetadataService.generateMessageID(),
+        role: 'bot',
+        timestamp: DateTime.now());
+      lesson_message.gotTasks = true;
+      _messages.add(lesson_message);
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {

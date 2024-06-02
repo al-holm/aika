@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/shared/styles/app_styles.dart';
+import 'package:frontend/utils/app_localization.dart';
 class TaskControlButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
@@ -50,11 +51,11 @@ class TaskButtonGroup extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
        TaskControlButton(
-          text: 'Back',
+          text: AppLocalizations.of(context).translate('back'),
           onPressed: onBack ?? () {},  
         ),
         TaskControlButton(
-          text: 'Continue',
+          text: AppLocalizations.of(context).translate('continue'),
           onPressed: onNext ?? () {},  
         ),
       ],

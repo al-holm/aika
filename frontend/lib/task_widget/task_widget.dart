@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/shared/styles/app_styles.dart';
 import 'package:frontend/shared/ui_elements.dart';
-import 'package:frontend/task_widget/dummy_tasks.dart';
 import 'package:frontend/task_widget/fill_gaps.dart';
 import 'package:frontend/task_widget/models/task.dart';
 import 'package:frontend/task_widget/multiple_choice.dart';
