@@ -4,6 +4,7 @@ class Message {
   String messageID;
   String role;
   DateTime timestamp;
+  bool gotTasks = false;
 
   Message({required this.text, 
         required this.userID,

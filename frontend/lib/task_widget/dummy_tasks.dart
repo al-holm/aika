@@ -25,3 +25,5 @@ Task openEndedTask = Task(
   [['']],
   ['']
 );
+
+String dummyLesson = "Let's learn about the Perfekt tense in German. Here is the rule: [Grammar Rule].";
