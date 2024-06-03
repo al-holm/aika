@@ -1,31 +1,37 @@
 from agent_service.tools.tool import Tool
 from agent_service.prompts.prompt_builder import PromptBuilder
+from agent_service.prompts.task_generation_prompt import RETRIEVER_TEMPLATE
 import os
-import pandas as pd
-import chromadb 
-import chromadb.utils.embedding_functions as embedding_functions
-import uuid
 from typing import List, Dict, Tuple
 import logging
-
+from pymilvus import MilvusClient
+from pymilvus.model import hybrid
+from agent_service.prompts.task_generation_prompt import RETRIEVER_TEMPLATE
 class RetrievalTool(Tool):
-    PROMPT_ID = "Infos abrufen"
-    #TEMPLATE = RETRIEVE_TEMPLATE
+    PROMPT_ID = "retrieve"
+    TEMPLATE = RETRIEVER_TEMPLATE
     
     COLLECTION_NAME = "LawAndLifeLibrary"
-    ROOT_PATH = "agent_service/prompts/"
-    DOC_PATH = ROOT_PATH + "res/law_life_data/"
-    CHROMA_PATH = ROOT_PATH + "res/law_life_chromadb/"
+    ROOT_PATH = "agent_service/tools/"
+    DOC_PATH = ROOT_PATH + "res/data/"
 
-    def __init__(self, init=False) -> None:
-        self.name = "Infos abrufen"
+    def __init__(self, init=False, llm='bedrock') -> None:
+        self.name = "Suche in Fachbücher"
         self.description = "Hilfe mit Infos"
+        self.set_llm(llm)
+        self.llm.set_max_tokens(350)
+        self.prompt = PromptBuilder()
+        self.prompt.create_prompts(
+            {self.PROMPT_ID : self.TEMPLATE}
+        )
+
         self.min_chunk_len = 200
         markdown_text_list = self.read_markdown_folder(self.DOC_PATH)
         self.list_src, self.list_docs = self.parse_info(markdown_text_list)
-        self.ef = embedding_functions.HuggingFaceEmbeddingFunction(
-            api_key=os.environ["HF_API_TOKEN"],
-            model_name="BAAI/bge-m3"
+        self.ef = hybrid.BGEM3EmbeddingFunction(
+            model_name='BAAI/bge-m3', # Specify the model name
+            device='cpu', # Specify the device to use, e.g., 'cpu' or 'cuda:0'
+            use_fp16=False # Specify whether to use fp16. Set to `False` if `device` is `cpu`.
         )
         self.start_vector_store(init)
         if init:
@@ -77,10 +83,10 @@ class RetrievalTool(Tool):
         """
         """
         blocks = text.split("\n# ")
-        src = blocks[0]
+        src = blocks[1]
         chunks = []
         chunk_buff = ''
-        for block in blocks[1:]:
+        for block in blocks[2:]:
             if len(block) < self.min_chunk_len and chunk_buff == "":
                 chunk_buff = block
             else:
@@ -89,6 +95,7 @@ class RetrievalTool(Tool):
                     chunk_buff = ""
                 else:
                     new_chunk = block
+                new_chunk.replace('\n', ' ')
                 chunks.append(new_chunk)
         
 
@@ -101,30 +108,23 @@ class RetrievalTool(Tool):
         """
         Initialize the vector store client and create a new collection.
         """
-        self.client = chromadb.PersistentClient(path=self.CHROMA_PATH)
+        self.client = MilvusClient("milvus_rag.db")
         if init:
-            try:
-                self.client.delete_collection(name=self.COLLECTION_NAME)
-            except Exception:
-                logging.warning("No collection found")
-            logging.info("Reinitializing a vector store")
-            self.collection = self.client.create_collection(name=self.COLLECTION_NAME, embedding_function=self.ef)
-        else:
-            self.collection = self.client.get_collection(name=self.COLLECTION_NAME, embedding_function=self.ef)
+            self.collection = self.client.create_collection(collection_name=self.COLLECTION_NAME, dimension=1024)
 
     def add_docs(self):
         """
         Prepare document embeddings and add them to the vector store collection.
         """
-        doc_embeddings = self.ef(self.list_docs)
-        dict_src = [{"source": src} for src in self.list_src]
+        logging.info(len(self.list_docs))
+        doc_embeddings  = self.ef.encode_documents(self.list_docs)['dense']
+        logging.info('embeddings ready')
 
-        ids = [str(uuid.uuid4()) for i in range(len(self.list_docs))]
-        self.collection.add(
-            documents=self.list_docs,
-            embeddings=doc_embeddings,
-            metadatas= dict_src,
-            ids=ids
+        data = [ {"id": i, "vector": doc_embeddings[i], "text": self.list_docs[i], "source": self.list_src[i]} for i in range(len(self.list_docs)) ]
+
+        self.client.insert(
+            collection_name=self.COLLECTION_NAME,
+            data=data
         )
         logging.info("Vector store reinitialized")
 
@@ -145,21 +145,22 @@ class RetrievalTool(Tool):
         Tuple[str, str]
             A tuple containing containing the parsed examples for planning and validation.
         """
-        patience = 3
-        i=0
-        while i<patience:
-            try:
-                results = self.collection.query(
-                    query_texts=[input], 
-                    n_results=3 
-                )
-            except Exception as e :
-                logging.warning(e)
-            i+=1
-        #plan,val = self.parse_examples(results)
-        return results
+        query_vectors = self.ef.encode_queries([input])['dense']
+
+        results = self.client.search(
+            collection_name=self.COLLECTION_NAME, # target collection
+            data=query_vectors,                # query vectors
+            limit=2,                           # number of returned entities
+            output_fields=["text", "source"], # specifies fields to be returned
+        )
+        parsed_result = self.parse_retrieval_results(results[0])
+        self.query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, 
+                                                     text=input,
+                                                     results=parsed_result)
+        answer = self.llm.run(self.query)
+        return answer
     
-    def parse_examples(self, results: Dict) -> Tuple[str, str]:
+    def parse_retrieval_results(self, results: Dict) -> str:
         """
         Parse examples from the query results.
 
@@ -173,52 +174,10 @@ class RetrievalTool(Tool):
         Tuple[str, str]
             A tuple containing the concatenated examples for planning and validation.
         """
-        examples_plan, examples_val = [], []
-        metadatas = sum(results["metadatas"], []) # flatten the list
-        docs = sum(results['documents'], [])
-        
-        for doc, metadata in zip(docs, metadatas):
-            plan, val = self.parse_doc(doc, metadata)
-            examples_plan.append(plan)
-            examples_val.append(val)
-        
-        concatenated_plan = "\n\n".join(examples_plan)
-        concatenated_val = "\n\n".join(examples_val)
-        
-        return concatenated_plan, concatenated_val
-        
+        res = ''
+        for i in results:
+            node = i['entity']
+            res += node['text'] + '\nSource: ' + node['source'] + '\n\n'
+        return res
 
-    def parse_doc(self, doc: str, metadata: Dict) -> Tuple[str, str]:
-        """
-        Parse a single document and its metadata into plan and value examples.
 
-        Parameters
-        ----------
-        doc : str
-            The document text to parse.
-        metadata : dict
-            The metadata associated with the document.
-
-        Returns
-        -------
-        Tuple[str, str]
-            The parsed plan and value examples.
-        """
-        plan_text, comment = doc.split("\nMy Thought: ")
-        
-        if metadata['cat_act'] == 'good_a':
-            plan = "Hier ist ein gutes Beispiel:\n"
-        else:
-            plan = "Hier ist ein schlechtes Beispiel:\nWieso? "
-            plan += comment.split("nicht vorhanden. ")[1] + "\n"
-        plan += plan_text.split("Observation: ")[0]
-        
-        if metadata['cat_val'] == 'good_v':
-            val = "Hier ist ein gutes Beispiel:\n"
-        else:
-            val = "Hier ist ein schlechtes Beispiel:\n"
-        val += doc
-        
-        return plan, val
-        
- 

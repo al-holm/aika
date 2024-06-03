@@ -4,7 +4,7 @@ from agent_service.agent.agent_step import AgentStep
 from agent_service.agent.task_type import TaskType
 from pydantic import ValidationError
 from agent_service.agent.llm import LLMBedrock, LLMRunPod
-from agent_service.prompts.react_prompt import VAL_STOP_PREFIX, ACTION_PROMPT_QA, ACTION_PROMPT_LESSON, VALIDATION_PROMPT_LESSON, VALIDATION_PROMPT_QA
+from agent_service.prompts.react_prompt import VAL_STOP_PREFIX, ACTION_PROMPT_QA, ACTION_PROMPT_LESSON, VALIDATION_PROMPT_LESSON, VALIDATION_PROMPT_QA, ACTION_PROMPT_LAW, VALIDATION_PROMPT_LAW
 from agent_service.agent.reasoning_trace import ReasoningLogger
 from agent_service.prompts.prompt_builder import PromptBuilder
 from agent_service.prompts.trajectory_library import TrajectoryInjector
@@ -95,7 +95,8 @@ class Agent:
         self.init_prompts(task_type) 
         self.validation_parser = ValidationParser()
         self.step_parser = StepParser(self.tool_executor.tool_names)
-        self.trajectory_injector = TrajectoryInjector()
+        if self.task_type != TaskType.LAWLIFE:
+            self.trajectory_injector = TrajectoryInjector()
 
     def reset(self):
         """
@@ -115,6 +116,9 @@ class Agent:
         if task_type == TaskType.ANSWERING:
             plan_prompt = ACTION_PROMPT_QA
             val_prompt = VALIDATION_PROMPT_QA
+        elif task_type == TaskType.LAWLIFE:
+            plan_prompt = ACTION_PROMPT_LAW
+            val_prompt = VALIDATION_PROMPT_LAW
         else:
             plan_prompt = ACTION_PROMPT_LESSON
             val_prompt = VALIDATION_PROMPT_LESSON
@@ -301,7 +305,8 @@ class Agent:
         )
         self.reasoning_logger.set_query(query)
 
-        self.add_trajectory_examples_to_prompts(query)
+        if self.task_type != TaskType.LAWLIFE:
+            self.add_trajectory_examples_to_prompts(query)
 
     def add_trajectory_examples_to_prompts(self, query)->None:
         """
