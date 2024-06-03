@@ -23,7 +23,14 @@ export class GermanChatController {
   @Post('message') // changed to post, cause get requests typically don't include a body
   async getAnswer( @Body() userMessage: Message, ): 
     Promise<{ message: Message }> {
-    const message = await this.germanChatService.processMessage(userMessage);
+    const message = await this.germanChatService.processMessage(userMessage, "language");
+    return { message };
+  }
+
+  @Post('message_law_life') // changed to post, cause get requests typically don't include a body
+  async getAnswerLawLife( @Body() userMessage: Message, ): 
+    Promise<{ message: Message }> {
+    const message = await this.germanChatService.processMessage(userMessage, "law-life");
     return { message };
   }
 }
