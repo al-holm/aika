@@ -28,6 +28,9 @@ class ChatService {
       body: messageBody,
     );
 
+    print('\n\n\n\n\nAAAAA');
+    print(response.statusCode);
+
     if (response.statusCode == 201) {
       final responseData = jsonDecode(response.body)['message'];
       print(DateTime.parse(responseData['timestamp']));
