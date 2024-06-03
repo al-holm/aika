@@ -2,28 +2,28 @@ import 'package:frontend/task_widget/models/task.dart';
 
 Task multipleChoiceTask = Task(
   TaskType.multipleChoice, 
-  'What is the correct form of the Perfekt for "Ich gehe"?',
+  'Was sind die Lieblingsfächer des Erzählers?',
   [
-    ['Ich bin gegangen', 'Ich gehe gegangen', 'Ich habe gegangen'],
+    ['Mathematik und Geschichte', 'Mathematik und Biologie', 'Geschichte und Kunst', 'Biologie und Kunst'],
   ],
-  ['Ich bin gegangen'], 
+  ['Mathematik und Geschichte'], 
   );
 
 Task fillInTheGapTask = Task(
   TaskType.fillTheGaps,
-  'Ich habe gestern einen Film __ und dann __ ich nach Hause gegangen.',
+  '1. In Mathematik lernen wir gerade __.\n2. Nach der Schule spielen wir oft __ oder gehen ins Kino.]',
   [
-    ['gesehen', 'gekommen', 'gefahren'],
-    ['bin', 'habe', 'war']
+    ['Addition', 'Subtraktion', 'Brüche'],
+    ['Basketball', 'Tennis', 'Fußball']
   ],
-  ['gesehen', 'bin'],
+  ['Brüche', 'Fußball'],
 );
 
 Task openEndedTask = Task(
   TaskType.openQuestion,
-  'Describe in German how you spent your last weekend using Perfekt tense.',
+  'Warum mag der Erzähler seine Schule? Nutzen Sie Details aus dem Text.',
   [['']],
   ['']
 );
 
-String dummyLesson = "Let's learn about the Perfekt tense in German. Here is the rule: [Grammar Rule].";
+String dummyLesson = "Ich gehe jeden Tag zur Schule. Meine Lieblingsfächer sind Mathematik und Geschichte. In Mathematik lernen wir gerade Brüche und in Geschichte sprechen wir über das Mittelalter. Mein bester Freund heißt Paul und wir sitzen zusammen in der Klasse. Nach der Schule spielen wir oft Fußball oder gehen ins Kino. Unsere Lehrerin, Frau Müller, ist sehr nett und hilft uns immer bei den Hausaufgaben. Ich mag meine Schule sehr.";

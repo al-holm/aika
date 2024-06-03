@@ -75,7 +75,6 @@ class ChatState<T extends ChatPage> extends State<T> {
       role: 'user',
       timestamp: DateTime.now(),
     );
-
     setState(() {
       _messages.add(userMessage);
       isLoading = true;

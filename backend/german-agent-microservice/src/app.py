@@ -23,7 +23,7 @@ def getAnswer():
     """
     Returns agent's answer
     """
-    return {"answer": model.run(request.json["question"])["output"]}
+    return {"answer": model.run(request.json["question"])}
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -24,9 +24,9 @@ export class GermanChatService {
     botMessage.messageId= uuidv4();
     botMessage.role = UserRole.Bot;
     botMessage.timestamp = new Date();
-    //botMessage.text = await this.get_answer(userMessage.text); // await the get_answer call
-    botMessage.text = userMessage.text;
-    await new Promise(r => setTimeout(r, 2000));
+    botMessage.text = await this.get_answer(userMessage.text); // await the get_answer call
+    //botMessage.text = userMessage.text;
+    //await new Promise(r => setTimeout(r, 2000));
     return Promise.resolve(botMessage);
   }
 
@@ -36,7 +36,7 @@ export class GermanChatService {
    */
   async get_answer(question : string): Promise<string> {
     const client = axios.create({
-      baseURL: 'http://localhost:5000',
+      baseURL: 'http://127.0.0.1:5000',
     });
 
     const config: AxiosRequestConfig = {
@@ -47,6 +47,7 @@ export class GermanChatService {
 
     try {
       const data = { 'question': question };
+      console.log(question);
       const response: AxiosResponse = await client.post('/get_answer', data, config);
       console.log(response.status);
       console.log(response.data);
