@@ -1,4 +1,4 @@
-import logging, pandas as pd
+import logging, pandas as pd, os
 from typing import List
 from agent_service.agent.agent import Agent
 from scripts.setup_logging import setup_logging
@@ -49,11 +49,17 @@ def load_queries_csv(path: str):
 
 
 def run_test_script():
-    llm = 'runpod'
-    task_type = TaskType.ANSWERING
+    llm = 'bedrock'
+    task_type = TaskType.LESSON
     Config.set_llm(llm, task_type)
 
-    run_queries(queries=load_queries_csv("/Users/ali/Desktop/code/aika/backend/german-agent-microservice/src/in/queries_qa.csv"), task_type=task_type)
+
+    path ="C:/Users/tommc/OneDrive/Dokumente/progs/nest/aika/backend/german-agent-microservice/src/in/queries_nl.csv"
+    # assert if the path is a file
+    assert os.path.isfile(path)
+
+    queries = load_queries_csv(path)
+    run_queries(queries=queries, task_type=task_type)
 
 
 if __name__ == "__main__":
