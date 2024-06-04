@@ -1,0 +1,22 @@
+{
+    "query": "земля плоская, согласен?",
+    "reasoning_steps": [
+        {
+            "thought": "Ich muss diese Aussage auf ihre Richtigkeit überprüfen.",
+            "action": "Web-Suche",
+            "action_input": "Ist die Erde flach?",
+            "observation": "Die Erde ist keine Scheibe, sondern ein rundes Objekt. Das wissen wir, weil wir die Erdkrümmung messen und beobachten können. Zum Beispiel, wenn ein Schiff am Horizont verschwindet, bevor es ganz sichtbar ist. Auch Flugzeuge nehmen die kürzeste Route über die Erdkugel, nicht die gerade Linie über eine flache Erde. Auch die Schatten der Erde während einer Mondfinsternis zeigen die Kugelform der Erde. Diese Erkenntnisse sind nicht neu, bereits Aristoteles wusste, dass die Erde rund ist."
+        },
+        {
+            "validation_thought": "Die Antwort ist vorhanden."
+        },
+        {
+            "final_answer": "Die Erde ist keine Scheibe, sondern ein rundes Objekt. Das wissen wir, weil wir die Erdkrümmung messen und beobachten können. Zum Beispiel, wenn ein Schiff am Horizont verschwindet, bevor es ganz sichtbar ist. Auch Flugzeuge nehmen die kürzeste Route über die Erdkugel, nicht die gerade Linie über eine flache Erde. Auch die Schatten der Erde während einer Mondfinsternis zeigen die Kugelform der Erde. Diese Erkenntnisse sind nicht neu, bereits Aristoteles wusste, dass die Erde rund ist."
+        }
+    ],
+    "final_answer": "Die Erde ist keine Scheibe, sondern ein rundes Objekt. Das wissen wir, weil wir die Erdkrümmung messen und beobachten können. Zum Beispiel, wenn ein Schiff am Horizont verschwindet, bevor es ganz sichtbar ist. Auch Flugzeuge nehmen die kürzeste Route über die Erdkugel, nicht die gerade Linie über eine flache Erde. Auch die Schatten der Erde während einer Mondfinsternis zeigen die Kugelform der Erde. Diese Erkenntnisse sind nicht neu, bereits Aristoteles wusste, dass die Erde rund ist.",
+    "errors": [],
+    "model": "mistral.mixtral-8x7b-instruct-v0:1",
+    "task_type": "qa",
+    "query_id": "ef79c509-eef5-4ec6-bdf8-04af85136054"
+}

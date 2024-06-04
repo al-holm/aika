@@ -1,0 +1,22 @@
+{
+    "query": "wie verwende ich Soll, Muss, Darf? Mit Beispielen",
+    "reasoning_steps": [
+        {
+            "thought": "Ich muss die Bedeutung und Verwendung von Soll, Muss, Darf mit Beispielen erklären.",
+            "action": "Vokabeln und Formulierungshilfe",
+            "action_input": "Modalverben Soll, Muss, Darf - Beispiele",
+            "observation": "Soll:\n\n* Du solltest deine Hausaufgaben machen.\n* Sie sollten pünktlich sein.\n\nMuss:\n\n* Ich muss noch lernen.\n* Er muss seine Meinung ändern.\n\nDarf:\n\n* Kann ich mein Handy benutzen? - Nein, du darfst nicht.\n* Darf ich Ihnen helfen? - Ja, gerne.\n\nWichtige Vokabeln: sollen, müssen, dürfen, Hausaufgaben, pünktlich, lernen, Handy, benutzen, helfen."
+        },
+        {
+            "validation_thought": "Die Antwort ist vorhanden."
+        },
+        {
+            "final_answer": "Soll:\n\n* Du solltest deine Hausaufgaben machen.\n* Sie sollten pünktlich sein.\n\nMuss:\n\n* Ich muss noch lernen.\n* Er muss seine Meinung ändern.\n\nDarf:\n\n* Kann ich mein Handy benutzen? - Nein, du darfst nicht.\n* Darf ich Ihnen helfen? - Ja, gerne.\n\nWichtige Vokabeln: sollen, müssen, dürfen, Hausaufgaben, pünktlich, lernen, Handy, benutzen, helfen."
+        }
+    ],
+    "final_answer": "Soll:\n\n* Du solltest deine Hausaufgaben machen.\n* Sie sollten pünktlich sein.\n\nMuss:\n\n* Ich muss noch lernen.\n* Er muss seine Meinung ändern.\n\nDarf:\n\n* Kann ich mein Handy benutzen? - Nein, du darfst nicht.\n* Darf ich Ihnen helfen? - Ja, gerne.\n\nWichtige Vokabeln: sollen, müssen, dürfen, Hausaufgaben, pünktlich, lernen, Handy, benutzen, helfen.",
+    "errors": [],
+    "model": "mistral.mixtral-8x7b-instruct-v0:1",
+    "task_type": "qa",
+    "query_id": "bce248e4-483d-4fdf-9ed4-ae6fec9eea01"
+}
