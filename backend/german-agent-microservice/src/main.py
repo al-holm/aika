@@ -13,6 +13,7 @@ if __name__ == "__main__":
     rt = RetrievalTool(True)
     print(rt.run('Was ist Wohnberechtigungsschein?'))
     #tj = TrajectoryInjector(True)
+    #print(tj.inject_trajectories('Wie kann ich sagen ich komme später.'))
     #a = Agent(task_type=task_type)
     #a.run("Übersetze wie kann ich 'ich komme später' auf turkisch sagen.")
     #a.run("Как я могу объяснить Ausländerbehörde, что мне сначала надо продлить загранпаспорт, перед получением визы?")
