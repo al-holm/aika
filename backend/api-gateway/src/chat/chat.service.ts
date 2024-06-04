@@ -50,10 +50,7 @@ export class ChatService {
 
     try {
       const data = { 'question': question };
-      console.log(question);
       const response: AxiosResponse = await client.post('/get_answer', data, config);
-      console.log(response.status);
-      console.log(response.data);
       return response.data['answer'];
     } catch (err) {
       console.log(err);
@@ -78,10 +75,7 @@ export class ChatService {
   
       try {
         const data = { 'question': question };
-        console.log(question);
         const response: AxiosResponse = await client.post('/get_answer_law_life', data, config);
-        console.log(response.status);
-        console.log(response.data);
         return response.data['answer'];
       } catch (err) {
         console.log(err);
