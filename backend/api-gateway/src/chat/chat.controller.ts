@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { GermanChatService } from './german_chat.service';
+import { ChatService } from './chat.service';
 import { Message } from './models/message.dto';
 import { ApiTags, ApiResponse, ApiExtraModels, getSchemaPath } from '@nestjs/swagger';
 
@@ -9,9 +9,9 @@ German chat application.
  * @class GermanChatController
  */
 @ApiTags('API-Gateway')
-@Controller('german-chat')
-export class GermanChatController {
-  constructor(private readonly germanChatService: GermanChatService) {}
+@Controller('chat')
+export class ChatController {
+  constructor(private readonly germanChatService: ChatService) {}
 
   @ApiExtraModels(Message)
   @ApiResponse({
@@ -20,16 +20,18 @@ export class GermanChatController {
        $ref: getSchemaPath(Message),
      },
    })
-  @Post('message') // changed to post, cause get requests typically don't include a body
+  @Post('german') // changed to post, cause get requests typically don't include a body
   async getAnswer( @Body() userMessage: Message, ): 
     Promise<{ message: Message }> {
+    console.log('backend received german');
     const message = await this.germanChatService.processMessage(userMessage, "language");
     return { message };
   }
 
-  @Post('message_law_life') // changed to post, cause get requests typically don't include a body
+  @Post('law') // changed to post, cause get requests typically don't include a body
   async getAnswerLawLife( @Body() userMessage: Message, ): 
     Promise<{ message: Message }> {
+    console.log('backend received law');
     const message = await this.germanChatService.processMessage(userMessage, "law-life");
     return { message };
   }

@@ -9,7 +9,7 @@ export enum UserRole {
 
 /**
  * Object class for representing messages & enforces type safety for properties
- * @class GermanChatMessageDto
+ * @class Message
  */
 export class Message {
   @ApiProperty({
