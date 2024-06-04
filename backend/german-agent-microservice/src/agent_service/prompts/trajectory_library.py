@@ -1,7 +1,7 @@
 import os
 import pandas as pd
-import chromadb 
-import chromadb.utils.embedding_functions as embedding_functions
+from pymilvus import MilvusClient
+from pymilvus.model import hybrid
 import uuid
 from typing import List, Dict, Tuple
 import logging
@@ -28,13 +28,14 @@ class TrajectoryInjector:
     COLLECTION_NAME = "trajectoryLibrary"
     ROOT_PATH = "agent_service/prompts/"
     DOC_PATH = ROOT_PATH + "res/trajectories_data/"
-    CHROMA_PATH = ROOT_PATH + "res/chromadb/"
+    DB_PATH = ROOT_PATH + "res/db/"
     def __init__(self, init=False) -> None:
         markdown_text_list = self.read_markdown_folder(self.DOC_PATH)
         self.df_docs = self.parse_trajectories(markdown_text_list)
-        self.ef = embedding_functions.HuggingFaceEmbeddingFunction(
-            api_key=os.environ["HF_API_TOKEN"],
-            model_name="BAAI/bge-m3"
+        self.ef = hybrid.BGEM3EmbeddingFunction(
+            model_name='BAAI/bge-m3', # Specify the model name
+            device='cpu', # Specify the device to use, e.g., 'cpu' or 'cuda:0'
+            use_fp16=False # Specify whether to use fp16. Set to `False` if `device` is `cpu`.
         )
         self.start_vector_store(init)
         if init:
@@ -91,28 +92,23 @@ class TrajectoryInjector:
         """
         Initialize the vector store client and create a new collection.
         """
-        self.client = chromadb.PersistentClient(path=self.CHROMA_PATH)
+        self.client = MilvusClient(self.DB_PATH + "milvus_memory.db")
         if init:
-            try:
-                self.client.delete_collection(name=self.COLLECTION_NAME)
-            except Exception:
-                logging.warning("No collection found")
-            logging.info("Reinitializing a vector store")
-            self.collection = self.client.create_collection(name=self.COLLECTION_NAME, embedding_function=self.ef)
-        else:
-            self.collection = self.client.get_collection(name=self.COLLECTION_NAME, embedding_function=self.ef)
+            self.collection = self.client.create_collection(collection_name=self.COLLECTION_NAME, dimension=1024)
 
     def add_docs(self):
         """
         Prepare document embeddings and add them to the vector store collection.
         """
-        doc_embeddings = self.ef(list(self.df_docs["doc"]))
-        ids = [str(uuid.uuid4()) for i in range(len(self.df_docs))]
-        self.collection.add(
-            documents=list(self.df_docs["doc"]),
-            embeddings=doc_embeddings,
-            metadatas=self.df_docs[['cat_act','cat_val', 'context']].to_dict(orient='records'),
-            ids=ids
+        doc_list = list(self.df_docs["doc"])
+        list_act = list(self.df_docs['cat_act'])
+        list_val= list(self.df_docs['cat_val'])
+        doc_embeddings  = self.ef.encode_documents(doc_list)['dense']
+        data = [ {"id": i, "vector": doc_embeddings[i], "text": doc_list[i], "cat_act": list_act[i], "cat_val": list_val[i]} for i in range(len(doc_list))]
+
+        self.client.insert(
+            collection_name=self.COLLECTION_NAME,
+            data=data
         )
         logging.info("Vector store reinitialized")
     
@@ -132,18 +128,15 @@ class TrajectoryInjector:
         Tuple[str, str]
             A tuple containing containing the parsed examples for planning and validation.
         """
-        patience = 3
-        i=0
-        while i<patience:
-            try:
-                results = self.collection.query(
-                    query_texts=[query], 
-                    n_results=top_k 
-                )
-            except Exception as e :
-                logging.warning(e)
-            i+=1
-        plan,val = self.parse_examples(results)
+        query_vectors = self.ef.encode_queries([query])['dense']
+
+        results = self.client.search(
+            collection_name=self.COLLECTION_NAME, # target collection
+            data=query_vectors,                # query vectors
+            limit=top_k,                           # number of returned entities
+            output_fields=["text", "cat_act", 'cat_val'], # specifies fields to be returned
+        )
+        plan,val = self.parse_examples(results[0])
         return plan, val
     
     def parse_examples(self, results: Dict) -> Tuple[str, str]:
@@ -161,11 +154,13 @@ class TrajectoryInjector:
             A tuple containing the concatenated examples for planning and validation.
         """
         examples_plan, examples_val = [], []
-        metadatas = sum(results["metadatas"], []) # flatten the list
-        docs = sum(results['documents'], [])
-        
-        for doc, metadata in zip(docs, metadatas):
-            plan, val = self.parse_doc(doc, metadata)
+        for i in results:
+            node = i['entity']
+            metadata = {
+                'cat_act': node['cat_act'],
+                'cat_val': node['cat_val'],
+                }
+            plan, val = self.parse_doc(node['text'], metadata)
             examples_plan.append(plan)
             examples_val.append(val)
         
