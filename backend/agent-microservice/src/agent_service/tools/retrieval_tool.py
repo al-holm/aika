@@ -20,7 +20,7 @@ class RetrievalTool(Tool):
         self.name = "Suche in Fachbücher"
         self.description = "Hilfe mit Infos"
         self.set_llm(llm)
-        self.llm.set_max_tokens(350)
+        self.llm.set_max_tokens(450)
         self.prompt = PromptBuilder()
         self.prompt.create_prompts(
             {self.PROMPT_ID : self.TEMPLATE}

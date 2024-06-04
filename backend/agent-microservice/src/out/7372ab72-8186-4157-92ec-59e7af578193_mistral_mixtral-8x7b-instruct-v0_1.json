@@ -1,0 +1,22 @@
+{
+    "query": "Как я могу объяснить Ausländerbehörde, что мне сначала надо продлить загранпаспорт, перед получением визы?",
+    "reasoning_steps": [
+        {
+            "thought": "Ich muss eine Möglichkeit finden, wie man der Ausländerbehörde erklärt, dass man zuerst das Visum verlängern muss, bevor man die Aufenthaltserlaubnis beantragen kann.",
+            "action": "Vokabeln und Formulierungshilfe",
+            "action_input": "Musterformulierung, Visum verlängern vor Aufenthaltserlaubnis auf Deutsch",
+            "observation": "Du kannst sagen: \"Ich möchte mein Visum verlängern, bevor meine Aufenthaltserlaubnis abläuft.\"\noder\n\"Kann ich mein Visum verlängern, bevor meine Aufenthaltserlaubnis endet?\"\nWichtige Vokabeln:\n- Visum verlängern: \"Visum verlängern\"\n- Aufenthaltserlaubnis: \"Aufenthaltserlaubnis\"\n- abläuft: \"abläuft\"\n- endet: \"endet\""
+        },
+        {
+            "validation_thought": "Die Antwort ist vorhanden."
+        },
+        {
+            "final_answer": "Du kannst sagen: \"Ich möchte mein Visum verlängern, bevor meine Aufenthaltserlaubnis abläuft.\"\noder\n\"Kann ich mein Visum verlängern, bevor meine Aufenthaltserlaubnis endet?\"\nWichtige Vokabeln:\n- Visum verlängern: \"Visum verlängern\"\n- Aufenthaltserlaubnis: \"Aufenthaltserlaubnis\"\n- abläuft: \"abläuft\"\n- endet: \"endet\""
+        }
+    ],
+    "final_answer": "Du kannst sagen: \"Ich möchte mein Visum verlängern, bevor meine Aufenthaltserlaubnis abläuft.\"\noder\n\"Kann ich mein Visum verlängern, bevor meine Aufenthaltserlaubnis endet?\"\nWichtige Vokabeln:\n- Visum verlängern: \"Visum verlängern\"\n- Aufenthaltserlaubnis: \"Aufenthaltserlaubnis\"\n- abläuft: \"abläuft\"\n- endet: \"endet\"",
+    "errors": [],
+    "model": "mistral.mixtral-8x7b-instruct-v0:1",
+    "task_type": "qa",
+    "query_id": "7372ab72-8186-4157-92ec-59e7af578193"
+}

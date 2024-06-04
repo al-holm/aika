@@ -1,0 +1,22 @@
+{
+    "query": "Was beeutet 'Wohngeld' auf Russisch?",
+    "reasoning_steps": [
+        {
+            "thought": "Ich muss 'Wohngeld' ins Russische übersetzen.",
+            "action": "Übersetzer",
+            "action_input": "Wohngeld - [RU]",
+            "observation": "Жилищное пособие"
+        },
+        {
+            "validation_thought": "Die Antwort ist vorhanden."
+        },
+        {
+            "final_answer": "Жилищное пособие"
+        }
+    ],
+    "final_answer": "Жилищное пособие",
+    "errors": [],
+    "model": "mistral.mixtral-8x7b-instruct-v0:1",
+    "task_type": "qa",
+    "query_id": "5ab96b58-0e56-4fd3-b6f1-b9a1336aaac1"
+}

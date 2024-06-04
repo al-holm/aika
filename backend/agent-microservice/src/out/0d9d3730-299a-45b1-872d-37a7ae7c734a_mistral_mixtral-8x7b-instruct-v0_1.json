@@ -1,0 +1,22 @@
+{
+    "query": "Übersetze wie kann ich 'ich komme später' auf turkisch sagen.",
+    "reasoning_steps": [
+        {
+            "thought": "Ich muss die Worte 'ich komme später' ins Türkische übersetzen.",
+            "action": "Übersetzer",
+            "action_input": "ich komme später - [TR]",
+            "observation": "Daha sonra geleceğim."
+        },
+        {
+            "validation_thought": "Die Antwort ist vorhanden."
+        },
+        {
+            "final_answer": "Daha sonra geleceğim."
+        }
+    ],
+    "final_answer": "Daha sonra geleceğim.",
+    "errors": [],
+    "model": "mistral.mixtral-8x7b-instruct-v0:1",
+    "task_type": "qa",
+    "query_id": "0d9d3730-299a-45b1-872d-37a7ae7c734a"
+}

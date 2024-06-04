@@ -1,0 +1,22 @@
+{
+    "query": "wie übersetze ich McDonalds auf Russisch?",
+    "reasoning_steps": [
+        {
+            "thought": "Ich muss \"McDonalds\" ins Russische übersetzen.",
+            "action": "Übersetzer",
+            "action_input": "McDonalds - [RU]",
+            "observation": "Макдональдс"
+        },
+        {
+            "validation_thought": "Die Antwort ist vorhanden."
+        },
+        {
+            "final_answer": "Макдональдс"
+        }
+    ],
+    "final_answer": "Макдональдс",
+    "errors": [],
+    "model": "mistral.mixtral-8x7b-instruct-v0:1",
+    "task_type": "qa",
+    "query_id": "cfb86165-aa86-41ba-9d2c-0a17bb858faf"
+}

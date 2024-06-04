@@ -1,0 +1,22 @@
+{
+    "query": "Как объяснить, что у меня протекла труба и мне нужен сантехник",
+    "reasoning_steps": [
+        {
+            "thought": "Ich muss eine Möglichkeit geben, wie man auf Deutsch mitteilt, dass eine Wasserleitung geplatzt ist und man einen Klempner braucht.",
+            "action": "Vokabeln und Formulierungshilfe",
+            "action_input": "Musterformulierung, Wasserleitung geplatzt und Klempner auf Deutsch",
+            "observation": "\n* \"Die Wasserleitung ist geplatzt!\" - \"Die Wasserleitung ist kaputt!\"\n* \"Ich rufe einen Klempner an!\" - \"Ich organisiere einen Klempner!\"\n* \"Der Klempner ist schon unterwegs!\" - \"Der Klempner kommt schon bald!\"\n\nWichtige Vokabeln:\n\n* Wasserleitung: Wasserversorgung, Wasserrohr\n* geplatzt: gebrochen, kaputt\n* Klempner: Installateur, Handwerker für Rohre und Sanitär\n* anrufen: anrufen, kontaktieren\n* organisieren: planen, einrichten\n* unterwegs: unterwegs, auf dem Weg"
+        },
+        {
+            "validation_thought": "Die Antwort ist vorhanden. Die Beobachtung enthält eine Musterformulierung, um auf Deutsch mitzuteilen, dass eine Wasserleitung geplatzt ist und man einen Klempner braucht. Die Vokabeln und Formulierungshilfe war das richtige Werkzeug für diese Frage."
+        },
+        {
+            "final_answer": "\n* \"Die Wasserleitung ist geplatzt!\" - \"Die Wasserleitung ist kaputt!\"\n* \"Ich rufe einen Klempner an!\" - \"Ich organisiere einen Klempner!\"\n* \"Der Klempner ist schon unterwegs!\" - \"Der Klempner kommt schon bald!\"\n\nWichtige Vokabeln:\n\n* Wasserleitung: Wasserversorgung, Wasserrohr\n* geplatzt: gebrochen, kaputt\n* Klempner: Installateur, Handwerker für Rohre und Sanitär\n* anrufen: anrufen, kontaktieren\n* organisieren: planen, einrichten\n* unterwegs: unterwegs, auf dem Weg"
+        }
+    ],
+    "final_answer": "\n* \"Die Wasserleitung ist geplatzt!\" - \"Die Wasserleitung ist kaputt!\"\n* \"Ich rufe einen Klempner an!\" - \"Ich organisiere einen Klempner!\"\n* \"Der Klempner ist schon unterwegs!\" - \"Der Klempner kommt schon bald!\"\n\nWichtige Vokabeln:\n\n* Wasserleitung: Wasserversorgung, Wasserrohr\n* geplatzt: gebrochen, kaputt\n* Klempner: Installateur, Handwerker für Rohre und Sanitär\n* anrufen: anrufen, kontaktieren\n* organisieren: planen, einrichten\n* unterwegs: unterwegs, auf dem Weg",
+    "errors": [],
+    "model": "mistral.mixtral-8x7b-instruct-v0:1",
+    "task_type": "qa",
+    "query_id": "9f22d005-0ddd-4720-a4ef-cc5dc7bcbdef"
+}
