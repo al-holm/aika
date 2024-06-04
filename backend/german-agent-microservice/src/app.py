@@ -19,7 +19,11 @@ warnings.filterwarnings("ignore")
 app = FlaskAPI(__name__)
 
 bedrock = boto3.client(service_name='bedrock-runtime', region_name="eu-west-3")
-model = Agent(task_type=TaskType.ANSWERING)
+
+llm = 'bedrock'
+task_type = TaskType.ANSWERING
+Config.set_llm(llm, task_type)
+aika = Agent(task_type=TaskType.ANSWERING)
 
 retriever = RetrievalTool(False)
 
@@ -28,7 +32,7 @@ def getAnswer():
     """
     Returns agent's answer
     """
-    return {"answer": model.run(request.json["question"])}
+    return {"answer": aika.run(request.json["question"])}
 
 @app.route("/get_answer_law_life", methods=["Post"])
 def getAnswerLawLife():
