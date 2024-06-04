@@ -22,18 +22,15 @@ class ChatService {
     final messageBody = generateMessageBody(message);
     final url = Uri.parse(apiUrl);
 
+
     final response = await http.post(
       url,
       headers: {"Content-Type": "application/json"},
       body: messageBody,
     );
 
-    print('\n\n\n\n\nAAAAA');
-    print(response.statusCode);
-
     if (response.statusCode == 201) {
       final responseData = jsonDecode(response.body)['message'];
-      print(DateTime.parse(responseData['timestamp']));
       if (responseData.containsKey('text')) {
         return Message(
           text: responseData['text'],

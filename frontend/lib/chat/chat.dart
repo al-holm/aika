@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/chat/models/message.dart';
 import 'package:frontend/chat/services/metadata_service.dart';
 import 'package:frontend/chat/widgets/loading_dots.dart';
-import 'package:frontend/chat/widgets/message_tile.dart';
 import 'package:frontend/chat/widgets/text_input.dart';
 import 'package:frontend/shared/styles/app_styles.dart';
 import 'package:frontend/shared/ui_elements.dart';

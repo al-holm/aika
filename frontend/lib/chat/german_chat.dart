@@ -4,7 +4,7 @@ import 'package:frontend/chat/services/chat_service.dart';
 import 'package:frontend/chat/widgets/message_tile.dart';
 
 class GermanChatPage extends ChatPage {
-  static String url = 'http://192.168.178.184:3000/german-chat/message/';
+  static String url = 'http://192.168.178.184:3000/chat/german/';
   final ChatService chatService = ChatService(apiUrl: url);
   GermanChatPage()
       : super(
