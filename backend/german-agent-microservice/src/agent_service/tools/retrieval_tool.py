@@ -13,6 +13,7 @@ class RetrievalTool(Tool):
     
     COLLECTION_NAME = "LawAndLifeLibrary"
     ROOT_PATH = "agent_service/tools/"
+    DB_PATH = ROOT_PATH + "res/rag_db/"
     DOC_PATH = ROOT_PATH + "res/data/"
 
     def __init__(self, init=False, llm='bedrock') -> None:
@@ -108,7 +109,7 @@ class RetrievalTool(Tool):
         """
         Initialize the vector store client and create a new collection.
         """
-        self.client = MilvusClient("milvus_rag.db")
+        self.client = MilvusClient(self.DB_PATH + "milvus_rag.db")
         if init:
             self.collection = self.client.create_collection(collection_name=self.COLLECTION_NAME, dimension=1024)
 
