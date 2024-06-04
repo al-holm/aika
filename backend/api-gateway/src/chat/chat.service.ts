@@ -10,7 +10,7 @@ import { ApiTags } from '@nestjs/swagger';
  */
 @ApiTags('API-Gateway')
 @Injectable()
-export class GermanChatService {
+export class ChatService {
   /**
    * Processes a German chat message DTO and echoes back a formatted string.
    * @param {Message} userMessage - The German chat message DTO to process.
@@ -22,12 +22,12 @@ export class GermanChatService {
     botMessage.messageId= uuidv4();
     botMessage.role = UserRole.Bot;
     botMessage.timestamp = new Date();
-    switch(type) {
-      case "language":
+    console.log(type);
+    if (type=="language"){
         botMessage.text = await this.get_answer(userMessage.text);
-      case "law-life":
+    } else if (type=="law-life") {
         botMessage.text = await this.get_answer_law_life(userMessage.text)
-      default:
+    } else {
         botMessage.text = await this.get_answer(userMessage.text);
     }
     return Promise.resolve(botMessage);

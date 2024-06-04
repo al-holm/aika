@@ -1,19 +1,19 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Message } from '../src/german_chat/models/message.dto';
-import { GermanChatService } from './../src/german_chat/german_chat.service';
+import { Message } from '../src/chat/models/message.dto';
+import { ChatService } from '../src/chat/chat.service';
 
 /**
  * Test suite for the GermanChatService class.
  */
 describe('GermanChatService', () => {
-  let service: GermanChatService;
+  let service: ChatService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [GermanChatService],
+      providers: [ChatService],
     }).compile();
 
-    service = module.get(GermanChatService);
+    service = module.get(ChatService);
   });
 
   it('should be defined', () => {
