@@ -19,10 +19,11 @@ def run_queries(queries: pd.DataFrame, task_type: TaskType) -> None:
     """
 
     logging.info("Entered run_queries")
+    agent = Agent(task_type=task_type)
     try:
         for row in queries.itertuples():
-            agent = Agent(query_id=row.ID, task_type=task_type)
             logging.info(f"Agent gets the query '{row.query}'")
+            agent.reasoning_logger.set_query_id(row.ID)
             agent.run(row.query)
             logging.info("Exited Agent.run")
         logging.info("The run_queries script has been successfully executed")
@@ -43,7 +44,7 @@ def load_queries_csv(path: str):
         contains only ID and queries
     """
 
-    df = pd.read_csv(path, sep=",").sample(3)
+    df = pd.read_csv(path, sep=";")
 
     return df[["ID","query"]]
 
@@ -53,7 +54,7 @@ def run_test_script():
     task_type = TaskType.ANSWERING
     Config.set_llm(llm, task_type)
 
-    run_queries(queries=load_queries_csv("/Users/ali/Desktop/code/aika/backend/german-agent-microservice/src/in/queries_qa_translation.csv"), task_type=task_type)
+    run_queries(queries=load_queries_csv("in/relevanca_qa.csv"), task_type=task_type)
 
 
 if __name__ == "__main__":

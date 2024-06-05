@@ -38,6 +38,6 @@ def process_files(input_directory, output_directory):
         print(f"Processed {input_filepath} -> {output_filepath}")
 
 if __name__ == "__main__":
-    input_dir = "C:/Users/tommc/OneDrive/Dokumente/progs/nest/aika/backend/german-agent-microservice/src/out"
-    output_dir = "C:/Users/tommc/OneDrive/Dokumente/progs/nest/aika/backend/german-agent-microservice/src/out/cleaned_jsons"
+    input_dir = "backend/agent-microservice/src/out/"
+    output_dir = "backend/agent-microservice/src/out/md"
     process_files(input_dir, output_dir)
