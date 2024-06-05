@@ -31,7 +31,8 @@ export class ChatService {
         break;
       }
       case "lesson": {
-        botMessage.text = await this.get_lesson(userMessage.text);
+        const predefined_lesson_desc: string  = "[Grammar][Konjuktiv II][None][3][2][1]"
+        botMessage.text = await this.get_lesson(predefined_lesson_desc);
         break;
       }
       case "law-life": {
