@@ -51,7 +51,7 @@ class Agent:
 
     Methods
     -------
-    __init__(self, query_id: str, task_type: TaskType = TaskType.ANSWERING) -> None
+    __init__(self, task_type: TaskType = TaskType.ANSWERING) -> None
         Initializes the agent.
     init_prompts(self, task_type: TaskType) -> None
         Sets prompt templates for planning and validation steps.
@@ -79,10 +79,9 @@ class Agent:
         Injects relevant trajectory examples into the agent's prompt.
     """
 
-    def __init__(self, query_id:str=None, task_type: TaskType = TaskType.ANSWERING) -> None:
+    def __init__(self, task_type: TaskType = TaskType.ANSWERING) -> None:
         self.parse_config()
         self.reasoning_logger = ReasoningLogger(
-            query_id=query_id, 
             model_id=self.llm.llm_id, 
             task_type=task_type
             )
