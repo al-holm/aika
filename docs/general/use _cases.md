@@ -11,9 +11,9 @@
 # Table of contents
 <!-- TOC start -->
 - [Welcome Screen](#welcome-screen)
-   * [1a. Authentication - Log in (Optional)](#1a-authentication-log-in-optional)
-   * [1b. Authentication - New account (Optional)](#1b-authentication-new-account-optional)
-   * [1c. Guide - New account (Optional)](#1c-guide-new-account-optional)
+   * [1a. Authentication - Log in](#1a-authentication-log-in-optional)
+   * [1b. Authentication - New account](#1b-authentication-new-account-optional)
+   * [1c. Guide - New account](#1c-guide-new-account-optional)
    * [1d. Interaction with main menu](#1d-interaction-with-main-menu)
 - [Chat with German Bot](#chat-with-german-bot)
    * [2a. Send a message & get a response](#2a-send-a-message-get-a-response)
@@ -21,8 +21,8 @@
    * [2c. Start a new lesson](#2c-start-a-new-lesson)
    * [2d. Automatic translation](#2d-automatic-translation)
    * [2e. Task Widget](#2e-task-widget)
-   * [2f. Progress tracker](#2f-progress-tracker)
-   * [2g. Update learning state](#2g-update-learning-state)
+   * [2f. Progress tracker(Optional)](#2f-progress-tracker)
+   * [2g. Update learning state (Optional)](#2g-update-learning-state)
    * [3. Persisting message data in the data base](#3-persisting-message-data-in-the-data-base)
 - [Chat with Recht und Alltag Bot](#chat-with-recht-und-alltag-bot)
    * [4a. Send a message & get a response](#4a-send-a-message-get-a-response)
@@ -32,7 +32,7 @@
 # Welcome Screen
 
 <!-- TOC --><a name="1a-authentication-log-in-optional"></a>
-## 1a. Authentication - Log in (Optional)
+## 1a. Authentication - Log in 
 
 **Actor:** User
 
@@ -53,7 +53,7 @@
 ---
 
 <!-- TOC --><a name="1b-authentication-new-account-optional"></a>
-## 1b. Authentication - New account (Optional)
+## 1b. Authentication - New account
 
 **Actor:** User
 
@@ -72,7 +72,7 @@
 ---
 
 <!-- TOC --><a name="1c-guide-new-account-optional"></a>
-## 1c. Guide - New account (Optional)
+## 1c. Guide - New account
 
 **Actor:** User
 
@@ -250,7 +250,7 @@
 ---
 
 <!-- TOC --><a name="2f-progress-tracker"></a>
-## 2f. Progress tracker
+## 2f. Progress tracker (Optional)
 
 **Actor:** User
 
@@ -273,7 +273,7 @@
 ---
 
 <!-- TOC --><a name="2g-update-learning-state"></a>
-## 2g. Update learning state
+## 2g. Update learning state (Optional)
 
 **Actor:** User
 
