@@ -1,4 +1,4 @@
-from agent_service.prompts.task_generation_prompt import TASK_TEMPLATE
+from agent_service.prompts.tool_prompt import TASK_TEMPLATE
 from agent_service.prompts.task_generation_examples import READING_TASKS_EXAMPLES_1, READING_TASKS_EXAMPLES_2, GRAMMAR_TASKS_EXAMPLES_1, GRAMMAR_TASKS_EXAMPLES_2
 from agent_service.agent.llm import LLMBedrock
 from agent_service.prompts.prompt_builder import PromptBuilder
@@ -21,7 +21,7 @@ class TaskGenerator(Tool):
         self.name = "Deutschaufgaben generieren"
         self.description = "Benutzte als letzte, um die Aufgaben zu generieren. Nimmt als Eingabe deine generierte Text oder Grammatikerklärung."
         # a directory where generated exercises are being saved
-        self.dir_path = "C:/Users/tommc/OneDrive/Dokumente/progs/nest/aika/backend/german-agent-microservice/src/out/tasks/"
+        self.dir_path = "out/tasks/"
         self.set_llm(llm)
         self.prompt = PromptBuilder()
         self.prompt.create_prompts(
@@ -39,10 +39,8 @@ class TaskGenerator(Tool):
         """
         parsed_input = self.parse_input(input)
         first_query, second_query = self.build_prompts(parsed_input)
-
         # reduce max tokens for generating exercises
         tokens = self.llm.max_tokens
-        self.llm.set_max_tokens(40)
 
         single_choice_and_gap_filling = None
         open_qs = None
@@ -50,15 +48,29 @@ class TaskGenerator(Tool):
         # try to generate exercises until they're generated correctly or generation attempts aren't left
         gen_attempts = 5
         areInvalid = True
+        first = False
+        second = False
+        
         while areInvalid and gen_attempts != 0:
-            try:
-                raw_single_choice_and_gap_filling = self.llm.run(first_query) 
-                raw_open_qs = self.llm.run(second_query) 
+            try: 
 
                 # if the extracting fails it means that the exercises weren't generated correctly
                 # so the programs doesn't set areInvalid to False and the loop continues
-                single_choice_and_gap_filling = self.extract_exercises(raw_single_choice_and_gap_filling, int(parsed_input["single-choice"]) + int(parsed_input["gap-filling"]))
-                open_qs = self.extract_exercises(raw_open_qs, int(parsed_input["open"]))
+                if not first:
+                    self.llm.set_max_tokens(700)
+                    raw_single_choice_and_gap_filling = self.llm.run(first_query)
+                    print(self.llm.max_tokens)
+                    print('\n\n\n')
+                    print(raw_single_choice_and_gap_filling)
+                    single_choice_and_gap_filling = self.extract_exercises(raw_single_choice_and_gap_filling, int(parsed_input["single-choice"]) + int(parsed_input["gap-filling"]))
+                    first = True
+                if not second:
+                    self.llm.set_max_tokens(100)
+                    raw_open_qs = self.llm.run(second_query) 
+                    print('\n\n\n')
+                    print(raw_open_qs)
+                    open_qs = self.extract_exercises(raw_open_qs, int(parsed_input["open"]))
+                    second = True
                 areInvalid = False
             except self.ExtractingExercisesError:
                 # the program gets there when an error occured during the extraction of the exercises
@@ -87,17 +99,19 @@ class TaskGenerator(Tool):
         examples_2 = ""
         first_input = ""
         second_input = ""
+        main_topic, secondary_topic = input["main-topic"], input["secondary-topic"]
+        single_choice, gap_filling, open_q = input["single-choice"], input["gap-filling"], input["open"]
         if input["type"] == "Grammar":
             examples_1, examples_2 = GRAMMAR_TASKS_EXAMPLES_1, GRAMMAR_TASKS_EXAMPLES_2
-            first_input = f"[{input["main-topic"]}][{input["secondary-topic"]}][{input["single-choice"]}][{input["gap-filling"]}]"
-            second_input = f"[{input["main-topic"]}][{input["secondary-topic"]}][{input["open"]}]"
+            first_input = f"[{main_topic}][{secondary_topic}][{single_choice}][{gap_filling}]"
+            second_input = f"[{main_topic}][{second_input}][{open_q}]"
         else:
             examples_1, examples_2 = READING_TASKS_EXAMPLES_1, READING_TASKS_EXAMPLES_2
-            first_input = f"[{input["single-choice"]}][{input["gap-filling"]}]"
-            second_input = f"[{input["open"]}]"
+            first_input = f"[{single_choice}][{gap_filling}]"
+            second_input = f"[{open_q}]"
 
-        first_query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, input_format_and_examples=examples_1, text=(first_input + f"[{input["text"]}]"))
-        second_query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, input_format_and_examples=examples_2, text=(second_input + f"[{input["text"]}]"))
+        first_query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, input_format_and_examples=examples_1, text=(first_input + f"[{input['text']}]"))
+        second_query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, input_format_and_examples=examples_2, text=(second_input + f"[{input['text']}]"))
         
         return (first_query,second_query)
 
