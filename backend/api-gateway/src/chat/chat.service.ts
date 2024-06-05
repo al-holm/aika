@@ -17,19 +17,33 @@ export class ChatService {
    * @returns {Promise<String>} A promise that resolves to a string containing the echoed message.
    */
   async processMessage (userMessage: Message, type: String): Promise<Message> {
+    
     const botMessage = new Message();
     botMessage.userId= userMessage.userId;
     botMessage.messageId= uuidv4();
     botMessage.role = UserRole.Bot;
     botMessage.timestamp = new Date();
     console.log(type);
-    if (type=="language"){
+
+    switch(type) {
+      case "language": {
         botMessage.text = await this.get_answer(userMessage.text);
-    } else if (type=="law-life") {
-        botMessage.text = await this.get_answer_law_life(userMessage.text)
-    } else {
-        botMessage.text = await this.get_answer(userMessage.text);
+        break;
+      }
+      case "lesson": {
+        botMessage.text = await this.get_lesson(userMessage.text);
+        break;
+      }
+      case "law-life": {
+        botMessage.text = await this.get_answer_law_life(userMessage.text);
+        break;
+      }
+      default: {
+        botMessage.text = "Something's gone wrong"
+        console.log("processMessage: unexpected type")
+      }
     }
+
     return Promise.resolve(botMessage);
   }
 
@@ -76,6 +90,31 @@ export class ChatService {
       try {
         const data = { 'question': question };
         const response: AxiosResponse = await client.post('/get_answer_law_life', data, config);
+        return response.data['answer'];
+      } catch (err) {
+        console.log(err);
+        return err;
+      }
+    }
+
+    /**
+   * Makes a POST request to get an answer for the given question to the topic law and life.
+   * @returns {Promise<string>} The answer from the API or error if an error occurs.
+   */
+    async get_lesson(question : string): Promise<string> 
+    {
+      
+      const client = axios.create({baseURL: 'http://127.0.0.1:5000',});
+  
+      const config: AxiosRequestConfig = {
+        headers: {
+          'Accept': 'application/json',
+        } as RawAxiosRequestHeaders,
+      };
+  
+      try {
+        const data = { 'question': question };
+        const response: AxiosResponse = await client.post('/get_lesson', data, config);
         return response.data['answer'];
       } catch (err) {
         console.log(err);
