@@ -10,13 +10,16 @@ class ReasoningLogger:
     represents a trace of agent steps with methods to add steps, store
     exceptions, and generate JSON output.
     """
-    def __init__(self, task_type, query_id: str=None, model_id:str=None) -> None:
-        self.query_id = query_id
+    def __init__(self, task_type, model_id:str=None) -> None:
+        self.query_id = None
         self.model_id = model_id
         self.task_type = task_type.value
         self.trace:List[Union[AgentStep, AgentValidationStep, AgentFinalStep]] = []
         self.query = None
         self.errors : List[Exception] = []
+
+    def set_query_id(self, query_id:str):
+        self.query_id = query_id
     
     def add_exception(self, e:Exception):
         """
