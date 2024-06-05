@@ -20,7 +20,8 @@ export class ChatController {
        $ref: getSchemaPath(Message),
      },
    })
-  @Post('german') // changed to post, cause get requests typically don't include a body
+
+  @Post('german')
   async getAnswer( @Body() userMessage: Message, ): 
     Promise<{ message: Message }> {
     console.log('german');
@@ -28,11 +29,19 @@ export class ChatController {
     return { message };
   }
 
-  @Post('law') // changed to post, cause get requests typically don't include a body
+  @Post('law')
   async getAnswerLawLife( @Body() userMessage: Message, ): 
     Promise<{ message: Message }> {
     console.log('law');
     const message = await this.germanChatService.processMessage(userMessage, "law-life");
+    return { message };
+  }
+
+  @Post('lesson')
+  async getLesson( @Body() userMessage: Message, ): 
+    Promise<{ message: Message }> {
+    console.log('lesson');
+    const message = await this.germanChatService.processMessage(userMessage, "lesson");
     return { message };
   }
 }
