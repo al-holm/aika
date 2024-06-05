@@ -39,6 +39,7 @@ class Translator(Tool):
             answer = str(self.translator.translate_text(
             input, target_lang=target_language
             ))
+            answer = 'Die Übersetztung lautet:\n' + answer
         return answer
 
     def parse_target_language(self, input):
