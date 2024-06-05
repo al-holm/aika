@@ -14,4 +14,4 @@ if __name__ == "__main__":
     #print(rt.run('Was ist Wohnberechtigungsschein?'))
     #tj = TrajectoryInjector(True)
     #print(tj.inject_trajectories('Wie kann ich sagen ich komme später.'))
-    #a = Agent(task_type=task_type)
+    a = Agent(task_type=task_type)
