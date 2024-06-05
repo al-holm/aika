@@ -13,7 +13,6 @@
     - Entwicklung und Pflege des KI-gestützen System für die Nachrichten-Bearbeitung.
     - Durchführung von Code Reviews. (rotierend)
     - Schreiben und Pflegen von Tests (Unit-Tests, Integrationstests, Widget-Tests). (rotierend)
-  
 - **Ali Kholmovaia**
   - Studentin B.Sc. Informatik
   - Hauptverantwortlich: 
@@ -21,7 +20,6 @@
     - Entwicklung und Pflege des KI-gestützen System für die Nachrichten-Bearbeitung.
     - Durchführung von Code Reviews. (rotierend)
     - Schreiben und Pflegen von Tests (Unit-Tests, Integrationstests, Widget-Tests). (rotierend)
-
 - **Yury Kazantsev**
   - Student B.Sc. Informatik
   - Hauptverantwortlich:
