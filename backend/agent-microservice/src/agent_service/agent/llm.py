@@ -58,7 +58,6 @@ class LLMBedrock(LLM):
         takes a prompt, retrieves the body, invokes a model with the body, and
         returns the text output from the model response.
         """
-        self.set_max_tokens_by_mode(mode)
         body = self.get_body(prompt)
         response = self.client.invoke_model(
             body=body, modelId=self.config.llm_id, 
@@ -90,6 +89,9 @@ class LLMBedrock(LLM):
             self.config = BedrockLLMConfigModel(**settings) # parse & validate dict from config, create attributes
         except ValidationError as e:
             logging.ERROR(f'Bedrock attributes error: {e}')
+    
+    def set_max_tokens(self, max_tokens:int):
+        self.max_tokens = max_tokens
 
 
 class LLMRunPod(LLM):
