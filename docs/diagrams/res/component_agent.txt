@@ -1,0 +1,26 @@
+@startuml
+package "Component 1" {
+  [Agent] --> [LLMBedrock]
+  [Agent] --> [LLMRunPod]
+  [Agent] --> [ReasoningLogger]
+}
+
+package "Component 2" {
+  [LLMBedrock] --> [Tool]
+  [LLMRunPod] --> [Tool]
+}
+
+package "Component 3" {
+  [ReasoningLogger] --> [ToolExecutor]
+  [PromptBuilder] --> [ToolExecutor]
+  [ToolFactory] --> [ToolExecutor]
+  [PromptBuilder] --> [Tool]
+}
+
+
+package "Component 5" {
+  [StepParser] --> [Agent]
+  [ValidationParser] --> [Agent]
+}
+
+@enduml
