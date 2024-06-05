@@ -8,4 +8,5 @@ class ToolExecutorConfigModel(BaseModel):
     task_generator:bool
     retriever:bool
     phrasing_tool:bool
+    no_answer:bool
     llm:str
