@@ -4,7 +4,8 @@ import 'package:frontend/chat/models/message.dart';
 import 'package:frontend/chat/widgets/message_tile.dart';
 
 class ConsultChatPage extends ChatPage {
-  static String url = 'http://192.168.178.184:3000/chat/law/';
+  // 'http://192.168.178.184:3000/chat/law/'
+  static String url = 'http://10.192.104.214:3000/chat/law/';
   final ChatService chatService = ChatService(apiUrl: url);
   ConsultChatPage()
       : super(
