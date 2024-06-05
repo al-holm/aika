@@ -1,5 +1,5 @@
 from agent_service.tools.tool import Tool
-from agent_service.prompts.task_generation_prompt import WEB_SUMMARY_TEMPLATE
+from agent_service.prompts.tool_prompt import WEB_SUMMARY_TEMPLATE
 from agent_service.agent.llm import LLMBedrock, LLMRunPod
 from agent_service.prompts.prompt_builder import PromptBuilder
 import requests
