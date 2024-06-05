@@ -23,7 +23,8 @@ bedrock = boto3.client(service_name='bedrock-runtime', region_name="eu-west-3")
 llm = 'bedrock'
 task_type = TaskType.ANSWERING
 Config.set_llm(llm, task_type)
-aika = Agent(task_type=TaskType.ANSWERING)
+aika_qa = Agent(task_type=TaskType.ANSWERING)
+aika_lesson = Agent(task_type=TaskType.LESSON)
 
 retriever = RetrievalTool(False)
 
@@ -32,7 +33,15 @@ def getAnswer():
     """
     Returns agent's answer
     """
-    return {"answer": aika.run(request.json["question"])}
+    
+    return {"answer": aika_qa.run(request.json["question"])}
+
+@app.route("/get_lesson", methods=["Post"])
+def getLesson():
+    """
+    Returns generated exercises for a new lesson
+    """
+    return {"answer": aika_lesson.run(request.json["question"])}
 
 @app.route("/get_answer_law_life", methods=["Post"])
 def getAnswerLawLife():
