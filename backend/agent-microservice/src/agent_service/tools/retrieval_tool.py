@@ -1,12 +1,11 @@
 from agent_service.tools.tool import Tool
 from agent_service.prompts.prompt_builder import PromptBuilder
-from agent_service.prompts.task_generation_prompt import RETRIEVER_TEMPLATE
+from agent_service.prompts.tool_prompt import RETRIEVER_TEMPLATE
 import os
 from typing import List, Dict, Tuple
 import logging
 from pymilvus import MilvusClient
 from pymilvus.model import hybrid
-from agent_service.prompts.task_generation_prompt import RETRIEVER_TEMPLATE
 class RetrievalTool(Tool):
     PROMPT_ID = "retrieve"
     TEMPLATE = RETRIEVER_TEMPLATE
@@ -18,7 +17,7 @@ class RetrievalTool(Tool):
 
     def __init__(self, init=False, llm='bedrock') -> None:
         self.name = "Suche in Fachbücher"
-        self.description = "Hilfe mit Infos"
+        self.description = "Hilfreich, wenn man in Fachbüchern über rechtlichen und bürokratischen Fragen nachschlagen soll."
         self.set_llm(llm)
         self.llm.set_max_tokens(450)
         self.prompt = PromptBuilder()
