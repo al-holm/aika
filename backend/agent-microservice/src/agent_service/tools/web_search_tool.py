@@ -16,7 +16,6 @@ class WebSearch(Tool):
         self.api_host = "searxng.p.rapidapi.com"
         self.url = "https://searxng.p.rapidapi.com/search"
         self.set_llm(llm)
-        self.llm.set_max_tokens(350)
         self.prompt = PromptBuilder()
         self.prompt.create_prompts(
             {self.PROMPT_ID : self.TEMPLATE}
@@ -40,6 +39,7 @@ class WebSearch(Tool):
                 sleep(1)
             requests_n += 1  
         if answer != def_answer:
+            self.llm.set_max_tokens(450)
             self.query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, 
                                                      text=input_str,
                                                      search_results=answer)
