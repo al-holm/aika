@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:frontend/chat/services/metadata_service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -44,6 +46,29 @@ class ChatService {
       print(response.statusCode);
     }
     return null;
+  }
+
+  Future<bool?> getLesson() async {
+    final uri = Uri.parse(apiUrl);
+    String newSegment = 'lesson';
+    List<String> segments = List<String>.from(uri.pathSegments);
+  
+    if (segments.isNotEmpty) {
+      segments[segments.length - 2] = newSegment;
+    }
+
+    Uri url = uri.replace(pathSegments: segments);
+    print(url);
+    final response = await http.post(url);
+    if (response.statusCode == 201) {
+      final responseData = jsonDecode(response.body)['message'];
+      print('Message text:');
+      print(responseData['text']);
+    } else{
+      print(response.statusCode);
+    }
+    print(response.statusCode);
+    return true;
   }
 
   Message buildMessage(String text, String role, String userId, [String userID_ = '']) {
