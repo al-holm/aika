@@ -136,8 +136,8 @@ class GermanMessageTile extends MessageTile {
                   context,
                   MaterialPageRoute(
                     builder: (context) => TaskSequenceScreen(
-                      tasks: [multipleChoiceTask, fillInTheGapTask, openEndedTask], // Pass your tasks here
-                      initialIndex: 0, // Start from the first task
+                      tasks: message.tasks, 
+                      initialIndex: 0, 
                     ),
                   ),
                 );

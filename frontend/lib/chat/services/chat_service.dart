@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:frontend/chat/services/metadata_service.dart';
+import 'package:frontend/task_widget/models/task.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../models/message.dart';
@@ -48,7 +49,7 @@ class ChatService {
     return null;
   }
 
-  Future<bool?> getLesson() async {
+  Future<List> getLesson() async {
     final uri = Uri.parse(apiUrl);
     String newSegment = 'lesson';
     List<String> segments = List<String>.from(uri.pathSegments);
@@ -58,17 +59,52 @@ class ChatService {
     }
 
     Uri url = uri.replace(pathSegments: segments);
-    print(url);
     final response = await http.post(url);
     if (response.statusCode == 201) {
-      final responseData = jsonDecode(response.body)['message'];
-      print('Message text:');
-      print(responseData['text']);
+      final responseData = jsonDecode(response.body);
+      print(responseData);
+      final lesson_text = responseData['text'];
+      final tasksS = responseData['tasks'];
+      List<Task> tasks = [];
+      for (var i = 0; i < tasksS.length; i++) {
+        var taskElement = tasksS[i];
+        String type = taskElement["type"];
+        Map<String, TaskType> qtMap = {
+          "single-choice": TaskType.multipleChoice,
+          "gaps": TaskType.fillTheGaps,
+          "open": TaskType.openQuestion
+        };
+        TaskType taskType = qtMap[type] as TaskType; 
+
+        var answer_dynamic = taskElement["answer_options"].map((dynamic e) => List<String>.from(e)).toList();
+        List<List<String>> answer_options = [];
+        for (var i = 0; i < answer_dynamic.length; i++) {
+          var el = answer_dynamic[i];
+          List<String> list_s = List<String>.from(el);
+          answer_options.add(list_s);
+        }
+        var question = taskElement['question'];
+        var sol = taskElement['solution'];
+        List<String> solution = [];
+        if (taskType != TaskType.fillTheGaps) {
+          solution = List<String>.from(sol);
+        } else {
+          solution = List<String>.from(sol[0]);
+        }
+        Task task = Task(
+          taskType,
+          question,
+          answer_options,
+          solution
+        );
+        tasks.add(task);
+      }
+      return [lesson_text, tasks];
     } else{
       print(response.statusCode);
+      
     }
-    print(response.statusCode);
-    return true;
+    return [];
   }
 
   Message buildMessage(String text, String role, String userId, [String userID_ = '']) {

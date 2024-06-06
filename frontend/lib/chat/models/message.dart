@@ -1,3 +1,5 @@
+import 'package:frontend/task_widget/models/task.dart';
+
 class Message {
   String text;
   String userID;
@@ -5,6 +7,7 @@ class Message {
   String role;
   DateTime timestamp;
   bool gotTasks = false;
+  List<Task> tasks = [];
 
   Message({required this.text, 
         required this.userID,

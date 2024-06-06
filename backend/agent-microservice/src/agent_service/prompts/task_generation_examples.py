@@ -194,7 +194,7 @@ Your possible answer:
 Type: [open]
 Question: [Schreiben Sie über ein Erlebnis aus Ihrer Kindheit im Präteritum. Beschreiben Sie, was passiert ist, und wie Sie sich dabei gefühlt haben.]
 Answer options: None
-Solution: [Als ich acht Jahre alt war, besuchte ich mit meiner Familie einen Vergnügungspark. Wir gingen auf viele Fahrgeschäfte und aßen viel Eis. Es war ein sonniger Tag und ich fühlte mich sehr glücklich. Besonders erinnerte ich mich an die Achterbahn, die sehr aufregend war.]
+Solution: None
 [END]
 
 Example 2:
@@ -205,7 +205,7 @@ Your possible answer:
 Type: [open]
 Question: [Schreiben Sie einen Wunsch oder eine Bedingung, die Sie haben, im Konjunktiv II.]
 Answer options: None
-Solution: [Ich wünschte, ich könnte fliegen. Wenn ich fliegen könnte, würde ich die Welt von oben sehen und überall hinreisen, ohne mir Sorgen um Verkehr oder Grenzen zu machen.]
+Solution: None
 [END]
 
 Example 3:
@@ -216,7 +216,7 @@ Your possible answer:
 Type: [open]
 Question: [Schreibe einen kurzen Text darüber, was du tun würdest, wenn du einen perfekten Tag planen könntest. Achte dabei auf die korrekten Adjektivendungen und benutze mindestens drei Sätze im Konjunktiv II.]
 Answer options: None
-Solution: [An einem perfekten Tag würde ich in einem gemütlichen Café sitzen und ein leckeres Frühstück genießen. Danach würde ich einen langen Spaziergang in einem wunderschönen Park machen. Am Abend würde ich in einem erstklassigen Restaurant essen gehen und den Tag mit einem interessanten Buch ausklingen lassen.]
+Solution: None
 [END]
 
 You only generate open-ended questions for given topics! 

@@ -11,7 +11,6 @@ Obwohl wir uns am Scrum-Prozess orientieren, verzichten wir auf die für Scrum t
 
 ## 2. Anzuwendende Praktiken
 
-- **Test-Driven Development (nicht für LLMs)**: Tests werden vor der eigentlichen Implementierung geschrieben. Der Code wird nur dann geschrieben, wenn ein Test fehlschlägt, und der Prozess wiederholt sich, bis alle Tests bestehen.
 - **Refactoring**: Kontinuierliche Verbesserung des bestehenden Codes, um seine Struktur zu optimieren, ohne das externe Verhalten zu ändern. 
 - **Code Reviews**: Jeder Pull-Request wird von einem oder mehreren Teammitgliedern überprüft, bevor er genehmigt wird
 - **Inkrementelle Entwicklung**: Das Projekt wird schrittweise entwickelt, indem wir die Anwendungsfällen in der bestimmten Reihenfolge implementieren. 

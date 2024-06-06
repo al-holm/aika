@@ -41,7 +41,7 @@ export class ChatController {
   async getLesson( @Body() userMessage: Message): 
     Promise<JSON> {
     console.log('lesson');
-    const lesson = await this.germanChatService.get_lesson("[Grammar][Futur I][None][2][1][1]")
+    const lesson = await this.germanChatService.get_lesson("[Grammar][Futur I][None][3][2][1]")
     return lesson;
   }
 }

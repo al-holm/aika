@@ -26,7 +26,8 @@ class ExercisesParser:
         exercises_pattern = r'\[START\](.*?)\[END\]'
         exercises_raw_str = re.findall(exercises_pattern, input, re.DOTALL)
 
-        exercises = [{"Text": exercises_text}]
+        lesson = {"text": exercises_text}
+        exercises = []
         for exercise in exercises_raw_str:
             content = re.findall(contents_pattern, exercise, re.DOTALL)
             type = content[0]
@@ -51,9 +52,9 @@ class ExercisesParser:
                 solution.append(content[3].split(', '))
             elif type == "open":
                 answer_options = [['']]
-                solution.append(content[2])
+                solution.append('')
 
-            exercises.append({"Type": type, "Question": question, "Answer Options": answer_options, "Solution": solution})
-
-        return exercises
+            exercises.append({"type": type, "question": question, "answer_options": answer_options, "solution": solution})
+        lesson['tasks'] = exercises
+        return lesson
 
