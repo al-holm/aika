@@ -30,11 +30,6 @@ export class ChatService {
         botMessage.text = await this.get_answer(userMessage.text);
         break;
       }
-      case "lesson": {
-        const predefined_lesson_desc: string  = "[Grammar][Konjuktiv II][None][3][2][1]"
-        botMessage.text = await this.get_lesson(predefined_lesson_desc);
-        break;
-      }
       case "law-life": {
         botMessage.text = await this.get_answer_law_life(userMessage.text);
         break;
@@ -100,9 +95,9 @@ export class ChatService {
 
     /**
    * Makes a POST request to get an answer for the given question to the topic law and life.
-   * @returns {Promise<string>} The answer from the API or error if an error occurs.
+   * @returns {Promise<JSON>} The answer from the API or error if an error occurs.
    */
-    async get_lesson(question : string): Promise<string> 
+    async get_lesson(question : string): Promise<JSON> 
     {
       
       const client = axios.create({baseURL: 'http://127.0.0.1:5000',});
@@ -116,7 +111,7 @@ export class ChatService {
       try {
         const data = { 'question': question };
         const response: AxiosResponse = await client.post('/get_lesson', data, config);
-        return response.data['answer'];
+        return response.data;
       } catch (err) {
         console.log(err);
         return err;

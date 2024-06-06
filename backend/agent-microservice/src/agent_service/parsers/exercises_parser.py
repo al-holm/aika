@@ -33,9 +33,7 @@ class ExercisesParser:
             question = content[1]
             answer_options = []
             solution = []
-            # print("\n\n\n")
-            # for con in content:
-            #     print(con)
+
             if type == "single-choice":
                 pattern = r'\s+[a-z]\)\s+'
                 segments = re.findall(r'\b[a-z]\)\s(.*?)(?=\s+[a-z]\)|$)', content[2])
@@ -43,14 +41,11 @@ class ExercisesParser:
                 solution.append(content[3][2:])
             elif type == "gaps":
                 # Regex pattern to find lists within brackets
-                pattern = r'\[(.*?)\]'
-                
+                pattern = r'\((.*?)\)'
                 # Extract lists
-                print(content[2])
                 found_lists = re.findall(pattern, content[2])
                 # Convert string lists to list of lists
                 answer_options = [item.split(', ') for item in found_lists]
-                
                 # Replace the bracketed lists with '__' in the original string
                 question = re.sub(pattern, '__', content[2])
                 solution.append(content[3].split(', '))
@@ -59,43 +54,6 @@ class ExercisesParser:
                 solution.append(content[2])
 
             exercises.append({"Type": type, "Question": question, "Answer Options": answer_options, "Solution": solution})
-        
-        #print(f"\n\n\nExercises: {exercises}")
-        # for exercise in exercises[1:]:
-        #     for key, value in exercise.items():
-        #         print(f"{key}: {value}")
+
         return exercises
-
-
-
-
-
-"""
-[START]
-Type: [single-choice]
-Question: [Welche Städte besuchte der Erzähler in Italien?]
-Answer options: [a) Rom, Florenz und Venedig b) Mailand, Rom und Florenz c) Rom, Venedig und Neapel d) Florenz, Venedig und Mailand]
-Solution: [a) Rom, Florenz und Venedig]
-[END]
-"""
-
-
-
-"""
-[START]
-Type: [gaps]
-Question: [Füllen Sie die Lücken basierend auf dem Text]
-Answer options: [1. In Florenz ging ich in die [Uffizien, Museen, Kirchen]. 2. In Venedig gefielen mir die [Kanäle, Straßen, Gebäude] und Brücken.]
-Solution: [Uffizien, Kanäle]
-[END]
-"""
-
-"""
-[START]
-Type: [open]
-Question: [Warum war der Urlaub des Erzählers wunderbar? Nutzen Sie Details aus dem Text.]
-Answer options: None
-Solution: [Der Urlaub des Erzählers war wunderbar, weil er das Kolosseum und das Pantheon in Rom sah, viele schöne Kunstwerke in den Uffizien in Florenz bewunderte und die Kanäle und Brücken in Venedig genoss. Außerdem aß er jeden Tag leckeres italienisches Essen und hatte gutes Wetter.]
-[END]
-"""
 
