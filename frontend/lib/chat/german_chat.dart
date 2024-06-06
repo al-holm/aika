@@ -7,7 +7,7 @@ import 'package:frontend/task_widget/dummy_tasks.dart';
 
 class GermanChatPage extends ChatPage {
   //'http://192.168.178.184:3000/chat/german/'
-  static String url = 'http://192.168.178.34:3000/chat/german/';
+  static String url = 'http://192.168.178.184:3000/chat/german/';
   final ChatService chatService = ChatService(apiUrl: url);
   GermanChatPage()
       : super(
@@ -25,7 +25,7 @@ class GermanChatPage extends ChatPage {
     return chatService.sendMessage(message);
   }
 
-  Future<bool?> getLesson() {
+  Future<List> getLesson() {
     return chatService.getLesson();
   }
 
@@ -38,12 +38,13 @@ class GermanChatState extends ChatState<GermanChatPage> {
     var lessons = await widget.getLesson();
     setState(() {
       Message lesson_message = Message(
-        text: dummyLesson,
+        text: lessons[0],
         userID: 'bot',
         messageID: MetadataService.generateMessageID(),
         role: 'bot',
         timestamp: DateTime.now());
       lesson_message.gotTasks = true;
+      lesson_message.tasks = lessons[1];
       messages.add(lesson_message);
     });
   }

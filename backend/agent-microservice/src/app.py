@@ -22,9 +22,11 @@ app = FlaskAPI(__name__)
 bedrock = boto3.client(service_name='bedrock-runtime', region_name="eu-west-3")
 
 llm = 'bedrock'
-task_type = TaskType.LESSON
+task_type = TaskType.ANSWERING
 Config.set_llm(llm, task_type)
 aika_qa = Agent(task_type=TaskType.ANSWERING)
+task_type = TaskType.LESSON
+Config.set_llm(llm, task_type)
 aika_lesson = Agent(task_type=TaskType.LESSON)
 lesson_parser = ExercisesParser()
 

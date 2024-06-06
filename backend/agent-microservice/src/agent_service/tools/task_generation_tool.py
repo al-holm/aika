@@ -37,6 +37,7 @@ class TaskGenerator(Tool):
         tool_answer: str
             concatenated input and generated exercises
         """
+        print(input)
         parsed_input = self.parse_input(input)
         first_query, second_query = self.build_prompts(parsed_input)
         # reduce max tokens for generating exercises
@@ -58,19 +59,20 @@ class TaskGenerator(Tool):
                 # so the programs doesn't set areInvalid to False and the loop continues
                 if not first:
                     self.llm.set_max_tokens(700)
+                    print('running llm ... sg')
                     raw_single_choice_and_gap_filling = self.llm.run(first_query)
-                    print(self.llm.max_tokens)
-                    print('\n\n\n')
-                    print(raw_single_choice_and_gap_filling)
+                    print(f'\n\n\n{raw_single_choice_and_gap_filling}')
                     single_choice_and_gap_filling = self.extract_exercises(raw_single_choice_and_gap_filling, int(parsed_input["single-choice"]) + int(parsed_input["gap-filling"]))
                     first = True
+                    print(f'first question done: {first}')
                 if not second:
                     self.llm.set_max_tokens(100)
+                    print('running llm... o')
                     raw_open_qs = self.llm.run(second_query) 
-                    print('\n\n\n')
-                    print(raw_open_qs)
+                    print(f'\n\n\n{raw_open_qs}')
                     open_qs = self.extract_exercises(raw_open_qs, int(parsed_input["open"]))
                     second = True
+                    print(f'second question done: {second}')
                 areInvalid = False
             except self.ExtractingExercisesError:
                 # the program gets there when an error occured during the extraction of the exercises

@@ -86,15 +86,13 @@ class Agent:
             task_type=task_type
             )
         self.task_type = task_type
-        self.tool_executor = ToolExecutor(
-            reasoning_logger=self.reasoning_logger,
-            task_type=task_type
-            )
+        self.tool_executor = ToolExecutor(task_type=task_type)
         self.prompt_builder = PromptBuilder()
         self.init_prompts(task_type) 
         self.validation_parser = ValidationParser()
         self.step_parser = StepParser(self.tool_executor.tool_names)
-        self.trajectory_injector = TrajectoryInjector()
+        if task_type  == TaskType.ANSWERING:
+            self.trajectory_injector = TrajectoryInjector()
 
     def reset(self):
         """
@@ -152,9 +150,9 @@ class Agent:
                 logging.error(e)
                 self.reasoning_logger.add_exception(str(e))
             iteration += 1
-        logging.info("Exiting agent loop...")
         final_answer = self.get_final_response(iteration)
         self.reset()
+        logging.info("Reseting the agent...")
         return final_answer
 
     def take_step(self) -> bool:
@@ -233,10 +231,12 @@ class Agent:
         step: AgentStep
             The agent step that contains the action to be performed and the input for that action. 
         """
-        observation = self.tool_executor.execute(step.action, step.action_input)
+        tool_input = step.action_input
+        if self.task_type == TaskType.LESSON and step.action=="Deutschaufgaben generieren":
+            tool_input += "[" + self.reasoning_logger.get_last_observation() + "]"
+        observation = self.tool_executor.execute(step.action, tool_input)
         step.observation = observation
         self.reasoning_logger.add_step(step)
-
     
     def get_current_prompt(self, mode=AgentMode.PLAN) -> str:
         """
@@ -302,7 +302,8 @@ class Agent:
         )
         self.reasoning_logger.set_query(query)
 
-        self.add_trajectory_examples_to_prompts(query)
+        if self.task_type  == TaskType.ANSWERING:
+            self.add_trajectory_examples_to_prompts(query)
 
     def add_trajectory_examples_to_prompts(self, query)->None:
         """

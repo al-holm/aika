@@ -52,6 +52,15 @@ class ReasoningLogger:
         if self.trace:
             return self.trace[-1]
         return None
+    
+    def get_last_observation(self) -> str:
+        """
+        retrieves the observation from the last AgentStep object.
+        """
+        for i in reversed(self.trace):
+                if isinstance(i, AgentStep):
+                   return i.observation
+        return ''
 
     def __str__(self) -> str:
         res = ""
