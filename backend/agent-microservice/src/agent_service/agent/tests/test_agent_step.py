@@ -1,4 +1,4 @@
-import unittest
+import unittest, xmlrunner
 from pydantic import ValidationError
 import os
 import sys, os
@@ -52,4 +52,4 @@ class TestAgentValidationStep(unittest.TestCase):
         self.assertEqual(str(validation_step), expected_repr)
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))

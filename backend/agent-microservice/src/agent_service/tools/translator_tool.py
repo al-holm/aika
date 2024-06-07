@@ -42,10 +42,13 @@ class Translator(Tool):
         """
         Parses the target language from the input string. 
         """
-        lang = input.split("[")[1].split("]")[0]
-        if str.lower(lang) in ["de", "ru", "tr", "uk", "ar", "en"]:
-            if str.lower(lang) == "en":
-                lang = "en-us" # using the us english for deepl
-            return lang
-        else:
-            return ""
+        try:
+            lang = input.split("[")[1].split("]")[0]
+            lang = str.lower(lang)
+            if lang in ["de", "ru", "tr", "uk", "ar", "en"]:
+                if lang == "en":
+                    lang = "en-us" # using the us english for deepl
+                return lang
+        except Exception:
+            pass
+        return ""

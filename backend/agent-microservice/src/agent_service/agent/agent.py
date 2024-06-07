@@ -217,7 +217,6 @@ class Agent:
         """
         val_step = self.validation_parser.parse_step(val_answer)
         self.reasoning_logger.add_step(val_step)
-
         if VAL_STOP_PREFIX in val_step.validation_thought:
             return True
         else:
