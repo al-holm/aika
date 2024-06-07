@@ -22,3 +22,9 @@ class ActionInputNotFoundException(Exception):
         super().__init__(message)
 
 
+class ExtractingExercisesError(Exception):
+    """
+    Raised if extracting generated exercises from the LLM response failed
+    """
+    def __init__(self):
+        super().__init__("Extracting exercises failed")

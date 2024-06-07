@@ -9,7 +9,7 @@ class Config:
     """
     DIR = os.path.dirname(__file__)
     def __init__(self, class_name):
-        self.config = configparser.ConfigParser()
+        self.config = configparser.ConfigParser(allow_no_value=True)
         self.class_name = class_name
         self.filename = os.path.abspath(os.path.join(self.DIR, f'configs/config-{class_name}.ini'))
         self._settings = {}
