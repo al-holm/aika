@@ -1,4 +1,4 @@
-import unittest
+import unittest, xmlrunner
 from agent_service.parsers.exercises_parser import ExercisesParser
 
 class TestExercisesParser(unittest.TestCase):
@@ -70,3 +70,7 @@ Answer options: None
 Solution: [Er spiele Fußball, wenn er Zeit hätte.]
 [END]"""
         exercises = parser.parse(input_text)
+
+
+if __name__ == '__main__':
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))

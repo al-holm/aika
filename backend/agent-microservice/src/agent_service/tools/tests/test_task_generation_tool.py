@@ -1,4 +1,7 @@
-import unittest, logging
+import unittest, logging, xmlrunner
+import sys, os
+testdir = os.path.dirname(__file__)
+sys.path.insert(0, os.path.abspath(os.path.join(testdir, '../../../')))
 from agent_service.tools.task_generation_tool import TaskGenerator
 from agent_service.core.config import Config
 from agent_service.agent.task_type import TaskType
@@ -61,3 +64,5 @@ Dein Deutschlehrer]"""
         self.assertEqual(True, True)
 
 
+if __name__ == '__main__':
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))

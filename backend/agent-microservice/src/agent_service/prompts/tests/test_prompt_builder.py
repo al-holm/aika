@@ -1,5 +1,5 @@
 import os
-import sys, os
+import sys, os, xmlrunner
 testdir = os.path.dirname(__file__)
 sys.path.insert(0, os.path.abspath(os.path.join(testdir, '../../../')))
 
@@ -42,4 +42,4 @@ class TestPromptBuilder(unittest.TestCase):
         self.assertEqual(self.builder.get_prompt("greet"), "Hi, ${name}!")
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
