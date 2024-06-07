@@ -4,7 +4,7 @@ from agent_service.prompts.prompt_builder import PromptBuilder
 
 class ReadingGenerator(Tool):
     """
-    a tool for the reading task generation
+    a tool for the reading text generation
     """
     def __init__(self, name: str, description: str, llm: str, 
                     prompt_id: str, prompt_template: str, max_tokens:int) -> None:
