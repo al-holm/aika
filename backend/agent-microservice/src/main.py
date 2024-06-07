@@ -15,3 +15,4 @@ if __name__ == "__main__":
     #tj = TrajectoryInjector(True)
     #print(tj.inject_trajectories('Wie kann ich sagen ich komme später.'))
     a = Agent(task_type=task_type)
+    a.run('What is the perfect form of lesen? Use the phrasing tool')

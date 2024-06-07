@@ -59,7 +59,7 @@ class Agent:
         Executes the agent loop to process the query until a final answer is obtained.
     take_step(self) -> bool
         Plans a step, executes it, and validates the result.
-    validate(self) -> bool
+    validate_step(self) -> bool
         Retrieves and processes a validation prompt.
     plan_step(self) -> AgentStep
         Retrieves and processes the current planning prompt.
@@ -166,10 +166,10 @@ class Agent:
         """
         step = self.plan_step()
         self.execute_step(step)
-        is_final = self.validate()
+        is_final = self.validate_step()
         return is_final
 
-    def validate(self) -> bool:
+    def validate_step(self) -> bool:
         """
         retrieves a validation prompt, runs it through the llm,
         processes the output.
@@ -179,8 +179,9 @@ class Agent:
         is_final : bool 
             whether the result is the final answer or not
         """
+        self.llm.set_max_tokens(self.config.max_tokens_val)
         validation_prompt = self.get_current_prompt(mode=AgentMode.VAL)
-        validation_thought = self.llm.run(validation_prompt, mode=AgentMode.VAL.value)
+        validation_thought = self.llm.run(validation_prompt)
         is_final = self.process_validation_thought(validation_thought)
         return is_final
 
@@ -195,6 +196,7 @@ class Agent:
                    
         """
         current_prompt = self.get_current_prompt(mode=AgentMode.PLAN)
+        self.llm.set_max_tokens(self.config.max_tokens_plan)
         llm_answer = self.llm.run(current_prompt)
         step = self.step_parser.parse_step(llm_answer)
         return step
