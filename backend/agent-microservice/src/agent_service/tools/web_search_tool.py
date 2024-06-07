@@ -7,6 +7,9 @@ import os
 from time import sleep 
 
 class WebSearch(Tool):
+    """
+    A tool for performing web searches using the SearxNG API.
+    """
     def __init__(self, name: str, description: str, llm: str, 
                     prompt_id: str, prompt_template: str, max_tokens:int) -> None:
         super().__init__(name, description, llm, prompt_id, prompt_template, max_tokens)
@@ -39,6 +42,9 @@ class WebSearch(Tool):
         return answer
     
     def parse_results(self, results):
+        """
+        Parses the search results from the SearxNG API response.
+        """
         if len(results["answers"]) > 0 :
             return results["answers"][0]
         out = ""
