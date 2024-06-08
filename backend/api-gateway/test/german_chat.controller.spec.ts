@@ -1,14 +1,14 @@
-import { GermanChatController } from './../src/german_chat/german_chat.controller';
-import { Message } from '../src/german_chat/models/message.dto';
-import { GermanChatService } from './../src/german_chat/german_chat.service';
+import { ChatController } from '../src/chat/chat.controller';
+import { Message } from '../src/chat/models/message.dto';
+import { ChatService } from '../src/chat/chat.service';
 import { Test, TestingModule } from '@nestjs/testing';
 
 /**
  * Test suite for the GermanChatController class.
  */
 describe('GermanChatController', () => {
-  let controller: GermanChatController;
-  let mockGermanChatService: Partial<GermanChatService>;
+  let controller: ChatController;
+  let mockGermanChatService: Partial<ChatService>;
 
   beforeEach(async () => {
     // Create a mock service
@@ -20,16 +20,16 @@ describe('GermanChatController', () => {
 
     // Create a module with GermanChatController and the mock service
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [GermanChatController],
+      controllers: [ChatController],
       providers: [
         {
-          provide: GermanChatService,
+          provide: ChatService,
           useValue: mockGermanChatService,
         },
       ],
     }).compile();
 
-    controller = module.get<GermanChatController>(GermanChatController);
+    controller = module.get<ChatController>(ChatController);
   });
 
   it('should be defined', () => {

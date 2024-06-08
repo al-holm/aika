@@ -22,7 +22,7 @@ class FillInTheGapTask extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Fill in the gaps:',
+                'Füllen Sie die Lücken basierend auf dem Text:',
                 style: TaskStyles.questionTextStyle,
                 textAlign: TextAlign.center,
               ),

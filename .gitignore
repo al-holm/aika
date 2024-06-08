@@ -8,3 +8,8 @@ backend/german-agent-microservice/tmp/audio
 **/.DS_Store
 backend/german-agent-microservice/src/out/*
 backend/german-agent-microservice/src/agent_service/prompts/res/chromadb/*
+backend/agent-microservice/src/out/*
+*.lock
+test-reports/*
+out/*
+backend/agent-microservice/src/.coverage
