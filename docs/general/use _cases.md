@@ -11,28 +11,28 @@
 # Table of contents
 <!-- TOC start -->
 - [Welcome Screen](#welcome-screen)
-   * [1a. Authentication - Log in (Optional)](#1a-authentication-log-in-optional)
-   * [1b. Authentication - New account (Optional)](#1b-authentication-new-account-optional)
-   * [1c. Guide - New account (Optional)](#1c-guide-new-account-optional)
-   * [1d. Interaction with main menu](#1d-interaction-with-main-menu)
+   * [1a. Log in](#1a-authentication-log-in-optional)
+   * [1b. Create New account](#1b-authentication-new-account-optional)
+   * [1c. First Time Login Guide (Optional)](#1c-guide-new-account-optional)
+   * [1d. Navigate Main Menu](#1d-interaction-with-main-menu)
 - [Chat with German Bot](#chat-with-german-bot)
-   * [2a. Send a message & get a response](#2a-send-a-message-get-a-response)
-   * [2b. Restore the message history](#2b-restore-the-message-history)
-   * [2c. Start a new lesson](#2c-start-a-new-lesson)
+   * [2a. Send Message & Get Response](#2a-send-a-message-get-a-response)
+   * [2b. Restore Message History](#2b-restore-the-message-history)
+   * [2c. Start New Lesson](#2c-start-a-new-lesson)
    * [2d. Automatic translation](#2d-automatic-translation)
-   * [2e. Task Widget](#2e-task-widget)
-   * [2f. Progress tracker](#2f-progress-tracker)
-   * [2g. Update learning state](#2g-update-learning-state)
-   * [3. Persisting message data in the data base](#3-persisting-message-data-in-the-data-base)
+   * [2e. Complete Tasks](#2e-task-widget)
+   * [2f. View Progress (Optional)](#2f-progress-tracker)
+   * [2g. Update Learning State (Optional)](#2g-update-learning-state)
+   * [3. Persisting Message Data](#3-persisting-message-data-in-the-data-base)
 - [Chat with Recht und Alltag Bot](#chat-with-recht-und-alltag-bot)
-   * [4a. Send a message & get a response](#4a-send-a-message-get-a-response)
+   * [4a. Send Message & Get Response](#4a-send-a-message-get-a-response)
 <!-- TOC end -->
 
 <!-- TOC --><a name="welcome-screen"></a>
 # Welcome Screen
 
 <!-- TOC --><a name="1a-authentication-log-in-optional"></a>
-## 1a. Authentication - Log in (Optional)
+## 1a. Log in
 
 **Actor:** User
 
@@ -53,7 +53,7 @@
 ---
 
 <!-- TOC --><a name="1b-authentication-new-account-optional"></a>
-## 1b. Authentication - New account (Optional)
+## 1b. Create New Account
 
 **Actor:** User
 
@@ -72,7 +72,7 @@
 ---
 
 <!-- TOC --><a name="1c-guide-new-account-optional"></a>
-## 1c. Guide - New account (Optional)
+## 1c. First Time Login Guide (Optional)
 
 **Actor:** User
 
@@ -97,7 +97,7 @@
 ---
 
 <!-- TOC --><a name="1d-interaction-with-main-menu"></a>
-## 1d. Navigate in the main menu
+## 1d. Navigate Main Menu
 
 **Actor:** User
 
@@ -121,7 +121,7 @@
 # Chat with German Bot
 
 <!-- TOC --><a name="2a-send-a-message-get-a-response"></a>
-## 2a. Send a message & get a response
+## 2a. Send Message & Get Response
 
 **Actor:** User
 
@@ -154,9 +154,9 @@
 ---
 
 <!-- TOC --><a name="2b-restore-the-message-history"></a>
-## 2b. Restore the message history
+## 2b. Restore Message History
 
-**Actor:** User
+**Actor:** System
 
 **Goal:** To see the message history from the previous sessions.
 
@@ -173,7 +173,7 @@
 ---
 
 <!-- TOC --><a name="2c-start-a-new-lesson"></a>
-## 2c. Start a new lesson
+## 2c. Start New Lesson
 
 **Actor:** User
 
@@ -200,7 +200,7 @@
 ---
 
 <!-- TOC --><a name="2d-automatic-translation"></a>
-## 2d. Automatic translation
+## 2d. Automatic Translation
 
 **Actor:** User
 
@@ -225,7 +225,7 @@
 ---
 
 <!-- TOC --><a name="2e-task-widget"></a>
-## 2e. Task Widget
+## 2e. Complete Tasks
 
 **Actor:** User
 
@@ -250,7 +250,7 @@
 ---
 
 <!-- TOC --><a name="2f-progress-tracker"></a>
-## 2f. Progress tracker
+## 2f. View Progress (Optional)
 
 **Actor:** User
 
@@ -273,9 +273,9 @@
 ---
 
 <!-- TOC --><a name="2g-update-learning-state"></a>
-## 2g. Update learning state
+## 2g. Update Learning State (Optional)
 
-**Actor:** User
+**Actor:** System
 
 **Goal:** To update learning state.
 
@@ -297,7 +297,7 @@
 ---
 
 <!-- TOC --><a name="3-persisting-message-data-in-the-data-base"></a>
-## 3. Persisting message data in the data base
+## 3. Persisting Message Data
 
 **Actor:** System
 
@@ -322,7 +322,7 @@
 # Chat with Recht und Alltag Bot
 
 <!-- TOC --><a name="4a-send-a-message-get-a-response"></a>
-## 4a. Send a message & get a response
+## 4a. Send Message & Get Response
 
 **Actor:** User
 

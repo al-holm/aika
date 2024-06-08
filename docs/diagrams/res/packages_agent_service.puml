@@ -1,0 +1,135 @@
+@startuml packages_agent_service
+set namespaceSeparator none
+package "agent_service" as agent_service {
+}
+package "agent_service.agent" as agent_service.agent {
+}
+package "agent_service.agent.agent" as agent_service.agent.agent {
+}
+package "agent_service.agent.agent_step" as agent_service.agent.agent_step {
+}
+package "agent_service.agent.llm" as agent_service.agent.llm {
+}
+package "agent_service.agent.reasoning_trace" as agent_service.agent.reasoning_trace {
+}
+package "agent_service.agent.task_type" as agent_service.agent.task_type {
+}
+package "agent_service.core" as agent_service.core {
+}
+package "agent_service.core.config" as agent_service.core.config {
+}
+package "agent_service.core.log" as agent_service.core.log {
+}
+package "agent_service.core.pydantic_agent" as agent_service.core.pydantic_agent {
+}
+package "agent_service.core.pydantic_llm" as agent_service.core.pydantic_llm {
+}
+package "agent_service.core.pydantic_tool" as agent_service.core.pydantic_tool {
+}
+package "agent_service.core.pydantic_tool_exe" as agent_service.core.pydantic_tool_exe {
+}
+package "agent_service.exeptions" as agent_service.exeptions {
+}
+package "agent_service.exeptions.step_exception" as agent_service.exeptions.step_exception {
+}
+package "agent_service.parsers" as agent_service.parsers {
+}
+package "agent_service.parsers.agent_step_parser" as agent_service.parsers.agent_step_parser {
+}
+package "agent_service.parsers.exercises_parser" as agent_service.parsers.exercises_parser {
+}
+package "agent_service.prompts" as agent_service.prompts {
+}
+package "agent_service.prompts.prompt_builder" as agent_service.prompts.prompt_builder {
+}
+package "agent_service.prompts.react_prompt" as agent_service.prompts.react_prompt {
+}
+package "agent_service.prompts.task_generation_examples" as agent_service.prompts.task_generation_examples {
+}
+package "agent_service.prompts.tool_prompt" as agent_service.prompts.tool_prompt {
+}
+package "agent_service.prompts.trajectory_library" as agent_service.prompts.trajectory_library {
+}
+package "agent_service.tools" as agent_service.tools {
+}
+package "agent_service.tools.listening_generation_tool" as agent_service.tools.listening_generation_tool {
+}
+package "agent_service.tools.no_answer_tool" as agent_service.tools.no_answer_tool {
+}
+package "agent_service.tools.phrasing_tool" as agent_service.tools.phrasing_tool {
+}
+package "agent_service.tools.reading_generation_tool" as agent_service.tools.reading_generation_tool {
+}
+package "agent_service.tools.retrieval_tool" as agent_service.tools.retrieval_tool {
+}
+package "agent_service.tools.task_generation_tool" as agent_service.tools.task_generation_tool {
+}
+package "agent_service.tools.tool" as agent_service.tools.tool {
+}
+package "agent_service.tools.tool_executor" as agent_service.tools.tool_executor {
+}
+package "agent_service.tools.tool_factory" as agent_service.tools.tool_factory {
+}
+package "agent_service.tools.translator_tool" as agent_service.tools.translator_tool {
+}
+package "agent_service.tools.web_search_tool" as agent_service.tools.web_search_tool {
+}
+agent_service.agent.agent --> agent_service.agent.agent_step
+agent_service.agent.agent --> agent_service.agent.llm
+agent_service.agent.agent --> agent_service.agent.reasoning_trace
+agent_service.agent.agent --> agent_service.agent.task_type
+agent_service.agent.agent --> agent_service.core.config
+agent_service.agent.agent --> agent_service.core.pydantic_agent
+agent_service.agent.agent --> agent_service.parsers.agent_step_parser
+agent_service.agent.agent --> agent_service.prompts.prompt_builder
+agent_service.agent.agent --> agent_service.prompts.react_prompt
+agent_service.agent.agent --> agent_service.prompts.trajectory_library
+agent_service.agent.agent --> agent_service.tools.tool_executor
+agent_service.agent.llm --> agent_service.core.config
+agent_service.agent.llm --> agent_service.core.pydantic_llm
+agent_service.agent.reasoning_trace --> agent_service.agent.agent_step
+agent_service.parsers.agent_step_parser --> agent_service.agent.agent_step
+agent_service.parsers.agent_step_parser --> agent_service.exeptions.step_exception
+agent_service.tools.listening_generation_tool --> agent_service.prompts.prompt_builder
+agent_service.tools.listening_generation_tool --> agent_service.prompts.tool_prompt
+agent_service.tools.listening_generation_tool --> agent_service.tools.tool
+agent_service.tools.no_answer_tool --> agent_service.tools.tool
+agent_service.tools.phrasing_tool --> agent_service.prompts.prompt_builder
+agent_service.tools.phrasing_tool --> agent_service.prompts.tool_prompt
+agent_service.tools.phrasing_tool --> agent_service.tools.tool
+agent_service.tools.reading_generation_tool --> agent_service.prompts.prompt_builder
+agent_service.tools.reading_generation_tool --> agent_service.prompts.tool_prompt
+agent_service.tools.reading_generation_tool --> agent_service.tools.tool
+agent_service.tools.retrieval_tool --> agent_service.prompts.prompt_builder
+agent_service.tools.retrieval_tool --> agent_service.prompts.tool_prompt
+agent_service.tools.retrieval_tool --> agent_service.tools.tool
+agent_service.tools.task_generation_tool --> agent_service.exeptions.step_exception
+agent_service.tools.task_generation_tool --> agent_service.prompts.task_generation_examples
+agent_service.tools.task_generation_tool --> agent_service.tools.tool
+agent_service.tools.tool --> agent_service.agent.llm
+agent_service.tools.tool --> agent_service.prompts.prompt_builder
+agent_service.tools.tool_executor --> agent_service.agent.agent_step
+agent_service.tools.tool_executor --> agent_service.agent.task_type
+agent_service.tools.tool_executor --> agent_service.core.config
+agent_service.tools.tool_executor --> agent_service.core.pydantic_tool_exe
+agent_service.tools.tool_executor --> agent_service.tools.tool
+agent_service.tools.tool_executor --> agent_service.tools.tool_factory
+agent_service.tools.tool_factory --> agent_service.core.config
+agent_service.tools.tool_factory --> agent_service.core.pydantic_tool
+agent_service.tools.tool_factory --> agent_service.prompts.tool_prompt
+agent_service.tools.tool_factory --> agent_service.tools.listening_generation_tool
+agent_service.tools.tool_factory --> agent_service.tools.no_answer_tool
+agent_service.tools.tool_factory --> agent_service.tools.phrasing_tool
+agent_service.tools.tool_factory --> agent_service.tools.reading_generation_tool
+agent_service.tools.tool_factory --> agent_service.tools.retrieval_tool
+agent_service.tools.tool_factory --> agent_service.tools.task_generation_tool
+agent_service.tools.tool_factory --> agent_service.tools.translator_tool
+agent_service.tools.tool_factory --> agent_service.tools.web_search_tool
+agent_service.tools.translator_tool --> agent_service.prompts.prompt_builder
+agent_service.tools.translator_tool --> agent_service.prompts.tool_prompt
+agent_service.tools.translator_tool --> agent_service.tools.tool
+agent_service.tools.web_search_tool --> agent_service.agent.llm
+agent_service.tools.web_search_tool --> agent_service.prompts.prompt_builder
+agent_service.tools.web_search_tool --> agent_service.prompts.tool_prompt
+agent_service.tools.web_search_tool --> agent_service.tools.tool
+@enduml

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/chat/models/message.dart';
 import 'package:frontend/chat/services/metadata_service.dart';
 import 'package:frontend/chat/widgets/loading_dots.dart';
-import 'package:frontend/chat/widgets/message_tile.dart';
 import 'package:frontend/chat/widgets/text_input.dart';
 import 'package:frontend/shared/styles/app_styles.dart';
 import 'package:frontend/shared/ui_elements.dart';
@@ -32,7 +31,7 @@ abstract class ChatPage extends StatefulWidget {
 class ChatState<T extends ChatPage> extends State<T> {
   late String _userId;
   final TextEditingController _controller = TextEditingController();
-  final List<Message> _messages = [];
+  final List<Message> messages = [];
   bool isLoading = false;
   final MetadataService metadataService = MetadataService();
 
@@ -60,7 +59,7 @@ class ChatState<T extends ChatPage> extends State<T> {
       timestamp: DateTime.now(),
     );
     setState(() {
-      _messages.add(initMessage);
+      messages.add(initMessage);
     });
   }
 
@@ -75,9 +74,8 @@ class ChatState<T extends ChatPage> extends State<T> {
       role: 'user',
       timestamp: DateTime.now(),
     );
-
     setState(() {
-      _messages.add(userMessage);
+      messages.add(userMessage);
       isLoading = true;
     });
 
@@ -85,7 +83,7 @@ class ChatState<T extends ChatPage> extends State<T> {
 
     if (botMessage != null) {
       setState(() {
-        _messages.add(botMessage);
+        messages.add(botMessage);
         isLoading = false;
       });
     } else {
@@ -94,18 +92,8 @@ class ChatState<T extends ChatPage> extends State<T> {
   }
 
   void handleNewLesson() {
-    setState(() {
-      Message lesson_message = Message(
-        text: dummyLesson,
-        userID: 'bot',
-        messageID: MetadataService.generateMessageID(),
-        role: 'bot',
-        timestamp: DateTime.now());
-      lesson_message.gotTasks = true;
-      _messages.add(lesson_message);
-    });
+    return;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -122,8 +110,8 @@ class ChatState<T extends ChatPage> extends State<T> {
               child: ListView.builder(
                 padding: EdgeInsets.only(top: unitH * 2, left: unitW, right: unitW * 2, bottom: unitH * 2),
                 reverse: true,
-                itemBuilder: (_, int index) => widget.messageTileBuilder(_messages.reversed.toList()[index]),
-                itemCount: _messages.length,
+                itemBuilder: (_, int index) => widget.messageTileBuilder(messages.reversed.toList()[index]),
+                itemCount: messages.length,
               ),
             ),
             if (isLoading)
