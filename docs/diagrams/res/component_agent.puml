@@ -15,21 +15,6 @@ component Prompts {
   PromptBuilder --> Prompt
 }
 
-component ToolExecution {
-    ToolExecutor --> ToolFactory
-    ToolExecutor --> ToolExecutorConfigModel
-}
-
-component Agent {
-    Agent --> ReasoningLogger
-    Agent --> AgentConfigModel
-    Agent --> Parser
-    Agent --> PromptBuilder
-    Agent --> TrajectoryInjector
-    Agent --> ToolExecutor
-    Agent --> LLM
-}
-
 component Tools {
     Tool --> LLM
     Tool --> PromptBuilder
@@ -42,5 +27,23 @@ component Tools {
     Tool --> NoAnswerTool
     Tool --> ListeningGenerator
 }
+
+
+component ToolExecution {
+    ToolExecutor --> ToolFactory
+    ToolExecutor --> ToolExecutorConfigModel
+    ToolExecutor --> Tool
+}
+
+component Agent {
+    Agent --> ReasoningLogger
+    Agent --> AgentConfigModel
+    Agent --> Parser
+    Agent --> PromptBuilder
+    Agent --> TrajectoryInjector
+    Agent --> ToolExecutor
+    Agent --> LLM
+}
+
 
 @enduml
