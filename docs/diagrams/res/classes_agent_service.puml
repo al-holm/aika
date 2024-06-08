@@ -7,7 +7,7 @@ class "<color:red>ActionNotFoundException</color>" as agent_service.exeptions.st
 class "Agent" as agent_service.agent.agent.Agent {
   config
   llm
-  max_iterations : FieldInfo
+  max_iterations
   prompt_builder
   reasoning_logger
   step_parser
@@ -27,11 +27,13 @@ class "Agent" as agent_service.agent.agent.Agent {
   run(query: str) -> str
   take_step() -> bool
   update_prompts_for_query(query: str) -> None
-  validate() -> bool
+  validate_step() -> bool
 }
 class "AgentConfigModel" as agent_service.core.pydantic_agent.AgentConfigModel {
   llm : str
   max_iterations : int
+  max_tokens_plan : int
+  max_tokens_val : int
 }
 class "AgentFinalStep" as agent_service.agent.agent_step.AgentFinalStep {
   final_answer : str
@@ -71,10 +73,10 @@ class "Config" as agent_service.core.config.Config {
   set_llm(task_type)
   update_llm(llm: str)
 }
-class "ExercisesParser" as agent_service.agent.exercises_parser.ExercisesParser {
-  parse() -> Dict[str, str]
+class "ExercisesParser" as agent_service.parsers.exercises_parser.ExercisesParser {
+  parse(input: str) -> Dict[str, str]
 }
-class "<color:red>ExtractingExercisesError</color>" as agent_service.tools.task_generation_tool.TaskGenerator.ExtractingExercisesError {
+class "<color:red>ExtractingExercisesError</color>" as agent_service.exeptions.step_exception.ExtractingExercisesError {
 }
 class "<color:red>InvalidToolException</color>" as agent_service.exeptions.step_exception.InvalidToolException {
 }
@@ -82,50 +84,37 @@ class "LLM" as agent_service.agent.llm.LLM {
   max_tokens : int
   {abstract}run()
   set_max_tokens(max_tokens: int)
-  set_max_tokens_by_mode(mode)
 }
 class "LLMBedrock" as agent_service.agent.llm.LLMBedrock {
-  client : 
+  client
   config
   llm_id
-  max_tokens : FieldInfo, int
+  max_tokens : int
   get_body(prompt: str)
   parse_config()
-  run(prompt: str, mode)
+  run(prompt: str)
   set_max_tokens(max_tokens: int)
 }
 class "LLMRunPod" as agent_service.agent.llm.LLMRunPod {
   config
   llm_id
-  max_tokens : FieldInfo
-  temperature : FieldInfo
+  max_tokens
+  temperature
   url
   parse_config()
-  run(prompt: str, mode)
+  run(prompt: str)
 }
 class "ListeningGenerator" as agent_service.tools.listening_generation_tool.ListeningGenerator {
-  PROMPT_ID : str
-  TEMPLATE : str
-  description : str
-  name : str
-  prompt
   query
   run(input: str)
 }
 class "NoAnswerTool" as agent_service.tools.no_answer_tool.NoAnswerTool {
-  description : str
-  name : str
   run(input_str: str)
 }
 class "Parser" as agent_service.parsers.agent_step_parser.Parser {
   {abstract}parse_step(input: str)
 }
 class "PhrasingTool" as agent_service.tools.phrasing_tool.PhrasingTool {
-  PROMPT_ID : str
-  TEMPLATE : str
-  description : str
-  name : str
-  prompt
   query
   run(input_str: str)
 }
@@ -141,11 +130,6 @@ class "PromptBuilder" as agent_service.prompts.prompt_builder.PromptBuilder {
   update_prompt(name_id) -> str
 }
 class "ReadingGenerator" as agent_service.tools.reading_generation_tool.ReadingGenerator {
-  PROMPT_ID : str
-  TEMPLATE : str
-  description : str
-  name : str
-  prompt
   query
   run(input: str)
 }
@@ -160,6 +144,7 @@ class "ReasoningLogger" as agent_service.agent.reasoning_trace.ReasoningLogger {
   add_exception(e: Exception)
   add_step(step: Union[AgentStep, AgentValidationStep, AgentFinalStep])
   build_final_answer()
+  get_last_observation() -> str
   get_last_step() -> Union[AgentStep, AgentValidationStep, AgentFinalStep]
   remove_step(index: int) -> None
   set_query(query: str)
@@ -170,18 +155,13 @@ class "RetrievalTool" as agent_service.tools.retrieval_tool.RetrievalTool {
   COLLECTION_NAME : str
   DB_PATH : str
   DOC_PATH : str
-  PROMPT_ID : str
   ROOT_PATH : str
-  TEMPLATE : str
-  client : MilvusClient
-  collection : NoneType
-  description : str
+  client
+  collection
   ef
   list_docs : list
   list_src : list
   min_chunk_len : int
-  name : str
-  prompt
   query
   add_docs()
   get_src_chunks(text: str)
@@ -197,7 +177,7 @@ class "RunpodLLMConfigModel" as agent_service.core.pydantic_llm.RunpodLLMConfigM
   temperature : float
 }
 class "StepParser" as agent_service.parsers.agent_step_parser.StepParser {
-  logger : NoneType, RootLogger
+  logger : NoneType, Logger, RootLogger
   tool_names : List[str]
   extract_action(remaining_text)
   extract_thought(first_line)
@@ -207,12 +187,7 @@ class "StepParser" as agent_service.parsers.agent_step_parser.StepParser {
   validate_action(action, action_input)
 }
 class "TaskGenerator" as agent_service.tools.task_generation_tool.TaskGenerator {
-  PROMPT_ID : str
-  TEMPLATE : str
-  description : str
   dir_path : str
-  name : str
-  prompt
   build_prompts(input: Dict[str, str])
   extract_exercises(message: str, exercises_num: int) -> str
   parse_input(input: str) -> Dict[str, str]
@@ -223,19 +198,31 @@ class "TaskType" as agent_service.agent.task_type.TaskType {
   name
 }
 class "Tool" as agent_service.tools.tool.Tool {
-  llm
+  description : str
+  llm : NoneType
+  max_tokens : int
+  name : str
+  prompt : NoneType
+  prompt_id : str
+  prompt_template : str
+  init_prompt()
   {abstract}run(input: str)
   set_llm(llm)
+}
+class "ToolConfigModel" as agent_service.core.pydantic_tool.ToolConfigModel {
+  description : str
+  llm : Optional[str]
+  max_tokens : int
+  name : str
+  prompt_id : Optional[str]
 }
 class "ToolExecutor" as agent_service.tools.tool_executor.ToolExecutor {
   config
   factory
-  logger : NoneType, RootLogger
-  reasoning_logger
+  logger : RootLogger, Logger, NoneType
   task_type
   tool_names : List[str]
   tools : List[Tool]
-  add_trace_for_task_generation(tool_name, input)
   execute(tool_name: str, input_str: str) -> str
   get_tool_by_name(name: str) -> Tool
   parse_config(task_type: TaskType)
@@ -257,14 +244,15 @@ class "ToolFactory" as agent_service.tools.tool_factory.ToolFactory {
   tool_names : list
   tools : list
   initialize_tools()
+  parse_config(tool_name)
 }
 class "TrajectoryInjector" as agent_service.prompts.trajectory_library.TrajectoryInjector {
   COLLECTION_NAME : str
   DB_PATH : str
   DOC_PATH : str
   ROOT_PATH : str
-  client : MilvusClient
-  collection : NoneType
+  client
+  collection
   df_docs : DataFrame
   ef
   add_docs()
@@ -276,28 +264,18 @@ class "TrajectoryInjector" as agent_service.prompts.trajectory_library.Trajector
   start_vector_store(init)
 }
 class "Translator" as agent_service.tools.translator_tool.Translator {
-  PROMPT_ID : str
-  TEMPLATE : str
-  description : str
-  name : str
-  prompt
-  translator : Translator
+  description
+  translator
   parse_target_language(input)
   run(input: str) -> str
-  set_target_language(lang: str) -> None
 }
 class "ValidationParser" as agent_service.parsers.agent_step_parser.ValidationParser {
-  logger : NoneType, RootLogger
+  logger : RootLogger, Logger, NoneType
   parse_step(input: str) -> AgentValidationStep
 }
 class "WebSearch" as agent_service.tools.web_search_tool.WebSearch {
-  PROMPT_ID : str
-  TEMPLATE : str
   api_host : str
   api_key
-  description : str
-  name : str
-  prompt
   query
   url : str
   parse_results(results)
@@ -329,17 +307,10 @@ agent_service.core.pydantic_tool_exe.ToolExecutorConfigModel --* agent_service.t
 agent_service.parsers.agent_step_parser.StepParser --* agent_service.agent.agent.Agent : step_parser
 agent_service.parsers.agent_step_parser.ValidationParser --* agent_service.agent.agent.Agent : validation_parser
 agent_service.prompts.prompt_builder.PromptBuilder --* agent_service.agent.agent.Agent : prompt_builder
-agent_service.prompts.prompt_builder.PromptBuilder --* agent_service.tools.listening_generation_tool.ListeningGenerator : prompt
-agent_service.prompts.prompt_builder.PromptBuilder --* agent_service.tools.phrasing_tool.PhrasingTool : prompt
-agent_service.prompts.prompt_builder.PromptBuilder --* agent_service.tools.reading_generation_tool.ReadingGenerator : prompt
-agent_service.prompts.prompt_builder.PromptBuilder --* agent_service.tools.retrieval_tool.RetrievalTool : prompt
-agent_service.prompts.prompt_builder.PromptBuilder --* agent_service.tools.task_generation_tool.TaskGenerator : prompt
-agent_service.prompts.prompt_builder.PromptBuilder --* agent_service.tools.translator_tool.Translator : prompt
-agent_service.prompts.prompt_builder.PromptBuilder --* agent_service.tools.web_search_tool.WebSearch : prompt
+agent_service.prompts.prompt_builder.PromptBuilder --* agent_service.tools.tool.Tool : prompt
 agent_service.prompts.trajectory_library.TrajectoryInjector --* agent_service.agent.agent.Agent : trajectory_injector
 agent_service.tools.tool_executor.ToolExecutor --* agent_service.agent.agent.Agent : tool_executor
 agent_service.tools.tool_factory.ToolFactory --* agent_service.tools.tool_executor.ToolExecutor : factory
-agent_service.agent.reasoning_trace.ReasoningLogger --o agent_service.tools.tool_executor.ToolExecutor : reasoning_logger
 agent_service.agent.task_type.TaskType --o agent_service.agent.agent.Agent : task_type
 agent_service.agent.task_type.TaskType --o agent_service.tools.tool_executor.ToolExecutor : task_type
 @enduml

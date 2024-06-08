@@ -1,26 +1,46 @@
 @startuml
-package "Component 1" {
-  [Agent] --> [LLMBedrock]
-  [Agent] --> [LLMRunPod]
-  [Agent] --> [ReasoningLogger]
+component LLMs {
+    LLM --> LLMBedrock
+    LLM --> LLMRunPod 
+    LLMBedrock --> BedrockLLMConfigModel
+    LLMRunPod --> RunpodLLMConfigModel
 }
 
-package "Component 2" {
-  [LLMBedrock] --> [Tool]
-  [LLMRunPod] --> [Tool]
+component Parsers {
+    Parser  --> StepParser
+    Parser  --> ValidationParser
 }
 
-package "Component 3" {
-  [ReasoningLogger] --> [ToolExecutor]
-  [PromptBuilder] --> [ToolExecutor]
-  [ToolFactory] --> [ToolExecutor]
-  [PromptBuilder] --> [Tool]
+component Prompts {
+  PromptBuilder --> Prompt
 }
 
+component ToolExecution {
+    ToolExecutor --> ToolFactory
+    ToolExecutor --> ToolExecutorConfigModel
+}
 
-package "Component 5" {
-  [StepParser] --> [Agent]
-  [ValidationParser] --> [Agent]
+component Agent {
+    Agent --> ReasoningLogger
+    Agent --> AgentConfigModel
+    Agent --> Parser
+    Agent --> PromptBuilder
+    Agent --> TrajectoryInjector
+    Agent --> ToolExecutor
+    Agent --> LLM
+}
+
+component Tools {
+    Tool --> LLM
+    Tool --> PromptBuilder
+    Tool --> WebSearch
+    Tool --> Translator
+    Tool --> TaskGenerator
+    Tool --> RetrievalTool
+    Tool --> ReadingGenerator
+    Tool --> PhrasingTool
+    Tool --> NoAnswerTool
+    Tool --> ListeningGenerator
 }
 
 @enduml
