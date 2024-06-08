@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/homepage/home_page.dart';
-import 'package:frontend/utils/app_localization.dart';
-import 'package:frontend/utils/language_provider.dart';
+import 'package:frontend/z_legacy/homepage/home_page.dart';
+import 'package:frontend/z_legacy/utils/app_localization.dart';
+import 'package:frontend/z_legacy/utils/language_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 void main() {
