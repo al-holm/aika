@@ -6,7 +6,9 @@ class SendMessage {
 
   SendMessage(this.repository);
 
-  Future<Message> call(String chatId, String content) {
-    return repository.sendMessage(chatId, content);
+  Future<Message> call(
+    String chatId, Message message) {
+    return repository.sendMessage(
+      chatId, message);
   }
 }

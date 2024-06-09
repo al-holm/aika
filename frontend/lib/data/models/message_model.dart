@@ -12,20 +12,32 @@ class MessageModel {
   MessageModel({required this.text, 
         required this.userID,
         required this.messageID, required this.role,
-        required this.timestamp, this.hasTasks=false, this.tasks});
+        required this.timestamp, this.hasTasks=false, this.tasks=null});
   
-  factory MessageModel.fromJson(Map<String, dynamic> json) {
-    return MessageModel(
+  factory MessageModel.lessonFromJson(Map<String, dynamic> json) {
+    MessageModel model =  MessageModel(
       text: json['text'], 
       userID:json['userId'], 
       messageID: json['messageId'], 
       role: json['role'], 
-      timestamp: json['timestamp'],
+      timestamp: DateTime.parse(json['timestamp']),
       hasTasks: json['hasTasks'] ?? false,
       tasks: json['tasks'] != null 
         ? List<TaskModel>.from(json['tasks'].map(
           (task) => TaskModel.fromJson(task)),
       ) : null);
+    return model;
+  }
+
+    factory MessageModel.messageFromJson(Map<String, dynamic> json) {
+      MessageModel model =  MessageModel(
+        text: json['text'], 
+        userID:json['userId'], 
+        messageID: json['messageId'], 
+        role: json['role'], 
+        timestamp: json['timestamp'],
+        );
+      return model;
   }
 
   Map<String, dynamic> toJson() {

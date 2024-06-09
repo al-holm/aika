@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Get, Body } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { Message } from './models/message.dto';
 import { ApiTags, ApiResponse, ApiExtraModels, getSchemaPath } from '@nestjs/swagger';
@@ -37,7 +37,7 @@ export class ChatController {
     return { message };
   }
 
-  @Post('lesson')
+  @Get('lesson')
   async getLesson( @Body() userMessage: Message): 
     Promise<JSON> {
     console.log('lesson');
