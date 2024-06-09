@@ -10,9 +10,15 @@ class ChatRepositoryImpl implements ChatRepository {
   ChatRepositoryImpl(this.chatDataProvider);
 
   @override
-  Future<Message> sendMessage(String chatId, String content) async {
-     final MessageModel messageModel = await chatDataProvider.sendMessage(chatId, content);
-     return Message(
+  Future<Message> sendMessage(
+    String chatId, Message message) async {
+    MessageModel userMessage = MessageModel(
+      text: message.text, userID: message.userID, 
+      messageID: message.messageID, role: message.role, 
+      timestamp: message.timestamp);
+    final MessageModel messageModel = await chatDataProvider.sendMessage(
+      chatId, userMessage);
+    return Message(
       text: messageModel.text, userID: messageModel.userID, 
       messageID: messageModel.messageID, role: messageModel.role, 
       timestamp:messageModel.timestamp, hasTasks: messageModel.hasTasks);

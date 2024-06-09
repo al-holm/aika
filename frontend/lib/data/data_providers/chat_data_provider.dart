@@ -7,16 +7,24 @@ class ChatDataProvider {
 
   ChatDataProvider(this.baseUrl);
 
-  Future<MessageModel> sendMessage(String chatId, String content) async {
+  Future<MessageModel> sendMessage(
+    String chatId, MessageModel userMessage) async {
     final response = await http.post(
       Uri.parse('$baseUrl/chat/$chatId'),
       headers: {'Content-Type': 'application/json'},
-      body: json.encode({'content': content}),
+      body: json.encode(userMessage.toJson()),
     );
-
-     if (response.statusCode == 201) {
-      final dynamic data = json.decode(response.body);
-      return  MessageModel.fromJson(data);
+    print(response.statusCode);
+    if (response.statusCode == 201) {
+      final dynamic data = json.decode(response.body)['message'];
+      MessageModel model = MessageModel(
+        text: data['text'], 
+        userID:data['userId'], 
+        messageID: data['messageId'], 
+        role: data['role'], 
+        timestamp: DateTime.parse(data['timestamp']),
+        );
+      return model;
     } else {
       throw Exception('Failed to fetch a response');
     }
@@ -34,11 +42,12 @@ class ChatDataProvider {
 
   Future<MessageModel> fetchLesson(String chatId) async {
     final response = await http.get(
-      Uri.parse('$baseUrl/chat/$chatId')
+      Uri.parse('$baseUrl/chat/lesson')
       );
-
+    print(response.statusCode);
+    print(response.body);
      if (response.statusCode == 200) {
-      return  MessageModel.fromJson(json.decode(response.body));
+      return  MessageModel.lessonFromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to fetch a lesson');
     }

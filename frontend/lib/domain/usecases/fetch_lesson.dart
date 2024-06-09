@@ -1,3 +1,4 @@
+import 'package:frontend/domain/entities/message.dart';
 import 'package:frontend/domain/repositories/chat_repository.dart';
 
 class FetchLesson {
@@ -5,7 +6,7 @@ class FetchLesson {
 
   FetchLesson(this.repository);
 
-  Future<void> call(String chatId) {
+  Future<Message> call(String chatId) {
     return repository.fetchLesson(chatId);
   }
 }
