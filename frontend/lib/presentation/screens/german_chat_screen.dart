@@ -48,10 +48,7 @@ class GermanChatScreen extends StatelessWidget {
                       return Column(
                         children: [
                           Expanded(child: _buildMessageList(state.messages)),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: CircularProgressIndicator(),
-                          ),
+                          const LoadingIndicator(),
                         ],
                       );
                     } else if (state is ChatLoaded) {
