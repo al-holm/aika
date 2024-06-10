@@ -33,7 +33,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     try {
       await submitAnswers(event.tasks);
       emit(TaskSubmissionSuccess());
-      chatBloc.add(ProposeLessonEvent(true)); // Dispatch the new event
+      chatBloc.add(ProposeLessonEvent(true, 'german')); // Dispatch the new event
     } catch (error) {
       emit(TaskSubmissionFailure(error.toString()));
     }

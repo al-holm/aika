@@ -12,6 +12,7 @@ import 'package:frontend/utils/l10n/app_localization.dart';
 
 class GermanChatScreen extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   final String chatID = 'german';
 
   @override
@@ -33,7 +34,7 @@ class GermanChatScreen extends StatelessWidget {
                   BlocListener<TaskBloc, TaskState>(
                     listener: (context, state) {
                       if (state is TaskSubmissionSuccess) {
-                        chatBloc.add(ProposeLessonEvent(true));
+                        chatBloc.add(ProposeLessonEvent(true, chatID));
                       }
                     },
                   ),
@@ -44,14 +45,18 @@ class GermanChatScreen extends StatelessWidget {
                       chatBloc.add(InitializeChatEvent(chatID));
                       return const LoadingIndicator();
                     } else if (state is ChatLoading) {
-                      return ListView(
+                      return Column(
                         children: [
-                          _buildMessageList(state.messages),
-                          const LoadingIndicator()
-                        ]
+                          Expanded(child: _buildMessageList(state.messages)),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: CircularProgressIndicator(),
+                          ),
+                        ],
                       );
                     } else if (state is ChatLoaded) {
                       return ListView(
+                        controller: _scrollController,
                         children: [
                           _buildMessageList(state.messages),
                           if (state.offerLesson)
@@ -67,6 +72,7 @@ class GermanChatScreen extends StatelessWidget {
                     } else if (state is LessonLoaded) {
                       taskBloc.add(InitializeTasksEvent(state.lesson.tasks!));
                       return ListView(
+                        controller: _scrollController,
                         children: [
                           _buildMessageList(state.messages),
                           BlocBuilder<TaskBloc, TaskState>(
@@ -91,7 +97,28 @@ class GermanChatScreen extends StatelessWidget {
                         ],
                       );
                     } else if (state is ChatError) {
-                      return Center(child: Text(state.message));
+                      return Column(
+                        children: [
+                          Expanded(child: _buildMessageList(state.messages)),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Text(
+                                  "Something went wrong. Generate again.",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.refresh, color: Colors.red),
+                                  onPressed: () {
+                                    chatBloc.add(state.lastEvent!);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
                     } else {
                       return const Center(child: Text("Keine Nachrichten vorhanden."));
                     }
