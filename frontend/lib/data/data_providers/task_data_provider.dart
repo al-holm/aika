@@ -9,7 +9,7 @@ class TaskDataProvider {
 
   Future<void> submitUserAnswers(List<Task> tasks) async {
     final response = await http.post(
-      Uri.parse(baseUrl),
+      Uri.parse('$baseUrl/chat/submit_answers'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode({
         'tasks': tasks.map((task) => {
@@ -19,8 +19,7 @@ class TaskDataProvider {
         }).toList(),
       }),
     );
-
-    if (response.statusCode != 200) {
+    if (response.statusCode != 201) {
       throw Exception('Failed to submit answers');
     }
   }

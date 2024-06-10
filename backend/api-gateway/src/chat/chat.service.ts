@@ -118,5 +118,16 @@ export class ChatService {
         console.log(err);
         return err;
       }
+  }
+
+  async processAnswers(): Promise<boolean> 
+  {
+    try {
+      const data = true;
+      return data;
+    } catch (err) {
+      console.log(err);
+      return err;
     }
+  }
 }

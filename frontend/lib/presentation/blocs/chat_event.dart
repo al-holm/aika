@@ -44,3 +44,10 @@ class FetchLessonEvent extends ChatEvent {
   @override
   List<Object> get props => [chatID];
 }
+
+class ProposeLessonEvent extends ChatEvent {
+  ProposeLessonEvent();
+
+  @override
+  List<Object> get props => [];
+}

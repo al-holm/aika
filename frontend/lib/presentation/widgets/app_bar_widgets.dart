@@ -17,7 +17,7 @@ class GermanChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(Icons.school),
           color: AppStyles.sandColor,
           onPressed: () {
-            chatBloc.add(FetchLessonEvent('german'));
+            chatBloc.add(ProposeLessonEvent());
           },
         ),
         IconButton(
@@ -34,3 +34,32 @@ class GermanChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
+
+class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String text;
+
+  SimpleAppBar({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: Text(text),
+      backgroundColor: AppStyles.darkColor,
+      foregroundColor: AppStyles.sandColor,
+      actions:[
+        IconButton(
+          icon: const Icon(Icons.settings),
+          color: AppStyles.sandColor,
+          onPressed: () {
+            Navigator.pushNamed(context, '/settings');
+          },
+        ),
+      ],
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+

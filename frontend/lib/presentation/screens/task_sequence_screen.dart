@@ -2,102 +2,111 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/domain/entities/task.dart';
 import 'package:frontend/presentation/blocs/task_bloc.dart';
+import 'package:frontend/presentation/widgets/app_bar_widgets.dart';
+import 'package:frontend/presentation/widgets/chat_widgets.dart';
 import 'package:frontend/presentation/widgets/task_buttons_widgets.dart';
 import 'package:frontend/presentation/widgets/task_widget.dart';
 import 'package:frontend/styles/app_styles.dart';
 import 'package:frontend/utils/l10n/app_localization.dart';
 
-class TaskSequenceScreen extends StatefulWidget {
+
+class TaskSequenceScreen extends StatelessWidget {
   final List<Task> tasks;
-  final int initialIndex;
 
-  TaskSequenceScreen({required this.tasks, this.initialIndex = 0});
-
-  @override
-  _TaskSequenceScreenState createState() => _TaskSequenceScreenState();
-}
-
-class _TaskSequenceScreenState extends State<TaskSequenceScreen> {
-  late PageController _pageController;
-  int _currentIndex;
-
-  _TaskSequenceScreenState() : _currentIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _currentIndex = widget.initialIndex;
-    _pageController = PageController(initialPage: _currentIndex);
-    BlocProvider.of<TaskBloc>(context).add(InitializeTasksEvent(widget.tasks));
-  }
-
-  void _onNext() {
-    final taskBloc = BlocProvider.of<TaskBloc>(context);
-    if (_currentIndex < widget.tasks.length - 1) {
-      setState(() {
-        _currentIndex++;
-      });
-      _pageController.nextPage(
-        duration: Duration(milliseconds: 300),
-        curve: Curves.ease,
-      );
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void _onBack() {
-    if (_currentIndex > 0) {
-      setState(() {
-        _currentIndex--;
-      });
-      _pageController.previousPage(
-        duration: Duration(milliseconds: 300),
-        curve: Curves.ease,
-      );
-    } else {
-      Navigator.pop(context);
-    }
-  }
+  TaskSequenceScreen({required this.tasks});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate('tasks')),
-      ),
-      backgroundColor: AppStyles.sandColor,
-      body: BlocListener<TaskBloc, TaskState>(
-        listener: (context, state) {
-          if (state is TaskSubmissionSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Would you like to do the next lesson?')),
+    final taskBloc = BlocProvider.of<TaskBloc>(context);
+
+    return BlocListener<TaskBloc, TaskState>(
+      listener: (context, state) {
+        if (state is TaskSubmissionSuccess) {
+          Navigator.pop(context); // Close the screen on task submission success
+        }
+      },
+      child: BlocBuilder<TaskBloc, TaskState>(
+        builder: (context, state) {
+          if (state is TaskInProgress) {
+            final currentTask = state.tasks[state.currentTaskIndex];
+            return Scaffold(
+              appBar: SimpleAppBar(
+                text: AppLocalizations.of(context).translate('tasks')),
+              backgroundColor: AppStyles.sandColor,
+              body: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(child: TaskWidget(task: currentTask)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if (state.currentTaskIndex > 0)
+                          TaskControlButton(
+                            onPressed: () {
+                              taskBloc.add(CompleteTaskEvent(
+                                state.currentTaskIndex - 1,
+                                state.tasks[state.currentTaskIndex - 1].userAnswers,
+                              ));
+                            },
+                            text: AppLocalizations.of(context).translate('back'),
+                          ),
+                        if (state.currentTaskIndex < state.tasks.length - 1)
+                          TaskControlButton(
+                            onPressed: () {
+                              taskBloc.add(CompleteTaskEvent(
+                                state.currentTaskIndex,
+                                currentTask.userAnswers,
+                              ));
+                            },
+                            text: AppLocalizations.of(context).translate('continue'),
+                          ),
+                        if (state.currentTaskIndex == state.tasks.length - 1)
+                          TaskControlButton(
+                            onPressed: () {
+                              taskBloc.add(SubmitTasksEvent(state.tasks));
+                            },
+                            text: AppLocalizations.of(context).translate('submit'),
+                          ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else if (state is TaskSubmissionInProgress) {
+            return Scaffold(
+              appBar: SimpleAppBar(
+                text: AppLocalizations.of(context).translate('tasks')),
+              body: LoadingIndicator()
+            );
+          } else if (state is TaskSubmissionSuccess) {
+            return Scaffold(
+              appBar: SimpleAppBar(
+                text: AppLocalizations.of(context).translate('tasks')),
+              body: Center(
+                child: Text(AppLocalizations.of(context).translate('task_submission_success')),
+              ),
             );
           } else if (state is TaskSubmissionFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Failed to submit answers: ${state.error}')),
+            return Scaffold(
+              appBar: SimpleAppBar(
+                text: AppLocalizations.of(context).translate('tasks')),
+              body: Center(
+                child: Text(AppLocalizations.of(context).translate('task_submission_failure')),
+              ),
+            );
+          } else {
+            return Scaffold(
+              appBar: SimpleAppBar(
+                text: AppLocalizations.of(context).translate('tasks')),
+              body: Center(
+                child: Text(AppLocalizations.of(context).translate('no_tasks')),
+              ),
             );
           }
         },
-        child: PageView.builder(
-          controller: _pageController,
-          itemCount: widget.tasks.length,
-          onPageChanged: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          itemBuilder: (context, index) {
-            return TaskWidget(task: widget.tasks[index]);
-          },
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-        child: TaskButtonGroup(
-          onBack: _onBack,
-          onNext: _onNext,
-        ),
       ),
     );
   }

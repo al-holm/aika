@@ -3,6 +3,21 @@ enum TaskType{
   fillTheGaps, openQuestion
 }
 
+extension TaskTypeExtension on TaskType {
+  static TaskType fromString(String type) {
+    switch (type) {
+      case 'single-choice':
+        return TaskType.multipleChoice;
+      case 'gaps':
+        return TaskType.fillTheGaps;
+      case 'open':
+        return TaskType.openQuestion;
+      default:
+        throw ArgumentError('Invalid task type');
+    }
+  }
+}
+
 class Task {
   final TaskType type;
   final String question;

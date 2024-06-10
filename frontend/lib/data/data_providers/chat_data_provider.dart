@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:frontend/data/models/message_model.dart';
+import 'package:frontend/data/models/task_model.dart';
 import 'package:http/http.dart' as http;
 
 class ChatDataProvider {
@@ -17,13 +18,7 @@ class ChatDataProvider {
     print(response.statusCode);
     if (response.statusCode == 201) {
       final dynamic data = json.decode(response.body)['message'];
-      MessageModel model = MessageModel(
-        text: data['text'], 
-        userID:data['userId'], 
-        messageID: data['messageId'], 
-        role: data['role'], 
-        timestamp: DateTime.parse(data['timestamp']),
-        );
+      MessageModel model = MessageModel.fromJson(data);
       return model;
     } else {
       throw Exception('Failed to fetch a response');
@@ -44,12 +39,23 @@ class ChatDataProvider {
     final response = await http.get(
       Uri.parse('$baseUrl/chat/lesson')
       );
-    print(response.statusCode);
-    print(response.body);
      if (response.statusCode == 200) {
-      return  MessageModel.lessonFromJson(json.decode(response.body));
+      final dynamic data = json.decode(response.body);
+      final tasksJson = data['tasks'] as List<dynamic>;
+      final tasks = tasksJson.map((taskJson) => TaskModel.fromJson(taskJson)).toList();
+      return  MessageModel(
+        text: data['text'], 
+        userID:'lesson', 
+        messageID: '', 
+        role: 'bot', 
+        timestamp: DateTime.now(),
+        hasTasks: true,
+        tasks: tasks,
+      );
     } else {
       throw Exception('Failed to fetch a lesson');
     }
   }
 }
+
+// Thought - create for lessons antoher model (maybe inheritance from message model)

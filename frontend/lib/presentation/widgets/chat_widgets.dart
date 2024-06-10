@@ -61,6 +61,7 @@ class MessageTile extends StatelessWidget {
               child: Text(
                 content,
                 style: AppStyles.messageTextStyle,
+                softWrap: true,
               ),
             ),
           ],
@@ -69,6 +70,7 @@ class MessageTile extends StatelessWidget {
     );
   }
 }
+
 
 
 class LoadingIndicator extends StatelessWidget {
@@ -102,16 +104,18 @@ class ChatButton extends StatelessWidget {
     final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
       backgroundColor: AppStyles.accentColor,
       padding: EdgeInsets.symmetric(vertical: padding*1.5, horizontal: padding*3),
-      fixedSize: Size(screenSize.width*0.6, screenSize.height*0.06),
+      //fixedSize: Size(screenSize.width*0.4, screenSize.height*0.06),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(3),
       ),
     );
 
-    return  ElevatedButton(
-      style: buttonStyle,
-      onPressed: onPressed,
-      child: Text(text, style: AppStyles.buttonTextStyle(fontSize, Colors.white)),
+    return  Expanded(
+      child: ElevatedButton(
+        style: buttonStyle,
+        onPressed: onPressed,
+        child: Text(text, style: AppStyles.buttonTextStyle(fontSize, Colors.white)),
+      )
     );
   }
 }
