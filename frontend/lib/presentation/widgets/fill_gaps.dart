@@ -61,7 +61,6 @@ class _FillInTheGapQuestionState extends State<FillInTheGapQuestion> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     double unitW = screenSize.width * 0.01;
-    double unitH = screenSize.height * 0.01;
     final parts = widget.task.question.split('__');
     final List<InlineSpan> spans = [];
 

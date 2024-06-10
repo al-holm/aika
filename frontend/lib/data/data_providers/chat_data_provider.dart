@@ -10,6 +10,7 @@ class ChatDataProvider {
 
   Future<MessageModel> sendMessage(
     String chatId, MessageModel userMessage) async {
+    print('sending message..');
     final response = await http.post(
       Uri.parse('$baseUrl/chat/$chatId'),
       headers: {'Content-Type': 'application/json'},
@@ -36,6 +37,7 @@ class ChatDataProvider {
   }
 
   Future<MessageModel> fetchLesson(String chatId) async {
+    print('fetching lesson');
     final response = await http.get(
       Uri.parse('$baseUrl/chat/lesson')
       );

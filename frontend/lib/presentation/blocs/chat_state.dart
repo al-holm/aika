@@ -22,7 +22,7 @@ class ChatLoading extends ChatState {
 
 class ChatLoaded extends ChatState {
   final List<Message> messages;
-  bool offerLesson = false;
+  final bool offerLesson;
 
   ChatLoaded(this.messages, {this.offerLesson = false});
 

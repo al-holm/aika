@@ -1,16 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:frontend/domain/entities/task.dart';
-import 'package:frontend/domain/repositories/task_repository.dart';
+import 'package:frontend/domain/usecases/submit_answers.dart';
 import 'package:frontend/presentation/blocs/chat_bloc.dart';
 part 'task_event.dart';
 part 'task_state.dart';
 
 class TaskBloc extends Bloc<TaskEvent, TaskState> {
-  final TaskRepository taskRepository;
+  final SubmitAnswers submitAnswers;
   final ChatBloc chatBloc;
 
-  TaskBloc(this.taskRepository, this.chatBloc) : super(TaskInitial()) {
+  TaskBloc(this.submitAnswers, this.chatBloc) : super(TaskInitial()) {
     on<InitializeTasksEvent>(_onInitializeTasks);
     on<CompleteTaskEvent>(_onCompleteTask);
     on<SubmitTasksEvent>(_onSubmitTasks);
@@ -31,9 +31,9 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   void _onSubmitTasks(SubmitTasksEvent event, Emitter<TaskState> emit) async {
     emit(TaskSubmissionInProgress());
     try {
-      await taskRepository.submitUserAnswers(event.tasks);
+      await submitAnswers(event.tasks);
       emit(TaskSubmissionSuccess());
-      chatBloc.add(ProposeLessonEvent()); // Dispatch the new event
+      chatBloc.add(ProposeLessonEvent(true)); // Dispatch the new event
     } catch (error) {
       emit(TaskSubmissionFailure(error.toString()));
     }
