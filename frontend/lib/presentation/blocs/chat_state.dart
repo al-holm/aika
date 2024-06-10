@@ -10,16 +10,24 @@ abstract class ChatState extends Equatable {
 
 class ChatInitial extends ChatState {}
 
-class ChatLoading extends ChatState {}
+class ChatLoading extends ChatState {
+  final List<Message> messages;
+
+  ChatLoading(this.messages);
+
+  @override
+  List<Object> get props => [messages];
+
+}
 
 class ChatLoaded extends ChatState {
   final List<Message> messages;
-  bool hasLesson = false;
+  bool offerLesson = false;
 
-  ChatLoaded(this.messages, {this.hasLesson = false});
+  ChatLoaded(this.messages, {this.offerLesson = false});
 
   @override
-  List<Object> get props => [messages, hasLesson];
+  List<Object> get props => [messages, offerLesson];
 }
 
 class LessonLoaded extends ChatState {
@@ -34,9 +42,11 @@ class LessonLoaded extends ChatState {
 
 class ChatError extends ChatState {
   final String message;
+  final ChatEvent? lastEvent;
+  final List<Message> messages;
 
-  ChatError(this.message);
+  ChatError(this.message, this.lastEvent, this.messages);
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [message, lastEvent!, messages];
 }

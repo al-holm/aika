@@ -46,16 +46,20 @@ class MyApp extends StatelessWidget {
           create: (context) => LanguageBloc(),
         ),
         BlocProvider(
-          create: (context) => TaskBloc(taskRepository),
+          create: (context) => TaskBloc(
+            taskRepository,
+            BlocProvider.of<ChatBloc>(context),
+          ),
         ),
       ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, state) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'Flutter Chat App',
             theme: ThemeData(
               primaryColor: AppStyles.accentColor,
-              ),
+            ),
             locale: state.locale,
             supportedLocales: const [
               Locale('en', ''),

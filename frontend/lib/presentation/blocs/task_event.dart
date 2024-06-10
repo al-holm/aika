@@ -25,3 +25,12 @@ class CompleteTaskEvent extends TaskEvent {
   @override
   List<Object> get props => [taskIndex, userAnswers];
 }
+
+class SubmitTasksEvent extends TaskEvent {
+  final List<Task> tasks;
+
+  SubmitTasksEvent(this.tasks);
+
+  @override
+  List<Object> get props => [tasks];
+}

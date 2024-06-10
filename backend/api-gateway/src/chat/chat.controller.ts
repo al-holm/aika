@@ -37,11 +37,20 @@ export class ChatController {
     return { message };
   }
 
+  @Post('submit_answers')
+  async getCompletedTasks( @Body() userMessage: Message, ): 
+    Promise<{ message: boolean }> {
+    console.log('answers submitted');
+    const message = await this.germanChatService.processAnswers();
+    console.log(message);
+    return { message };
+  }
+
   @Get('lesson')
-  async getLesson( @Body() userMessage: Message): 
+  async getLesson(): 
     Promise<JSON> {
     console.log('lesson');
-    const lesson = await this.germanChatService.get_lesson("[Grammar][Futur I][None][3][2][1]")
+    const lesson = await this.germanChatService.get_lesson("[Grammar][Futur I][None][1][1][1]")
     return lesson;
   }
 }

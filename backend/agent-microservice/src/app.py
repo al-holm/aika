@@ -37,8 +37,9 @@ def getAnswer():
     """
     Returns agent's answer
     """
-    
-    return {"answer": aika_qa.run(request.json["question"])}
+    answer =  aika_qa.run(request.json["question"])
+    aika_qa.reset()
+    return {"answer": answer}
 
 @app.route("/get_lesson", methods=["Post"])
 def getLesson():
@@ -52,6 +53,7 @@ def getLesson():
     else:
         parsed_lesson = lesson_parser.parse(raw_lesson)
     logging.info(f"Parsed_lesson: {parsed_lesson}\n\n\n")
+    aika_lesson.reset()
     return jsonify(parsed_lesson)
 
 @app.route("/get_answer_law_life", methods=["Post"])

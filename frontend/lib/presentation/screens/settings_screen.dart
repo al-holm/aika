@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/presentation/blocs/language_bloc.dart';
+import 'package:frontend/presentation/widgets/app_bar_widgets.dart';
 import 'package:frontend/styles/app_styles.dart';
 import 'package:frontend/utils/l10n/app_localization.dart';
 class SettingsScreen extends StatelessWidget {
@@ -10,9 +11,9 @@ class SettingsScreen extends StatelessWidget {
     double padding = screenSize.width * 0.03;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate('settings'))
-      ),
+      backgroundColor: AppStyles.sandColor,
+      appBar: SimpleAppBar(
+                text: AppLocalizations.of(context).translate('settings')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

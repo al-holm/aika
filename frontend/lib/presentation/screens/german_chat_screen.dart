@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/domain/entities/message.dart';
 import 'package:frontend/presentation/blocs/chat_bloc.dart';
 import 'package:frontend/presentation/blocs/task_bloc.dart';
 import 'package:frontend/presentation/screens/task_sequence_screen.dart';
@@ -27,79 +28,75 @@ class GermanChatScreen extends StatelessWidget {
         body: Column(
           children: <Widget>[
             Expanded(
-              child: BlocBuilder<ChatBloc, ChatState>(
-                builder: (context, state) {
-                  if (state is ChatInitial) {
-                    chatBloc.add(InitializeChatEvent(chatID));
-                    return const LoadingIndicator();
-                  } else if (state is ChatLoading) {
-                    return const LoadingIndicator();
-                  } else if (state is ChatLoaded) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount: state.messages.length,
-                            itemBuilder: (context, index) {
-                              final message = state.messages[index];
-                              return MessageTile(
-                                content: message.text,
-                                role: message.role,
-                              );
-                            },
-                          ),
-                        ),
-                        if (state.hasLesson)
-                          ChatButton(
-                            text: newLessonText,
-                            onPressed: () {
-                              chatBloc.add(FetchLessonEvent(chatID));
-                            },
-                          ),
+              child: MultiBlocListener(
+                listeners: [
+                  BlocListener<TaskBloc, TaskState>(
+                    listener: (context, state) {
+                      if (state is TaskSubmissionSuccess) {
+                        chatBloc.add(ProposeLessonEvent());
+                      }
+                    },
+                  ),
+                ],
+                child: BlocBuilder<ChatBloc, ChatState>(
+                  builder: (context, state) {
+                    if (state is ChatInitial) {
+                      chatBloc.add(InitializeChatEvent(chatID));
+                      return const LoadingIndicator();
+                    } else if (state is ChatLoading) {
+                      return ListView(
+                        children: [
+                          _buildMessageList(state.messages),
+                          LoadingIndicator()
+                        ]
+                      );
+                    } else if (state is ChatLoaded) {
+                      return ListView(
+                        children: [
+                          _buildMessageList(state.messages),
+                          if (state.offerLesson)
+                            ChatButton(
+                              text: newLessonText,
+                              onPressed: () {
+                                chatBloc.add(FetchLessonEvent(chatID));
+                              },
+                            ),
                           const SizedBox(height: 15,),
-                      ],
-                    );
-                  } else if (state is LessonLoaded) {
-                    taskBloc.add(InitializeTasksEvent(state.lesson.tasks!));
-                    return Column(
-                      children: [
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount: state.messages.length,
-                            itemBuilder: (context, index) {
-                              final message = state.messages[index];
-                              return MessageTile(
-                                content: message.text,
-                                role: message.role,
-                              );
+                        ],
+                      );
+                    } else if (state is LessonLoaded) {
+                      taskBloc.add(InitializeTasksEvent(state.lesson.tasks!));
+                      return ListView(
+                        children: [
+                          _buildMessageList(state.messages),
+                          BlocBuilder<TaskBloc, TaskState>(
+                            builder: (context, taskState) {
+                              if (taskState is TaskSubmissionSuccess) {
+                                return const SizedBox();
+                              } else {
+                                return ChatButton(
+                                  text: AppLocalizations.of(context).translate('tasks'),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => TaskSequenceScreen(tasks: state.lesson.tasks!),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
                             },
                           ),
-                        ),
-                        MessageTile(
-                          content: state.lesson.text,
-                          role: state.lesson.role,
-                        ),
-                        ChatButton(
-                          text: AppLocalizations.of(context).translate('tasks'),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => TaskSequenceScreen(tasks: state.lesson.tasks!),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    );
-                  } else if (state is ChatError) {
-                    return Center(child: Text(state.message));
-                  } else {
-                    return const Center(child: Text("Keine Nachrichten vorhanden."));
-                  }
-                },
+                        ],
+                      );
+                    } else if (state is ChatError) {
+                      return Center(child: Text(state.message));
+                    } else {
+                      return const Center(child: Text("Keine Nachrichten vorhanden."));
+                    }
+                  },
+                ),
               ),
             ),
             const Divider(height: 1),
@@ -116,6 +113,21 @@ class GermanChatScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildMessageList(List<Message> messages) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: messages.length,
+      itemBuilder: (context, index) {
+        final message = messages[index];
+        return MessageTile(
+          content: message.text,
+          role: message.role,
+        );
+      },
     );
   }
 }

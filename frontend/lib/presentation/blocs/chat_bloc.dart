@@ -20,15 +20,16 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<SendMessageEvent>(_onSendMessage);
     on<SendImageEvent>(_onSendImage);
     on<FetchLessonEvent>(_onFetchLesson);
+    on<ProposeLessonEvent>(_onProposeLesson);
   }
 
   void _onInitializeChat(InitializeChatEvent event, Emitter<ChatState> emit) async {
-    emit(ChatLoading());
+    emit(ChatLoading([]));
     try {
       final messages = await _initializeMessages(event.chatID);
-      emit(ChatLoaded(messages, hasLesson: true));
+      emit(ChatLoaded(messages, offerLesson: true));
     } catch (e) {
-      emit(ChatError("Could not initialize chat"));
+      emit(ChatError("Could not initialize chat", event, []));
     }
   }
 
@@ -43,12 +44,32 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         currentState.messages.add(message);
         final responseMessage = await sendMessage(event.chatID, message);
         final updatedMessages = List<Message>.from(currentState.messages)..add(responseMessage);
-        emit(ChatLoaded(updatedMessages));
+        emit(ChatLoaded(updatedMessages, offerLesson: false));
       } catch (e) {
-        emit(ChatError("Could not send message"));
+        emit(ChatError("Could not send message", event, currentState.messages));
+      }
+    } else if (currentState is LessonLoaded) {
+      try {
+        final messageId = MetadataUtils.generateMessageID();
+        const role = 'user';
+        final timestamp = DateTime.now();
+        final message = Message(
+          text: event.content,
+          userID: userID,
+          messageID: messageId,
+          role: role,
+          timestamp: timestamp,
+        );
+        currentState.messages.add(message);
+        final responseMessage = await sendMessage(event.chatID, message);
+        final updatedMessages = List<Message>.from(currentState.messages)..add(responseMessage);
+        emit(LessonLoaded(updatedMessages, currentState.lesson));
+      } catch (e) {
+        emit(ChatError("Could not send message", event, currentState.messages));
       }
     }
   }
+
 
   void _onSendImage(SendImageEvent event, Emitter<ChatState> emit) async {
     final currentState = state;
@@ -57,7 +78,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         await sendImage(event.chatID, event.path);
         add(FetchLessonEvent(event.chatID)); // Fetch responses after sending
       } catch (e) {
-        emit(ChatError("Could not send image"));
+        emit(ChatError("Could not send image", event, currentState.messages));
       }
     }
   }
@@ -65,16 +86,39 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   void _onFetchLesson(FetchLessonEvent event, Emitter<ChatState> emit) async {
     final currentState = state;
     if (currentState is ChatLoaded) {
-      emit(ChatLoading());
+      emit(ChatLoading(currentState.messages));
       try {
         final lesson = await fetchLesson(event.chatID);
         final updatedMessages = List<Message>.from(currentState.messages)..add(lesson);
         emit(LessonLoaded(updatedMessages, lesson));
       } catch (e) {
-        emit(ChatError("Could not fetch lesson"));
+        emit(ChatError("Could not fetch lesson", event, currentState.messages));
       }
     }
   }
+
+  void _onProposeLesson(ProposeLessonEvent event, Emitter<ChatState> emit) {
+    final currentState = state;
+    if (currentState is LessonLoaded) {
+      emit(ChatLoaded(currentState.messages));
+    } else if (currentState is ChatLoaded)  {
+      Message message = getLessonOfferingMessage();
+      final updatedMessages = List<Message>.from(currentState.messages)..add(message);
+      emit(ChatLoaded(updatedMessages, offerLesson: true));
+    }
+  }
+
+  Message getLessonOfferingMessage() {
+    final message = Message(
+      text: "Gut gemacht! Willst du mit dem neuen Untericht starten?",
+      userID: 'system',
+      messageID: MetadataUtils.generateMessageID(),
+      role: 'bot',
+      timestamp: DateTime.now(),
+    );
+    return message;
+  }
+
 
   Future<List<Message>> _initializeMessages(String chatId) async {
     userID = await MetadataUtils.initUserId();

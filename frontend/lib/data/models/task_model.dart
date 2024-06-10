@@ -14,13 +14,16 @@ class TaskModel {
   });
   
   factory TaskModel.fromJson(Map<String, dynamic> json) {
+    TaskType type = TaskTypeExtension.fromString(json['type']);
+    dynamic jsonSolutions = json['solution'];
+    if (type == TaskType.fillTheGaps) {
+      jsonSolutions = jsonSolutions[0];
+    }
     return TaskModel(
-      type: TaskType.values[json['type']],
-      question: json['question'],
-      answerOptions: List<List<String>>.from(
-        json['answerOptions'].map((e) => List<String>.from(e)),
-      ),
-      solutions: List<String>.from(json['solutions']),
+      type: type,
+      question:  json['question'],
+      answerOptions: (json['answer_options'] as List<dynamic>).map((e) => List<String>.from(e).toSet().toList()).toList(), // remov duplicates if exists
+      solutions: List<String>.from(jsonSolutions),
     );
   }
 
