@@ -119,6 +119,7 @@ class GermanChatScreen extends StatelessWidget {
   Widget _buildMessageList(List<Message> messages) {
     return ListView.builder(
       shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: messages.length,
       itemBuilder: (context, index) {
         final message = messages[index];

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/domain/entities/message.dart';
 import 'package:frontend/presentation/blocs/chat_bloc.dart';
-import 'package:frontend/presentation/blocs/task_bloc.dart';
-import 'package:frontend/presentation/screens/task_sequence_screen.dart';
 import 'package:frontend/presentation/widgets/app_bar_widgets.dart';
 import 'package:frontend/presentation/widgets/chat_widgets.dart';
 import 'package:frontend/styles/app_styles.dart';
@@ -21,11 +19,10 @@ class LawChatScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppStyles.sandColor,
-        appBar: GermanChatAppBar(),
+        appBar: SimpleAppBar(text: AppLocalizations.of(context).translate('law&daily')),
         body: Column(
           children: <Widget>[
             Expanded(
-              child: MultiBlocListener(
                 child: BlocBuilder<ChatBloc, ChatState>(
                   builder: (context, state) {
                     if (state is ChatInitial) {
@@ -52,7 +49,6 @@ class LawChatScreen extends StatelessWidget {
                     }
                   },
                 ),
-              ),
             ),
             const Divider(height: 1),
             ChatTextInput(
