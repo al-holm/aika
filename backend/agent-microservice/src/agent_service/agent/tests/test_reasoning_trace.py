@@ -70,7 +70,7 @@ class TestReasoningLogger(unittest.TestCase):
         step = AgentStep(thought="Test thought", action="Test action", action_input="Test input", observation="Test observation")
         self.trace.add_step(step)
         self.trace.set_query("Test query")
-        self.trace.build_final_answer()
+        self.trace.get_final_answer()
         final_step = AgentFinalStep(final_answer="Test observation")
         self.trace.to_json()
 
@@ -100,7 +100,7 @@ class TestReasoningLogger(unittest.TestCase):
         """Test the final answer building functionality."""
         step = AgentStep(thought="Test thought", action="Test action", action_input="Test input", observation="Test observation")
         self.trace.add_step(step)
-        self.trace.build_final_answer()
+        self.trace.get_final_answer()
         final_step = self.trace.get_last_step()
         self.assertIsInstance(final_step, AgentFinalStep)
         self.assertEqual(final_step.final_answer, "Test observation")

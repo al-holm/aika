@@ -10,6 +10,7 @@ import 'package:frontend/domain/repositories/task_repository.dart';
 import 'package:frontend/domain/usecases/fetch_lesson.dart';
 import 'package:frontend/domain/usecases/send_image.dart';
 import 'package:frontend/domain/usecases/send_message.dart';
+import 'package:frontend/domain/usecases/submit_answers.dart';
 import 'package:frontend/presentation/blocs/chat_bloc.dart';
 import 'package:frontend/presentation/blocs/language_bloc.dart';
 import 'package:frontend/presentation/blocs/task_bloc.dart';
@@ -20,8 +21,8 @@ import 'package:frontend/presentation/screens/settings_screen.dart';
 import 'package:frontend/styles/app_styles.dart';
 import 'package:frontend/utils/l10n/app_localization.dart';
 void main() {
-  final chatRepository = ChatRepositoryImpl(ChatDataProvider('http://192.168.178.184:3000'));
-  final taskRepository = TaskRepositoryImpl(TaskDataProvider('http://192.168.178.184:3000'));
+  final chatRepository = ChatRepositoryImpl(ChatDataProvider('http://192.168.122.1:3000'));
+  final taskRepository = TaskRepositoryImpl(TaskDataProvider('http://192.168.122.1:3000'));
   runApp(MyApp(chatRepository: chatRepository, taskRepository: taskRepository));
 }
 
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => TaskBloc(
-            taskRepository,
+            SubmitAnswers(taskRepository),
             BlocProvider.of<ChatBloc>(context),
           ),
         ),
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Flutter Chat App',
+            title: 'AIKA',
             theme: ThemeData(
               primaryColor: AppStyles.accentColor,
             ),

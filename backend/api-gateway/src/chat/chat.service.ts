@@ -61,9 +61,9 @@ export class ChatService {
     try {
       const data = { 'question': question };
       console.log(question);
-      return question
-      //const response: AxiosResponse = await client.post('/get_answer', data, config);
-      //return response.data['answer'];
+      //return question
+      const response: AxiosResponse = await client.post('/get_answer', data, config);
+      return response.data['answer'];
     } catch (err) {
       console.log(err);
       return err;

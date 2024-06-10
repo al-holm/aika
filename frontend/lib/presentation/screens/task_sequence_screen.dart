@@ -75,38 +75,14 @@ class TaskSequenceScreen extends StatelessWidget {
                 ),
               ),
             );
-          } else if (state is TaskSubmissionInProgress) {
-            return Scaffold(
-              appBar: SimpleAppBar(
-                text: AppLocalizations.of(context).translate('tasks')),
-              body: LoadingIndicator()
-            );
-          } else if (state is TaskSubmissionSuccess) {
-            return Scaffold(
-              appBar: SimpleAppBar(
-                text: AppLocalizations.of(context).translate('tasks')),
-              body: Center(
-                child: Text(AppLocalizations.of(context).translate('task_submission_success')),
-              ),
-            );
-          } else if (state is TaskSubmissionFailure) {
-            return Scaffold(
-              appBar: SimpleAppBar(
-                text: AppLocalizations.of(context).translate('tasks')),
-              body: Center(
-                child: Text(AppLocalizations.of(context).translate('task_submission_failure')),
-              ),
-            );
           } else {
             return Scaffold(
               appBar: SimpleAppBar(
                 text: AppLocalizations.of(context).translate('tasks')),
-              body: Center(
-                child: Text(AppLocalizations.of(context).translate('no_tasks')),
-              ),
-            );
-          }
-        },
+              body: LoadingIndicator()
+            ); 
+        }
+        }
       ),
     );
   }

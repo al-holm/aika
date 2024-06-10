@@ -46,7 +46,8 @@ class FetchLessonEvent extends ChatEvent {
 }
 
 class ProposeLessonEvent extends ChatEvent {
-  ProposeLessonEvent();
+  final bool previousLessonCompleted;
+  ProposeLessonEvent(this.previousLessonCompleted);
 
   @override
   List<Object> get props => [];

@@ -33,7 +33,7 @@ class GermanChatScreen extends StatelessWidget {
                   BlocListener<TaskBloc, TaskState>(
                     listener: (context, state) {
                       if (state is TaskSubmissionSuccess) {
-                        chatBloc.add(ProposeLessonEvent());
+                        chatBloc.add(ProposeLessonEvent(true));
                       }
                     },
                   ),
@@ -47,7 +47,7 @@ class GermanChatScreen extends StatelessWidget {
                       return ListView(
                         children: [
                           _buildMessageList(state.messages),
-                          LoadingIndicator()
+                          const LoadingIndicator()
                         ]
                       );
                     } else if (state is ChatLoaded) {
@@ -99,7 +99,7 @@ class GermanChatScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const Divider(height: 1),
+            const Divider(height: 1, color: AppStyles.darkColor,),
             ChatTextInput(
               controller: _controller,
               handleSubmitted: () {
@@ -119,7 +119,6 @@ class GermanChatScreen extends StatelessWidget {
   Widget _buildMessageList(List<Message> messages) {
     return ListView.builder(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
       itemCount: messages.length,
       itemBuilder: (context, index) {
         final message = messages[index];

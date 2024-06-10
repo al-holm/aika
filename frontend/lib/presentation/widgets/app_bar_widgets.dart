@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/presentation/blocs/chat_bloc.dart';
 import 'package:frontend/styles/app_styles.dart';
-import 'package:frontend/utils/l10n/app_localization.dart';
 
 class GermanChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -17,7 +16,7 @@ class GermanChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(Icons.school),
           color: AppStyles.sandColor,
           onPressed: () {
-            chatBloc.add(ProposeLessonEvent());
+            chatBloc.add(ProposeLessonEvent(false));
           },
         ),
         IconButton(
