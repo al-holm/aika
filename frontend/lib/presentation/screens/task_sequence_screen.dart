@@ -79,7 +79,7 @@ class TaskSequenceScreen extends StatelessWidget {
             return Scaffold(
               appBar: SimpleAppBar(
                 text: AppLocalizations.of(context).translate('tasks')),
-              body: LoadingIndicator()
+              body: const LoadingIndicator()
             ); 
         }
         }

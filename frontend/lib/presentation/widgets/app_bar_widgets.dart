@@ -16,7 +16,7 @@ class GermanChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(Icons.school),
           color: AppStyles.sandColor,
           onPressed: () {
-            chatBloc.add(ProposeLessonEvent(false));
+            chatBloc.add(ProposeLessonEvent(false, 'german'));
           },
         ),
         IconButton(

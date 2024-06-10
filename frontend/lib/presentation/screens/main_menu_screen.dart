@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/presentation/blocs/chat_bloc.dart';
+import 'package:frontend/presentation/screens/german_chat_screen.dart';
+import 'package:frontend/presentation/screens/law_chat_screen.dart';
 import 'package:frontend/presentation/widgets/main_menu_widgets.dart';
 import 'package:frontend/styles/app_styles.dart';
 import 'package:frontend/utils/l10n/app_localization.dart';
@@ -56,10 +60,20 @@ class MainMenuScreen extends StatelessWidget {
   }
   
   _navigateToGermanChat(BuildContext context) {
-    Navigator.pushNamed(context, '/german');
+    final chatBloc = BlocProvider.of<ChatBloc>(context);
+    chatBloc.add(ClearChatEvent('german'));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GermanChatScreen()),
+    );
   }
   
   _navigateToLawChat(BuildContext context) {
-    Navigator.pushNamed(context, '/law');
+    final chatBloc = BlocProvider.of<ChatBloc>(context);
+    chatBloc.add(ClearChatEvent('law'));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LawChatScreen()),
+    );
   }
 }

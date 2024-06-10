@@ -1,5 +1,3 @@
-
-
 import 'package:frontend/domain/entities/task.dart';
 
 class Message {
