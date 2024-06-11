@@ -45,9 +45,10 @@ class GermanChatScreen extends StatelessWidget {
                       chatBloc.add(InitializeChatEvent(chatID));
                       return const LoadingIndicator();
                     } else if (state is ChatLoading) {
-                      return Column(
+                      return ListView(
+                        controller: _scrollController,
                         children: [
-                          Expanded(child: _buildMessageList(state.messages)),
+                          _buildMessageList(state.messages),
                           const LoadingIndicator(),
                         ],
                       );
@@ -94,19 +95,21 @@ class GermanChatScreen extends StatelessWidget {
                         ],
                       );
                     } else if (state is ChatError) {
-                      return Column(
+                      print(state.lastEvent);
+                      return ListView(
+                        controller: _scrollController,
                         children: [
-                          Expanded(child: _buildMessageList(state.messages)),
+                          _buildMessageList(state.messages),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               children: [
                                 Text(
                                   "Something went wrong. Generate again.",
-                                  style: TextStyle(color: Colors.red),
+                                  style: TextStyle(color: Colors.grey),
                                 ),
                                 IconButton(
-                                  icon: Icon(Icons.refresh, color: Colors.red),
+                                  icon: Icon(Icons.refresh, color: Colors.grey),
                                   onPressed: () {
                                     chatBloc.add(state.lastEvent!);
                                   },
@@ -114,7 +117,7 @@ class GermanChatScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                        ],
+                        ]
                       );
                     } else {
                       return const Center(child: Text("Keine Nachrichten vorhanden."));

@@ -19,11 +19,12 @@ class InitializeTasksEvent extends TaskEvent {
 class CompleteTaskEvent extends TaskEvent {
   final int taskIndex;
   final List<String> userAnswers;
+  final bool goForward; 
 
-  CompleteTaskEvent(this.taskIndex, this.userAnswers);
+  CompleteTaskEvent(this.taskIndex, this.userAnswers, this.goForward);
 
   @override
-  List<Object> get props => [taskIndex, userAnswers];
+  List<Object> get props => [taskIndex, userAnswers, goForward];
 }
 
 class SubmitTasksEvent extends TaskEvent {

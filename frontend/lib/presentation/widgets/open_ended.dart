@@ -24,7 +24,7 @@ class OpenQuestionTask extends StatelessWidget {
               SizedBox(height: unitH*3),
               Container(
                 decoration: const BoxDecoration(color: Colors.white),
-                child: OpenQuestionInput(),
+                child: OpenQuestionInput(task),
               ),
               SizedBox(height: unitH),
             ],
@@ -36,12 +36,22 @@ class OpenQuestionTask extends StatelessWidget {
 }
 
 class OpenQuestionInput extends StatefulWidget {
+  Task task;
+
+  OpenQuestionInput(this.task);
+  
   @override
   _OpenQuestionInputState createState() => _OpenQuestionInputState();
 }
 
 class _OpenQuestionInputState extends State<OpenQuestionInput> {
   final TextEditingController openQuestionController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    openQuestionController.text = widget.task.userAnswers.isNotEmpty ? widget.task.userAnswers[0] : '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +62,12 @@ class _OpenQuestionInputState extends State<OpenQuestionInput> {
         hintText: 'Type your answer here...',
       ),
       maxLines: 3,
+      onChanged: (value) {
+        setState(() {
+          widget.task.userAnswers = [value];
+          widget.task.completed = value.isNotEmpty;
+        });
+      },
     );
   }
 

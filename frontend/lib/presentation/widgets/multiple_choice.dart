@@ -27,6 +27,7 @@ class MultipleChoiceTask extends StatelessWidget {
                 userAnswers: task.userAnswers,
                 onSelected: (selected) {
                   task.userAnswers = [selected];
+                  task.completed = true;
                 },
               ),
               SizedBox(height: unitH),
@@ -34,21 +35,6 @@ class MultipleChoiceTask extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class TaskQuestionText extends StatelessWidget {
-  final String question;
-
-  TaskQuestionText(this.question);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      question,
-      style: AppStyles.taskQuestionTextStyle,
-      textAlign: TextAlign.left,
     );
   }
 }
@@ -104,6 +90,20 @@ class _MultipleChoiceOptionsState extends State<MultipleChoiceOptions> {
           );
         },
       ),
+    );
+  }
+}
+class TaskQuestionText extends StatelessWidget {
+  final String question;
+
+  TaskQuestionText(this.question);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      question,
+      style: AppStyles.taskQuestionTextStyle,
+      textAlign: TextAlign.left,
     );
   }
 }
