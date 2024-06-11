@@ -1,6 +1,10 @@
 ---
 services:
-  web:
-    build: .
+  agent-ms: 
+    image: agent-ms:latest
+    container_name: agent-ms-container
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/venv
     ports:
       - "5000:5000"
