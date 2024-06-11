@@ -87,7 +87,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   void _onFetchLesson(FetchLessonEvent event, Emitter<ChatState> emit) async {
     final currentState = state;
-    if (currentState is ChatLoaded || currentState is LessonLoaded) {
+    print(currentState);
+    if (currentState is ChatLoaded || currentState is LessonLoaded || currentState is ChatLoading) {
       emit(ChatLoading(chatID: event.chatID, messages: chatMessages[event.chatID]!));
       try {
         final lesson = await fetchLesson(event.chatID);

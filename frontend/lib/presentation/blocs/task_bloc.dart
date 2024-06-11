@@ -23,9 +23,15 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   void _onCompleteTask(CompleteTaskEvent event, Emitter<TaskState> emit) {
     final currentState = state as TaskInProgress;
     final tasks = List<Task>.from(currentState.tasks);
+    print(event.taskIndex);
+    print(event.userAnswers);
     tasks[event.taskIndex].userAnswers = event.userAnswers;
     tasks[event.taskIndex].completed = true;
-    emit(TaskInProgress(tasks, currentState.currentTaskIndex + 1));
+    int nextIndex;
+    if (event.goForward) {
+      nextIndex = currentState.currentTaskIndex + 1;
+    } else {nextIndex = currentState.currentTaskIndex - 1;}
+    emit(TaskInProgress(tasks, nextIndex));
   }
 
   void _onSubmitTasks(SubmitTasksEvent event, Emitter<TaskState> emit) async {

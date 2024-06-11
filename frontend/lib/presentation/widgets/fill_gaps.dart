@@ -101,6 +101,7 @@ class _FillInTheGapQuestionState extends State<FillInTheGapQuestion> {
         setState(() {
           selectedAnswers[index] = value!;
           widget.task.userAnswers = selectedAnswers;
+          widget.task.completed = selectedAnswers.every((answer) => answer.isNotEmpty);
         });
       },
     );
