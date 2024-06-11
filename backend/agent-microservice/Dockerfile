@@ -1,8 +1,14 @@
 FROM python:3.10
-WORKDIR /code
+WORKDIR /usr/src/app
+COPY requirements.txt ./
+# Use the cpu version of torch to reduce the image size!
+RUN pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cpu
+RUN pip3 install -r requirements.txt
+COPY . .
+EXPOSE 5000
+
+# Define API keys before building!
 ENV FLASK_APP=src/app.py
-ENV FLASK_RUN_HOST=0.0.0.0
-# Fill the gaps before building the container
 # ENV DEEPL_AUTH_KEY=
 # ENV SERPER_API_KEY=
 # ENV ELEVEN_API_KEY=
@@ -10,9 +16,7 @@ ENV FLASK_RUN_HOST=0.0.0.0
 # ENV LLAMA_CLOUD_API_KEY=
 # ENV AWS_ACCESS_KEY_ID=
 # ENV AWS_SECRET_ACCESS_KEY=
-COPY requirements.txt requirements.txt
-RUN pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cpu
-RUN pip3 install -r requirements.txt
-EXPOSE 5000
-COPY . .
+# ENV RAPIDAPI_KEY=
+
+
 CMD ["flask", "run", "--host=0.0.0.0"]
