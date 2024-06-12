@@ -18,6 +18,7 @@ class TaskSequenceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskBloc = BlocProvider.of<TaskBloc>(context);
+    taskBloc.add(InitializeTasksEvent(tasks));
 
     return BlocListener<TaskBloc, TaskState>(
       listener: (context, state) {
@@ -45,37 +46,29 @@ class TaskSequenceScreen extends StatelessWidget {
                         if (state.currentTaskIndex > 0)
                           TaskControlButton(
                             onPressed: () {
-                              if (currentTask.completed )
-                              {  
                               taskBloc.add(CompleteTaskEvent(
-                              state.currentTaskIndex,
-                              state.tasks[state.currentTaskIndex].userAnswers,
-                              false
-                                ));
-                              }
+                                state.currentTaskIndex,
+                                state.tasks[state.currentTaskIndex].userAnswers,
+                                false
+                              ));
                             },
                             text: AppLocalizations.of(context).translate('back'),
                           ),
                         if (state.currentTaskIndex < state.tasks.length - 1)
                           TaskControlButton(
                             onPressed: () {
-                              if (currentTask.completed )
-                              {  taskBloc.add(CompleteTaskEvent(
+                              taskBloc.add(CompleteTaskEvent(
                                 state.currentTaskIndex,
                                 currentTask.userAnswers,
-                                true // going next - true, goint back false
-                                ));
-                              }
+                                true // going next - true, going back - false
+                              ));
                             },
                             text: AppLocalizations.of(context).translate('continue'),
                           ),
-                        if (state.currentTaskIndex == state.tasks.length - 1)
+                        if (state.currentTaskIndex == state.tasks.length - 1 )
                           TaskControlButton(
                             onPressed: () {
-                              if (currentTask.completed )
-                              {  
-                                taskBloc.add(SubmitTasksEvent(state.tasks));
-                              }
+                              taskBloc.add(SubmitTasksEvent(state.tasks));
                             },
                             text: AppLocalizations.of(context).translate('submit'),
                           ),

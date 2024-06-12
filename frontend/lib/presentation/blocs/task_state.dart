@@ -19,8 +19,6 @@ class TaskInProgress extends TaskState {
   List<Object> get props => [tasks, currentTaskIndex];
 }
 
-class TaskCompleted extends TaskState {}
-
 class TaskSubmissionInProgress extends TaskState {}
 
 class TaskSubmissionSuccess extends TaskState {}

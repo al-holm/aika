@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/domain/entities/task.dart';
+import 'package:frontend/domain/usecases/submit_answers.dart';
+import 'package:frontend/presentation/blocs/chat_bloc.dart';
+import 'package:frontend/presentation/blocs/task_bloc.dart';
 import 'package:frontend/presentation/widgets/multiple_choice.dart';
 import 'package:frontend/styles/app_styles.dart';
 class OpenQuestionTask extends StatelessWidget {
@@ -9,24 +13,20 @@ class OpenQuestionTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-    double unitW = screenSize.width * 0.01;
-    double unitH = screenSize.height * 0.01;
     return Scaffold(
       backgroundColor: AppStyles.sandColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(unitW*5),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TaskQuestionText(task.question),
-              SizedBox(height: unitH*3),
+              SizedBox(height: 16),
               Container(
                 decoration: const BoxDecoration(color: Colors.white),
-                child: OpenQuestionInput(task),
+                child: OpenQuestionInput(task: task),
               ),
-              SizedBox(height: unitH),
             ],
           ),
         ),
@@ -36,27 +36,27 @@ class OpenQuestionTask extends StatelessWidget {
 }
 
 class OpenQuestionInput extends StatefulWidget {
-  Task task;
+  final Task task;
 
-  OpenQuestionInput(this.task);
-  
+  OpenQuestionInput({required this.task});
+
   @override
   _OpenQuestionInputState createState() => _OpenQuestionInputState();
 }
 
 class _OpenQuestionInputState extends State<OpenQuestionInput> {
-  final TextEditingController openQuestionController = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    openQuestionController.text = widget.task.userAnswers.isNotEmpty ? widget.task.userAnswers[0] : '';
+    _controller.text = widget.task.userAnswers.isNotEmpty ? widget.task.userAnswers[0] : '';
   }
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: openQuestionController,
+      controller: _controller,
       decoration: const InputDecoration(
         border: OutlineInputBorder(),
         hintText: 'Type your answer here...',
@@ -66,6 +66,7 @@ class _OpenQuestionInputState extends State<OpenQuestionInput> {
         setState(() {
           widget.task.userAnswers = [value];
           widget.task.completed = value.isNotEmpty;
+          context.read<TaskBloc>().add(UpdateTaskAnswerEvent([value]));
         });
       },
     );
@@ -73,7 +74,7 @@ class _OpenQuestionInputState extends State<OpenQuestionInput> {
 
   @override
   void dispose() {
-    openQuestionController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 }
