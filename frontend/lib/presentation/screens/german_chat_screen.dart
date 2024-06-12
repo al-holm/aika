@@ -64,7 +64,6 @@ class GermanChatScreen extends StatelessWidget {
                                 chatBloc.add(FetchLessonEvent(chatID));
                               },
                             ),
-                          const SizedBox(height: 15,),
                         ],
                       );
                     } else if (state is LessonLoaded) {
@@ -126,6 +125,7 @@ class GermanChatScreen extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 15,),
             const Divider(height: 1, color: AppStyles.darkColor,),
             ChatTextInput(
               controller: _controller,

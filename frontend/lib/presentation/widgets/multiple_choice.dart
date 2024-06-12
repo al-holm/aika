@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/domain/entities/task.dart';
+import 'package:frontend/presentation/blocs/task_bloc.dart';
 import 'package:frontend/styles/app_styles.dart';
 
 class MultipleChoiceTask extends StatelessWidget {
@@ -9,28 +11,23 @@ class MultipleChoiceTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-    double unitW = screenSize.width * 0.01;
-    double unitH = screenSize.height * 0.01;
     return Scaffold(
       backgroundColor: AppStyles.sandColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(unitW * 5),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TaskQuestionText(task.question),
-              SizedBox(height: unitH * 2),
+              SizedBox(height: 16),
               MultipleChoiceOptions(
                 options: task.answerOptions,
                 userAnswers: task.userAnswers,
                 onSelected: (selected) {
-                  task.userAnswers = [selected];
-                  task.completed = true;
+                  context.read<TaskBloc>().add(UpdateTaskAnswerEvent([selected]));
                 },
               ),
-              SizedBox(height: unitH),
             ],
           ),
         ),
@@ -93,6 +90,7 @@ class _MultipleChoiceOptionsState extends State<MultipleChoiceOptions> {
     );
   }
 }
+
 class TaskQuestionText extends StatelessWidget {
   final String question;
 

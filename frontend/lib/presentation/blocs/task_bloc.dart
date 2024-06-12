@@ -14,6 +14,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     on<InitializeTasksEvent>(_onInitializeTasks);
     on<CompleteTaskEvent>(_onCompleteTask);
     on<SubmitTasksEvent>(_onSubmitTasks);
+    on<UpdateTaskAnswerEvent>(_onUpdateTaskAnswer);
   }
 
   void _onInitializeTasks(InitializeTasksEvent event, Emitter<TaskState> emit) {
@@ -23,14 +24,14 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   void _onCompleteTask(CompleteTaskEvent event, Emitter<TaskState> emit) {
     final currentState = state as TaskInProgress;
     final tasks = List<Task>.from(currentState.tasks);
-    print(event.taskIndex);
-    print(event.userAnswers);
     tasks[event.taskIndex].userAnswers = event.userAnswers;
     tasks[event.taskIndex].completed = true;
     int nextIndex;
     if (event.goForward) {
       nextIndex = currentState.currentTaskIndex + 1;
-    } else {nextIndex = currentState.currentTaskIndex - 1;}
+    } else {
+      nextIndex = currentState.currentTaskIndex - 1;
+    }
     emit(TaskInProgress(tasks, nextIndex));
   }
 
@@ -43,5 +44,13 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     } catch (error) {
       emit(TaskSubmissionFailure(error.toString()));
     }
+  }
+
+  void _onUpdateTaskAnswer(UpdateTaskAnswerEvent event, Emitter<TaskState> emit) {
+    final currentState = state as TaskInProgress;
+    final tasks = List<Task>.from(currentState.tasks);
+    tasks[currentState.currentTaskIndex].userAnswers = event.userAnswers;
+    tasks[currentState.currentTaskIndex].completed = true;
+    emit(TaskInProgress(tasks, currentState.currentTaskIndex));
   }
 }
