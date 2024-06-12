@@ -1,7 +1,7 @@
 ---
 services:
   agent-ms: 
-    image: agent-ms:latest
+    image: ushante/aika:latest
     container_name: agent-ms-container
     volumes:
       - .:/usr/src/app
