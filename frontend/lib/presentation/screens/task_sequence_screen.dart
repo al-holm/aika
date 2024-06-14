@@ -27,66 +27,87 @@ class TaskSequenceScreen extends StatelessWidget {
         }
       },
       child: BlocBuilder<TaskBloc, TaskState>(
-        builder: (context, state) {
-          if (state is TaskInProgress) {
-            final currentTask = state.tasks[state.currentTaskIndex];
-            return Scaffold(
-              appBar: SimpleAppBar(
-                text: AppLocalizations.of(context).translate('tasks')),
-              backgroundColor: AppStyles.sandColor,
-              body: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(child: TaskWidget(task: currentTask)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        if (state.currentTaskIndex > 0)
-                          TaskControlButton(
-                            onPressed: () {
-                              taskBloc.add(CompleteTaskEvent(
-                                state.currentTaskIndex,
-                                state.tasks[state.currentTaskIndex].userAnswers,
-                                false
-                              ));
-                            },
-                            text: AppLocalizations.of(context).translate('back'),
-                          ),
-                        if (state.currentTaskIndex < state.tasks.length - 1)
-                          TaskControlButton(
-                            onPressed: () {
-                              taskBloc.add(CompleteTaskEvent(
-                                state.currentTaskIndex,
-                                currentTask.userAnswers,
-                                true // going next - true, going back - false
-                              ));
-                            },
-                            text: AppLocalizations.of(context).translate('continue'),
-                          ),
-                        if (state.currentTaskIndex == state.tasks.length - 1 )
-                          TaskControlButton(
-                            onPressed: () {
-                              taskBloc.add(SubmitTasksEvent(state.tasks));
-                            },
-                            text: AppLocalizations.of(context).translate('submit'),
-                          ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            );
-          } else {
-            return Scaffold(
-              appBar: SimpleAppBar(
-                text: AppLocalizations.of(context).translate('tasks')),
-              body: const LoadingIndicator()
-            ); 
-        }
-        }
+        builder: (context, state) => state is TaskInProgress
+          ? _buildTaskInProgress(context, state, taskBloc)
+          : _buildLoadingScreen(context)
       ),
     );
   }
-}
+
+  Widget _buildTaskInProgress(BuildContext context, TaskInProgress state, TaskBloc taskBloc) {
+    final currentTask = state.tasks[state.currentTaskIndex];
+
+    return Scaffold(
+      appBar: SimpleAppBar(
+        text: AppLocalizations.of(context).translate('tasks')),
+      backgroundColor: AppStyles.sandColor,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(child: TaskWidget(task: currentTask)),
+            _buildTaskControlButtons(context, state, taskBloc, currentTask)
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoadingScreen(BuildContext context) {
+    return Scaffold(
+              appBar: SimpleAppBar(
+                text: AppLocalizations.of(context).translate('tasks')),
+              body: const LoadingIndicator()
+            );
+  }
+
+  Widget _buildTaskControlButtons(BuildContext context, TaskInProgress state, TaskBloc taskBloc, Task currentTask) {
+    return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                if (state.currentTaskIndex > 0)
+                  _buildBackButton(context, state, taskBloc),
+                if (state.currentTaskIndex < state.tasks.length - 1)
+                  _buildContinueButton(context, state, taskBloc, currentTask),
+                if (state.currentTaskIndex == state.tasks.length - 1 )
+                  _buildSubmitButton(context, state, taskBloc),
+              ],
+            );
+  }
+
+  Widget _buildBackButton(BuildContext context, TaskInProgress state, TaskBloc taskBloc) {
+    return TaskControlButton(
+              onPressed: () {
+                taskBloc.add(CompleteTaskEvent(
+                  state.currentTaskIndex,
+                  state.tasks[state.currentTaskIndex].userAnswers,
+                  false
+                ));
+              },
+              text: AppLocalizations.of(context).translate('back'),
+            );
+  }
+
+  Widget _buildContinueButton(BuildContext context, TaskInProgress state, TaskBloc taskBloc, Task currentTask) {
+    return TaskControlButton(
+              onPressed: () {
+                taskBloc.add(CompleteTaskEvent(
+                  state.currentTaskIndex,
+                  currentTask.userAnswers,
+                  true // going next - true, going back - false
+                ));
+              },
+              text: AppLocalizations.of(context).translate('continue'),
+            );
+  }
+
+  Widget _buildSubmitButton(BuildContext context, TaskInProgress state, TaskBloc taskBloc) {
+    return TaskControlButton(
+              onPressed: () {
+                taskBloc.add(SubmitTasksEvent(state.tasks));
+              },
+              text: AppLocalizations.of(context).translate('submit'),
+            );
+  }
+ }

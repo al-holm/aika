@@ -16,7 +16,13 @@ class MainMenuScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppStyles.accentColor,
       body: SafeArea(
-        child: Center(
+        child: _buildMenuContent(context, screenSize, imageDimension, padding)
+      ),
+    );
+  }
+
+  Widget _buildMenuContent(BuildContext context, Size screenSize, double imageDimension, double padding) {
+    return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,9 +56,7 @@ class MainMenuScreen extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
+        );
   }
   
   _navigateToSettings(BuildContext context) {
@@ -60,20 +64,21 @@ class MainMenuScreen extends StatelessWidget {
   }
   
   _navigateToGermanChat(BuildContext context) {
-    final chatBloc = BlocProvider.of<ChatBloc>(context);
-    chatBloc.add(ClearChatEvent('german'));
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => GermanChatScreen()),
-    );
+    _navigateToChat(context, 'german');
   }
   
   _navigateToLawChat(BuildContext context) {
+    _navigateToChat(context, 'law'); 
+  }
+
+  _navigateToChat(BuildContext context, String chatID) {
     final chatBloc = BlocProvider.of<ChatBloc>(context);
-    chatBloc.add(ClearChatEvent('law'));
+    chatBloc.add(ClearChatEvent(chatID));
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => LawChatScreen()),
+      MaterialPageRoute(
+        builder: (context) => chatID == 'german' ? GermanChatScreen() : LawChatScreen(),
+        ),
     );
   }
 }
