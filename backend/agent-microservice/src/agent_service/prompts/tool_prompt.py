@@ -63,9 +63,7 @@ Answer options: [for single-choice options, for gaps text with gaps, for open "N
 Solution: [Correct answer/s]
 [END]
 
-${input_format_and_examples}
-
-It's important that each exercise is in % %   
+${input_format_and_examples}  
 
 Start now!
 [/INST]

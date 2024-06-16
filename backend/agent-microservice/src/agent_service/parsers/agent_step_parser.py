@@ -95,6 +95,9 @@ class StepParser(Parser):
         return action, action_input
 
     def find_tool(self, action):
+        """
+        searches for a tool name within an action and returns the tool name if found.
+        """
         if action is None:
             return None
         for tool in self.tool_names:

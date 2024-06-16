@@ -7,19 +7,15 @@ import os
 from time import sleep 
 
 class WebSearch(Tool):
-    PROMPT_ID = "web summary"
-    TEMPLATE = WEB_SUMMARY_TEMPLATE
-    def __init__(self, llm):
-        self.name = "Web-Suche"
-        self.description = "Hilfreich, wenn man Informationen im Internet nachschauen möchte."
+    """
+    A tool for performing web searches using the SearxNG API.
+    """
+    def __init__(self, name: str, description: str, llm: str, 
+                    prompt_id: str, prompt_template: str, max_tokens:int) -> None:
+        super().__init__(name, description, llm, prompt_id, prompt_template, max_tokens)
         self.api_key = os.environ["RAPIDAPI_KEY"]
         self.api_host = "searxng.p.rapidapi.com"
         self.url = "https://searxng.p.rapidapi.com/search"
-        self.set_llm(llm)
-        self.prompt = PromptBuilder()
-        self.prompt.create_prompts(
-            {self.PROMPT_ID : self.TEMPLATE}
-            )
 
     def run(self, input_str: str):
         """
@@ -39,14 +35,16 @@ class WebSearch(Tool):
                 sleep(1)
             requests_n += 1  
         if answer != def_answer:
-            self.llm.set_max_tokens(450)
-            self.query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, 
+            self.query = self.prompt.generate_prompt(name_id=self.prompt_id, 
                                                      text=input_str,
                                                      search_results=answer)
             answer = self.llm.run(self.query) 
         return answer
     
     def parse_results(self, results):
+        """
+        Parses the search results from the SearxNG API response.
+        """
         if len(results["answers"]) > 0 :
             return results["answers"][0]
         out = ""

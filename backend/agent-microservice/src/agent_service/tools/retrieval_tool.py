@@ -16,16 +16,11 @@ class RetrievalTool(Tool):
     DB_PATH = ROOT_PATH + "res/rag_db/"
     DOC_PATH = ROOT_PATH + "res/data/"
 
-    def __init__(self, init=False, llm='bedrock') -> None:
-        self.name = "Suche in Fachbücher"
-        self.description = "Hilfreich, wenn man in Fachbüchern über rechtlichen und bürokratischen Fragen nachschlagen soll."
-        self.set_llm(llm)
-        self.llm.set_max_tokens(450)
-        self.prompt = PromptBuilder()
-        self.prompt.create_prompts(
-            {self.PROMPT_ID : self.TEMPLATE}
-        )
-
+    def __init__(self, name:str=None, description:str=None, llm:str='bedrock', 
+                    prompt_id:str='retriever',
+                    prompt_template:str=RETRIEVER_TEMPLATE, 
+                    max_tokens:int=300, init:bool=False) -> None:
+        super().__init__(name, description, llm, prompt_id, prompt_template, max_tokens)
         self.min_chunk_len = 200
         self.max_chunk_len = 600
         self.load_docs()
@@ -210,7 +205,7 @@ class RetrievalTool(Tool):
             output_fields=["text", "source"], 
         )
         parsed_result = self.parse_retrieval_results(results[0])
-        self.query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, 
+        self.query = self.prompt.generate_prompt(name_id=self.prompt_id, 
                                                      text=input,
                                                      results=parsed_result)
         answer = self.llm.run(self.query)

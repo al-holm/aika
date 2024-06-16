@@ -59,7 +59,7 @@ class Agent:
         Executes the agent loop to process the query until a final answer is obtained.
     take_step(self) -> bool
         Plans a step, executes it, and validates the result.
-    validate(self) -> bool
+    validate_step(self) -> bool
         Retrieves and processes a validation prompt.
     plan_step(self) -> AgentStep
         Retrieves and processes the current planning prompt.
@@ -86,15 +86,13 @@ class Agent:
             task_type=task_type
             )
         self.task_type = task_type
-        self.tool_executor = ToolExecutor(
-            reasoning_logger=self.reasoning_logger,
-            task_type=task_type
-            )
+        self.tool_executor = ToolExecutor(task_type=task_type)
         self.prompt_builder = PromptBuilder()
         self.init_prompts(task_type) 
         self.validation_parser = ValidationParser()
         self.step_parser = StepParser(self.tool_executor.tool_names)
-        self.trajectory_injector = TrajectoryInjector()
+        if task_type  == TaskType.ANSWERING:
+            self.trajectory_injector = TrajectoryInjector()
 
     def reset(self):
         """
@@ -152,9 +150,9 @@ class Agent:
                 logging.error(e)
                 self.reasoning_logger.add_exception(str(e))
             iteration += 1
-        logging.info("Exiting agent loop...")
         final_answer = self.get_final_response(iteration)
         self.reset()
+        logging.info("Reseting the agent...")
         return final_answer
 
     def take_step(self) -> bool:
@@ -168,10 +166,10 @@ class Agent:
         """
         step = self.plan_step()
         self.execute_step(step)
-        is_final = self.validate()
+        is_final = self.validate_step()
         return is_final
 
-    def validate(self) -> bool:
+    def validate_step(self) -> bool:
         """
         retrieves a validation prompt, runs it through the llm,
         processes the output.
@@ -181,8 +179,9 @@ class Agent:
         is_final : bool 
             whether the result is the final answer or not
         """
+        self.llm.set_max_tokens(self.config.max_tokens_val)
         validation_prompt = self.get_current_prompt(mode=AgentMode.VAL)
-        validation_thought = self.llm.run(validation_prompt, mode=AgentMode.VAL.value)
+        validation_thought = self.llm.run(validation_prompt)
         is_final = self.process_validation_thought(validation_thought)
         return is_final
 
@@ -197,6 +196,7 @@ class Agent:
                    
         """
         current_prompt = self.get_current_prompt(mode=AgentMode.PLAN)
+        self.llm.set_max_tokens(self.config.max_tokens_plan)
         llm_answer = self.llm.run(current_prompt)
         step = self.step_parser.parse_step(llm_answer)
         return step
@@ -217,7 +217,6 @@ class Agent:
         """
         val_step = self.validation_parser.parse_step(val_answer)
         self.reasoning_logger.add_step(val_step)
-
         if VAL_STOP_PREFIX in val_step.validation_thought:
             return True
         else:
@@ -233,10 +232,12 @@ class Agent:
         step: AgentStep
             The agent step that contains the action to be performed and the input for that action. 
         """
-        observation = self.tool_executor.execute(step.action, step.action_input)
+        tool_input = step.action_input
+        if self.task_type == TaskType.LESSON and step.action=="Deutschaufgaben generieren":
+            tool_input += "[" + self.reasoning_logger.get_last_observation() + "]"
+        observation = self.tool_executor.execute(step.action, tool_input)
         step.observation = observation
         self.reasoning_logger.add_step(step)
-
     
     def get_current_prompt(self, mode=AgentMode.PLAN) -> str:
         """
@@ -302,7 +303,8 @@ class Agent:
         )
         self.reasoning_logger.set_query(query)
 
-        self.add_trajectory_examples_to_prompts(query)
+        if self.task_type  == TaskType.ANSWERING:
+            self.add_trajectory_examples_to_prompts(query)
 
     def add_trajectory_examples_to_prompts(self, query)->None:
         """

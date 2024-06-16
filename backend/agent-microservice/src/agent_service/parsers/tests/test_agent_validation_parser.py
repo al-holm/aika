@@ -1,4 +1,4 @@
-import os
+import os, xmlrunner
 import sys, os
 testdir = os.path.dirname(__file__)
 sys.path.insert(0, os.path.abspath(os.path.join(testdir, '../../../')))
@@ -30,4 +30,4 @@ class TestValidationParser(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))

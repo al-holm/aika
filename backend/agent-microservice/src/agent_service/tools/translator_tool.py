@@ -4,13 +4,13 @@ from agent_service.tools.tool import Tool
 from agent_service.prompts.prompt_builder import PromptBuilder
 from agent_service.prompts.tool_prompt import TRANSLATION_TEMPLATE
 class Translator(Tool):
-    PROMPT_ID = "translator"
-    TEMPLATE = TRANSLATION_TEMPLATE
-    def __init__(self, llm, target_language:str="RU")->None:
-        self.name = "Übersetzer"
-        self.description = """
-        Hilfreich bei der Übersetzung von Texten. Verfügbare Sprachen: Deutsch [DE], Russisch [Ru], Englisch [EN], Türkisch [TR], Arabisch [AR], Ukrainisch [UK].
-        Action Input Format: der zu übersetzende Text in der Originalsprache - [DE/RU/EN/TR/AR/UK]
+    """
+    A tool for translating text using the DeepL API.
+    """
+    def __init__(self, name: str, description: str, llm: str, 
+                    prompt_id: str, prompt_template: str, max_tokens:int) -> None:
+        super().__init__(name, description, llm, prompt_id, prompt_template, max_tokens)
+        self.description += """
         Beispiele: 
         Как я могу сказать "Меня зовут Али" по-немецки?
         Action: Übersetzer
@@ -21,16 +21,12 @@ class Translator(Tool):
         Action Input: Ich habe heute eine Katze gesehen - [UK]
 
         """
-        self._target_language = target_language
         self.translator = deepl.Translator(os.environ["DEEPL_AUTH_KEY"])
-        self.set_llm(llm)
-        self.llm.set_max_tokens(20)
-        self.prompt = PromptBuilder()
-        self.prompt.create_prompts(
-            {self.PROMPT_ID : self.TEMPLATE}
-            )
 
     def run(self, input:str)->str:
+        """
+        Runs the translation tool with the provided input.
+        """
         target_language = self.parse_target_language(input)
         if target_language=="":
             answer="Du hast das falsche Format als Action Input gegeben. Bitte benutzte das Action Input Format: der zu übersetzende Text in der Originalsprache - [DE/RU/EN/TR/AR]"
@@ -43,13 +39,16 @@ class Translator(Tool):
         return answer
 
     def parse_target_language(self, input):
-        lang = input.split("[")[1].split("]")[0]
-        if str.lower(lang) in ["de", "ru", "tr", "uk", "ar", "en"]:
-            if str.lower(lang) == "en":
-                lang = "en-us"
-            return lang
-        else:
-            return ""
-
-    def set_target_language(self, lang:str)->None:
-        self._target_language =lang
+        """
+        Parses the target language from the input string. 
+        """
+        try:
+            lang = input.split("[")[1].split("]")[0]
+            lang = str.lower(lang)
+            if lang in ["de", "ru", "tr", "uk", "ar", "en"]:
+                if lang == "en":
+                    lang = "en-us" # using the us english for deepl
+                return lang
+        except Exception:
+            pass
+        return ""

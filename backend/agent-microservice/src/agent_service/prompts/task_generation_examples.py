@@ -27,13 +27,13 @@ Solution: [a) Das Kolosseum und das Pantheon]
 [START]
 Type: [gaps]
 Question: [Füllen Sie die Lücken basierend auf dem Text]
-Answer options: [1. In Florenz ging ich in die [Uffizien, Museen, Kirchen]. 2. In Venedig gefielen mir die [Kanäle, Straßen, Gebäude] und Brücken.]
+Answer options: [1. In Florenz ging ich in die (Uffizien, Museen, Kirchen). 2. In Venedig gefielen mir die (Kanäle, Straßen, Gebäude) und Brücken.]
 Solution: [Uffizien, Kanäle]
 [END]
 [START]
 Type: [gaps]
 Question: [Füllen Sie die Lücken basierend auf dem Text]
-Answer options: [1. Jeden Tag aß ich [leckeres, langweiliges, teures] italienisches Essen. 2. Letzten Sommer war ich in [Spanien, Frankreich, Italien] im Urlaub.]
+Answer options: [1. Jeden Tag aß ich (leckeres, langweiliges, teures) italienisches Essen. 2. Letzten Sommer war ich in (Spanien, Frankreich, Italien) im Urlaub.]
 Solution: [leckeres, Italien]
 [END]
 
@@ -120,7 +120,7 @@ Solution: [b) Er ging]
 [START]
 Type: [gaps]
 Question: [Füllen Sie die Lücken mit der richtigen Präteritumform des Verbs]
-Answer options: [1. Gestern [sah, sahen, gesehen] ich einen interessanten Film. (sehen) 2. Wir [fuhren, fahr, fahrten] letztes Jahr nach Spanien. (fahren) 3. Er [schreibte, schrieben, schrieb] einen langen Brief. (schreiben)]
+Answer options: [1. Gestern (sah, sahen, gesehen) ich einen interessanten Film. 2. Wir (fuhren, fahr, fahrten) letztes Jahr nach Spanien. 3. Er (schreibte, schrieben, schrieb) einen langen Brief.]
 Solution: [sah, fuhren, schrieb]
 [END]
 
@@ -153,7 +153,7 @@ Input:
 Your possible answer:
 [START]
 Type: [single-choice]
-Question: [Welche Endung hat das Adjektiv im Satz: "Wenn ich ein ________ (schön) Auto hätte, würde ich durch die Stadt fahren."]
+Question: [Welche Endung hat das Adjektiv im Satz: "Wenn ich ein __ (schön) Auto hätte, würde ich durch die Stadt fahren."]
 Answer options: [a) schön b) schöne c) schönen d) schöner]
 Solution: [d) schöner]
 [END]
@@ -166,13 +166,13 @@ Solution: [b) Wenn ich eine kluge Frau wäre, hätte ich viel Erfolg.]
 [START]
 Type: [gaps]
 Question: [Füllen Sie die Lücken mit der richtigen Adjektivendung und Konjunktiv II Form]
-Answer options: [1. Wenn ich ein [großes, großer, großen] Haus hätte, [könnte, können, könntest] ich viele Partys veranstalten. 2. Wenn ich einen [intelligent, intelligente, intelligenten] Hund hätte, [bräuchte, brauchen, bräuchten] ich keinen Trainer.]
+Answer options: [1. Wenn ich ein (großes, großer, großen) Haus hätte, (könnte, können, könntest) ich viele Partys veranstalten. 2. Wenn ich einen (intelligent, intelligente, intelligenten) Hund hätte, (bräuchte, brauchen, bräuchten) ich keinen Trainer.]
 Solution: [großes, könnte, intelligenten, bräuchte]
 [END]
 [START]
 Type: [gaps]
 Question: [Füllen Sie die Lücken mit der richtigen Adjektivendung und Konjunktiv II Form]
-Answer options: [1. Wenn sie eine [neue, neuer, neu] Wohnung fände, [würde ziehen, ziehen würde, zöge] sie sofort um. 2. Wenn wir einen [freundlichen, freundlich, freundliche] Nachbarn hätten, [wäre, sein, wären] das Leben viel angenehmer.]
+Answer options: [1. Wenn sie eine (neue, neuer, neu) Wohnung fände, (würde ziehen, ziehen würde, zöge) sie sofort um. 2. Wenn wir einen (freundlichen, freundlich, freundliche) Nachbarn hätten, (wäre, sein, wären) das Leben viel angenehmer.]
 Solution: [neue, würde ziehen, freundlichen, wäre]
 [END]
 """
@@ -194,7 +194,7 @@ Your possible answer:
 Type: [open]
 Question: [Schreiben Sie über ein Erlebnis aus Ihrer Kindheit im Präteritum. Beschreiben Sie, was passiert ist, und wie Sie sich dabei gefühlt haben.]
 Answer options: None
-Solution: [Als ich acht Jahre alt war, besuchte ich mit meiner Familie einen Vergnügungspark. Wir gingen auf viele Fahrgeschäfte und aßen viel Eis. Es war ein sonniger Tag und ich fühlte mich sehr glücklich. Besonders erinnerte ich mich an die Achterbahn, die sehr aufregend war.]
+Solution: None
 [END]
 
 Example 2:
@@ -205,7 +205,7 @@ Your possible answer:
 Type: [open]
 Question: [Schreiben Sie einen Wunsch oder eine Bedingung, die Sie haben, im Konjunktiv II.]
 Answer options: None
-Solution: [Ich wünschte, ich könnte fliegen. Wenn ich fliegen könnte, würde ich die Welt von oben sehen und überall hinreisen, ohne mir Sorgen um Verkehr oder Grenzen zu machen.]
+Solution: None
 [END]
 
 Example 3:
@@ -216,7 +216,7 @@ Your possible answer:
 Type: [open]
 Question: [Schreibe einen kurzen Text darüber, was du tun würdest, wenn du einen perfekten Tag planen könntest. Achte dabei auf die korrekten Adjektivendungen und benutze mindestens drei Sätze im Konjunktiv II.]
 Answer options: None
-Solution: [An einem perfekten Tag würde ich in einem gemütlichen Café sitzen und ein leckeres Frühstück genießen. Danach würde ich einen langen Spaziergang in einem wunderschönen Park machen. Am Abend würde ich in einem erstklassigen Restaurant essen gehen und den Tag mit einem interessanten Buch ausklingen lassen.]
+Solution: None
 [END]
 
 You only generate open-ended questions for given topics! 
