@@ -28,6 +28,7 @@ class Tool(ABC):
         self.prompt_id = prompt_id
         self.prompt_template = prompt_template
         self.max_tokens = max_tokens
+        self.llm.set_max_tokens(max_tokens)
         self.init_prompt()
         
     @abstractmethod

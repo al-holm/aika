@@ -7,6 +7,7 @@ import logging
 from pymilvus import MilvusClient
 from pymilvus.model import hybrid
 from tqdm import tqdm
+
 class RetrievalTool(Tool):
     PROMPT_ID = "retrieve"
     TEMPLATE = RETRIEVER_TEMPLATE
@@ -19,10 +20,11 @@ class RetrievalTool(Tool):
     def __init__(self, name:str=None, description:str=None, llm:str='bedrock', 
                     prompt_id:str='retriever',
                     prompt_template:str=RETRIEVER_TEMPLATE, 
-                    max_tokens:int=300, init:bool=False, test:bool=False) -> None:
+                    max_tokens:int=1000, init:bool=False, test:bool=False) -> None:
         super().__init__(name, description, llm, prompt_id, prompt_template, max_tokens)
         self.min_chunk_len = 200
-        self.max_chunk_len = 600
+        self.max_chunk_len = 660
+        print(self.llm.max_tokens)
         if not test:
             self.ef = hybrid.BGEM3EmbeddingFunction(
                 model_name='BAAI/bge-m3', 
@@ -30,11 +32,13 @@ class RetrievalTool(Tool):
                 use_fp16=False
             )
             self.start_vector_store(init)
+        print(init)
         if init:
             self.load_docs()
             self.add_docs()
 
     def load_docs(self):
+        logging.info('....Loading docs...')
         markdown_text_list = self.read_markdown_folder(self.DOC_PATH)
         txt_text_list = self.read_txt_folder(self.DOC_PATH)
         md_list_src, md_list_docs = self.parse_info(markdown_text_list, mode="md")
@@ -106,9 +110,7 @@ class RetrievalTool(Tool):
             if mode=="md":
                 src_list, chunks = self.get_src_chunks_md(text)
             else:
-                print(len(list(text)))
                 src_list, chunks = self.get_src_chunks_txt(text)
-                self.get_stats_chunks(chunks)
             list_docs.extend(chunks)
             list_src.extend(src_list)
         return (list_src, list_docs)
@@ -118,24 +120,18 @@ class RetrievalTool(Tool):
         """
         blocks = text.split("\n# ")
         src = blocks[1]
-        chunks = []
-        chunk_buff = ''
-        for block in blocks[2:]:
-            if len(block) < self.min_chunk_len and chunk_buff == "" and len(blocks[2:])>1:
-                chunk_buff = block
-            else:
-                if chunk_buff != "":
-                    new_chunk = chunk_buff + block
-                    chunk_buff = ""
-                else:
-                    new_chunk = block
-                chunks.append(new_chunk)
+        chunks = blocks[2:]
+        chunks = self.split_recursive(chunks)
         return ([src for _ in chunks], chunks) 
 
     def get_src_chunks_txt(self, text: str):
         src = text.split("URL: ")[1].split("\n")[0]
         chunk = text.split("Body Text:\n")[1].split("Related:")[0]
         chunks = [chunk.strip()]
+        chunks = self.split_recursive(chunks)
+        return ([src for _ in chunks], chunks)
+
+    def split_recursive(self, chunks):
         temp = True
         while temp:
             len_chunk = len(chunks)
@@ -153,7 +149,7 @@ class RetrievalTool(Tool):
                     new_chunks.append(chunk)
             temp = len(new_chunks) != len_chunk
             chunks = new_chunks
-        return ([src for _ in chunks], chunks)
+        return chunks
 
     
     def start_vector_store(self, init):
@@ -168,7 +164,7 @@ class RetrievalTool(Tool):
         """
         Prepare document embeddings and add them to the vector store collection.
         """
-        logging.info(len(self.list_docs))
+        logging.info(f'starting embedding #{len(self.list_docs)} docs')
         doc_embeddings  = self.ef.encode_documents(self.list_docs)['dense']
         logging.info('embeddings ready')
 
@@ -202,7 +198,7 @@ class RetrievalTool(Tool):
         results = self.client.search(
             collection_name=self.COLLECTION_NAME,
             data=query_vectors,               
-            limit=2,                          
+            limit=6,                          
             output_fields=["text", "source"], 
         )
         parsed_result = self.parse_retrieval_results(results[0])
