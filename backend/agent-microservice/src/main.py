@@ -10,8 +10,8 @@ if __name__ == "__main__":
     llm = 'bedrock' # bedrock or runpod
     task_type = TaskType.ANSWERING
     Config.set_llm(llm, task_type)
-    #rt = RetrievalTool(True)
-    #print(rt.run('Was ist Wohnberechtigungsschein?'))
+    rt = RetrievalTool(True)
+    print(rt.run('Woraus besteht Asylverfahren?'))
     #tj = TrajectoryInjector(True)
     #print(tj.inject_trajectories('Wie kann ich sagen ich komme später.'))
-    a = Agent(task_type=task_type)
+    #a = Agent(task_type=task_type)
