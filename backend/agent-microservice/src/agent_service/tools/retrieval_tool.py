@@ -6,6 +6,7 @@ from typing import Dict
 import logging
 from pymilvus import MilvusClient
 from pymilvus.model import hybrid
+from tqdm import tqdm
 class RetrievalTool(Tool):
     PROMPT_ID = "retrieve"
     TEMPLATE = RETRIEVER_TEMPLATE
@@ -26,7 +27,7 @@ class RetrievalTool(Tool):
         )
 
         self.min_chunk_len = 200
-        self.max_chunk_len = 500
+        self.max_chunk_len = 600
         self.load_docs()
         self.ef = hybrid.BGEM3EmbeddingFunction(
             model_name='BAAI/bge-m3', 
@@ -51,7 +52,7 @@ class RetrievalTool(Tool):
         
     def get_stats_chunks(self, list_docs):
         len_list = [len(i) for i in list_docs]
-        logging.info(f"\nMean len docs: {sum(len_list)//len(len_list)}, Min: {min(len_list)}, Max: {max(len_list)}\n")
+        logging.info(f"\nLen: {len(len_list)}, Mean len docs: {sum(len_list)//len(len_list)}, Min: {min(len_list)}, Max: {max(len_list)}\n")
     
     def read_markdown_folder(self, folder_path):
         """
@@ -104,14 +105,17 @@ class RetrievalTool(Tool):
         """
         list_docs = []
         list_src = []
-        for text in text_list:
+        from time import sleep
+        for i in tqdm(range(len(text_list))):
+            text=text_list[i]
             if mode=="md":
                 src_list, chunks = self.get_src_chunks_md(text)
             else:
+                print(len(list(text)))
                 src_list, chunks = self.get_src_chunks_txt(text)
+                self.get_stats_chunks(chunks)
             list_docs.extend(chunks)
             list_src.extend(src_list)
-
         return (list_src, list_docs)
     
     def get_src_chunks_md(self, text: str):
@@ -132,23 +136,27 @@ class RetrievalTool(Tool):
                     new_chunk = block
                 new_chunk.replace('\n', ' ')
                 chunks.append(new_chunk)
-        
-
         return ([src for chunk in chunks], chunks) 
 
 
-    def get_src_chunks_md(self, text: str):
+    def get_src_chunks_txt(self, text: str):
         src = text.split("URL: ")[1].split("\n")[0]
-        block = text.split("Body Text:\n")[1].split("Related:")[0]
-        chunks = []
-        chunk_buff = ''
-        if len(block) > self.max_chunk_len:
-            dots = [i for i, char in enumerate(block) if i == "."]
-            mid = len(block) // 2  
-            ind = min(dots, key=lambda x: abs(x-mid))
-            chunks = [block[:ind+1], block[ind+1:]]
-        else:
-            chunks = block
+        chunk = text.split("Body Text:\n")[1].split("Related:")[0]
+        chunks = [chunk]
+        temp = True
+        while temp:
+            len_chunk = len(chunks)
+            new_chunks = []
+            for chunk in chunks:
+                if len(chunk) > self.max_chunk_len:
+                    dots = [i for i, char in enumerate(list(chunk)) if char == "."]
+                    mid = len(chunk) // 2  
+                    ind = min(dots, key=lambda x: abs(x-mid))
+                    new_chunks.extend([chunk[:ind+1], chunk[ind+1:]])
+                else:
+                    new_chunks.append(chunk)
+            temp = len(new_chunks) != len_chunk
+            chunks = new_chunks
         return ([src for chunk in chunks], chunks)
 
     
