@@ -19,18 +19,19 @@ class RetrievalTool(Tool):
     def __init__(self, name:str=None, description:str=None, llm:str='bedrock', 
                     prompt_id:str='retriever',
                     prompt_template:str=RETRIEVER_TEMPLATE, 
-                    max_tokens:int=300, init:bool=False) -> None:
+                    max_tokens:int=300, init:bool=False, test:bool=False) -> None:
         super().__init__(name, description, llm, prompt_id, prompt_template, max_tokens)
         self.min_chunk_len = 200
         self.max_chunk_len = 600
-        self.load_docs()
-        self.ef = hybrid.BGEM3EmbeddingFunction(
-            model_name='BAAI/bge-m3', 
-            device='cpu', 
-            use_fp16=False
-        )
-        self.start_vector_store(init)
+        if not test:
+            self.ef = hybrid.BGEM3EmbeddingFunction(
+                model_name='BAAI/bge-m3', 
+                device='cpu', 
+                use_fp16=False
+            )
+            self.start_vector_store(init)
         if init:
+            self.load_docs()
             self.add_docs()
 
     def load_docs(self):
@@ -100,7 +101,6 @@ class RetrievalTool(Tool):
         """
         list_docs = []
         list_src = []
-        from time import sleep
         for i in tqdm(range(len(text_list))):
             text=text_list[i]
             if mode=="md":
@@ -121,7 +121,7 @@ class RetrievalTool(Tool):
         chunks = []
         chunk_buff = ''
         for block in blocks[2:]:
-            if len(block) < self.min_chunk_len and chunk_buff == "":
+            if len(block) < self.min_chunk_len and chunk_buff == "" and len(blocks[2:])>1:
                 chunk_buff = block
             else:
                 if chunk_buff != "":
@@ -129,30 +129,31 @@ class RetrievalTool(Tool):
                     chunk_buff = ""
                 else:
                     new_chunk = block
-                new_chunk.replace('\n', ' ')
                 chunks.append(new_chunk)
-        return ([src for chunk in chunks], chunks) 
-
+        return ([src for _ in chunks], chunks) 
 
     def get_src_chunks_txt(self, text: str):
         src = text.split("URL: ")[1].split("\n")[0]
         chunk = text.split("Body Text:\n")[1].split("Related:")[0]
-        chunks = [chunk]
+        chunks = [chunk.strip()]
         temp = True
         while temp:
             len_chunk = len(chunks)
             new_chunks = []
             for chunk in chunks:
                 if len(chunk) > self.max_chunk_len:
-                    dots = [i for i, char in enumerate(list(chunk)) if char == "."]
+                    dots = [i for i, char in enumerate(chunk) if char == "."]
                     mid = len(chunk) // 2  
-                    ind = min(dots, key=lambda x: abs(x-mid))
-                    new_chunks.extend([chunk[:ind+1], chunk[ind+1:]])
+                    if dots:
+                        ind = min(dots, key=lambda x: abs(x - mid))
+                        new_chunks.extend([chunk[:ind + 1], chunk[ind + 1:]])
+                    else:
+                        new_chunks.extend([chunk])
                 else:
                     new_chunks.append(chunk)
             temp = len(new_chunks) != len_chunk
             chunks = new_chunks
-        return ([src for chunk in chunks], chunks)
+        return ([src for _ in chunks], chunks)
 
     
     def start_vector_store(self, init):
