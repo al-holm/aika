@@ -1,5 +1,6 @@
 enum TaskType{
-  multipleChoice, fillTheGaps, openQuestion
+  multipleChoice, 
+  fillTheGaps, openQuestion
 }
 
 class Task {

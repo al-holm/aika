@@ -24,12 +24,6 @@ class LLM(ABC):
         prompt : str
         """
         pass
-
-    def set_max_tokens_by_mode(self, mode="plan"):
-        if mode != "plan":
-            self.max_tokens = 90
-        else:
-            self.max_tokens = 256
     
     def set_max_tokens(self, max_tokens:int):
         self.max_tokens = max_tokens
@@ -53,7 +47,7 @@ class LLMBedrock(LLM):
                                     region_name=self.config.region_name,
                                 )
 
-    def run(self, prompt: str, mode="plan"):
+    def run(self, prompt: str):
         """
         takes a prompt, retrieves the body, invokes a model with the body, and
         returns the text output from the model response.
@@ -108,12 +102,11 @@ class LLMRunPod(LLM):
         self.url = os.environ['RUNPOD_URL']
 
 
-    def run(self, prompt: str, mode="plan"):
+    def run(self, prompt: str):
         """
         takes a prompt, retrieves the body, invokes a model with the body, and
         returns the text output from the model response.
         """
-        self.set_max_tokens_by_mode(mode)
         
         data = {
             "model": self.llm_id,

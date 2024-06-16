@@ -1,32 +1,14 @@
-from agent_service.prompts.tool_prompt import TASK_TEMPLATE
 from agent_service.prompts.task_generation_examples import READING_TASKS_EXAMPLES_1, READING_TASKS_EXAMPLES_2, GRAMMAR_TASKS_EXAMPLES_1, GRAMMAR_TASKS_EXAMPLES_2
-from agent_service.agent.llm import LLMBedrock
-from agent_service.prompts.prompt_builder import PromptBuilder
 from agent_service.tools.tool import Tool
+from agent_service.exeptions.step_exception import ExtractingExercisesError
 from typing import Literal, Dict
 import os, uuid, re, logging
 class TaskGenerator(Tool):
 
-    class ExtractingExercisesError(Exception):
-        """
-        Raised if extracting generated exercises from the LLM response failed
-        """
-        def __init__(self):
-            super().__init__("Extracting exercises failed")
-
-
-    PROMPT_ID = "tasks"
-    TEMPLATE = TASK_TEMPLATE
-    def __init__(self, llm:str):
-        self.name = "Deutschaufgaben generieren"
-        self.description = "Benutzte als letzte, um die Aufgaben zu generieren. Nimmt als Eingabe deine generierte Text oder Grammatikerklärung."
-        # a directory where generated exercises are being saved
+    def __init__(self, name: str, description: str, llm: str, 
+                    prompt_id: str, prompt_template: str, max_tokens:int) -> None:
+        super().__init__(name, description, llm, prompt_id, prompt_template, max_tokens)
         self.dir_path = "out/tasks/"
-        self.set_llm(llm)
-        self.prompt = PromptBuilder()
-        self.prompt.create_prompts(
-            {self.PROMPT_ID : self.TEMPLATE}
-            )
 
     def run(self, input:str):
         """
@@ -37,6 +19,7 @@ class TaskGenerator(Tool):
         tool_answer: str
             concatenated input and generated exercises
         """
+        print(input)
         parsed_input = self.parse_input(input)
         first_query, second_query = self.build_prompts(parsed_input)
         # reduce max tokens for generating exercises
@@ -58,21 +41,22 @@ class TaskGenerator(Tool):
                 # so the programs doesn't set areInvalid to False and the loop continues
                 if not first:
                     self.llm.set_max_tokens(700)
+                    print('running llm ... sg')
                     raw_single_choice_and_gap_filling = self.llm.run(first_query)
-                    print(self.llm.max_tokens)
-                    print('\n\n\n')
-                    print(raw_single_choice_and_gap_filling)
+                    print(f'\n\n\n{raw_single_choice_and_gap_filling}')
                     single_choice_and_gap_filling = self.extract_exercises(raw_single_choice_and_gap_filling, int(parsed_input["single-choice"]) + int(parsed_input["gap-filling"]))
                     first = True
+                    print(f'first question done: {first}')
                 if not second:
                     self.llm.set_max_tokens(100)
+                    print('running llm... o')
                     raw_open_qs = self.llm.run(second_query) 
-                    print('\n\n\n')
-                    print(raw_open_qs)
+                    print(f'\n\n\n{raw_open_qs}')
                     open_qs = self.extract_exercises(raw_open_qs, int(parsed_input["open"]))
                     second = True
+                    print(f'second question done: {second}')
                 areInvalid = False
-            except self.ExtractingExercisesError:
+            except ExtractingExercisesError:
                 # the program gets there when an error occured during the extraction of the exercises
                 gen_attempts -= 1
                 pass
@@ -110,8 +94,8 @@ class TaskGenerator(Tool):
             first_input = f"[{single_choice}][{gap_filling}]"
             second_input = f"[{open_q}]"
 
-        first_query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, input_format_and_examples=examples_1, text=(first_input + f"[{input['text']}]"))
-        second_query = self.prompt.generate_prompt(name_id=self.PROMPT_ID, input_format_and_examples=examples_2, text=(second_input + f"[{input['text']}]"))
+        first_query = self.prompt.generate_prompt(name_id=self.prompt_id, input_format_and_examples=examples_1, text=(first_input + f"[{input['text']}]"))
+        second_query = self.prompt.generate_prompt(name_id=self.prompt_id, input_format_and_examples=examples_2, text=(second_input + f"[{input['text']}]"))
         
         return (first_query,second_query)
 
@@ -161,7 +145,7 @@ class TaskGenerator(Tool):
 
             return res
         except Exception:
-            raise self.ExtractingExercisesError()
+            raise ExtractingExercisesError()
         
     def save_exercises(self, exercises: str):
         """

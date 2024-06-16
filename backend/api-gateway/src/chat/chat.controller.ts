@@ -38,10 +38,10 @@ export class ChatController {
   }
 
   @Post('lesson')
-  async getLesson( @Body() userMessage: Message, ): 
-    Promise<{ message: Message }> {
+  async getLesson( @Body() userMessage: Message): 
+    Promise<JSON> {
     console.log('lesson');
-    const message = await this.germanChatService.processMessage(userMessage, "lesson");
-    return { message };
+    const lesson = await this.germanChatService.get_lesson("[Grammar][Futur I][None][3][2][1]")
+    return lesson;
   }
 }

@@ -3,7 +3,7 @@ import sys, os
 testdir = os.path.dirname(__file__)
 sys.path.insert(0, os.path.abspath(os.path.join(testdir, '../../../')))
 from pydantic import ValidationError
-import unittest
+import unittest, xmlrunner
 from agent_service.agent.agent_step import AgentStep
 from agent_service.exeptions.step_exception import ActionInputNotFoundException, ActionNotFoundException, InvalidToolException
 from agent_service.parsers.agent_step_parser import StepParser  # Ensure this import matches your module's structure
@@ -78,4 +78,4 @@ class TestStepParser(unittest.TestCase):
         self.assertIsNone(self.parser.remove_quotes(None))
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
