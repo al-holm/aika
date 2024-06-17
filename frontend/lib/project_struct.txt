@@ -1,0 +1,15 @@
+lib/
+├── data/
+│   ├── models/
+│   ├── repositories/
+│   └── data_providers/
+├── domain/
+│   ├── entities/
+│   ├── repositories/
+│   └── usecases/
+├── presentation/
+│   ├── blocs/
+│   ├── screens/
+│   ├── widgets/
+│   └── routes/
+└── main.dart
