@@ -273,9 +273,7 @@ class Agent:
         final_answer : str
             the final answer
         """
-        if iteration == self.max_iterations:
-            return "Etwas ist fehlgeschlagen, versuche es erneut!"
-        self.reasoning_logger.build_final_answer()
+        self.reasoning_logger.get_final_answer(iteration == self.max_iterations)
         self.reasoning_logger.to_json()
         final_answer = self.reasoning_logger.final_answer
         logging.info(final_answer)

@@ -57,10 +57,19 @@ class ReasoningLogger:
         """
         retrieves the observation from the last AgentStep object.
         """
+        step = self.get_last_agent_step()
+        if step is not None:
+            return step.observation
+        return ''
+    
+    def get_last_agent_step(self) -> AgentStep:
+        """
+        retrieves the last AgentStep object.
+        """
         for i in reversed(self.trace):
                 if isinstance(i, AgentStep):
-                   return i.observation
-        return ''
+                   return i
+        return None
 
     def __str__(self) -> str:
         res = ""
@@ -105,15 +114,19 @@ class ReasoningLogger:
         """
         self.query = query
 
-    def build_final_answer(self):
+    def get_final_answer(self, reached_max_iterations:bool):
         """
         builds an AgentFinalStep instance with the observation of the last AgentStep instance as the final answer, 
         """
-        for i in reversed(self.trace):
-            if isinstance(i, AgentStep):
-                step = AgentFinalStep(final_answer=i.observation)
-                self.add_step(step)
-                self.final_answer = i.observation
-                break
+        step = self.get_last_agent_step()
+        if not reached_max_iterations or step.action.startswith('Keine Ant'):
+            observation = step.observation
+        else:
+            observation = 'Etwas ist fehlgeschlagen. Versuche es erneut!'
+        self.form_final_answer(observation)
 
+    def form_final_answer(self, observation):
+        self.final_answer = observation
+        step = AgentFinalStep(final_answer=observation)
+        self.add_step(step)
 

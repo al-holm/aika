@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Get, Body } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { Message } from './models/message.dto';
 import { ApiTags, ApiResponse, ApiExtraModels, getSchemaPath } from '@nestjs/swagger';
@@ -37,11 +37,20 @@ export class ChatController {
     return { message };
   }
 
-  @Post('lesson')
-  async getLesson( @Body() userMessage: Message): 
+  @Post('submit_answers')
+  async getCompletedTasks( @Body() userMessage: Message, ): 
+    Promise<{ message: boolean }> {
+    console.log('answers submitted');
+    const message = await this.germanChatService.processAnswers();
+    console.log(message);
+    return { message };
+  }
+
+  @Get('lesson')
+  async getLesson(): 
     Promise<JSON> {
     console.log('lesson');
-    const lesson = await this.germanChatService.get_lesson("[Grammar][Futur I][None][3][2][1]")
+    const lesson = await this.germanChatService.get_lesson("[Grammar][Futur I][None][1][1][1]")
     return lesson;
   }
 }
