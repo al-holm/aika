@@ -1,0 +1,275 @@
+@startuml
+
+package frontend {
+    package styles {
+        package app_styles.dart {
+            class AppStyles {
+                +Color accentColor
+                +Color sandColor
+                +Color darkColor
+                +TextStyle settingsOptionsTextStyle
+                +TextStyle settingstextStyle
+                +TextStyle mainMenuTitleTextStyle
+                +TextStyle taskQuestionTextStyle
+                +TextStyle taskOptionTextStyle
+                +TextStyle messageTextStyle
+                +TextStyle buttonTextStyle()
+            }
+        }
+    }
+    package utils {
+        package l10n {
+            package app_localization.dart {
+                class AppLocalizations {
+                    +Locale locale
+                    +LocalizationsDelegate<AppLocalizations> delegate
+                    -Map<String, String>? _localizedStrings
+                    +AppLocalizations of()
+                    +dynamic load()
+                    +String translate()
+                }
+
+                class _AppLocalizationsDelegate {
+                    +bool isSupported()
+                    +dynamic load()
+                    +bool shouldReload()
+                }
+            }
+        }
+        class MetadataUtils {
+            +dynamic initUserId()
+            +String generateMessageID()
+        }
+    }
+    package data {
+        package models {
+            class MessageModel {
+                +String text
+                +String userID
+                +String messageID
+                +String role
+                +DateTime timestamp
+                +bool hasTasks
+                +List<TaskModel>? tasks
+                +String getText
+                +String getUserID
+                +String getMessageID
+                +String getRole
+                +DateTime getTimestamp
+                +bool getGotTasks
+                +Map<String, dynamic> toJson()
+            }
+
+            class TaskModel {
+                +TaskType type
+                +String question
+                +List<List<String>> answerOptions
+                +List<String> solutions
+                +Map<String, dynamic> toJson()
+            }
+        }
+        package data_providers {
+            class ChatDataProvider {
+                +String baseUrl
+                +dynamic sendMessage()
+                +dynamic sendImage()
+                +dynamic fetchLesson()
+            }
+            class TaskDataProvider {
+                +String baseUrl
+                +dynamic submitUserAnswers()
+            }
+        }
+        package repositories {
+            class ChatRepositoryImpl {
+                +ChatDataProvider chatDataProvider
+                +dynamic sendMessage()
+                +dynamic sendImage()
+                +dynamic fetchLesson()
+            }
+            class TaskRepositoryImpl {
+                +TaskDataProvider dataProvider
+                +dynamic submitUserAnswers()
+            }
+        }
+    }
+    package domain {
+        package repositories {
+            interface ChatRepository {
+                +dynamic sendMessage()
+                +dynamic sendImage()
+                +dynamic fetchLesson()
+            }
+            interface TaskRepository {
+                +dynamic submitUserAnswers()
+            }
+        }
+        package usecases {
+            class SendMessage {
+                +ChatRepository repository
+                +dynamic call()
+            }
+            class SendImage {
+                +ChatRepository repository
+                +dynamic call()
+            }
+            class SubmitAnswers {
+                +TaskRepository repository
+                +dynamic call()
+            }
+            class FetchLesson {
+                +ChatRepository repository
+                +dynamic call()
+            }
+        }
+        package entities {
+            class Message {
+                +String text
+                +String userID
+                +String messageID
+                +String role
+                +DateTime timestamp
+                +bool hasTasks
+                +List<Task>? tasks
+            }
+            class Task {
+                +TaskType type
+                +String question
+                +List<List<String>> answerOptions
+                +List<String> solutions
+                +List<String> userAnswers
+                +bool completed
+            }
+            class TaskType {
+                +int index
+                +List<TaskType> values
+                +TaskType multipleChoice
+                +TaskType fillTheGaps
+                +TaskType openQuestion
+            }
+        }
+    }
+    package presentation {
+        package blocs {
+            class ChatBloc {
+                +SendMessage sendMessage
+                +SendImage sendImage
+                +FetchLesson fetchLesson
+                +String userID
+                +Map<String, List<Message>> chatMessages
+                +Message getLessonOfferingMessage()
+                +String getInitMessageGerman()
+                +String getInitMessageLaw()
+            }
+            class LanguageBloc {
+                -void _onLanguageChanged()
+            }
+            class TaskBloc {
+                +SubmitAnswers submitAnswers
+                +ChatBloc chatBloc
+            }
+        }
+        package screens {
+            class LawChatScreen {
+                +String chatID
+                +Widget build()
+            }
+            class GermanChatScreen {
+                +String chatID
+                +Widget build()
+            }
+            class SettingsScreen {
+                +Widget build()
+            }
+            class TaskSequenceScreen {
+                +List<Task> tasks
+                +Widget build()
+            }
+            class MainMenuScreen {
+                +Widget build()
+            }
+        }
+        package widgets {
+            class GermanChatAppBar {
+                +Size preferredSize
+                +Widget build()
+            }
+            class SimpleAppBar {
+                +String text
+                +Size preferredSize
+                +Widget build()
+            }
+            class TaskControlButton {
+                +String text
+                +void Function() onPressed
+                +Widget build()
+            }
+            class TaskButtonGroup {
+                +void Function()? onBack
+                +void Function()? onNext
+                +Widget build()
+            }
+            class TaskWidget {
+                +Task task
+                +Widget build()
+            }
+            class OpenQuestionTask {
+                +Task task
+                +Widget build()
+            }
+            class FillInTheGapTask {
+                +Task task
+                +Widget build()
+            }
+            class MessageTile {
+                +String content
+                +String role
+                +Widget build()
+            }
+            class LoadingIndicator {
+                +Widget build()
+            }
+            class ChatButton {
+                +String text
+                +void Function() onPressed
+                +Widget build()
+            }
+            class ChatTextInput {
+                +TextEditingController controller
+                +Function handleSubmitted
+                +Widget build()
+            }
+            class MainMenuButton {
+                +String text
+                +void Function() onPressed
+                +Widget build()
+            }
+            class MainMenuSettingButton {
+                +void Function() onPressed
+                +Widget build()
+            }
+            class MainMenuTitleText {
+                +double leftPadding
+                +double topPadding
+                +double bottomPadding
+                +Widget build()
+            }
+            class MainMenuImageContainer {
+                +double dimension
+                +Widget build()
+            }
+            class MultipleChoiceTask {
+                +Task task
+                +Widget build()
+            }
+            class MultipleChoiceOptions {
+                +List<List<String>> options
+                +List<String> userAnswers
+                +void Function(String) onSelected
+                +_MultipleChoiceOptionsState createState()
+            }
+        }
+    }
+}
+
+@enduml
