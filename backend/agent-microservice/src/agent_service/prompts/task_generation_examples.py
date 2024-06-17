@@ -1,16 +1,14 @@
-READING_TASKS_EXAMPLES_1 = """
+READING_SINGLE_CHOICE  = """
 Your input format is: 
-[Single-Choice-Questions-Number][Gaps-filling-exercises-number][Text for which exercises must be provided]
+[Single-Choice-Questions-Number][Text for which exercises must be provided]
 
-Generate exactly as many exercises of each type as are specified in the input. 
-If the input is zero, no exercises of that type should be generated at all
-
+Generate exactly as many exercises as are specified in the input. 
 
 Use the following examples to generate exercises:
 
 Example 1:
 Input:
-[2][2][Letzten Sommer war ich in Italien im Urlaub. Ich besuchte Rom, Florenz und Venedig. In Rom sah ich das Kolosseum und das Pantheon. In Florenz ging ich in die Uffizien und sah viele schöne Kunstwerke. In Venedig gefielen mir die Kanäle und Brücken. Jeden Tag aß ich leckeres italienisches Essen und genoss das gute Wetter. Der Urlaub war wunderbar.]
+[2][Letzten Sommer war ich in Italien im Urlaub. Ich besuchte Rom, Florenz und Venedig. In Rom sah ich das Kolosseum und das Pantheon. In Florenz ging ich in die Uffizien und sah viele schöne Kunstwerke. In Venedig gefielen mir die Kanäle und Brücken. Jeden Tag aß ich leckeres italienisches Essen und genoss das gute Wetter. Der Urlaub war wunderbar.]
 Your answer:
 [START]
 Type: [single-choice]
@@ -25,21 +23,10 @@ Answer options: [a) Das Kolosseum und das Pantheon b) Die Uffizien c) Die Kanäl
 Solution: [a) Das Kolosseum und das Pantheon]
 [END]
 [START]
-Type: [gaps]
-Question: [Füllen Sie die Lücken basierend auf dem Text]
-Answer options: [1. In Florenz ging ich in die (Uffizien, Museen, Kirchen). 2. In Venedig gefielen mir die (Kanäle, Straßen, Gebäude) und Brücken.]
-Solution: [Uffizien, Kanäle]
-[END]
-[START]
-Type: [gaps]
-Question: [Füllen Sie die Lücken basierend auf dem Text]
-Answer options: [1. Jeden Tag aß ich (leckeres, langweiliges, teures) italienisches Essen. 2. Letzten Sommer war ich in (Spanien, Frankreich, Italien) im Urlaub.]
-Solution: [leckeres, Italien]
-[END]
 
 Example 2:
 Input:
-[3][0][Ich gehe jeden Tag zur Schule. Meine Lieblingsfächer sind Mathematik und Geschichte. In Mathematik lernen wir gerade Brüche und in Geschichte sprechen wir über das Mittelalter. Mein bester Freund heißt Paul und wir sitzen zusammen in der Klasse. Nach der Schule spielen wir oft Fußball oder gehen ins Kino. Unsere Lehrerin, Frau Müller, ist sehr nett und hilft uns immer bei den Hausaufgaben. Ich mag meine Schule sehr.]
+[3][Ich gehe jeden Tag zur Schule. Meine Lieblingsfächer sind Mathematik und Geschichte. In Mathematik lernen wir gerade Brüche und in Geschichte sprechen wir über das Mittelalter. Mein bester Freund heißt Paul und wir sitzen zusammen in der Klasse. Nach der Schule spielen wir oft Fußball oder gehen ins Kino. Unsere Lehrerin, Frau Müller, ist sehr nett und hilft uns immer bei den Hausaufgaben. Ich mag meine Schule sehr.]
 Your answer:
 [START]
 Type: [single-choice]
@@ -61,13 +48,37 @@ Solution: [b) Frau Müller]
 [END]
 """
 
-READING_TASKS_EXAMPLES_2 = """
+READING_GAP_FILLING  = """
+Your input format is: 
+[Gaps-filling-exercises-number][Text for which exercises must be provided]
+
+Generate exactly as many exercises as are specified in the input. 
+
+Use the following examples to generate exercises:
+
+Example 1:
+Input:
+[2][Letzten Sommer war ich in Italien im Urlaub. Ich besuchte Rom, Florenz und Venedig. In Rom sah ich das Kolosseum und das Pantheon. In Florenz ging ich in die Uffizien und sah viele schöne Kunstwerke. In Venedig gefielen mir die Kanäle und Brücken. Jeden Tag aß ich leckeres italienisches Essen und genoss das gute Wetter. Der Urlaub war wunderbar.]
+Your answer:
+[START]
+Type: [gaps]
+Question: [Füllen Sie die Lücken basierend auf dem Text]
+Answer options: [1. In Florenz ging ich in die (Uffizien, Museen, Kirchen). 2. In Venedig gefielen mir die (Kanäle, Straßen, Gebäude) und Brücken.]
+Solution: [Uffizien, Kanäle]
+[END]
+[START]
+Type: [gaps]
+Question: [Füllen Sie die Lücken basierend auf dem Text]
+Answer options: [1. Jeden Tag aß ich (leckeres, langweiliges, teures) italienisches Essen. 2. Letzten Sommer war ich in (Spanien, Frankreich, Italien) im Urlaub.]
+Solution: [leckeres, Italien]
+[END]
+"""
+
+READING_OPEN_ENDED = """
 Your input format is: 
 [Open-Questions-Number][Text for which exercises must be provided]
 
-Generate exactly as many exercises of each type as are specified in the input and only for a given text! 
-If the input is zero, no exercises of that type should be generated at all
-
+Generate exactly as many exercises as are specified in the input and only for a given text! 
 
 Use the following examples to generate exercises:
 
@@ -97,12 +108,11 @@ You only generate open-ended questions for a given text!
 Once you have generated the required number of open questions, you generate nothing else!
 """
 
-GRAMMAR_TASKS_EXAMPLES_1 = """
+GRAMMAR_SINGLE_CHOICE = """
 Your input format is: 
-[Main-grammar-topic][Secondary-grammar-topic][Single-Choice-Questions-Number][Gaps-filling-exercises-number][Main-grammar-topic-explanation-text]
+[Main-grammar-topic][Secondary-grammar-topic][Single-Choice-Questions-Number][Main-grammar-topic-explanation-text]
 
-Generate exactly as many exercises of each type as are specified in the input. 
-If the input is zero, no exercises of that type should be generated at all
+Generate exactly as many exercises as are specified in the input. 
 
 
 Use the following examples to generate exercises:
@@ -110,12 +120,23 @@ Use the following examples to generate exercises:
 
 """
 
-GRAMMAR_TASKS_EXAMPLES_2 = """
+GRAMMAR_GAP_FILLING = """
+Your input format is: 
+[Main-grammar-topic][Secondary-grammar-topic][Gaps-filling-exercises-number][Main-grammar-topic-explanation-text]
+
+Generate exactly as many exercises as are specified in the input. 
+
+
+Use the following examples to generate exercises:
+
+
+"""
+
+GRAMMAR_OPEN_ENDED = """
 Your input format is: 
 [Main-grammar-topic][Secondary-grammar-topic][Open-Questions-Number][Main-grammar-topic-explanation-text]
 
-Generate exactly as many exercises of each type as are specified in the input and only for given topics. 
-If the input is zero, no exercises of that type should be generated at all
+Generate exactly as many exercises as are specified in the input and only for given topics. 
 
 Use the following examples to generate exercises:
 
