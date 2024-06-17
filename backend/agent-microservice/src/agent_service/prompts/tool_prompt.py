@@ -68,8 +68,7 @@ ${input_format_and_examples}
 
 Start now!
 [/INST]
-Frage: ${text}
-1. 
+Query: ${text}
 """
 
 WEB_SUMMARY_TEMPLATE = """
