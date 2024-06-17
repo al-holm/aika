@@ -27,7 +27,8 @@ def run_tests():
         '/home/ali/Documents/aika/backend/agent-microservice/src/agent_service/agent/tests',
         '/home/ali/Documents/aika/backend/agent-microservice/src/agent_service/prompts/tests',
         '/home/ali/Documents/aika/backend/agent-microservice/src/agent_service/parsers/tests',
-        '/home/ali/Documents/aika/backend/agent-microservice/src/agent_service/tools/tests'
+        '/home/ali/Documents/aika/backend/agent-microservice/src/agent_service/tools/tests',
+        '/home/ali/Documents/aika/backend/agent-microservice/src/agent_service/rag/tests'
     ]
     
     # Create a test suite combining all discovered tests

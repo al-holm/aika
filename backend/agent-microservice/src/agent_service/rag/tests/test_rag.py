@@ -1,22 +1,22 @@
 import sys, os
 testdir = os.path.dirname(__file__)
 sys.path.insert(0, os.path.abspath(os.path.join(testdir, '../../../')))
-from agent_service.tools.retrieval_tool import RetrievalTool
+from agent_service.rag.rag import RAG
 import unittest, xmlrunner
 from unittest.mock import patch, mock_open, MagicMock
 
-class TestRetrievalTool(unittest.TestCase):
+class TestRAG(unittest.TestCase):
 
     def setUp(self):
-        self.retrieval_tool = RetrievalTool(init=False, llm='bedrock', test=True)
-        self.retrieval_tool.max_chunk_len = 50
+        self.rag = RAG(init=False, llm='bedrock', test=True)
+        self.rag.max_chunk_len = 50
 
 
     def test_get_src_chunks_txt_complex_split(self):
         text = ("URL: http://example.com\nBody Text:\nThis is a complex text. It contains several sentences. "
                 "Each sentence should be handled properly. The splitting logic must find the closest period. "
                 "This ensures that we do not split mid-sentence. Related: None")
-        src, chunks = self.retrieval_tool.get_src_chunks_txt(text)
+        src, chunks = self.rag.get_src_chunks_txt(text)
         expected_src = ["http://example.com", "http://example.com", "http://example.com", "http://example.com", "http://example.com"]
 
         expected_chunks = ["This is a complex text.",
@@ -35,7 +35,7 @@ class TestRetrievalTool(unittest.TestCase):
         with open(os.path.join(test_dir, 'file2.md'), 'w') as f:
             f.write('sample markdown text 2')
 
-        result = self.retrieval_tool.read_markdown_folder(test_dir)
+        result = self.rag.read_markdown_folder(test_dir)
         self.assertEqual(result, ['sample markdown text 1', 'sample markdown text 2'])
 
         os.remove(os.path.join(test_dir, 'file1.md'))
@@ -50,7 +50,7 @@ class TestRetrievalTool(unittest.TestCase):
         with open(os.path.join(test_dir, 'file2.txt'), 'w') as f:
             f.write('sample text content 2')
 
-        result = self.retrieval_tool.read_txt_folder(test_dir)
+        result = self.rag.read_txt_folder(test_dir)
         self.assertEqual(result, ['sample text content 1', 'sample text content 2'])
 
         os.remove(os.path.join(test_dir, 'file1.txt'))
@@ -59,13 +59,13 @@ class TestRetrievalTool(unittest.TestCase):
 
     def test_parse_info_md(self):
         text_list = ["\n# Title\n# Section 1\nContent 1", "\n# Title\n# Section 2\nContent 2"]
-        src, docs = self.retrieval_tool.parse_info(text_list, mode="md")
+        src, docs = self.rag.parse_info(text_list, mode="md")
         self.assertEqual(src, ["Title", "Title"])
         self.assertEqual(docs, ["Section 1\nContent 1", "Section 2\nContent 2"])
 
     def test_parse_info_txt(self):
         text_list = ["URL: http://example.com\nBody Text:\nContent 1\nRelated:"]
-        src, docs = self.retrieval_tool.parse_info(text_list, mode="txt")
+        src, docs = self.rag.parse_info(text_list, mode="txt")
         self.assertEqual(src, ["http://example.com"])
         self.assertEqual(docs, ["Content 1"])
 
@@ -77,11 +77,11 @@ class TestRetrievalTool(unittest.TestCase):
         with open(os.path.join(test_dir, 'file2.txt'), 'w') as f:
             f.write('URL: http://example.com\nBody Text:\nsample text content 2\nRelated:')
 
-        self.retrieval_tool.DOC_PATH = test_dir
-        self.retrieval_tool.load_docs()
+        self.rag.DOC_PATH = test_dir
+        self.rag.load_docs()
 
-        self.assertEqual(self.retrieval_tool.list_docs, ['markdown text 1', 'sample text content 2'])
-        self.assertEqual(self.retrieval_tool.list_src, ['sample src', 'http://example.com'])
+        self.assertEqual(self.rag.list_docs, ['markdown text 1', 'sample text content 2'])
+        self.assertEqual(self.rag.list_src, ['sample src', 'http://example.com'])
 
         os.remove(os.path.join(test_dir, 'file1.md'))
         os.remove(os.path.join(test_dir, 'file2.txt'))
@@ -89,7 +89,7 @@ class TestRetrievalTool(unittest.TestCase):
 
     def test_get_src_chunks_txt_single_chunk(self):
         text = "URL: http://example.com\nBody Text:\nThis is a short text. Related: None"
-        src, chunks = self.retrieval_tool.get_src_chunks_txt(text)
+        src, chunks = self.rag.get_src_chunks_txt(text)
         expected_src = ["http://example.com"]
         expected_chunks = ["This is a short text."]
         self.assertEqual(src, expected_src)
@@ -98,7 +98,7 @@ class TestRetrievalTool(unittest.TestCase):
     def test_get_src_chunks_txt_multiple_chunks(self):
         text = ("URL: http://example.com\nBody Text:\nThis is a longer text. It should be split into multiple chunks. "
                 "This is additional content to ensure splitting. Related: None")
-        src, chunks = self.retrieval_tool.get_src_chunks_txt(text)
+        src, chunks = self.rag.get_src_chunks_txt(text)
         expected_src = ["http://example.com", "http://example.com", "http://example.com"]
         expected_chunks = ["This is a longer text.", ' It should be split into multiple chunks.',
                            " This is additional content to ensure splitting."]
@@ -108,11 +108,11 @@ class TestRetrievalTool(unittest.TestCase):
     def test_get_src_chunks_txt_no_url(self):
         text = "Body Text:\nThis is a text without a URL. Related: None"
         with self.assertRaises(IndexError):
-            self.retrieval_tool.get_src_chunks_txt(text)
+            self.rag.get_src_chunks_txt(text)
 
     def test_get_src_chunks_txt_no_body_text(self):
         text = "URL: http://example.com\nRelated: None"
         with self.assertRaises(IndexError):
-            self.retrieval_tool.get_src_chunks_txt(text) 
+            self.rag.get_src_chunks_txt(text) 
 if __name__ == '__main__':
     unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))

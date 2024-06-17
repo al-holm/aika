@@ -2,13 +2,13 @@ from agent_service.tools.tool import Tool
 from agent_service.prompts.prompt_builder import PromptBuilder
 from agent_service.prompts.tool_prompt import RETRIEVER_TEMPLATE
 import os
-from typing import Dict
+from typing import Dict, List
 import logging
 from pymilvus import MilvusClient
 from pymilvus.model import hybrid
 from tqdm import tqdm
 
-class RetrievalTool(Tool):
+class RAG(Tool):
     PROMPT_ID = "retrieve"
     TEMPLATE = RETRIEVER_TEMPLATE
     
@@ -24,7 +24,6 @@ class RetrievalTool(Tool):
         super().__init__(name, description, llm, prompt_id, prompt_template, max_tokens)
         self.min_chunk_len = 200
         self.max_chunk_len = 660
-        print(self.llm.max_tokens)
         if not test:
             self.ef = hybrid.BGEM3EmbeddingFunction(
                 model_name='BAAI/bge-m3', 
@@ -32,7 +31,6 @@ class RetrievalTool(Tool):
                 use_fp16=False
             )
             self.start_vector_store(init)
-        print(init)
         if init:
             self.load_docs()
             self.add_docs()
@@ -92,7 +90,7 @@ class RetrievalTool(Tool):
 
     def parse_info(self, text_list, mode="md"):
         """
-        Parse a list of markdown texts into a DataFrame containing document information.
+        Parse a list of markdown texts into a list containing document information.
 
         Parameters
         ----------
@@ -117,6 +115,12 @@ class RetrievalTool(Tool):
     
     def get_src_chunks_md(self, text: str):
         """
+        extracts source code chunks and additional text chunks from a given input text extracted from a md file.
+        
+        Returns
+        -------
+            (List, List) - the sources and text chunks after splitting recursively.
+        
         """
         blocks = text.split("\n# ")
         src = blocks[1]
@@ -125,13 +129,28 @@ class RetrievalTool(Tool):
         return ([src for _ in chunks], chunks) 
 
     def get_src_chunks_txt(self, text: str):
+        """
+        extracts source code chunks and additional text chunks from a given input text extracted from a txt file.
+        
+        Returns
+        -------
+            (List, List) - the sources and text chunks after splitting recursively.  
+        """
         src = text.split("URL: ")[1].split("\n")[0]
         chunk = text.split("Body Text:\n")[1].split("Related:")[0]
         chunks = [chunk.strip()]
         chunks = self.split_recursive(chunks)
         return ([src for _ in chunks], chunks)
 
-    def split_recursive(self, chunks):
+    def split_recursive(self, chunks) -> List[str]:
+        """
+        recursively splits a list of strings into chunks based on a
+        maximum chunk length while ensuring that the split occurs at delimiter '.'.
+        
+        Returns
+        -------
+            List[str] -  a list of chunks
+        """
         temp = True
         while temp:
             len_chunk = len(chunks)
