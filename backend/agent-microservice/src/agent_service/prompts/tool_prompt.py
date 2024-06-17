@@ -60,6 +60,7 @@ Use the following format:
 Type: [single-choice, gaps, open]
 Question: [Deine Frage]
 Answer options: [for single-choice options, for gaps text with gaps, for open "None"]
+Solution Explanation: [explanation for each answer]
 Solution: [Correct answer/s]
 [END]
 

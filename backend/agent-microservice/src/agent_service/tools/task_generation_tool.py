@@ -19,7 +19,6 @@ class TaskGenerator(Tool):
         tool_answer: str
             concatenated input and generated exercises
         """
-        print(input)
         parsed_input = self.parse_input(input)
         first_query, second_query = self.build_prompts(parsed_input)
         # reduce max tokens for generating exercises
@@ -40,21 +39,17 @@ class TaskGenerator(Tool):
                 # if the extracting fails it means that the exercises weren't generated correctly
                 # so the programs doesn't set areInvalid to False and the loop continues
                 if not first:
-                    self.llm.set_max_tokens(700)
-                    print('running llm ... sg')
+                    self.llm.set_max_tokens(1000)
                     raw_single_choice_and_gap_filling = self.llm.run(first_query)
-                    print(f'\n\n\n{raw_single_choice_and_gap_filling}')
+                    logging.info(f"\n\n\nTaskGenerator:run: raw_sg = {raw_single_choice_and_gap_filling}")
                     single_choice_and_gap_filling = self.extract_exercises(raw_single_choice_and_gap_filling, int(parsed_input["single-choice"]) + int(parsed_input["gap-filling"]))
+                    logging.info(f"\n\n\nTaskGenerator:run: parsed_sg = {single_choice_and_gap_filling}")
                     first = True
-                    print(f'first question done: {first}')
                 if not second:
                     self.llm.set_max_tokens(100)
-                    print('running llm... o')
                     raw_open_qs = self.llm.run(second_query) 
-                    print(f'\n\n\n{raw_open_qs}')
                     open_qs = self.extract_exercises(raw_open_qs, int(parsed_input["open"]))
                     second = True
-                    print(f'second question done: {second}')
                 areInvalid = False
             except ExtractingExercisesError:
                 # the program gets there when an error occured during the extraction of the exercises
@@ -86,7 +81,11 @@ class TaskGenerator(Tool):
         main_topic, secondary_topic = input["main-topic"], input["secondary-topic"]
         single_choice, gap_filling, open_q = input["single-choice"], input["gap-filling"], input["open"]
         if input["type"] == "Grammar":
-            examples_1, examples_2 = GRAMMAR_TASKS_EXAMPLES_1, GRAMMAR_TASKS_EXAMPLES_2
+            # When we need to generate single-choice questions and gap-filling exercises, 
+            # we retrieve examples not from the GRAMMAR_TASKS_EXAMPLES_1, but from the good exercises database
+            # That's why we have GRAMMAR_TASKS_EXAMPLES_1 + self.get_examples(main_topic)
+            examples_1, examples_2 = GRAMMAR_TASKS_EXAMPLES_1 + self.get_examples(main_topic), GRAMMAR_TASKS_EXAMPLES_2
+            logging.info(f"TaskGenerator:build_prompts: examples_1 = {examples_1}")
             first_input = f"[{main_topic}][{secondary_topic}][{single_choice}][{gap_filling}]"
             second_input = f"[{main_topic}][{second_input}][{open_q}]"
         else:
@@ -98,6 +97,45 @@ class TaskGenerator(Tool):
         second_query = self.prompt.generate_prompt(name_id=self.prompt_id, input_format_and_examples=examples_2, text=(second_input + f"[{input['text']}]"))
         
         return (first_query,second_query)
+    
+    def get_examples(self, grammar_topic: str) -> str:
+        filepath = "agent_service/tools/res/lesson_generation_db/good_exercises.md"
+        logging.info(f"TaskGenerator:get_examples: called with grammar_topic = {grammar_topic}")
+        try:
+            with open(filepath, 'r', encoding='utf8') as file:
+                content = file.read()
+                logging.info("TaskGenerator:get_examples: content read")
+                # Define the pattern to capture relevant sections based on the grammar topic
+                pattern = r'\{' + re.escape(grammar_topic) + r'\}{GPT-4o}\n\[START\](.*?)\[END\]'
+                
+                # Find all matches in the content
+                matches = re.findall(pattern, content, re.DOTALL)
+
+                logging.info(f"TaskGenerator:get_examples: found examples = {matches}")
+                
+                exercises = ""
+                for match in matches:
+                    # Parsing details within each section
+                    type_match = re.search(r'Type: \[(.*?)\]', match)
+                    question_match = re.search(r'Question: \[(.*?)\]', match)
+                    options_match = re.search(r'Answer options: \[(.*?)\]', match)
+                    solution_match = re.search(r'Solution: \[(.*?)\]', match)
+                    explanation_match = re.search(r'Solution explanation: \[(.*?)\]', match)
+                    
+                    exercise = "[START]\n" + f"Type: [{type_match.group(1) if type_match else 'N/A'}]\n" 
+                    exercise += f"Question: [{question_match.group(1) if question_match else 'N/A'}]\n" 
+                    exercise += f"Answer Options: [{options_match.group(1) if options_match else 'N/A'}]\n"
+                    exercise += f"Solution Explanation: [{explanation_match.group(1) if explanation_match else 'N/A'}]\n"
+                    exercise += f"Solution: [{solution_match.group(1) if solution_match else 'N/A'}]\n"
+                    exercise += "[END]\n"
+                    exercises += exercise
+
+                return exercises
+        except FileNotFoundError:
+            logging.error("TaskGenerator:get_examples:file not found")    
+
+
+
 
     def parse_input(self, input: str) -> Dict[str, str]:
         """
