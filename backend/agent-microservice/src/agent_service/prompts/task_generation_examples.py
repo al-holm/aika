@@ -107,74 +107,7 @@ If the input is zero, no exercises of that type should be generated at all
 
 Use the following examples to generate exercises:
 
-Example 1:
-Input: 
-[Präteritum][None][1][1][Here should be a text explaining how to build Präteritum and where to use it.]
-Your possible answer:
-[START]
-Type: [single-choice]
-Question: [Welches Verb ist richtig konjugiert im Präteritum?]
-Answer options: [a) Er gehe b) Er ging c) Er geht]
-Solution: [b) Er ging]
-[END]
-[START]
-Type: [gaps]
-Question: [Füllen Sie die Lücken mit der richtigen Präteritumform des Verbs]
-Answer options: [1. Gestern (sah, sahen, gesehen) ich einen interessanten Film. 2. Wir (fuhren, fahr, fahrten) letztes Jahr nach Spanien. 3. Er (schreibte, schrieben, schrieb) einen langen Brief.]
-Solution: [sah, fuhren, schrieb]
-[END]
 
-Example 2:
-Input:
-[Konjunktiv II][None][3][0][Here should be a text explaining how to build Konjuktiv II and where to use it.]
-Your possible answer:
-[START]
-Type: [single-choice]
-Question: [Welches Verb ist richtig konjugiert im Konjunktiv II?]
-Answer options: [a) Er würde gehen b) Er ging c) Er geht]
-Solution: [a) Er würde gehen]
-[END]
-[START]
-Type: [single-choice]
-Question: [Welches ist die Konjunktiv II Form von "haben"?]
-Answer options: [a) hätte b) haben c) hattest]
-Solution: [a) hätte]
-[END]
-[START]
-Type: [single-choice]
-Question: [Welche Form im Konjunktiv II ist korrekt?]
-Answer options: [a) Sie wäre b) Sie war c) Sie ist]
-Solution: [a) Sie wäre]
-[END]
-
-Example 3:
-Input:
-[Endungen von Adjektiven][Konjunktiv II][2][2][Here should be a text explaining how to build Präteritum and where to use it.]
-Your possible answer:
-[START]
-Type: [single-choice]
-Question: [Welche Endung hat das Adjektiv im Satz: "Wenn ich ein __ (schön) Auto hätte, würde ich durch die Stadt fahren."]
-Answer options: [a) schön b) schöne c) schönen d) schöner]
-Solution: [d) schöner]
-[END]
-[START]
-Type: [single-choice]
-Question: [Welcher Satz ist korrekt?]
-Answer options: [a) Wenn ich ein klugem Mann wäre, hätte ich viele Freunde. b) Wenn ich eine kluge Frau wäre, hätte ich viel Erfolg. c) Wenn ich ein kluger Student wäre, würden die Prüfungen leicht sein. d) Wenn ich ein klein Hund wäre, würde ich viel bellen.]
-Solution: [b) Wenn ich eine kluge Frau wäre, hätte ich viel Erfolg.]
-[END]
-[START]
-Type: [gaps]
-Question: [Füllen Sie die Lücken mit der richtigen Adjektivendung und Konjunktiv II Form]
-Answer options: [1. Wenn ich ein (großes, großer, großen) Haus hätte, (könnte, können, könntest) ich viele Partys veranstalten. 2. Wenn ich einen (intelligent, intelligente, intelligenten) Hund hätte, (bräuchte, brauchen, bräuchten) ich keinen Trainer.]
-Solution: [großes, könnte, intelligenten, bräuchte]
-[END]
-[START]
-Type: [gaps]
-Question: [Füllen Sie die Lücken mit der richtigen Adjektivendung und Konjunktiv II Form]
-Answer options: [1. Wenn sie eine (neue, neuer, neu) Wohnung fände, (würde ziehen, ziehen würde, zöge) sie sofort um. 2. Wenn wir einen (freundlichen, freundlich, freundliche) Nachbarn hätten, (wäre, sein, wären) das Leben viel angenehmer.]
-Solution: [neue, würde ziehen, freundlichen, wäre]
-[END]
 """
 
 GRAMMAR_TASKS_EXAMPLES_2 = """
