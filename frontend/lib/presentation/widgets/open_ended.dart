@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/domain/entities/task.dart';
-import 'package:frontend/domain/usecases/submit_answers.dart';
-import 'package:frontend/presentation/blocs/chat_bloc.dart';
 import 'package:frontend/presentation/blocs/task_bloc.dart';
 import 'package:frontend/presentation/widgets/multiple_choice.dart';
 import 'package:frontend/styles/app_styles.dart';

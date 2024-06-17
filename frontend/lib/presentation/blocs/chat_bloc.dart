@@ -39,12 +39,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       final updatedMessages = List<Message>.from(chatMessages[event.chatID]!);
       emit(ChatLoaded(updatedMessages, chatID: event.chatID, offerLesson: true));
     } catch (e) {
-      emit(ChatError("Could not initialize chat", event, chatMessages[event.chatID]!));
+      emit(ChatError("Could not initialize chat", event, state, chatMessages[event.chatID]!));
     }
   }
 
   void _onSendMessage(SendMessageEvent event, Emitter<ChatState> emit) async {
-    final currentState = state;
+    ChatState currentState = state;
     if (currentState is ChatLoaded || currentState is LessonLoaded || currentState is ChatError) {
       emit(ChatLoading(chatID: event.chatID, messages: chatMessages[event.chatID]!));
       try {
@@ -62,13 +62,20 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         final responseMessage = await sendMessage(event.chatID, message);
         chatMessages[event.chatID]!.add(responseMessage);
         final updatedMessages = List<Message>.from(chatMessages[event.chatID]!);
+        if (currentState is ChatError) {
+           if (currentState.lastState is ChatLoaded) {
+            currentState = currentState.lastState as ChatLoaded;
+          } else if (currentState.lastState is LessonLoaded) {
+            currentState = currentState.lastState as LessonLoaded;
+          }
+        }
         if (currentState is ChatLoaded) {
           emit(ChatLoaded(updatedMessages, chatID: event.chatID, offerLesson: false));
         } else if (currentState is LessonLoaded) {
           emit(LessonLoaded(updatedMessages, currentState.lesson, chatID: event.chatID));
-        }
+        } 
       } catch (e) {
-        emit(ChatError("Could not send message", event, chatMessages[event.chatID]!));
+        emit(ChatError("Could not send message", event, state, chatMessages[event.chatID]!));
       }
     }
   }
@@ -80,14 +87,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         await sendImage(event.chatID, event.path);
         add(FetchLessonEvent(event.chatID)); // Fetch responses after sending
       } catch (e) {
-        emit(ChatError("Could not send image", event, chatMessages[event.chatID]!));
+        emit(ChatError("Could not send image", event, state, chatMessages[event.chatID]!));
       }
     }
   }
 
   void _onFetchLesson(FetchLessonEvent event, Emitter<ChatState> emit) async {
     final currentState = state;
-    print(currentState);
     if (currentState is ChatLoaded || currentState is LessonLoaded || currentState is ChatError) {
       emit(ChatLoading(chatID: event.chatID, messages: chatMessages[event.chatID]!));
       try {
@@ -96,7 +102,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         final updatedMessages = List<Message>.from(chatMessages[event.chatID]!);
         emit(LessonLoaded(updatedMessages, lesson, chatID: event.chatID));
       } catch (e) {
-        emit(ChatError("Could not fetch lesson", event, chatMessages[event.chatID]!));
+        emit(ChatError("Could not fetch lesson", event, state, chatMessages[event.chatID]!));
       }
     }
   }

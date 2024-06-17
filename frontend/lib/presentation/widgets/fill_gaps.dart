@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/domain/entities/task.dart';
-import 'package:frontend/domain/usecases/submit_answers.dart';
-import 'package:frontend/presentation/blocs/chat_bloc.dart';
 import 'package:frontend/presentation/blocs/task_bloc.dart';
 import 'package:frontend/styles/app_styles.dart';
 class FillInTheGapTask extends StatelessWidget {
@@ -25,7 +23,7 @@ class FillInTheGapTask extends StatelessWidget {
                 style: AppStyles.taskQuestionTextStyle,
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               FillInTheGapQuestion(task: task),
             ],
           ),
@@ -68,7 +66,7 @@ class _FillInTheGapQuestionState extends State<FillInTheGapQuestion> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Transform.translate(
-              offset: Offset(0, -8.0 / 1.5),
+              offset: const Offset(0, -8.0 / 1.5),
               child: buildDropdown(i),
             ),
           ),
