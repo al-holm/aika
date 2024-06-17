@@ -24,10 +24,10 @@ class Tool(ABC):
                     prompt_id: str, prompt_template: str, max_tokens:int) -> None:
         self.name = name
         self.description = description
+        self.max_tokens = max_tokens
         self.set_llm(llm)
         self.prompt_id = prompt_id
         self.prompt_template = prompt_template
-        self.max_tokens = max_tokens
         self.prompt = ''
         self.init_prompt()
         
