@@ -79,6 +79,7 @@ class TaskSequenceScreen extends StatelessWidget {
   Widget _buildBackButton(BuildContext context, TaskInProgress state, TaskBloc taskBloc) {
     return TaskControlButton(
               onPressed: () {
+                FocusScope.of(context).unfocus(); 
                 taskBloc.add(CompleteTaskEvent(
                   state.currentTaskIndex,
                   state.tasks[state.currentTaskIndex].userAnswers,
