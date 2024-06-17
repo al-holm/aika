@@ -115,4 +115,4 @@ class TestRAG(unittest.TestCase):
         with self.assertRaises(IndexError):
             self.rag.get_src_chunks_txt(text) 
 if __name__ == '__main__':
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
+    unittest.main()

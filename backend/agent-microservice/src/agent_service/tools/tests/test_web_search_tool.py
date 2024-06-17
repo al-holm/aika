@@ -87,4 +87,4 @@ class TestWebSearch(unittest.TestCase):
         self.assertIn("Mock LLM response for partial results", result)
 
 if __name__ == '__main__':
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
+    unittest.main()

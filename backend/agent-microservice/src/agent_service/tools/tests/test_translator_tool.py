@@ -61,4 +61,4 @@ class TestTranslator(unittest.TestCase):
         self.assertIn("Du hast das falsche Format als Action Input gegeben", result)
 
 if __name__ == '__main__':
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
+    unittest.main()
