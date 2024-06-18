@@ -4,7 +4,6 @@ from agent_service.tools.web_search_tool import WebSearch
 from agent_service.tools.listening_generation_tool import ListeningGenerator
 from agent_service.tools.task_generation_tool import TaskGenerator
 from agent_service.tools.phrasing_tool import PhrasingTool
-from agent_service.tools.retrieval_tool import RetrievalTool
 from agent_service.tools.no_answer_tool import NoAnswerTool
 from agent_service.core.pydantic_tool import ToolConfigModel
 from agent_service.core.config import Config
@@ -23,7 +22,7 @@ class ToolFactory:
             'reading_generator': (ReadingGenerator, READING_TEMPLATE),
             'task_generator':(TaskGenerator, TASK_TEMPLATE),
             'phrasing_tool': (PhrasingTool, PHRASING_TEMPLATE),
-            'retriever': (RetrievalTool, RETRIEVER_TEMPLATE),
+            'retriever': (WebSearch, RETRIEVER_TEMPLATE),
             'no_answer': (NoAnswerTool, '')
         }  
         self.config = config
