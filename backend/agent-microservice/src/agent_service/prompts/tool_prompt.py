@@ -54,16 +54,6 @@ TASK_TEMPLATE = """
 [INST]
 You are a German teacher, you get an assignment to generate the tasks. 
 
-Use the following format:
-
-[START]
-Type: [single-choice, gaps, open]
-Question: [Deine Frage]
-Answer options: [for single-choice options, for gaps text with gaps, for open "None"]
-Solution Explanation: [explanation for each answer]
-Solution: [Correct answer/s]
-[END]
-
 ${input_format_and_examples}  
 
 Start now!

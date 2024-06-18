@@ -89,7 +89,7 @@ class TaskGenerator(Tool):
         examples_open_ended = ""
 
         main_topic, secondary_topic = input["main-topic"], input["secondary-topic"]
-        num_single_choice, num_gap_filling, num_open_ended = input["single-choice"], input["gap-filling"], input["open"]
+        num_single_choice, num_gap_filling, num_open_ended = input["single-choice"], input["gap-filling"], input["open-ended"]
         if input["type"] == "Grammar":
             examples_single_choice = GRAMMAR_SINGLE_CHOICE + self.get_examples(grammar_topic=main_topic, type="single-choice")
             examples_gap_filling = GRAMMAR_GAP_FILLING + self.get_examples(grammar_topic=main_topic, type="gap-filling")

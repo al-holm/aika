@@ -4,6 +4,16 @@ Your input format is:
 
 Generate exactly as many exercises as are specified in the input. 
 
+
+[START]
+Type: [single-choice]
+Question: [your question]
+Answer options: [answer options]
+Solution Explanation: None
+Solution: [Correct answer]
+[END]
+
+
 Use the following examples to generate exercises:
 
 Example 1:
@@ -14,12 +24,14 @@ Your answer:
 Type: [single-choice]
 Question: [Welche Städte besuchte der Erzähler in Italien?]
 Answer options: [a) Rom, Florenz und Venedig b) Mailand, Rom und Florenz c) Rom, Venedig und Neapel d) Florenz, Venedig und Mailand]
+Solution Explanation: None
 Solution: [a) Rom, Florenz und Venedig]
 [END]
 [START]
 Type: [single-choice]
 Question: [Was sah der Erzähler in Rom?]
 Answer options: [a) Das Kolosseum und das Pantheon b) Die Uffizien c) Die Kanäle und Brücken d) Das schöne Wetter]
+Solution Explanation: None
 Solution: [a) Das Kolosseum und das Pantheon]
 [END]
 [START]
@@ -32,18 +44,21 @@ Your answer:
 Type: [single-choice]
 Question: [Was sind die Lieblingsfächer des Erzählers?]
 Answer options: [a) Mathematik und Geschichte b) Mathematik und Biologie c) Geschichte und Kunst d) Biologie und Kunst]
+Solution Explanation: None
 Solution: [a) Mathematik und Geschichte]
 [END]
 [START]
 Type: [single-choice]
 Question: [Was machen der Erzähler und Paul oft nach der Schule?]
 Answer options: [a) Sie spielen Fußball oder gehen ins Kino b) Sie lernen zusammen c) Sie gehen schwimmen d) Sie spielen Videospiele]
+Solution Explanation: None
 Solution: [a) Sie spielen Fußball oder gehen ins Kino]
 [END]
 [START]
 Type: [single-choice]
 Question: [Wie heißt die Lehrerin des Erzählers?]
 Answer options: [a) Frau Schmidt b) Frau Müller c) Frau Meier d) Frau Becker]
+Solution Explanation: None
 Solution: [b) Frau Müller]
 [END]
 """
@@ -53,6 +68,14 @@ Your input format is:
 [Gaps-filling-exercises-number][Text for which exercises must be provided]
 
 Generate exactly as many exercises as are specified in the input. 
+
+[START]
+Type: [gaps]
+Question: [question]
+Answer options: [text with gaps]
+Solution Explanation: None
+Solution: [Correct answers]
+[END]
 
 Use the following examples to generate exercises:
 
@@ -64,12 +87,14 @@ Your answer:
 Type: [gaps]
 Question: [Füllen Sie die Lücken basierend auf dem Text]
 Answer options: [1. In Florenz ging ich in die (Uffizien, Museen, Kirchen). 2. In Venedig gefielen mir die (Kanäle, Straßen, Gebäude) und Brücken.]
+Solution Explanation: None
 Solution: [Uffizien, Kanäle]
 [END]
 [START]
 Type: [gaps]
 Question: [Füllen Sie die Lücken basierend auf dem Text]
 Answer options: [1. Jeden Tag aß ich (leckeres, langweiliges, teures) italienisches Essen. 2. Letzten Sommer war ich in (Spanien, Frankreich, Italien) im Urlaub.]
+Solution Explanation: None
 Solution: [leckeres, Italien]
 [END]
 """
@@ -79,6 +104,14 @@ Your input format is:
 [Open-Questions-Number][Text for which exercises must be provided]
 
 Generate exactly as many exercises as are specified in the input and only for a given text! 
+
+[START]
+Type: [open]
+Question: [question]
+Answer options: None
+Solution Explanation: None
+Solution: None
+[END]
 
 Use the following examples to generate exercises:
 
@@ -90,6 +123,7 @@ Your possible answer:
 Type: [open]
 Question: [Warum war der Urlaub des Erzählers wunderbar? Nutzen Sie Details aus dem Text.]
 Answer options: None
+Solution Explanation: None
 Solution: [Der Urlaub des Erzählers war wunderbar, weil er das Kolosseum und das Pantheon in Rom sah, viele schöne Kunstwerke in den Uffizien in Florenz bewunderte und die Kanäle und Brücken in Venedig genoss. Außerdem aß er jeden Tag leckeres italienisches Essen und hatte gutes Wetter.]
 [END]
 
@@ -101,6 +135,7 @@ Your possible answer:
 Type: [open]
 Question: [Warum mag der Erzähler seine Schule? Nutzen Sie Details aus dem Text.]
 Answer options: None
+Solution Explanation: None
 Solution: [Der Erzähler mag seine Schule, weil er seine Lieblingsfächer Mathematik und Geschichte hat, in denen er interessante Themen wie Brüche und das Mittelalter lernt. Außerdem hat er einen besten Freund namens Paul, mit dem er zusammen in der Klasse sitzt und nach der Schule oft Fußball spielt oder ins Kino geht. Auch seine Lehrerin, Frau Müller, ist sehr nett und hilft ihm bei den Hausaufgaben.]
 [END]
 
@@ -114,6 +149,16 @@ Your input format is:
 
 Generate exactly as many exercises as are specified in the input. 
 
+Use the following format:
+
+[START]
+Type: [single-choice]
+Question: [your question]
+Answer options: [answer options]
+Solution Explanation: [explanation]
+Solution: [Correct answer]
+[END]
+
 
 Use the following examples to generate exercises:
 
@@ -125,6 +170,16 @@ Your input format is:
 [Main-grammar-topic][Secondary-grammar-topic][Gaps-filling-exercises-number][Main-grammar-topic-explanation-text]
 
 Generate exactly as many exercises as are specified in the input. 
+
+Use the following format:
+
+[START]
+Type: [gaps]
+Question: [question]
+Answer options: [text with gaps]
+Solution Explanation: [explanation for each answer]
+Solution: [Correct answers]
+[END]
 
 
 Use the following examples to generate exercises:
@@ -138,6 +193,16 @@ Your input format is:
 
 Generate exactly as many exercises as are specified in the input and only for given topics. 
 
+Use the following format:
+
+[START]
+Type: [open]
+Question: [question]
+Answer options: None
+Solution Explanation: None
+Solution: None
+[END]
+
 Use the following examples to generate exercises:
 
 Example 1:
@@ -148,6 +213,7 @@ Your possible answer:
 Type: [open]
 Question: [Schreiben Sie über ein Erlebnis aus Ihrer Kindheit im Präteritum. Beschreiben Sie, was passiert ist, und wie Sie sich dabei gefühlt haben.]
 Answer options: None
+Solution Explanation: None
 Solution: None
 [END]
 
@@ -159,6 +225,7 @@ Your possible answer:
 Type: [open]
 Question: [Schreiben Sie einen Wunsch oder eine Bedingung, die Sie haben, im Konjunktiv II.]
 Answer options: None
+Solution Explanation: None
 Solution: None
 [END]
 
@@ -170,6 +237,7 @@ Your possible answer:
 Type: [open]
 Question: [Schreibe einen kurzen Text darüber, was du tun würdest, wenn du einen perfekten Tag planen könntest. Achte dabei auf die korrekten Adjektivendungen und benutze mindestens drei Sätze im Konjunktiv II.]
 Answer options: None
+Solution Explanation: None
 Solution: None
 [END]
 
