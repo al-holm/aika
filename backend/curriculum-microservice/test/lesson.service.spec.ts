@@ -1,12 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { LessonService } from '../src/lesson/lesson.service';
-import { readLessonsFromFile } from '../src/util/json.util';
-import { Lesson } from '../src/interfaces/lesson.interface';
+import { readLessonsFromFile, writeLessonsToFile } from '../src/util/json.util';
+import { Lesson, LessonType } from '../src/interfaces/lesson.interface'
+import { TaskDto } from '../src/lesson/dto/task.dto';
+import { NotImplementedException } from '@nestjs/common';
+import { TaskType } from 'src/interfaces/task.interface';
 
 // Mocking the readLessonsFromFile function
 jest.mock('../src/util/json.util', () => ({
   readLessonsFromFile: jest.fn(),
+  writeLessonsToFile: jest.fn()
 }));
+
 describe('LessonService', () => {
   let service: LessonService;
   const mockLessons: Lesson[] = [
@@ -38,6 +43,8 @@ describe('LessonService', () => {
     }).compile();
 
     service = module.get<LessonService>(LessonService);
+    //@ts-ignore
+    await service.loadLessons(); // Ensure lessons are loaded before each test
   });
 
   it('should be defined', () => {
@@ -45,8 +52,6 @@ describe('LessonService', () => {
   });
 
   it('should load lessons on initialization', async () => {
-    //@ts-ignore
-    await service.loadLessons();
     expect(service['lessons']).toEqual(mockLessons);
   });
 
@@ -65,12 +70,23 @@ describe('LessonService', () => {
     expect(consoleSpy).toHaveBeenCalledWith('[Reading][Read a short story about daily routines][None][1][1][1]');
   });
 
-  it('should handle processUserAnswers correctly', async () => {
-    const result = await service.processUserAnswers({} as any);
-    expect(result).toBe(true);
+  it('should process user answers and mark lesson as completed', async () => {
+    const task: TaskDto = {
+      type: TaskType.single_choice,
+      id: 1,
+      lesson_type: 'Reading',
+      question: 'What is your name?',
+      options: [['John', 'Doe']],
+      userAnswers: [['John']],
+      solutions: ['John'],
+    };
+
+    await service.processUserAnswers(task);
+    const updatedLesson = service['lessons'].find(lesson => lesson.id === 1);
+    expect(updatedLesson.completed[1]).toBe(true); // Reading is the second type
   });
 
-  it('should handle completed curriculum', async () => {
+  it('should handle completed curriculum and return default values', async () => {
     // Mock all lessons as completed
     const completedLessons = mockLessons.map(lesson => ({
       ...lesson,
@@ -86,6 +102,6 @@ describe('LessonService', () => {
 
   it('should throw an error for unsupported lesson type in getNextTopic', () => {
     const invalidType = 'InvalidType';
-    expect(() => service['getNextTopic'](invalidType, mockLessons[0])).toThrowError('This lesson type is not implemented.');
+    expect(() => service['getNextTopic'](invalidType, mockLessons[0])).toThrowError(NotImplementedException);
   });
 });
