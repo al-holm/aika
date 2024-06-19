@@ -22,6 +22,7 @@ class ExercisesParser:
         contents_pattern = r'\[(.*?)\]'
         task_def_contents = re.findall(contents_pattern, input, re.DOTALL)
         exercises_text = task_def_contents[6]
+        exercises_text = '.'.join(exercises_text.strip().split('.')[:-1]) + '.'
 
         exercises_pattern = r'\[START\](.*?)\[END\]'
         exercises_raw_str = re.findall(exercises_pattern, input, re.DOTALL)
