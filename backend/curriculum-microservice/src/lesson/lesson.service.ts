@@ -1,8 +1,9 @@
 import { ApiTags} from '@nestjs/swagger';
 import { Injectable, NotImplementedException } from "@nestjs/common";
-import { Lesson } from "src/interfaces/lesson.interface";
-import { readLessonsFromFile } from "src/util/json.util";
+import { Lesson, LessonType } from "src/interfaces/lesson.interface";
+import { readLessonsFromFile, writeLessonsToFile } from "src/util/json.util";
 import { Task } from '../interfaces/task.interface';
+import { TaskDto } from './dto/task.dto';
 @ApiTags('Curriculum')
 @Injectable()
 export class LessonService {
@@ -14,7 +15,6 @@ export class LessonService {
 
     private async loadLessons() {
         this.lessons = await readLessonsFromFile();
-        console.log(this.lessons[0].id);
     }
 
     async getNextLesson() : Promise<boolean> {
@@ -25,12 +25,12 @@ export class LessonService {
     }
 
     private async getNextUncompletedLesson(): Promise<{type: string, topic: string}> {
-        const types = ['Grammar', 'Reading', 'Listening']
         for(let i = 0; i < this.lessons.length; i++) {
             var lesson = this.lessons[i];
             var uncompletedInd = lesson.completed.findIndex((el)=>!el);
             if (uncompletedInd != -1) {
-                var type = types[uncompletedInd];
+                var type = Object.values(LessonType)[uncompletedInd];
+                console.log(type);
                 var topic = this.getNextTopic(type, lesson);
                 return {type:type, topic:topic}
             } else {
@@ -51,7 +51,12 @@ export class LessonService {
         }
     }
 
-    async processUserAnswers(task: Task) : Promise<boolean> {
+    async processUserAnswers(task: TaskDto) : Promise<boolean> {
+        var lesson = this.lessons.find((el) => el.id == task.id);
+        const lesson_type = task.lesson_type.toLowerCase();
+        const index: number = Object.keys(LessonType).indexOf(lesson_type); 
+        lesson.completed[index] = true;
+        await writeLessonsToFile(this.lessons);
         return true;
     }
 }

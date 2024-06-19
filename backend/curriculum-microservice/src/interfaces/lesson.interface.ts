@@ -7,3 +7,9 @@ export interface Lesson {
     completed: Array<boolean>;
     score: Array<Number>;
 }
+
+export enum LessonType{
+    grammar = 'Grammar', 
+    reading = 'Reading',
+    listening = 'Listening'
+}

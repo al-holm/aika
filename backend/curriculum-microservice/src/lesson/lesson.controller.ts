@@ -12,7 +12,7 @@ export class LessonController {
   }
 
   @Post('process_answers')
-  async processAnswers(@Body() Task): Promise<boolean> {
-    return this.lessonsService.processUserAnswers(Task);
+  async processAnswers(@Body() TaskDto): Promise<boolean> {
+    return this.lessonsService.processUserAnswers(TaskDto);
   }
 }
