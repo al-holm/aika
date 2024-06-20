@@ -21,8 +21,6 @@ class TaskGenerator(Tool):
         """
         parsed_input = self.parse_input(input)
         query_single_choice, query_gap_filling, query_open_ended = self.build_prompts(parsed_input)
-        # reduce max tokens for generating exercises
-        tokens = self.llm.max_tokens
         
         single_choice_questions = None
         gap_filling_exercises = None
@@ -40,19 +38,13 @@ class TaskGenerator(Tool):
                 # if the extracting fails it means that the exercises weren't generated correctly
                 # so the programs doesn't set areInvalid to False and the loop continues
                 if not done_single_choice:
-                    self.llm.set_max_tokens(700)
-                    single_choice_questions = self.generate_exercises(query_single_choice, "single-choice", int(parsed_input["single-choice"]))
-                    logging.info("TaskGenerator:run: single-choice questions generated")
+                    single_choice_questions = self.generate_exercises(query_single_choice, "single-choice", int(parsed_input["single-choice"]), 700)
                     done_single_choice = True
                 if not done_gap_filling:
-                    self.llm.set_max_tokens(700)
-                    gap_filling_exercises = self.generate_exercises(query_gap_filling, "gap-filling", int(parsed_input["gap-filling"]))
-                    logging.info("TaskGenerator:run: gap-filling exercises generated")
+                    gap_filling_exercises = self.generate_exercises(query_gap_filling, "gap-filling", int(parsed_input["gap-filling"]), 700)
                     done_gap_filling = True
                 if not done_open_ended:
-                    self.llm.set_max_tokens(100)
-                    open_ended_questions = self.generate_exercises(query_open_ended, "open-ended", int(parsed_input["open-ended"]))
-                    logging.info("TaskGenerator:run: open-ended questions generated")
+                    open_ended_questions = self.generate_exercises(query_open_ended, "open-ended", int(parsed_input["open-ended"]), 100)
                     done_open_ended = True
                 areInvalid = False
             except ExtractingExercisesError:
@@ -60,8 +52,6 @@ class TaskGenerator(Tool):
                 gen_attempts -= 1
                 pass
     
-
-        self.llm.set_max_tokens(tokens)
 
         # if generation attempts aren't left it means that the generating exercises failed
         if gen_attempts == 0:
@@ -90,6 +80,10 @@ class TaskGenerator(Tool):
 
         main_topic, secondary_topic = input["main-topic"], input["secondary-topic"]
         num_single_choice, num_gap_filling, num_open_ended = input["single-choice"], input["gap-filling"], input["open-ended"]
+        
+        if not isinstance(num_single_choice, int) or not isinstance(num_gap_filling, int) or not isinstance(num_open_ended, int):
+            raise Exception("Wrong value type")
+        
         if input["type"] == "Grammar":
             examples_single_choice = GRAMMAR_SINGLE_CHOICE + self.get_examples(grammar_topic=main_topic, type="single-choice")
             examples_gap_filling = GRAMMAR_GAP_FILLING + self.get_examples(grammar_topic=main_topic, type="gap-filling")
@@ -150,7 +144,7 @@ class TaskGenerator(Tool):
         except FileNotFoundError:
             logging.error("TaskGenerator:get_examples:file not found")    
 
-    def generate_exercises(self, query: str, type: Literal["single-choice", "gap-filling", "open-ended"], num: int):
+    def generate_exercises(self, query: str, type: Literal["single-choice", "gap-filling", "open-ended"], num: int, max_tokens: int):
         """
         calls a llm and parses generated exercises
 
@@ -170,6 +164,9 @@ class TaskGenerator(Tool):
             a string of the generated exercises
             If num is zero, an empty string is returned
         """
+        # set max tokens for generating exercises
+        tokens = self.llm.max_tokens
+        self.llm.set_max_tokens(max_tokens)
         logging.info(f"TaskGenerator:generate_exercises: \nQUERY = \n{query}\nTYPE = \n{type}\nNUM = \n{num}\n\n")
         if num == 0:
             return ""
@@ -177,6 +174,8 @@ class TaskGenerator(Tool):
         logging.info(f"TaskGenerator:generate_exercises: \nRAW_EXERCISES = \n{raw_exercises}\n\n")
         exercises = self.extract_exercises(raw_exercises, num)
         logging.info(f"TaskGenerator:generate_exercises: \nEXERCISES = \n{exercises}\n\n")
+        # set original tokens num back
+        self.llm.set_max_tokens(tokens)
         return exercises
 
     def parse_input(self, input: str) -> Dict[str, str]:
