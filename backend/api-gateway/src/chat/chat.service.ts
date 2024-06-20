@@ -60,8 +60,6 @@ export class ChatService {
 
     try {
       const data = { 'question': question };
-      console.log(question);
-      //return question
       const response: AxiosResponse = await client.post('/get_answer', data, config);
       return response.data['answer'];
     } catch (err) {
@@ -99,10 +97,10 @@ export class ChatService {
    * Makes a POST request to get an answer for the given question to the topic law and life.
    * @returns {Promise<JSON>} The answer from the API or error if an error occurs.
    */
-    async get_lesson(question : string): Promise<JSON> 
+    async get_lesson(): Promise<JSON> 
     {
       
-      const client = axios.create({baseURL: 'http://127.0.0.1:5000',});
+      const client = axios.create({baseURL: 'http://127.0.0.1:3120/lesson',});
   
       const config: AxiosRequestConfig = {
         headers: {
@@ -111,8 +109,7 @@ export class ChatService {
       };
   
       try {
-        const data = { 'question': question };
-        const response: AxiosResponse = await client.post('/get_lesson', data, config);
+        const response: AxiosResponse = await client.get('/next', config);
         return response.data;
       } catch (err) {
         console.log(err);
@@ -120,14 +117,17 @@ export class ChatService {
       }
   }
 
-  async processAnswers(): Promise<boolean> 
-  {
-    try {
-      const data = true;
-      return data;
+  async processAnswers(task_message: JSON){
+    const client = axios.create({baseURL: 'http://127.0.0.1:3120/lesson',});
+    const config: AxiosRequestConfig = {
+      headers: {
+        'Accept': 'application/json',
+      } as RawAxiosRequestHeaders,
+    };
+      try {
+        await client.post('/process_answers', task_message, config);
     } catch (err) {
       console.log(err);
-      return err;
     }
   }
 }

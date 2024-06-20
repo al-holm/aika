@@ -7,7 +7,7 @@ export enum TaskType {
 export interface Task {
     type: TaskType;
     id: number;
-    lesson_type: string;
+    lessonType: string;
     question: string;
     options: Array<Array<string>>;
     userAnswers: Array<Array<string>>;

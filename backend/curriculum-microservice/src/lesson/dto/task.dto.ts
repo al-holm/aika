@@ -9,15 +9,10 @@ export class TaskDto {
   id: number;
 
   @IsString()
-  lesson_type: string;
+  lessonType: string;
 
   @IsString()
   question: string;
-
-  @IsArray()
-  @ArrayNotEmpty()
-  @IsArray({ each: true })
-  options: string[][];
 
   @IsArray()
   @ArrayNotEmpty()

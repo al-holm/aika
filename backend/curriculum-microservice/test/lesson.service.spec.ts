@@ -74,7 +74,7 @@ describe('LessonService', () => {
     const task: TaskDto = {
       type: TaskType.single_choice,
       id: 1,
-      lesson_type: 'Reading',
+      lessonType: 'Reading',
       question: 'What is your name?',
       options: [['John', 'Doe']],
       userAnswers: [['John']],
