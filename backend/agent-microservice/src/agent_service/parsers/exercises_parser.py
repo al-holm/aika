@@ -18,10 +18,16 @@ class ExercisesParser:
         input: str
             a string containing task definition, a generated text and generated exercises
         """
-
+        # [Reading][2][0][1]
+        # [Grammar][Präteritum][None][1][1][1]
         contents_pattern = r'\[(.*?)\]'
         task_def_contents = re.findall(contents_pattern, input, re.DOTALL)
-        exercises_text = task_def_contents[6]
+        if task_def_contents[0] == "Grammar":
+            exercises_text = task_def_contents[6]
+        else:
+            exercises_text = task_def_contents[4]
+
+        # Remove the last sentence from exercises_text and ensure the result ends with a period.
         exercises_text = '.'.join(exercises_text.strip().split('.')[:-1]) + '.'
 
         exercises_pattern = r'\[START\](.*?)\[END\]'
