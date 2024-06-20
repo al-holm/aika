@@ -38,19 +38,16 @@ export class ChatController {
   }
 
   @Post('submit_answers')
-  async getCompletedTasks( @Body() userMessage: Message, ): 
-    Promise<{ message: boolean }> {
+  async getCompletedTasks( @Body() taskJSON: JSON) {
     console.log('answers submitted');
-    const message = await this.germanChatService.processAnswers();
-    console.log(message);
-    return { message };
+    await this.germanChatService.processAnswers(taskJSON);
   }
 
   @Get('lesson')
   async getLesson(): 
     Promise<JSON> {
     console.log('lesson');
-    const lesson = await this.germanChatService.get_lesson("[Grammar][Futur I][None][1][1][1]")
+    const lesson = await this.germanChatService.get_lesson();
     return lesson;
   }
 }
