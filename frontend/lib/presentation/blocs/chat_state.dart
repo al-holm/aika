@@ -45,9 +45,10 @@ class LessonLoaded extends ChatState {
 class ChatError extends ChatState {
   final String message;
   final ChatEvent? lastEvent;
+  final ChatState? lastState;
   final List<Message> messages;
 
-  ChatError(this.message, this.lastEvent, this.messages);
+  ChatError(this.message, this.lastEvent, this.lastState, this.messages);
 
   @override
   List<Object> get props => [message, lastEvent!, messages];

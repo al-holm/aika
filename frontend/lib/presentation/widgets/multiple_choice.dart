@@ -89,6 +89,16 @@ class _MultipleChoiceOptionsState extends State<MultipleChoiceOptions> {
       ),
     );
   }
+
+  @override
+  void didUpdateWidget(covariant MultipleChoiceOptions oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.userAnswers.isNotEmpty) {
+      _selectedOption = widget.options[0].indexOf(widget.userAnswers[0]);
+    } else {
+      _selectedOption = null;
+    }
+  }
 }
 
 class TaskQuestionText extends StatelessWidget {

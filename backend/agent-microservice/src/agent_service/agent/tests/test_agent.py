@@ -115,4 +115,4 @@ class TestAgent(unittest.TestCase):
         self.assertIsInstance(self.agent.reasoning_logger, ReasoningLogger)
 
 if __name__ == '__main__':
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
+    unittest.main()

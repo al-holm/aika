@@ -23,7 +23,7 @@ class MessageModel {
       timestamp: DateTime.parse(json['timestamp']),
       hasTasks: json['hasTasks'] ?? false,
       tasks: json['tasks'] != null
-          ? (json['tasks'] as List<dynamic>).map((taskJson) => TaskModel.fromJson(taskJson)).toList()
+          ? (json['tasks'] as List<dynamic>).map((taskJson) => TaskModel.fromJson(taskJson, json['id'], json['lessonType'])).toList()
           : null,
     );
   }

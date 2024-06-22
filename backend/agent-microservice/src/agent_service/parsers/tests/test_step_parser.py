@@ -78,4 +78,4 @@ class TestStepParser(unittest.TestCase):
         self.assertIsNone(self.parser.remove_quotes(None))
 
 if __name__ == '__main__':
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
+    unittest.main()
