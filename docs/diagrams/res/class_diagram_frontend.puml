@@ -1,57 +1,690 @@
 @startuml
+set namespaceSeparator ::
 
-title Class Diagram Frontend
-
-class GermanChatPage {
-     _GermanChatState createState() 
+class "frontend::styles::app_styles.dart::AppStyles" {
+  {static} +Color accentColor
+  {static} +Color sandColor
+  {static} +Color darkColor
+  {static} +TextStyle settingsOptionsTextStyle
+  {static} +TextStyle settingstextStyle
+  {static} +TextStyle mainMenuTitleTextStyle
+  {static} +TextStyle taskQuestionTextStyle
+  {static} +TextStyle taskOptionTextStyle
+  {static} +TextStyle messageTextStyle
+  {static} +TextStyle buttonTextStyle()
 }
 
-class _GermanChatState {
-    _userId : String
-    _controller : TextEditingController
-    messages : List<Message>
-    void initState()
-    Future<void> _initMessages()
-    Future<void> _initUserId()
-    String generateMessageID()
-    Message _buildMessage() 
-    DateTime getCurrenTimestamp()
-    String getMessageBodyHTTP()
-    Future<void> _handleSubmitted()
-    Widget build()
-    Widget _buildMessageTile()
-    Widget _buildTextInput()
+"frontend::styles::app_styles.dart::AppStyles" o-- "dart::ui::Color"
+"frontend::styles::app_styles.dart::AppStyles" o-- "flutter::src::painting::text_style.dart::TextStyle"
 
+class "frontend::utils::l10n::app_localization.dart::AppLocalizations" {
+  +Locale locale
+  {static} +LocalizationsDelegate<AppLocalizations> delegate
+  -Map<String, String>? _localizedStrings
+  {static} +AppLocalizations of()
+  +dynamic load()
+  +String translate()
 }
 
-class Message {
-  String text
-  String userID
-  String messageID
-  String role
-  DateTime timestamp
-  String getUserID()
-  String getText()
-  String getMessageID()
-  String getRole()
-  DateTime getTimestamp()
-  void displayMessage()
+"frontend::utils::l10n::app_localization.dart::AppLocalizations" o-- "dart::ui::Locale"
+"frontend::utils::l10n::app_localization.dart::AppLocalizations" o-- "flutter::src::widgets::localizations.dart::LocalizationsDelegate<AppLocalizations>"
+
+class "frontend::utils::l10n::app_localization.dart::_AppLocalizationsDelegate" {
+  +bool isSupported()
+  +dynamic load()
+  +bool shouldReload()
 }
 
-class HomePage {
-  Color accentColor
-  Color sandColor
-  void _navigateToGermanChat()
-  Widget build()
+"flutter::src::widgets::localizations.dart::LocalizationsDelegate" <|-- "frontend::utils::l10n::app_localization.dart::_AppLocalizationsDelegate"
+
+class "frontend::utils::metadata_utils.dart::MetadataUtils" {
+  {static} +dynamic initUserId()
+  {static} +String generateMessageID()
 }
 
-class MyApp {
- Widget build()
+class "frontend::data::models::message_model.dart::MessageModel" {
+  +String text
+  +String userID
+  +String messageID
+  +String role
+  +DateTime timestamp
+  +bool hasTasks
+  +List<TaskModel>? tasks
+  +String getText
+  +String getUserID
+  +String getMessageID
+  +String getRole
+  +DateTime getTimestamp
+  +bool getGotTasks
+  +Map<String, dynamic> toJson()
 }
 
-GermanChatPage *-- _GermanChatState
-_GermanChatState *-- Message
-HomePage *-- GermanChatPage
-MyApp *-- HomePage
+class "frontend::data::models::task_model.dart::TaskModel" {
+  +TaskType type
+  +String question
+  +List<List<String>> answerOptions
+  +List<String> solutions
+  +Map<String, dynamic> toJson()
+}
+
+"frontend::data::models::task_model.dart::TaskModel" o-- "frontend::domain::entities::task.dart::TaskType"
+
+class "frontend::data::data_providers::chat_data_provider.dart::ChatDataProvider" {
+  +String baseUrl
+  +dynamic sendMessage()
+  +dynamic sendImage()
+  +dynamic fetchLesson()
+}
+
+class "frontend::data::data_providers::task_data_provider.dart::TaskDataProvider" {
+  +String baseUrl
+  +dynamic submitUserAnswers()
+}
+
+class "frontend::data::repositories::chat_repository_impl.dart::ChatRepositoryImpl" {
+  +ChatDataProvider chatDataProvider
+  +dynamic sendMessage()
+  +dynamic sendImage()
+  +dynamic fetchLesson()
+}
+
+"frontend::data::repositories::chat_repository_impl.dart::ChatRepositoryImpl" o-- "frontend::data::data_providers::chat_data_provider.dart::ChatDataProvider"
+"frontend::domain::repositories::chat_repository.dart::ChatRepository" <|-- "frontend::data::repositories::chat_repository_impl.dart::ChatRepositoryImpl"
+
+class "frontend::data::repositories::task_repository_impl.dart::TaskRepositoryImpl" {
+  +TaskDataProvider dataProvider
+  +dynamic submitUserAnswers()
+}
+
+"frontend::data::repositories::task_repository_impl.dart::TaskRepositoryImpl" o-- "frontend::data::data_providers::task_data_provider.dart::TaskDataProvider"
+"frontend::domain::repositories::task_repository.dart::TaskRepository" <|-- "frontend::data::repositories::task_repository_impl.dart::TaskRepositoryImpl"
+
+class "frontend::presentation::blocs::chat_bloc.dart::ChatBloc" {
+  +SendMessage sendMessage
+  +SendImage sendImage
+  +FetchLesson fetchLesson
+  +String userID
+  +Map<String, List<Message>> chatMessages
+  -void _onInitializeChat()
+  -void _onSendMessage()
+  -void _onSendImage()
+  -void _onFetchLesson()
+  -void _onProposeLesson()
+  -void _onClearChat()
+  +Message getLessonOfferingMessage()
+  -dynamic _initializeMessages()
+  +String getInitMessageGerman()
+  +String getInitMessageLaw()
+}
+
+"frontend::presentation::blocs::chat_bloc.dart::ChatBloc" o-- "frontend::domain::usecases::send_message.dart::SendMessage"
+"frontend::presentation::blocs::chat_bloc.dart::ChatBloc" o-- "frontend::domain::usecases::send_image.dart::SendImage"
+"frontend::presentation::blocs::chat_bloc.dart::ChatBloc" o-- "frontend::domain::usecases::fetch_lesson.dart::FetchLesson"
+"bloc::src::bloc.dart::Bloc" <|-- "frontend::presentation::blocs::chat_bloc.dart::ChatBloc"
+
+abstract class "frontend::presentation::blocs::chat_bloc.dart::ChatEvent" {
+  +List<Object> props
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "frontend::presentation::blocs::chat_bloc.dart::ChatEvent"
+
+class "frontend::presentation::blocs::chat_bloc.dart::InitializeChatEvent" {
+  +String chatID
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::chat_bloc.dart::ChatEvent" <|-- "frontend::presentation::blocs::chat_bloc.dart::InitializeChatEvent"
+
+class "frontend::presentation::blocs::chat_bloc.dart::SendMessageEvent" {
+  +String chatID
+  +String content
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::chat_bloc.dart::ChatEvent" <|-- "frontend::presentation::blocs::chat_bloc.dart::SendMessageEvent"
+
+class "frontend::presentation::blocs::chat_bloc.dart::SendImageEvent" {
+  +String chatID
+  +String path
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::chat_bloc.dart::ChatEvent" <|-- "frontend::presentation::blocs::chat_bloc.dart::SendImageEvent"
+
+class "frontend::presentation::blocs::chat_bloc.dart::FetchLessonEvent" {
+  +String chatID
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::chat_bloc.dart::ChatEvent" <|-- "frontend::presentation::blocs::chat_bloc.dart::FetchLessonEvent"
+
+class "frontend::presentation::blocs::chat_bloc.dart::ProposeLessonEvent" {
+  +String chatID
+  +bool previousLessonCompleted
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::chat_bloc.dart::ChatEvent" <|-- "frontend::presentation::blocs::chat_bloc.dart::ProposeLessonEvent"
+
+class "frontend::presentation::blocs::chat_bloc.dart::ClearChatEvent" {
+  +String chatID
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::chat_bloc.dart::ChatEvent" <|-- "frontend::presentation::blocs::chat_bloc.dart::ClearChatEvent"
+
+abstract class "frontend::presentation::blocs::chat_bloc.dart::ChatState" {
+  +List<Object> props
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "frontend::presentation::blocs::chat_bloc.dart::ChatState"
+
+class "frontend::presentation::blocs::chat_bloc.dart::ChatInitial" {
+}
+
+"frontend::presentation::blocs::chat_bloc.dart::ChatState" <|-- "frontend::presentation::blocs::chat_bloc.dart::ChatInitial"
+
+class "frontend::presentation::blocs::chat_bloc.dart::ChatLoading" {
+  +String chatID
+  +List<Message> messages
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::chat_bloc.dart::ChatState" <|-- "frontend::presentation::blocs::chat_bloc.dart::ChatLoading"
+
+class "frontend::presentation::blocs::chat_bloc.dart::ChatLoaded" {
+  +List<Message> messages
+  +String chatID
+  +bool offerLesson
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::chat_bloc.dart::ChatState" <|-- "frontend::presentation::blocs::chat_bloc.dart::ChatLoaded"
+
+class "frontend::presentation::blocs::chat_bloc.dart::LessonLoaded" {
+  +List<Message> messages
+  +Message lesson
+  +String chatID
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::chat_bloc.dart::LessonLoaded" o-- "frontend::domain::entities::message.dart::Message"
+"frontend::presentation::blocs::chat_bloc.dart::ChatState" <|-- "frontend::presentation::blocs::chat_bloc.dart::LessonLoaded"
+
+class "frontend::presentation::blocs::chat_bloc.dart::ChatError" {
+  +String message
+  +ChatEvent? lastEvent
+  +ChatState? lastState
+  +List<Message> messages
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::chat_bloc.dart::ChatError" o-- "frontend::presentation::blocs::chat_bloc.dart::ChatEvent"
+"frontend::presentation::blocs::chat_bloc.dart::ChatError" o-- "frontend::presentation::blocs::chat_bloc.dart::ChatState"
+"frontend::presentation::blocs::chat_bloc.dart::ChatState" <|-- "frontend::presentation::blocs::chat_bloc.dart::ChatError"
+
+class "frontend::presentation::blocs::language_bloc.dart::LanguageBloc" {
+  -void _onLanguageChanged()
+}
+
+"bloc::src::bloc.dart::Bloc" <|-- "frontend::presentation::blocs::language_bloc.dart::LanguageBloc"
+
+abstract class "frontend::presentation::blocs::language_bloc.dart::LanguageEvent" {
+  +List<Object> props
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "frontend::presentation::blocs::language_bloc.dart::LanguageEvent"
+
+class "frontend::presentation::blocs::language_bloc.dart::LanguageChanged" {
+  +Locale locale
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::language_bloc.dart::LanguageChanged" o-- "dart::ui::Locale"
+"frontend::presentation::blocs::language_bloc.dart::LanguageEvent" <|-- "frontend::presentation::blocs::language_bloc.dart::LanguageChanged"
+
+class "frontend::presentation::blocs::language_bloc.dart::LanguageState" {
+  +Locale locale
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::language_bloc.dart::LanguageState" o-- "dart::ui::Locale"
+"equatable::src::equatable.dart::Equatable" <|-- "frontend::presentation::blocs::language_bloc.dart::LanguageState"
+
+class "frontend::presentation::blocs::task_bloc.dart::TaskBloc" {
+  +SubmitAnswers submitAnswers
+  +ChatBloc chatBloc
+  -void _onInitializeTasks()
+  -void _onCompleteTask()
+  -void _onSubmitTasks()
+  -void _onUpdateTaskAnswer()
+}
+
+"frontend::presentation::blocs::task_bloc.dart::TaskBloc" o-- "frontend::domain::usecases::submit_answers.dart::SubmitAnswers"
+"frontend::presentation::blocs::task_bloc.dart::TaskBloc" o-- "frontend::presentation::blocs::chat_bloc.dart::ChatBloc"
+"bloc::src::bloc.dart::Bloc" <|-- "frontend::presentation::blocs::task_bloc.dart::TaskBloc"
+
+abstract class "frontend::presentation::blocs::task_bloc.dart::TaskEvent" {
+  +List<Object> props
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "frontend::presentation::blocs::task_bloc.dart::TaskEvent"
+
+class "frontend::presentation::blocs::task_bloc.dart::InitializeTasksEvent" {
+  +List<Task> tasks
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::task_bloc.dart::TaskEvent" <|-- "frontend::presentation::blocs::task_bloc.dart::InitializeTasksEvent"
+
+class "frontend::presentation::blocs::task_bloc.dart::CompleteTaskEvent" {
+  +int taskIndex
+  +List<String> userAnswers
+  +bool goForward
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::task_bloc.dart::TaskEvent" <|-- "frontend::presentation::blocs::task_bloc.dart::CompleteTaskEvent"
+
+class "frontend::presentation::blocs::task_bloc.dart::SubmitTasksEvent" {
+  +List<Task> tasks
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::task_bloc.dart::TaskEvent" <|-- "frontend::presentation::blocs::task_bloc.dart::SubmitTasksEvent"
+
+class "frontend::presentation::blocs::task_bloc.dart::UpdateTaskAnswerEvent" {
+  +List<String> userAnswers
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::task_bloc.dart::TaskEvent" <|-- "frontend::presentation::blocs::task_bloc.dart::UpdateTaskAnswerEvent"
+
+abstract class "frontend::presentation::blocs::task_bloc.dart::TaskState" {
+  +List<Object> props
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "frontend::presentation::blocs::task_bloc.dart::TaskState"
+
+class "frontend::presentation::blocs::task_bloc.dart::TaskInitial" {
+}
+
+"frontend::presentation::blocs::task_bloc.dart::TaskState" <|-- "frontend::presentation::blocs::task_bloc.dart::TaskInitial"
+
+class "frontend::presentation::blocs::task_bloc.dart::TaskInProgress" {
+  +List<Task> tasks
+  +int currentTaskIndex
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::task_bloc.dart::TaskState" <|-- "frontend::presentation::blocs::task_bloc.dart::TaskInProgress"
+
+class "frontend::presentation::blocs::task_bloc.dart::TaskSubmissionInProgress" {
+}
+
+"frontend::presentation::blocs::task_bloc.dart::TaskState" <|-- "frontend::presentation::blocs::task_bloc.dart::TaskSubmissionInProgress"
+
+class "frontend::presentation::blocs::task_bloc.dart::TaskSubmissionSuccess" {
+}
+
+"frontend::presentation::blocs::task_bloc.dart::TaskState" <|-- "frontend::presentation::blocs::task_bloc.dart::TaskSubmissionSuccess"
+
+class "frontend::presentation::blocs::task_bloc.dart::TaskSubmissionFailure" {
+  +String error
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::task_bloc.dart::TaskState" <|-- "frontend::presentation::blocs::task_bloc.dart::TaskSubmissionFailure"
+
+class "frontend::presentation::screens::law_chat_screen.dart::LawChatScreen" {
+  -TextEditingController _controller
+  +String chatID
+  +Widget build()
+  -Widget _buildChatContent()
+  -Widget _buildChatState()
+  -Widget _buildErrorView()
+  -Widget _buildLoadingView()
+  -Widget _buildLoadedView()
+  -Widget _buildMessageList()
+  -Widget _buildTextInput()
+}
+
+"frontend::presentation::screens::law_chat_screen.dart::LawChatScreen" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::screens::law_chat_screen.dart::LawChatScreen"
+
+class "frontend::presentation::screens::german_chat_screen.dart::GermanChatScreen" {
+  -TextEditingController _controller
+  -ScrollController _scrollController
+  +String chatID
+  +Widget build()
+  -Widget _buildChatInteractionArea()
+  -Widget _chatStateBuilder()
+  -Widget _buildLoadingView()
+  -Widget _buildLoadedView()
+  -Widget _buildLessonView()
+  -Widget _buildMessageList()
+  -Widget _buildErrorView()
+  -Widget _buildTextInput()
+}
+
+"frontend::presentation::screens::german_chat_screen.dart::GermanChatScreen" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"frontend::presentation::screens::german_chat_screen.dart::GermanChatScreen" o-- "flutter::src::widgets::scroll_controller.dart::ScrollController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::screens::german_chat_screen.dart::GermanChatScreen"
+
+class "frontend::presentation::screens::settings_screen.dart::SettingsScreen" {
+  +Widget build()
+  -Widget _buildSettingList()
+  -Widget _buildLanguageSelector()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::screens::settings_screen.dart::SettingsScreen"
+
+class "frontend::presentation::screens::settings_screen.dart::LanguageDropdown" {
+  +Widget build()
+  -Widget _buildDropdownButton()
+  -List<DropdownMenuItem<Locale>> _buildDropdownMenuItems()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::screens::settings_screen.dart::LanguageDropdown"
+
+class "frontend::presentation::screens::task_sequence_screen.dart::TaskSequenceScreen" {
+  +List<Task> tasks
+  +Widget build()
+  -Widget _buildTaskInProgress()
+  -Widget _buildLoadingScreen()
+  -Widget _buildTaskControlButtons()
+  -Widget _buildBackButton()
+  -Widget _buildContinueButton()
+  -Widget _buildSubmitButton()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::screens::task_sequence_screen.dart::TaskSequenceScreen"
+
+class "frontend::presentation::screens::main_menu_screen.dart::MainMenuScreen" {
+  +Widget build()
+  -Widget _buildMenuContent()
+  -dynamic _navigateToSettings()
+  -dynamic _navigateToGermanChat()
+  -dynamic _navigateToLawChat()
+  -dynamic _navigateToChat()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::screens::main_menu_screen.dart::MainMenuScreen"
+
+class "frontend::presentation::widgets::app_bar_widgets.dart::GermanChatAppBar" {
+  +Size preferredSize
+  +Widget build()
+}
+
+"frontend::presentation::widgets::app_bar_widgets.dart::GermanChatAppBar" o-- "dart::ui::Size"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::app_bar_widgets.dart::GermanChatAppBar"
+"flutter::src::widgets::preferred_size.dart::PreferredSizeWidget" <|-- "frontend::presentation::widgets::app_bar_widgets.dart::GermanChatAppBar"
+
+class "frontend::presentation::widgets::app_bar_widgets.dart::SimpleAppBar" {
+  +String text
+  +Size preferredSize
+  +Widget build()
+}
+
+"frontend::presentation::widgets::app_bar_widgets.dart::SimpleAppBar" o-- "dart::ui::Size"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::app_bar_widgets.dart::SimpleAppBar"
+"flutter::src::widgets::preferred_size.dart::PreferredSizeWidget" <|-- "frontend::presentation::widgets::app_bar_widgets.dart::SimpleAppBar"
+
+class "frontend::presentation::widgets::task_buttons_widgets.dart::TaskControlButton" {
+  +String text
+  +void Function() onPressed
+  +Widget build()
+}
+
+"frontend::presentation::widgets::task_buttons_widgets.dart::TaskControlButton" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::task_buttons_widgets.dart::TaskControlButton"
+
+class "frontend::presentation::widgets::task_buttons_widgets.dart::TaskButtonGroup" {
+  +void Function()? onBack
+  +void Function()? onNext
+  +Widget build()
+}
+
+"frontend::presentation::widgets::task_buttons_widgets.dart::TaskButtonGroup" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::task_buttons_widgets.dart::TaskButtonGroup"
+
+class "frontend::presentation::widgets::task_widget.dart::TaskWidget" {
+  +Task task
+  +Widget build()
+}
+
+"frontend::presentation::widgets::task_widget.dart::TaskWidget" o-- "frontend::domain::entities::task.dart::Task"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::task_widget.dart::TaskWidget"
+
+class "frontend::presentation::widgets::open_ended.dart::OpenQuestionTask" {
+  +Task task
+  +Widget build()
+}
+
+"frontend::presentation::widgets::open_ended.dart::OpenQuestionTask" o-- "frontend::domain::entities::task.dart::Task"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::open_ended.dart::OpenQuestionTask"
+
+class "frontend::presentation::widgets::open_ended.dart::OpenQuestionInput" {
+  +Task task
+  +_OpenQuestionInputState createState()
+}
+
+"frontend::presentation::widgets::open_ended.dart::OpenQuestionInput" o-- "frontend::domain::entities::task.dart::Task"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "frontend::presentation::widgets::open_ended.dart::OpenQuestionInput"
+
+class "frontend::presentation::widgets::open_ended.dart::_OpenQuestionInputState" {
+  -TextEditingController _controller
+  +void initState()
+  +Widget build()
+  +void dispose()
+}
+
+"frontend::presentation::widgets::open_ended.dart::_OpenQuestionInputState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "frontend::presentation::widgets::open_ended.dart::_OpenQuestionInputState"
+
+class "frontend::presentation::widgets::fill_gaps.dart::FillInTheGapTask" {
+  +Task task
+  +Widget build()
+}
+
+"frontend::presentation::widgets::fill_gaps.dart::FillInTheGapTask" o-- "frontend::domain::entities::task.dart::Task"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::fill_gaps.dart::FillInTheGapTask"
+
+class "frontend::presentation::widgets::fill_gaps.dart::FillInTheGapQuestion" {
+  +Task task
+  +_FillInTheGapQuestionState createState()
+}
+
+"frontend::presentation::widgets::fill_gaps.dart::FillInTheGapQuestion" o-- "frontend::domain::entities::task.dart::Task"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "frontend::presentation::widgets::fill_gaps.dart::FillInTheGapQuestion"
+
+class "frontend::presentation::widgets::fill_gaps.dart::_FillInTheGapQuestionState" {
+  +List<String> selectedAnswers
+  +void initState()
+  +Widget build()
+  +Widget buildDropdown()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "frontend::presentation::widgets::fill_gaps.dart::_FillInTheGapQuestionState"
+
+class "frontend::presentation::widgets::chat_widgets.dart::MessageTile" {
+  +String content
+  +String role
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::chat_widgets.dart::MessageTile"
+
+class "frontend::presentation::widgets::chat_widgets.dart::LoadingIndicator" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::chat_widgets.dart::LoadingIndicator"
+
+class "frontend::presentation::widgets::chat_widgets.dart::ChatButton" {
+  +String text
+  +void Function() onPressed
+  +Widget build()
+}
+
+"frontend::presentation::widgets::chat_widgets.dart::ChatButton" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::chat_widgets.dart::ChatButton"
+
+class "frontend::presentation::widgets::chat_widgets.dart::ChatTextInput" {
+  +TextEditingController controller
+  +Function handleSubmitted
+  +Widget build()
+}
+
+"frontend::presentation::widgets::chat_widgets.dart::ChatTextInput" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::chat_widgets.dart::ChatTextInput"
+
+class "frontend::presentation::widgets::main_menu_widgets.dart::MainMenuButton" {
+  +String text
+  +void Function() onPressed
+  +Widget build()
+}
+
+"frontend::presentation::widgets::main_menu_widgets.dart::MainMenuButton" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::main_menu_widgets.dart::MainMenuButton"
+
+class "frontend::presentation::widgets::main_menu_widgets.dart::MainMenuSettingButton" {
+  +void Function() onPressed
+  +Widget build()
+}
+
+"frontend::presentation::widgets::main_menu_widgets.dart::MainMenuSettingButton" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::main_menu_widgets.dart::MainMenuSettingButton"
+
+class "frontend::presentation::widgets::main_menu_widgets.dart::MainMenuTitleText" {
+  +double leftPadding
+  +double topPadding
+  +double bottomPadding
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::main_menu_widgets.dart::MainMenuTitleText"
+
+class "frontend::presentation::widgets::main_menu_widgets.dart::MainMenuImageContainer" {
+  +double dimension
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::main_menu_widgets.dart::MainMenuImageContainer"
+
+class "frontend::presentation::widgets::multiple_choice.dart::MultipleChoiceTask" {
+  +Task task
+  +Widget build()
+}
+
+"frontend::presentation::widgets::multiple_choice.dart::MultipleChoiceTask" o-- "frontend::domain::entities::task.dart::Task"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::multiple_choice.dart::MultipleChoiceTask"
+
+class "frontend::presentation::widgets::multiple_choice.dart::MultipleChoiceOptions" {
+  +List<List<String>> options
+  +List<String> userAnswers
+  +void Function(String) onSelected
+  +_MultipleChoiceOptionsState createState()
+}
+
+"frontend::presentation::widgets::multiple_choice.dart::MultipleChoiceOptions" o-- "flutter::src::foundation::basic_types.dart::void Function(String)"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "frontend::presentation::widgets::multiple_choice.dart::MultipleChoiceOptions"
+
+class "frontend::presentation::widgets::multiple_choice.dart::_MultipleChoiceOptionsState" {
+  -int? _selectedOption
+  +void initState()
+  +Widget build()
+  +void didUpdateWidget()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "frontend::presentation::widgets::multiple_choice.dart::_MultipleChoiceOptionsState"
+
+class "frontend::presentation::widgets::multiple_choice.dart::TaskQuestionText" {
+  +String question
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::multiple_choice.dart::TaskQuestionText"
+
+class "frontend::main.dart::MyApp" {
+  +ChatRepository chatRepository
+  +TaskRepository taskRepository
+  +Widget build()
+}
+
+"frontend::main.dart::MyApp" o-- "frontend::domain::repositories::chat_repository.dart::ChatRepository"
+"frontend::main.dart::MyApp" o-- "frontend::domain::repositories::task_repository.dart::TaskRepository"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::main.dart::MyApp"
+
+class "frontend::domain::usecases::send_image.dart::SendImage" {
+  +ChatRepository repository
+  +dynamic call()
+}
+
+"frontend::domain::usecases::send_image.dart::SendImage" o-- "frontend::domain::repositories::chat_repository.dart::ChatRepository"
+
+class "frontend::domain::usecases::send_message.dart::SendMessage" {
+  +ChatRepository repository
+  +dynamic call()
+}
+
+"frontend::domain::usecases::send_message.dart::SendMessage" o-- "frontend::domain::repositories::chat_repository.dart::ChatRepository"
+
+class "frontend::domain::usecases::submit_answers.dart::SubmitAnswers" {
+  +TaskRepository repository
+  +dynamic call()
+}
+
+"frontend::domain::usecases::submit_answers.dart::SubmitAnswers" o-- "frontend::domain::repositories::task_repository.dart::TaskRepository"
+
+class "frontend::domain::usecases::fetch_lesson.dart::FetchLesson" {
+  +ChatRepository repository
+  +dynamic call()
+}
+
+"frontend::domain::usecases::fetch_lesson.dart::FetchLesson" o-- "frontend::domain::repositories::chat_repository.dart::ChatRepository"
+
+class "frontend::domain::entities::message.dart::Message" {
+  +String text
+  +String userID
+  +String messageID
+  +String role
+  +DateTime timestamp
+  +bool hasTasks
+  +List<Task>? tasks
+}
+
+class "frontend::domain::entities::task.dart::Task" {
+  +TaskType type
+  +String question
+  +List<List<String>> answerOptions
+  +List<String> solutions
+  +List<String> userAnswers
+  +bool completed
+}
+
+"frontend::domain::entities::task.dart::Task" o-- "frontend::domain::entities::task.dart::TaskType"
+
+class "frontend::domain::entities::task.dart::TaskType" {
+  +int index
+  {static} +List<TaskType> values
+  {static} +TaskType multipleChoice
+  {static} +TaskType fillTheGaps
+  {static} +TaskType openQuestion
+}
+
+"frontend::domain::entities::task.dart::TaskType" o-- "frontend::domain::entities::task.dart::TaskType"
+"dart::core::Enum" <|-- "frontend::domain::entities::task.dart::TaskType"
+
+abstract class "frontend::domain::repositories::task_repository.dart::TaskRepository" {
+  +dynamic submitUserAnswers()
+}
+
+abstract class "frontend::domain::repositories::chat_repository.dart::ChatRepository" {
+  +dynamic sendMessage()
+  +dynamic sendImage()
+  +dynamic fetchLesson()
+}
+
 
 @enduml

@@ -46,10 +46,35 @@ class LawChatScreen extends StatelessWidget {
     } else if (state is ChatLoaded) {
       return _buildLoadedView(state);
     } else if (state is ChatError) {
-      return Center(child: Text(state.message));
+      return _buildErrorView(state, chatBloc);
     } else {
       return const Center(child: Text("Keine Nachrichten vorhanden."));
     }
+  }
+
+  Widget _buildErrorView(ChatError state, ChatBloc chatBloc) {
+    return ListView(
+      children: [
+        _buildMessageList(state.messages),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              const Text(
+                "Etwas ist fehlgeschlagen. Erneut generieren.",
+                style: TextStyle(color: Colors.grey),
+              ),
+              IconButton(
+                icon: const Icon(Icons.refresh, color: Colors.grey),
+                onPressed: () {
+                  chatBloc.add(state.lastEvent!);
+                },
+              ),
+            ],
+          ),
+        ),
+      ]
+    );
   }
 
   Widget _buildLoadingView(ChatLoading state) {

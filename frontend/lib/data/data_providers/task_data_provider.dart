@@ -8,21 +8,22 @@ class TaskDataProvider {
   TaskDataProvider(this.baseUrl);
 
   Future<void> submitUserAnswers(List<Task> tasks) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/chat/submit_answers'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode({
-        'tasks': tasks.map((task) => {
+    final data = tasks.map((task) => {
+          'id': task.id,
+          'lessonType': task.lessonType,
           'type': task.type.toString().split('.').last,
           'question': task.question,
           'userAnswers': task.userAnswers,
-        }).toList(),
-      }),
+          'solutions': task.solutions,
+        }).toList();
+    final response = await http.post(
+      Uri.parse('$baseUrl/chat/submit_answers'),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(data),
     );
+    print(response);
     if (response.statusCode != 201) {
       throw Exception('Failed to submit answers');
     }
   }
 }
-
-// Thought : adjust TaskModel to submit the answer using the model!

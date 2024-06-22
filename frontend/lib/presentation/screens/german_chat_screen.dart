@@ -142,7 +142,6 @@ class GermanChatScreen extends StatelessWidget {
   }
 
   Widget _buildErrorView(ChatError state, ChatBloc chatBloc) {
-    print(state.lastEvent);
     return ListView(
       controller: _scrollController,
       children: [
@@ -151,12 +150,12 @@ class GermanChatScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Text(
-                "Something went wrong. Generate again.",
+              const Text(
+                "Etwas ist fehlgeschlagen. Erneut generieren.",
                 style: TextStyle(color: Colors.grey),
               ),
               IconButton(
-                icon: Icon(Icons.refresh, color: Colors.grey),
+                icon: const Icon(Icons.refresh, color: Colors.grey),
                 onPressed: () {
                   chatBloc.add(state.lastEvent!);
                 },

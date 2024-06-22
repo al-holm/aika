@@ -44,7 +44,7 @@ class ChatDataProvider {
      if (response.statusCode == 200) {
       final dynamic data = json.decode(response.body);
       final tasksJson = data['tasks'] as List<dynamic>;
-      final tasks = tasksJson.map((taskJson) => TaskModel.fromJson(taskJson)).toList();
+      final tasks = tasksJson.map((taskJson) => TaskModel.fromJson(taskJson, data['id'], data['lessonType'])).toList();
       return  MessageModel(
         text: data['text'], 
         userID:'lesson', 

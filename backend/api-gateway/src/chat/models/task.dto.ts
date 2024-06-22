@@ -35,13 +35,3 @@ export class Task {
   @IsString()
   text: string;
 }
-
-
-/**
- * Data Transfer Object class for representing messages & enforces type safety for properties
- * @class GermanChatMessageDto
- */
-export class AgentMessageDTO {
-  @IsString()
-  text: string;
-}

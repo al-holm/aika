@@ -27,4 +27,4 @@ class TestPrompt(unittest.TestCase):
         self.assertEqual(str(self.prompt), 'Hello, ${name}!')
 
 if __name__ == '__main__':
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
+    unittest.main()

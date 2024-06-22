@@ -6,9 +6,12 @@ from agent_service.agent.agent import Agent
 from agent_service.agent.task_type import TaskType
 import warnings
 from agent_service.core.config import Config
-from agent_service.tools.retrieval_tool import RetrievalTool
+from agent_service.rag.rag import RAG
 from agent_service.parsers.exercises_parser import ExercisesParser
-
+from flasgger import Swagger
+from agent_service.core.swagger import GERMAN_ANSWER_API, LAW_ANSWER_API, LESSON_API
+from flasgger.utils import swag_from
+# http://localhost:5000/apidocs/ for API docs
 for _ in logging.root.manager.loggerDict:
     logging.getLogger(_).setLevel(logging.CRITICAL)
 
@@ -18,6 +21,7 @@ logger.setLevel(logging.INFO)
 warnings.filterwarnings("ignore")
 
 app = FlaskAPI(__name__)
+swagger = Swagger(app)
 
 bedrock = boto3.client(service_name='bedrock-runtime', region_name="eu-west-3")
 
@@ -30,18 +34,21 @@ Config.set_llm(llm, task_type)
 aika_lesson = Agent(task_type=TaskType.LESSON)
 lesson_parser = ExercisesParser()
 
-retriever = RetrievalTool(False)
+retriever = RAG()
 
 @app.route("/get_answer", methods=["Post"])
-def getAnswer():
+@swag_from(GERMAN_ANSWER_API)
+def get_german_answer():
     """
     Returns agent's answer
     """
     answer =  aika_qa.run(request.json["question"])
     aika_qa.reset()
+    answer = '.'.join(answer.strip().split('.')[:-1]) + '.'
     return {"answer": answer}
 
 @app.route("/get_lesson", methods=["Post"])
+@swag_from(LESSON_API)
 def getLesson():
     """
     Returns generated exercises for a new lesson
@@ -57,14 +64,16 @@ def getLesson():
     return jsonify(parsed_lesson)
 
 @app.route("/get_answer_law_life", methods=["Post"])
+@swag_from(LAW_ANSWER_API)
 def getAnswerLawLife():
     """
     Returns an answer to the law and life topic
     """
     
-    result = retriever.run(request.json["question"])
+    answer = retriever.run(request.json["question"])
+    answer = '.'.join(answer.strip().split('.')[:-1]) + '.'
 
-    return {"answer": result}
+    return {"answer": answer}
 
 
 
