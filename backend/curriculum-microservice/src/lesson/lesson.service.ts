@@ -21,7 +21,7 @@ export class LessonService {
     async getNextLesson() : Promise<JSON> {
         let lesson_d = await this.getNextUncompletedLesson();
         let request = `[${lesson_d['type']}][${lesson_d['topic']}][None][2][1][1]`;
-        console.log(`Sending request to the agent:${request}`)
+        console.log(`Sending request to the agent: ${request}`)
         const client = axios.create({baseURL: 'http://127.0.0.1:5000',});
         const config: AxiosRequestConfig = {
         headers: {
@@ -47,11 +47,10 @@ export class LessonService {
             if (uncompletedInd != -1) {
                 var type = Object.values(LessonType)[uncompletedInd];
                 var topic = this.getNextTopic(type, lesson);
-                return {type:type, topic:topic, id: lesson.id}
-            } else {
-                return {type: 'Grammar', topic: 'Konkunktiv II', id: -1}; // if the curriculum is completed, dummy value for now
+                return {type:type, topic:topic, id: lesson.id};
             }
         }
+        return {type: 'Grammar', topic: 'Konkunktiv II', id: -1};
     }
 
     private getNextTopic(type: string, lesson:Lesson) : string {

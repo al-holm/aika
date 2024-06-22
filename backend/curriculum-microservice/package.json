@@ -26,6 +26,7 @@
     "@nestjs/swagger": "^7.3.1",
     "axios": "^1.7.2",
     "class-validator": "^0.14.1",
+    "msw": "^2.3.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
   },
@@ -69,10 +70,23 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
+    "coveragePathIgnorePatterns": [
+        "node_modules",
+        "test-config",
+        "interfaces",
+        "dto",
+        "dist",
+        "test",
+        "app.",
+        "jestGlobalMocks.ts",
+        ".module.ts",
+        ".eslintrc.js",
+        "main.ts",
+        ".mock.ts"
+    ],
     "coverageDirectory": "../coverage",
     "coverageReporters": [
-      "text",
-      "html"
+      "text"
     ],
     "testEnvironment": "node"
   }
