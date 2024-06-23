@@ -80,7 +80,6 @@ class TaskGenerator(Tool):
 
         main_topic, secondary_topic = input["main-topic"], input["secondary-topic"]
         num_single_choice, num_gap_filling, num_open_ended = input["single-choice"], input["gap-filling"], input["open-ended"]
-        
         if not isinstance(num_single_choice, int) or not isinstance(num_gap_filling, int) or not isinstance(num_open_ended, int):
             raise Exception("Wrong value type")
         
@@ -120,7 +119,6 @@ class TaskGenerator(Tool):
                 
                 # Find all matches in the content
                 matches = re.findall(pattern, content, re.DOTALL)
-
                 #logging.info(f"TaskGenerator:get_examples: found examples = {matches}")
                 
                 exercises = ""
@@ -139,7 +137,6 @@ class TaskGenerator(Tool):
                     exercise += f"Solution: [{solution_match.group(1) if solution_match else 'N/A'}]\n"
                     exercise += "[END]\n"
                     exercises += exercise
-
                 return exercises
         except FileNotFoundError:
             logging.error("TaskGenerator:get_examples:file not found")    
@@ -197,15 +194,15 @@ class TaskGenerator(Tool):
                 # then we have [Type][Main-grammar-topic][Secondary-grammar-topic][Single-Choice-Questions-Number][Gaps-filling-exercises-number][Open-Questions-Number][Main-grammar-topic-explanation-text]
                 parsed_input["main-topic"] = matches[1]
                 parsed_input["secondary-topic"] = matches[2]
-                parsed_input["single-choice"] = matches[3]
-                parsed_input["gap-filling"] = matches[4]
-                parsed_input["open-ended"] = matches[5]
+                parsed_input["single-choice"] = int(matches[3])
+                parsed_input["gap-filling"] = int(matches[4])
+                parsed_input["open-ended"] = int(matches[5])
                 parsed_input["text"] = matches[6]
             else:
                 # then we have [Type][Single-Choice-Questions-Number][Gaps-filling-exercises-number][Open-Questions-Number][Text for which exercises must be provided]
-                parsed_input["single-choice"] = matches[1]
-                parsed_input["gap-filling"] = matches[2]
-                parsed_input["open-ended"] = matches[3]
+                parsed_input["single-choice"] = int(matches[1])
+                parsed_input["gap-filling"] = int(matches[2])
+                parsed_input["open-ended"] = int(matches[3])
                 parsed_input["text"] = matches[4]
             return parsed_input
         raise Exception(f"extract_task_type: failure during extracting from f{input}")
