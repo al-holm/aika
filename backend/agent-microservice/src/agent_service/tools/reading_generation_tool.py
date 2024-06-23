@@ -23,6 +23,7 @@ class ReadingGenerator(Tool):
             person_name=name, person_story=story
             )
         answer = self.llm.run(self.query)
+        answer = '.'.join(answer.split('.')[:-1]) + '.'
         return answer
     
     def load_profiles(self):
