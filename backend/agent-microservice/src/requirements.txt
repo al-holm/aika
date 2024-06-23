@@ -10,3 +10,4 @@ python-dotenv==1.0.1
 Requests==2.32.3
 milvus-model==0.2.3
 FlagEmbedding==1.2.2
+TTS==0.22.0

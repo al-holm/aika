@@ -7,6 +7,7 @@ from agent_service.prompts.trajectory_library import TrajectoryInjector
 from agent_service.prompts.tool_prompt import READING_TEMPLATE
 from agent_service.rag.rag import RAG
 from agent_service.tools.reading_generation_tool import ReadingGenerator
+from agent_service.tools.listening_generation_tool import ListeningGenerator
 if __name__ == "__main__":
     setup_logging()
     llm = 'bedrock' # bedrock or runpod
@@ -19,8 +20,15 @@ if __name__ == "__main__":
     #tj = TrajectoryInjector(True)
     #print(tj.inject_trajectories('Wie kann ich sagen ich komme später.'))
     #a = Agent(task_type=task_type)
-    tool = ReadingGenerator('', '', llm, 'reading', READING_TEMPLATE, 350)
+    tool = ReadingGenerator('', '', llm, 'reading', READING_TEMPLATE, 300)
+    listening = ListeningGenerator('', '', llm, '', '', 1)
     query = "" 
     while query != "stop":
+        if tool.current_profile == 'Mo':
+            voice = 'm'
+        else: 
+            voice = 'f'
         query = input("\n\nYour query: ")
-        print(tool.run(query))
+        answer = tool.run(query)
+        print(answer)
+        listening.run(answer, voice)
