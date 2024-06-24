@@ -8,6 +8,10 @@ class ExplanationNotFound(Exception):
 
 
 class LessonRetriever:
+    """
+    is responsible for finding sample exercises and explanations of grammar topics 
+    in the database of good exercises and grammar topics
+    """
 
     def __init__(self, dirpath= "agent_service/tools/res/lesson_generation_db/"):
         self.good_exercises_filepath = dirpath + "good_exercises.md"
