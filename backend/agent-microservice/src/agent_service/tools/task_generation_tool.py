@@ -197,15 +197,15 @@ class TaskGenerator(Tool):
                 # then we have [Type][Main-grammar-topic][Secondary-grammar-topic][Single-Choice-Questions-Number][Gaps-filling-exercises-number][Open-Questions-Number][Main-grammar-topic-explanation-text]
                 parsed_input["main-topic"] = matches[1]
                 parsed_input["secondary-topic"] = matches[2]
-                parsed_input["single-choice"] = matches[3]
-                parsed_input["gap-filling"] = matches[4]
-                parsed_input["open-ended"] = matches[5]
+                parsed_input["single-choice"] = int(matches[3])
+                parsed_input["gap-filling"] = int(matches[4])
+                parsed_input["open-ended"] = int(matches[5])
                 parsed_input["text"] = matches[6]
             else:
                 # then we have [Type][Single-Choice-Questions-Number][Gaps-filling-exercises-number][Open-Questions-Number][Text for which exercises must be provided]
-                parsed_input["single-choice"] = matches[1]
-                parsed_input["gap-filling"] = matches[2]
-                parsed_input["open-ended"] = matches[3]
+                parsed_input["single-choice"] = int(matches[1])
+                parsed_input["gap-filling"] = int(matches[2])
+                parsed_input["open-ended"] = int(matches[3])
                 parsed_input["text"] = matches[4]
             return parsed_input
         raise Exception(f"extract_task_type: failure during extracting from f{input}")
