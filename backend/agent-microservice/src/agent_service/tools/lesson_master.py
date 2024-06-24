@@ -1,14 +1,19 @@
 from agent_service.tools.tool_executor import ToolExecutor
 from agent_service.agent.task_type import TaskType
 from agent_service.parsers.exercises_parser import ExercisesParser
+from agent_service.tools.lesson_generation_retriever import LessonRetriever
 from typing import Dict
 import re
 
 class LessonMaster:
+    """
+    responsible for generating exercises
+    """
     
     def __init__(self):
         self.tool_executor = ToolExecutor(task_type=TaskType.LESSON)
         self.exercises_parser = ExercisesParser()
+        self.lesson_retriever = LessonRetriever()
 
     def run(self, query: str):
         """
@@ -29,7 +34,7 @@ class LessonMaster:
         parsed_query = self.parse_query(query)
 
         if parsed_query["type"] == "Grammar":
-            text = self.tool_executor.execute('Web-Suche', parsed_query["main-topic"] + " Erklärung mit Beispielen")
+            text = self.lesson_retriever.get_grammar_explanation(parsed_query["main-topic"])
             # should look like that: [Grammar][Präteritum][None][1][1][1][text]
             task_generator_query = query + f"[{text}]"
         else:
@@ -38,7 +43,6 @@ class LessonMaster:
             task_generator_query = f"[{parsed_query["type"]}][{parsed_query["single-choice"]}][{parsed_query["gap-filling"]}][{parsed_query["open-ended"]}][{text}]"
 
         raw_lesson = self.tool_executor.execute('Deutschaufgaben generieren', task_generator_query)
-        print(f"raw_lesson: \n{raw_lesson}")
         lesson = self.exercises_parser.parse(raw_lesson)
         return lesson
     
