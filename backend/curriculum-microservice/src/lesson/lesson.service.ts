@@ -31,6 +31,25 @@ export class LessonService {
         try {
             const data = { 'question': request};
             const response: AxiosResponse = await client.post('/get_lesson', data, config);
+            response.data = response.data.text;
+            return response.data;
+        } catch (err) {
+            console.log(err);
+            return err;
+        }
+    }
+
+    async getTasks() : Promise<JSON> {
+        console.log(`Sending request to the agent to get tasks`)
+        let lesson_d = await this.getNextUncompletedLesson();
+        const client = axios.create({baseURL: 'http://127.0.0.1:5000',});
+        const config: AxiosRequestConfig = {
+        headers: {
+            'Accept': 'application/json',
+        } as RawAxiosRequestHeaders,
+        };
+        try {
+            const response: AxiosResponse = await client.get('/get_tasks', config);
             response.data.id = lesson_d['id'];
             response.data.lessonType = lesson_d['type'];
             return response.data;

@@ -16,7 +16,6 @@ class ListeningGenerator(Tool):
                     prompt_id: str, prompt_template: str, max_tokens:int) -> None:
         super().__init__(name, description, llm, prompt_id, prompt_template, max_tokens)
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        print(TTS(self.MALE_VOICE_MODEL).list_models())
 
 
     def run(self, text:str, voice:Literal['m', 'f']='f'):

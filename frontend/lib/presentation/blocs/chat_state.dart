@@ -42,6 +42,17 @@ class LessonLoaded extends ChatState {
   List<Object> get props => [messages, lesson, chatID];
 }
 
+class TaskLoaded extends ChatState {
+  final List<Message> messages;
+  final List<Task> tasks;
+  final String chatID;
+
+  TaskLoaded(this.messages, this.tasks, {required this.chatID});
+
+  @override
+  List<Object> get props => [messages, tasks, chatID];
+}
+
 class ChatError extends ChatState {
   final String message;
   final ChatEvent? lastEvent;

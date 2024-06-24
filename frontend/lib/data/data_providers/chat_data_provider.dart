@@ -43,21 +43,32 @@ class ChatDataProvider {
       );
      if (response.statusCode == 200) {
       final dynamic data = json.decode(response.body);
-      final tasksJson = data['tasks'] as List<dynamic>;
-      final tasks = tasksJson.map((taskJson) => TaskModel.fromJson(taskJson, data['id'], data['lessonType'])).toList();
       return  MessageModel(
         text: data['text'], 
         userID:'lesson', 
         messageID: '', 
         role: 'bot', 
         timestamp: DateTime.now(),
-        hasTasks: true,
-        tasks: tasks,
+        hasTasks: false,
       );
+    } else {
+      throw Exception('Failed to fetch a lesson');
+    }
+  }
+
+Future<List<TaskModel>> fetchTasks(String chatId) async {
+    print('fetching tasks');
+    final response = await http.get(
+      Uri.parse('$baseUrl/chat/tasks')
+      );
+     if (response.statusCode == 200) {
+      final dynamic data = json.decode(response.body);
+      final tasksJson = data['tasks'] as List<dynamic>;
+      final tasks = tasksJson.map((taskJson) => TaskModel.fromJson(taskJson, data['id'], data['lessonType'])).toList();
+      return tasks;
     } else {
       throw Exception('Failed to fetch a lesson');
     }
   }
 }
 
-// Thought - create for lessons antoher model (maybe inheritance from message model)
