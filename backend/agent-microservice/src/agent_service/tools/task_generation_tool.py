@@ -2,6 +2,7 @@ from agent_service.prompts.task_generation_examples import GRAMMAR_GAP_FILLING, 
 from agent_service.tools.tool import Tool
 from agent_service.exeptions.step_exception import ExtractingExercisesError
 from typing import Literal, Dict
+from agent_service.tools.lesson_generation_retriever import LessonRetriever
 import os, uuid, re, logging
 class TaskGenerator(Tool):
 
@@ -9,6 +10,7 @@ class TaskGenerator(Tool):
                     prompt_id: str, prompt_template: str, max_tokens:int) -> None:
         super().__init__(name, description, llm, prompt_id, prompt_template, max_tokens)
         self.dir_path = "out/tasks/"
+        self.lesson_retriever = LessonRetriever()
 
     def run(self, input:str):
         """
@@ -80,13 +82,12 @@ class TaskGenerator(Tool):
 
         main_topic, secondary_topic = input["main-topic"], input["secondary-topic"]
         num_single_choice, num_gap_filling, num_open_ended = input["single-choice"], input["gap-filling"], input["open-ended"]
-        
         if not isinstance(num_single_choice, int) or not isinstance(num_gap_filling, int) or not isinstance(num_open_ended, int):
             raise Exception("Wrong value type")
         
         if input["type"] == "Grammar":
-            examples_single_choice = GRAMMAR_SINGLE_CHOICE + self.get_examples(grammar_topic=main_topic, type="single-choice")
-            examples_gap_filling = GRAMMAR_GAP_FILLING + self.get_examples(grammar_topic=main_topic, type="gap-filling")
+            examples_single_choice = GRAMMAR_SINGLE_CHOICE + self.lesson_retriever.get_examples(grammar_topic=main_topic, type="single-choice")
+            examples_gap_filling = GRAMMAR_GAP_FILLING + self.lesson_retriever.get_examples(grammar_topic=main_topic, type="gap-filling")
             examples_open_ended = GRAMMAR_OPEN_ENDED
             
             input_single_choice = f"[{main_topic}][{secondary_topic}][{num_single_choice}]"
@@ -106,43 +107,7 @@ class TaskGenerator(Tool):
         query_gap_filling = self.prompt.generate_prompt(name_id=self.prompt_id, input_format_and_examples=examples_gap_filling, text=(input_gap_filling + f"[{input['text']}]"))
         query_open_ended = self.prompt.generate_prompt(name_id=self.prompt_id, input_format_and_examples=examples_open_ended, text=(input_open_ended + f"[{input['text']}]"))
   
-        return (query_single_choice, query_gap_filling, query_open_ended)
-    
-    def get_examples(self, grammar_topic: str, type: Literal["single-choice", "gap-filling", "open-ended"]) -> str:
-        filepath = "agent_service/tools/res/lesson_generation_db/good_exercises.md"
-        logging.info(f"TaskGenerator:get_examples: called with grammar_topic = {grammar_topic} and type = {type}")
-        try:
-            with open(filepath, 'r', encoding='utf8') as file:
-                content = file.read()
-                #logging.info("TaskGenerator:get_examples: content read")
-                # Define the pattern to capture relevant sections based on the grammar topic
-                pattern = r'\{' + re.escape(grammar_topic) + r'\}\{' + re.escape(type) + r'\}{GPT-4o}\n\[START\](.*?)\[END\]'
-                
-                # Find all matches in the content
-                matches = re.findall(pattern, content, re.DOTALL)
-
-                #logging.info(f"TaskGenerator:get_examples: found examples = {matches}")
-                
-                exercises = ""
-                for match in matches:
-                    # Parsing details within each section
-                    type_match = re.search(r'Type: \[(.*?)\]', match)
-                    question_match = re.search(r'Question: \[(.*?)\]', match)
-                    options_match = re.search(r'Answer options: \[(.*?)\]', match)
-                    solution_match = re.search(r'Solution: \[(.*?)\]', match)
-                    explanation_match = re.search(r'Solution explanation: \[(.*?)\]', match)
-                    
-                    exercise = "[START]\n" + f"Type: [{type_match.group(1) if type_match else 'N/A'}]\n" 
-                    exercise += f"Question: [{question_match.group(1) if question_match else 'N/A'}]\n" 
-                    exercise += f"Answer Options: [{options_match.group(1) if options_match else 'N/A'}]\n"
-                    exercise += f"Solution Explanation: [{explanation_match.group(1) if explanation_match else 'N/A'}]\n"
-                    exercise += f"Solution: [{solution_match.group(1) if solution_match else 'N/A'}]\n"
-                    exercise += "[END]\n"
-                    exercises += exercise
-
-                return exercises
-        except FileNotFoundError:
-            logging.error("TaskGenerator:get_examples:file not found")    
+        return (query_single_choice, query_gap_filling, query_open_ended)    
 
     def generate_exercises(self, query: str, type: Literal["single-choice", "gap-filling", "open-ended"], num: int, max_tokens: int):
         """
