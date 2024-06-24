@@ -5,6 +5,11 @@ from agent_service.tools.lesson_generation_retriever import LessonRetriever
 from typing import Dict
 import re
 
+class TextNotFound(Exception):
+
+    def __init__(self):
+        super().__init__("The text for generating exercises is not found")
+
 class LessonMaster:
     """
     responsible for generating exercises
@@ -14,10 +19,14 @@ class LessonMaster:
         self.tool_executor = ToolExecutor(task_type=TaskType.LESSON)
         self.exercises_parser = ExercisesParser()
         self.lesson_retriever = LessonRetriever()
+        
+        # To split the generation exercises into two steps, the task generator query var contains 
+        # the query for the task generator
+        self.task_generator_query = None
 
-    def run(self, query: str):
+    def create_text(self, query: str):
         """
-        creates a lesson unit
+        creates a text for a new lesson
 
         Parameters:
         -----------
@@ -27,23 +36,46 @@ class LessonMaster:
 
         Returns:
         --------
-        lesson: Dict
-            a dictionary containing the text for the lesson and all exercises
+        text: str
+            a string containing the text for the lesson
         """
-        
         parsed_query = self.parse_query(query)
 
         if parsed_query["type"] == "Grammar":
             text = self.lesson_retriever.get_grammar_explanation(parsed_query["main-topic"])
             # should look like that: [Grammar][Präteritum][None][1][1][1][text]
-            task_generator_query = query + f"[{text}]"
+            self.task_generator_query = query + f"[{text}]"
         else:
             text = self.tool_executor.execute('Lesetext erstellen', parsed_query["main-topic"])
             # should look like that: [Reading][2][0][1][text]
-            task_generator_query = f"[{parsed_query["type"]}][{parsed_query["single-choice"]}][{parsed_query["gap-filling"]}][{parsed_query["open-ended"]}][{text}]"
+            self.task_generator_query = f"[{parsed_query["type"]}][{parsed_query["single-choice"]}][{parsed_query["gap-filling"]}][{parsed_query["open-ended"]}][{text}]"
 
-        raw_lesson = self.tool_executor.execute('Deutschaufgaben generieren', task_generator_query)
+        return text
+    
+    def create_exercises(self):
+        """
+        if a text for the exercises is generated, it creates exercises,
+        otherwise it raises an exception
+
+        Raises:
+        -------
+        TextNotFound
+
+        Returns:
+        --------
+        exercises: Dict
+            a dictionary containing all generated exercises
+        """
+
+        if self.task_generator_query == None:
+            raise TextNotFound
+        
+        raw_lesson = self.tool_executor.execute('Deutschaufgaben generieren', self.task_generator_query)
         lesson = self.exercises_parser.parse(raw_lesson)
+
+        # need to reset task_generator_query
+        self.task_generator_query = None
+        
         return lesson
     
     def parse_query(self, query: str) -> Dict[str, str]:
