@@ -11,13 +11,12 @@ from agent_service.parsers.exercises_parser import ExercisesParser
 from flasgger import Swagger
 from agent_service.core.swagger import GERMAN_ANSWER_API, LAW_ANSWER_API, LESSON_API
 from flasgger.utils import swag_from
+from scripts.setup_logging import setup_logging
 # http://localhost:5000/apidocs/ for API docs
 for _ in logging.root.manager.loggerDict:
     logging.getLogger(_).setLevel(logging.CRITICAL)
 
-logging.basicConfig(format='%(asctime)s | %(levelname)s: %(message)s', level=logging.NOTSET)
-logger = logging.getLogger('REACT Agent')
-logger.setLevel(logging.INFO)
+setup_logging()
 warnings.filterwarnings("ignore")
 
 app = FlaskAPI(__name__)
