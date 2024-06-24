@@ -9,7 +9,7 @@ from agent_service.rag.rag import RAG
 from agent_service.tools.reading_generation_tool import ReadingGenerator
 from agent_service.tools.listening_generation_tool import ListeningGenerator
 if __name__ == "__main__":
-    setup_logging()
+    #setup_logging()
     llm = 'bedrock' # bedrock or runpod
     task_type = TaskType.LESSON
     Config.set_llm(llm, task_type)
