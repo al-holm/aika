@@ -63,7 +63,9 @@ class GermanChatScreen extends StatelessWidget {
     } else if (state is ChatLoaded) {
       return _buildLoadedView(state, chatBloc, newLessonText);
     } else if (state is LessonLoaded) {
-      return _buildLessonView(state, taskBloc, chatBloc);
+      return _buildLessonView(state, chatBloc);
+    } else if (state is TaskLoaded) {
+      return _buildTaskView(state, taskBloc, chatBloc);
     } else if (state is ChatError) {
       return _buildErrorView(state, chatBloc);
     } else {
@@ -97,8 +99,18 @@ class GermanChatScreen extends StatelessWidget {
         );
   }
 
-  Widget _buildLessonView(LessonLoaded state, TaskBloc taskBloc, ChatBloc chatBloc) {
-    taskBloc.add(InitializeTasksEvent(state.lesson.tasks!));
+  Widget _buildLessonView(LessonLoaded state, ChatBloc chatBloc) {
+    chatBloc.add(FetchTaskEvent(chatID));
+    return ListView(
+      controller: _scrollController,
+      children: [
+        _buildMessageList(state.messages),
+      ],
+    );
+  }
+
+  Widget _buildTaskView(TaskLoaded state, TaskBloc taskBloc, ChatBloc chatBloc) {
+    taskBloc.add(InitializeTasksEvent(state.tasks));
     return ListView(
       controller: _scrollController,
       children: [
@@ -114,7 +126,7 @@ class GermanChatScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => TaskSequenceScreen(tasks: state.lesson.tasks!),
+                      builder: (context) => TaskSequenceScreen(tasks: state.tasks),
                     ),
                   );
                 },

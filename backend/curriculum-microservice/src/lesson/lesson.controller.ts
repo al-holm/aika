@@ -12,6 +12,11 @@ export class LessonController {
     return this.lessonsService.getNextLesson();
   }
 
+  @Get('tasks')
+  async getTasks(): Promise<JSON>{
+    return this.lessonsService.getTasks();
+  }
+
   @Post('process_answers')
   async processAnswers(@Body() tasks: TaskDto[]) {
     console.log('processing user answers...')

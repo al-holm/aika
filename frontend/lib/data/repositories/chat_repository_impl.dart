@@ -1,5 +1,6 @@
 import 'package:frontend/data/data_providers/chat_data_provider.dart';
 import 'package:frontend/data/models/message_model.dart';
+import 'package:frontend/data/models/task_model.dart';
 import 'package:frontend/domain/entities/message.dart';
 import 'package:frontend/domain/entities/task.dart';
 import 'package:frontend/domain/repositories/chat_repository.dart';
@@ -36,7 +37,13 @@ class ChatRepositoryImpl implements ChatRepository {
       text: messageModel.text, userID: messageModel.userID, 
       messageID: messageModel.messageID, role: messageModel.role, 
       timestamp:messageModel.timestamp, hasTasks: messageModel.hasTasks,
-      tasks: messageModel.tasks?.map(
+      );
+  }
+
+  @override
+  Future<List<Task>> fetchTasks(String chatId) async {
+    final List<TaskModel> tasksModel = await chatDataProvider.fetchTasks(chatId);
+    return tasksModel.map(
         (taskModel) => Task(
           type: taskModel.type, 
           question: taskModel.question, 
@@ -45,8 +52,7 @@ class ChatRepositoryImpl implements ChatRepository {
           id: taskModel.id,
           lessonType: taskModel.lessonType,
           )
-        ).toList(),
-      );
+        ).toList();
   }
 
 }
