@@ -52,7 +52,7 @@ def getLessonText():
     text = lesson_master.create_text(request.json["question"])
     return jsonify({"text": text})
 
-@app.route("/get_lesson_exercises", methods=["Post"])
+@app.route("/get_lesson_exercises", methods=["Get"])
 @swag_from(LESSON_API)
 def getLessonExercises():
     """

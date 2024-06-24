@@ -3,8 +3,8 @@
     "id": 1,
     "name": "Sich vorstellen",
     "grammar": "Perfekt",
-    "reading": "Ich stelle mich vor",
-    "listening": "Ich stelle mich vor",
+    "reading": "Ich stelle mich vor. Wie alt bin ich? Woher komme ich? Was mache ich beruflich (kurz)? Was mache ich in der Freizeit?",
+    "listening": "Ich stelle mich vor. Woher komme ich? Was mache ich beruflich (kurz)? Was mach ich mit meiner Familie?",
     "completed": [
       true,
       false,
@@ -20,8 +20,8 @@
     "id": 2,
     "name": "Berufe und Tätigkeiten",
     "grammar": "Die Nomengruppe",
-    "reading": "Mein Beruf",
-    "listening": "Mein Beruf",
+    "reading": "Mein Beruf. Was mache ich beruflich? Was mag ich an meiner Beruf? Was sind meine Ziele für die Zukunft beruflich?",
+    "listening": "Mein Beruf. Was mache ich beruflich? Was mag ich an meiner Beruf? Was sind meine Ziele für die Zukunft beruflich?",
     "completed": [
       false,
       false,
@@ -37,8 +37,8 @@
     "id": 3,
     "name": "Schule und Ausbidlung",
     "grammar": "Reflexive Verben",
-    "reading": "Meine Schule",
-    "listening": "Meine Ausbildung",
+    "reading": "Als ich Schüler war...",
+    "listening": "Mein Studium",
     "completed": [
       false,
       false,
@@ -54,7 +54,7 @@
     "id": 4,
     "name": "Tagesablauf",
     "grammar": "Die Negation",
-    "reading": "Mein typischer Tagesaublauf",
+    "reading": "Mein typischer Tagesaublauf (mit zeitlichen Angaben)",
     "listening": "Mein typisches Wochenende",
     "completed": [
       false,
@@ -88,7 +88,7 @@
     "id": 6,
     "name": "Einkaufen",
     "grammar": "Konkunktiv II",
-    "reading": "Ich gehe oft einkaufen",
+    "reading": "Ich gehe oft einkaufen auf den Wochenmarkt",
     "listening": "Meine Einkaufsliste",
     "completed": [
       false,
