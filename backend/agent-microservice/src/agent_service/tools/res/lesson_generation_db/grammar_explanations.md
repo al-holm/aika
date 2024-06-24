@@ -154,3 +154,4 @@ Es wäre gut, wenn du früher schlafen gehst.
 Es wäre besser, wenn wir jetzt gehen.
 Du solltest für deine Prüfung morgen lernen.
 Es wäre gut, wenn du einen Regenschirm hättest.
+{
