@@ -80,14 +80,14 @@ class TaskGenerator(Tool):
         examples_gap_filling = ""
         examples_open_ended = ""
 
-        main_topic, secondary_topic = input["main-topic"], input["secondary-topic"]
         num_single_choice, num_gap_filling, num_open_ended = input["single-choice"], input["gap-filling"], input["open-ended"]
         if not isinstance(num_single_choice, int) or not isinstance(num_gap_filling, int) or not isinstance(num_open_ended, int):
             raise Exception("Wrong value type")
         
         if input["type"] == "Grammar":
-            examples_single_choice = GRAMMAR_SINGLE_CHOICE + self.lesson_retriever.get_examples(topic=main_topic, task_type="single-choice")
-            examples_gap_filling = GRAMMAR_GAP_FILLING + self.lesson_retriever.get_examples(topic=main_topic, task_type="gap-filling")
+            main_topic, secondary_topic = input["main-topic"], input["secondary-topic"]
+            examples_single_choice = GRAMMAR_SINGLE_CHOICE + self.lesson_retriever.get_examples(grammar_topic=main_topic, type="single-choice")
+            examples_gap_filling = GRAMMAR_GAP_FILLING + self.lesson_retriever.get_examples(grammar_topic=main_topic, type="gap-filling")
             examples_open_ended = GRAMMAR_OPEN_ENDED
             
             input_single_choice = f"[{main_topic}][{secondary_topic}][{num_single_choice}]"
