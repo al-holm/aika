@@ -30,7 +30,7 @@ export class LessonService {
         };
         try {
             const data = { 'question': request};
-            const response: AxiosResponse = await client.post('/get_lesson', data, config);
+            const response: AxiosResponse = await client.post('/get_lesson_text', data, config);
             return response.data;
         } catch (err) {
             console.log(err);
@@ -48,7 +48,7 @@ export class LessonService {
         } as RawAxiosRequestHeaders,
         };
         try {
-            const response: AxiosResponse = await client.get('/get_tasks', config);
+            const response: AxiosResponse = await client.get('/get_lesson_exercises', config);
             response.data.id = lesson_d['id'];
             response.data.lessonType = lesson_d['type'];
             return response.data;

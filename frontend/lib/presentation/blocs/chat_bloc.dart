@@ -126,7 +126,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   void _onProposeLesson(ProposeLessonEvent event, Emitter<ChatState> emit) {
     final currentState = state;
-    if (currentState is LessonLoaded) {
+    if (currentState is TaskLoaded || currentState is LessonLoaded) {
       if (event.previousLessonCompleted) {
         final updatedMessages = List<Message>.from(chatMessages[event.chatID]!);
         emit(ChatLoaded(updatedMessages, chatID: event.chatID, offerLesson: false));
