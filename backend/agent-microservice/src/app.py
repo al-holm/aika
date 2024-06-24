@@ -7,7 +7,7 @@ from agent_service.agent.task_type import TaskType
 import warnings
 from agent_service.core.config import Config
 from agent_service.rag.rag import RAG
-from agent_service.parsers.exercises_parser import ExercisesParser
+from agent_service.tools.lesson_master import LessonMaster
 from flasgger import Swagger
 from agent_service.core.swagger import GERMAN_ANSWER_API, LAW_ANSWER_API, LESSON_API
 from flasgger.utils import swag_from
@@ -28,10 +28,7 @@ llm = 'bedrock'
 task_type = TaskType.ANSWERING
 Config.set_llm(llm, task_type)
 aika_qa = Agent(task_type=TaskType.ANSWERING)
-task_type = TaskType.LESSON
-Config.set_llm(llm, task_type)
-aika_lesson = Agent(task_type=TaskType.LESSON)
-lesson_parser = ExercisesParser()
+lesson_master = LessonMaster()
 
 retriever = RAG()
 
@@ -46,21 +43,25 @@ def get_german_answer():
     answer = '.'.join(answer.strip().split('.')[:-1]) + '.'
     return {"answer": answer}
 
-@app.route("/get_lesson", methods=["Post"])
+@app.route("/get_lesson_text", methods=["Post"])
 @swag_from(LESSON_API)
-def getLesson():
+def getLessonText():
     """
     Returns generated exercises for a new lesson
     """
 
-    raw_lesson = aika_lesson.run(request.json["question"])
-    if raw_lesson == "I can't complete the given task":
-        parsed_lesson = {"Text": "I can't complete the given task"}
-    else:
-        parsed_lesson = lesson_parser.parse(raw_lesson)
-    logging.info(f"Parsed_lesson: {parsed_lesson}\n\n\n")
-    aika_lesson.reset()
-    return jsonify(parsed_lesson)
+    text = lesson_master.create_text(request.json["question"])
+    return jsonify({"text": text})
+
+@app.route("/get_lesson_exercises", methods=["Post"])
+@swag_from(LESSON_API)
+def getLessonExercises():
+    """
+    Returns generated exercises for a new lesson
+    """
+
+    exercises = lesson_master.create_exercises()
+    return jsonify(exercises)
 
 @app.route("/get_answer_law_life", methods=["Post"])
 @swag_from(LAW_ANSWER_API)
