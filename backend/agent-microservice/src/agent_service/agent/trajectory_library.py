@@ -15,7 +15,7 @@ class TrajectoryRetriever:
         Queries the trajectory library and parses examples from the results.
     """
     COLLECTION_NAME = "trajectoryLibrary"
-    ROOT_PATH = "agent_service/prompts/"
+    ROOT_PATH = "agent_service/agent/"
     DOC_PATH = ROOT_PATH + "res/trajectories_data/"
     DB_PATH = ROOT_PATH + "res/db/"
     def __init__(self, init=False) -> None:

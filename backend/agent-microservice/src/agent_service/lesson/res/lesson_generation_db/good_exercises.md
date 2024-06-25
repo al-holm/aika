@@ -63,7 +63,7 @@ Answer options: [1. Wir (haben, seid, sind) gestern ins Kino (gegangen, gehen, g
 Solution explanation: [Im Perfekt verwendet man das Hilfsverb "haben" oder "sein" und das Partizip II des Verbs. "Ins Kino gehen" ist eine Bewegung, also benutzt man "sein". Das Partizip II von "gehen" ist "gegangen". "Das Buch kaufen" ist keine Bewegung, also benutzt man "haben". Das Partizip II von "kaufen" ist "gekauft". "Das Essen kochen" ist keine Bewegung, also benutzt man "haben". Das Partizip II von "kochen" ist "gekocht". "Die Nachricht lesen" ist keine Bewegung, also benutzt man "haben". Das Partizip II von "lesen" ist "gelesen".]
 Solution: [sind, gegangen, hat, gekauft, haben, gekocht, hast, gelesen]
 [END]
-{Bestimmte Artikel}{single-choice}{GPT-4o}
+{Die Nomengruppe}{single-choice}{GPT-4o}
 [START]
 Type: [single-choice]
 Question: [Welcher Artikel passt zum Wort "Buch"?]
@@ -71,7 +71,7 @@ Answer options: [a) der b) die c) das]
 Solution explanation: ["Buch" ist ein neuter Nomen im Deutschen, daher verwendet man den bestimmten Artikel "das".]
 Solution: [c) das]
 [END]
-{Bestimmte Artikel}{single-choice}{GPT-4o}
+{Die Nomengruppe}{single-choice}{GPT-4o}
 [START]
 Type: [single-choice]
 Question: [Welcher Artikel passt zum Wort "Katze"?]
@@ -79,7 +79,7 @@ Answer options: [a) der b) die c) das]
 Solution explanation: ["Katze" ist ein feminines Nomen im Deutschen, daher verwendet man den bestimmten Artikel "die".]
 Solution: [b) die]
 [END]
-{Bestimmte Artikel}{single-choice}{GPT-4o}
+{Die Nomengruppe}{single-choice}{GPT-4o}
 [START]
 Type: [single-choice]
 Question: [Welche Form ist korrekt im Genitiv? "Das Haus ___ Freundes".]
@@ -87,7 +87,7 @@ Answer options: [a) des b) der c) dem]
 Solution explanation: [Im Genitiv wird bei maskulinen und neutralen Nomen der Artikel "des" verwendet. "Freundes" ist ein maskulines Nomen, daher ist "des" korrekt.]
 Solution: [a) des]
 [END]
-{Bestimmte Artikel}{single-choice}{GPT-4o}
+{Die Nomengruppe}{single-choice}{GPT-4o}
 [START]
 Type: [single-choice]
 Question: [Welche Form ist korrekt im Genitiv? "Das Auto ___ Frau".]
@@ -95,7 +95,7 @@ Answer options: [a) des b) der c) den]
 Solution explanation: [Im Genitiv wird bei femininen Nomen der Artikel "der" verwendet. "Frau" ist ein feminines Nomen, daher ist "der" korrekt.]
 Solution: [b) der]
 [END]
-{Bestimmte Artikel}{gap-filling}{GPT-4o}
+{Die Nomengruppe}{gap-filling}{GPT-4o}
 [START]
 Type: [gaps]
 Question: [Füllen Sie die Lücken mit dem richtigen bestimmten Artikel (der, die, das).]
@@ -103,7 +103,7 @@ Answer options: [1. (der, die, das) Hund läuft schnell. 2. Ich sehe (der, die, 
 Solution explanation: [Man verwendet den bestimmten Artikel "der" für maskuline Nomen, "die" für feminine Nomen und "das" für neutrale Nomen. "Hund" ist maskulin, daher "der Hund". "Blume" ist feminin, daher "die Blume". "Auto" ist neutral, daher "das Auto". "Mann" ist maskulin, daher "der Mann".]
 Solution: [der, die, das, der]
 [END]
-{Bestimmte Artikel}{gap-filling}{GPT-4o}
+{Die Nomengruppe}{gap-filling}{GPT-4o}
 [START]
 Type: [gaps]
 Question: [Füllen Sie die Lücken mit dem richtigen bestimmten Artikel (der, die, das).]
@@ -111,7 +111,7 @@ Answer options: [1. (der, die, das) Tisch ist groß. 2. Er kauft (der, den, das)
 Solution explanation: [Man verwendet den bestimmten Artikel "der" für maskuline Nomen, "die" für feminine Nomen und "das" für neutrale Nomen. "Tisch" ist maskulin, daher "der Tisch". "Apfel" ist maskulin, daher "den Apfel" im Akkusativ. "Lampe" ist feminin, daher "die Lampe". "Film" ist maskulin, daher "den Film" im Akkusativ.]
 Solution: [der, den, die, den]
 [END]
-{Bestimmte Artikel}{gap-filling}{GPT-4o}
+{Die Nomengruppe}{gap-filling}{GPT-4o}
 [START]
 Type: [gaps]
 Question: [Füllen Sie die Lücken mit dem richtigen bestimmten Artikel im Genitiv (des, der, des).]
@@ -119,7 +119,7 @@ Answer options: [1. Das Fahrrad (des, der) Mannes ist kaputt. 2. Die Farbe (des,
 Solution explanation: [Im Genitiv wird bei maskulinen und neutralen Nomen der Artikel "des" und bei femininen Nomen der Artikel "der" verwendet. "Mannes" ist maskulin, daher "des Mannes". "Hauses" ist neutral, daher "des Hauses".]
 Solution: [des, des]
 [END]
-{Bestimmte Artikel}{gap-filling}{GPT-4o}
+{Die Nomengruppe}{gap-filling}{GPT-4o}
 [START]
 Type: [gaps]
 Question: [Füllen Sie die Lücken mit dem richtigen bestimmten Artikel im Genitiv (des, der, des).]

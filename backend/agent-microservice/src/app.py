@@ -4,10 +4,10 @@ import logging
 import boto3
 from agent_service.agent.agent import Agent
 from agent_service.agent.task_type import TaskType
-import warnings
+from agent_service.utils.proxy import LessonProxy
 from agent_service.core.config import Config
 from agent_service.rag.rag import RAG
-from agent_service.tools.lesson_master import LessonMaster
+from agent_service.lesson.lesson_master import LessonMaster
 from flasgger import Swagger
 from agent_service.core.swagger import GERMAN_ANSWER_API, LAW_ANSWER_API, LESSON_API
 from flasgger.utils import swag_from
@@ -28,6 +28,10 @@ task_type = TaskType.ANSWERING
 Config.set_llm(llm, task_type)
 aika_qa = Agent(task_type=TaskType.ANSWERING)
 lesson_master = LessonMaster()
+lesson_proxy = LessonProxy(
+    lesson_master.create_text, lesson_master.create_exercises
+    )
+
 
 retriever = RAG()
 
@@ -49,7 +53,7 @@ def getLessonText():
     Returns generated exercises for a new lesson
     """
 
-    text = lesson_master.create_text(request.json["question"])
+    text = lesson_proxy.create_text(request.json["question"])
     return jsonify({"text": text})
 
 @app.route("/get_lesson_exercises", methods=["Get"])
@@ -59,7 +63,7 @@ def getLessonExercises():
     Returns generated exercises for a new lesson
     """
 
-    exercises = lesson_master.create_exercises()
+    exercises = lesson_proxy.create_exercises()
     return jsonify(exercises)
 
 @app.route("/get_answer_law_life", methods=["Post"])
