@@ -11,7 +11,7 @@ class ReadingGenerator(Tool):
                     prompt_id: str, prompt_template: str, max_tokens:int) -> None:
         super().__init__(name, description, llm, prompt_id, prompt_template, max_tokens)
         self.load_profiles()
-        self.current_profile = 'Layla'
+        self.current_profile = 'Mo'
 
     def run(self, input:str):
         """
