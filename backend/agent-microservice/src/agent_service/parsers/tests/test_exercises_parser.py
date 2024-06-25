@@ -1,75 +1,102 @@
-import unittest, xmlrunner
+import unittest
 from agent_service.parsers.exercises_parser import ExercisesParser
 
 class TestExercisesParser(unittest.TestCase):
 
-    def test_parse_exercises(self):
-        parser = ExercisesParser()
-        input_text = """[Grammar][Konjuktiv I][None][3][2][1][
-Hallo,
-
-der Konjunktiv I ist eine besondere Form des Verbs, die wir in der deutschen Sprache verwenden. Er wird oft in der indirekten Rede, also wenn wir die Worte einer anderen Person wiedergeben, genutzt.
-
-Die Bildung des Konjunktiv I erfolgt durch die Endungen -e, -est, -et, -en, -et, -en. Hier ein Beispiel:
-
-Ich spiele -> Er spiele
-
-Du spielst -> Sie spiele
-
-Er spielt -> Sie spiele
-
-Wir spielen -> Sie spielen
-
-Ihr spielt -> Sie spielen
-
-Sie spielen -> Sie spielen
-
-Die Endungen werden an den Präsensstamm des Verbs angehängt. Der Präsensstamm ist die Grundform des Verbs ohne die Endungen -e, -st, -t, -en, -t, -en.
-
-Der Konjunktiv I wird auch in einigen festen Wendungen verwendet, wie zum Beispiel "Hoch lebe das Geburtstagskind!".   
-
-Ich hoffe, dass ich dir mit meiner Erklärung und den Beispielen helfen konnte.
-
-Viele Grüße,
-Dein Deutschlehrer]
+    def setUp(self):
+        self.parser = ExercisesParser()
+        self.grammar_example = """[Grammar][main-topic][secondary-topic][1][1][1][explanation-text. ]
 
 [START]
 Type: [single-choice]
-Question: [Welches Verb ist richtig konjugiert im Konjunktiv I?]
-Answer options: [a) Er spiele b) Er spielt c) Er ging]
-Solution: [a) Er spiele]
-[END]
-[START]
-Type: [single-choice]
-Question: [Welches ist die Konjunktiv I Form von "haben"?]
-Answer options: [a) hätte b) haben c) hattest]
-Solution: [a) hätte]
-[END]
-[START]
-Type: [single-choice]
-Question: [Welche Form im Konjunktiv I ist korrekt?]
-Answer options: [a) Sie wäre b) Sie war c) Sie sei]
-Solution: [c) Sie sei]
+Question: [Welches Verb ist richtig konjugiert im Präteritum?]
+Answer options: [a) Er gehe b) Er ging c) Er geht]
+Solution: [b) Er ging]
 [END]
 [START]
 Type: [gaps]
-Question: [Füllen Sie die Lücken mit der richtigen Konjunktiv I Form]
-Answer options: [1. Wenn ich ein (großes, großer, großen) Haus hätte, (könnte, können, könntest) ich viele Partys veranstalten. 2. Wenn ich einen (intelligent, intelligente, intelligenten) Hund hätte, (bräuchte, brauchen, bräuchten) ich keinen Trainer.]
-Solution: [großes, hätte, intelligenten, bräuchte]
-[END]
-[START]
-Type: [gaps]
-Question: [Füllen Sie die Lücken mit der richtigen Konjunktiv I Form]
-Answer options: [1. Wenn sie eine (neue, neuer, neu) Wohnung fände, (würde ziehen, ziehen würde, zöge) sie sofort um. 2. Wenn wir einen (freundlichen, freundlich, freundliche) Nachbarn hätten, (wäre, sein, wären) das Leben viel angenehmer.]
-Solution: [neue, zöge, freundlichen, wäre]
+Question: [Füllen Sie die Lücken mit der richtigen Präteritumform des Verbs]
+Answer options: [1. Gestern (sah, sahen, gesehen) ich einen interessanten Film. 2. Wir (fuhren, fahr, fahrten) letztes Jahr nach Spanien. 3. Er (schreibte, schrieben, schrieb) einen langen Brief.]
+Solution: [sah, fuhren, schrieb]
 [END]
 [START]
 Type: [open]
-Question: [Schreibe einen Satz im Konjunktiv I.]
+Question: [Schreiben Sie über ein Erlebnis aus Ihrer Kindheit im Präteritum. Beschreiben Sie, was passiert ist, und wie Sie sich dabei gefühlt haben.]
 Answer options: None
-Solution: [Er spiele Fußball, wenn er Zeit hätte.]
+Solution: None
 [END]"""
-        exercises = parser.parse(input_text)
+        self.reading_example = """[Reading][1][1][1][text-to-read. ]
+
+[START]
+Type: [single-choice]
+Question: [Welches Verb ist richtig konjugiert im Präteritum?]
+Answer options: [a) Er gehe b) Er ging c) Er geht]
+Solution: [b) Er ging]
+[END]
+[START]
+Type: [gaps]
+Question: [Füllen Sie die Lücken mit der richtigen Präteritumform des Verbs]
+Answer options: [1. Gestern (sah, sahen, gesehen) ich einen interessanten Film. 2. Wir (fuhren, fahr, fahrten) letztes Jahr nach Spanien. 3. Er (schreibte, schrieben, schrieb) einen langen Brief.]
+Solution: [sah, fuhren, schrieb]
+[END]
+[START]
+Type: [open]
+Question: [Schreiben Sie über ein Erlebnis aus Ihrer Kindheit im Präteritum. Beschreiben Sie, was passiert ist, und wie Sie sich dabei gefühlt haben.]
+Answer options: None
+Solution: None
+[END]"""
+        self.listening_example = """[Listening][1][1][1][text-to-listen. ]
+
+[START]
+Type: [single-choice]
+Question: [Welches Verb ist richtig konjugiert im Präteritum?]
+Answer options: [a) Er gehe b) Er ging c) Er geht]
+Solution: [b) Er ging]
+[END]
+[START]
+Type: [gaps]
+Question: [Füllen Sie die Lücken mit der richtigen Präteritumform des Verbs]
+Answer options: [1. Gestern (sah, sahen, gesehen) ich einen interessanten Film. 2. Wir (fuhren, fahr, fahrten) letztes Jahr nach Spanien. 3. Er (schreibte, schrieben, schrieb) einen langen Brief.]
+Solution: [sah, fuhren, schrieb]
+[END]
+[START]
+Type: [open]
+Question: [Schreiben Sie über ein Erlebnis aus Ihrer Kindheit im Präteritum. Beschreiben Sie, was passiert ist, und wie Sie sich dabei gefühlt haben.]
+Answer options: None
+Solution: None
+[END]"""
+
+    def test_parse_grammar_correct_input(self):
+        result = self.parser.parse(self.grammar_example)
+        self.assert_correct_input(result)
+        self.assertEqual(result["text"], "explanation-text.")
+
+    def test_parse_reading_correct_input(self):
+        result = self.parser.parse(self.reading_example)
+        self.assert_correct_input(result)
+        self.assertEqual(result["text"], "text-to-read.")
+
+    def test_parse_listening_correct_input(self):
+        result = self.parser.parse(self.listening_example)
+        self.assert_correct_input(result)
+        self.assertEqual(result["text"], "text-to-listen.")
+
+    def assert_correct_input(self, result):
+        exercises = result["tasks"]
+        self.assertEqual(exercises[0]["type"], "single-choice")
+        self.assertEqual(exercises[0]["question"], "Welches Verb ist richtig konjugiert im Präteritum?")
+        self.assertEqual(exercises[0]["answer_options"], [['Er gehe', 'Er ging', 'Er geht']])
+        self.assertEqual(exercises[0]["solution"], [' Er ging'])
+
+        self.assertEqual(exercises[1]["type"], "gaps")
+        self.assertEqual(exercises[1]["question"], "1. Gestern __ ich einen interessanten Film. 2. Wir __ letztes Jahr nach Spanien. 3. Er __ einen langen Brief.")
+        self.assertEqual(exercises[1]["answer_options"], [["sah", "sahen", "gesehen"], ["fuhren", "fahr", "fahrten"], ["schreibte", "schrieben", "schrieb"]])
+        self.assertEqual(exercises[1]["solution"], [["sah", "fuhren", "schrieb"]])
+        
+        self.assertEqual(exercises[2]["type"], "open")
+        self.assertEqual(exercises[2]["question"], "Schreiben Sie über ein Erlebnis aus Ihrer Kindheit im Präteritum. Beschreiben Sie, was passiert ist, und wie Sie sich dabei gefühlt haben.")
+        self.assertEqual(exercises[2]["answer_options"], [[""]])
+        self.assertEqual(exercises[2]["solution"], [""])
 
 
 if __name__ == '__main__':

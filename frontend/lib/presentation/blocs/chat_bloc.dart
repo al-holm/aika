@@ -130,7 +130,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   Message getLessonOfferingMessage() {
     final message = Message(
-      text: "Gut gemacht! Willst du mit dem neuen Untericht starten?",
+      text: "Gut gemacht! Willst du mit dem neuen Unterricht starten?",
       userID: 'system',
       messageID: MetadataUtils.generateMessageID(),
       role: 'bot',
@@ -168,10 +168,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   String getInitMessageGerman() {
-    return "Hallo, ich bin AIKA! Ich kann dir helfen, Deutsch zu lernen.\n\nWillst du mit dem neuen Untericht starten oder hast du Fragen?";
+    return "Hallo, ich bin AIKA! Ich kann dir helfen, Deutsch zu lernen.\n\nWillst du mit dem neuen Unterricht starten oder hast du Fragen?";
   }
 
   String getInitMessageLaw() {
-    return "Hallo, ich bin AIKA! Ich kann dir helfen, über das Leben in Deutschland mehr zu wissen, Formulare auszufüllen und rechtliche Fragen zu beantworten.\n\nMeine Tipps sind aber nur orientierend, bei Fragen wende dich an eine qualifizierte Beratung.";
+    return "Hallo, ich bin AIKA! Ich kann dir helfen, über das Leben in Deutschland mehr zu wissen, Formulare auszufüllen und rechtliche Fragen zu beantworten.\n\nMeine Tipps sind aber nur orientierend, bei Fragen wende dich an eine qualifizierte Beratung. Eine qualifizierte Rechtsberatung bekommst du zum Beispiel hier: www.proasyl.de";
   }
 }

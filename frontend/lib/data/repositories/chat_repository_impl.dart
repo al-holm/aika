@@ -41,7 +41,10 @@ class ChatRepositoryImpl implements ChatRepository {
           type: taskModel.type, 
           question: taskModel.question, 
           answerOptions: taskModel.answerOptions, 
-          solutions: taskModel.solutions)
+          solutions: taskModel.solutions,
+          id: taskModel.id,
+          lessonType: taskModel.lessonType,
+          )
         ).toList(),
       );
   }
