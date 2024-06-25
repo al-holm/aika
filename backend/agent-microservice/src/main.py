@@ -3,7 +3,7 @@ from scripts.setup_logging import setup_logging
 from agent_service.agent.agent import Agent
 from agent_service.agent.task_type import TaskType
 from agent_service.core.config import Config
-from agent_service.prompts.trajectory_library import TrajectoryInjector
+from agent_service.prompts.trajectory_library import TrajectoryRetriever
 from agent_service.prompts.tool_prompt import READING_TEMPLATE
 from agent_service.rag.rag import RAG
 from agent_service.tools.reading_generation_tool import ReadingGenerator
