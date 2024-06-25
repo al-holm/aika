@@ -1,14 +1,9 @@
 from agent_service.prompts.task_generation_examples import GRAMMAR_GAP_FILLING, GRAMMAR_OPEN_ENDED, GRAMMAR_SINGLE_CHOICE, READING_SINGLE_CHOICE, READING_GAP_FILLING, READING_OPEN_ENDED
 from agent_service.tools.tool import Tool
-from agent_service.exeptions.step_exception import ExtractingExercisesError
+from agent_service.exceptions.lesson_exceptions import ExtractingExercisesError, ExercisesNotGeneratedException
 from typing import Literal, Dict
-from agent_service.tools.lesson_generation_retriever import LessonRetriever
+from agent_service.lesson.lesson_generation_retriever import LessonRetriever
 import os, uuid, re, logging
-
-class ExercisesNotGenerated(Exception):
-
-    def __init__(self):
-        super().__init__("TaskGenerator couldn't generate exercises")
 
 class TaskGenerator(Tool):
 
@@ -63,7 +58,7 @@ class TaskGenerator(Tool):
 
         # if generation attempts aren't left it means that the generating exercises failed
         if gen_attempts == 0:
-            raise ExercisesNotGenerated
+            raise ExercisesNotGeneratedException
 
         exercises = single_choice_questions + gap_filling_exercises + open_ended_questions
 

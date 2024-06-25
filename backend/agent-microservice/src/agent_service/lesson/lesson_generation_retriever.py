@@ -1,11 +1,6 @@
 from typing import Literal
 import logging, re
-
-class ExplanationNotFound(Exception):
-
-    def __init__(self, topic: str):
-        super().__init__(f"LessonRetriever didn't find an explanation to the topic '{topic}'")
-
+from agent_service.exceptions.lesson_exceptions import ExplanationNotFoundException
 
 class LessonRetriever:
     """
@@ -13,7 +8,7 @@ class LessonRetriever:
     in the database of good exercises and grammar topics
     """
 
-    def __init__(self, dirpath= "agent_service/tools/res/lesson_generation_db/"):
+    def __init__(self, dirpath= "agent_service/lesson/res/lesson_generation_db/"):
         self.good_exercises_filepath = dirpath + "good_exercises.md"
         self.explanations_filepath = dirpath + "grammar_explanations.md"
 
@@ -95,8 +90,8 @@ class LessonRetriever:
                 if explanation:
                     return explanation[0]
                 else:
-                    raise ExplanationNotFound(topic)
+                    raise ExplanationNotFoundException(topic)
                 
-        except ExplanationNotFound:
+        except ExplanationNotFoundException:
             logging.error("LessonRetriever:get_examples:explanation not found")
             return "NO EXPLANATION FOUND FOR THE GIVEN TOPIC"
