@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Callable, Any
-import json
+import json, base64, os
 
 class LessonProxy:
     """
@@ -19,10 +19,10 @@ class LessonProxy:
         
         """
         if request.startswith("[Listening][Ich stelle mich vor."):
-            with open(self.DATA_PATH + 'layla/text.txt', 'r') as f:
-                text = f.read()
+            video_path = os.path.join(self.DATA_PATH, "layla.mp4")
+            encoded_video = self.encode_video_to_base64(video_path)
             self.request = request
-            return text
+            return encoded_video
         else:
             self.request = request
             return self.service_text(request)
@@ -39,3 +39,8 @@ class LessonProxy:
             return {'tasks' :tasks }
         else: 
             return self.service_exercises()
+        
+    def encode_video_to_base64(self, video_path):
+        with open(video_path, "rb") as video_file:
+            encoded_string = base64.b64encode(video_file.read()).decode('utf-8')
+        return encoded_string
