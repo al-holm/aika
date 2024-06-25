@@ -4,6 +4,12 @@ from agent_service.exeptions.step_exception import ExtractingExercisesError
 from typing import Literal, Dict
 from agent_service.tools.lesson_generation_retriever import LessonRetriever
 import os, uuid, re, logging
+
+class ExercisesNotGenerated(Exception):
+
+    def __init__(self):
+        super().__init__("TaskGenerator couldn't generate exercises")
+
 class TaskGenerator(Tool):
 
     def __init__(self, name: str, description: str, llm: str, 
@@ -46,7 +52,7 @@ class TaskGenerator(Tool):
                     gap_filling_exercises = self.generate_exercises(query_gap_filling, "gap-filling", int(parsed_input["gap-filling"]), 700)
                     done_gap_filling = True
                 if not done_open_ended:
-                    open_ended_questions = self.generate_exercises(query_open_ended, "open-ended", int(parsed_input["open-ended"]), 100)
+                    open_ended_questions = self.generate_exercises(query_open_ended, "open-ended", int(parsed_input["open-ended"]), 700)
                     done_open_ended = True
                 areInvalid = False
             except ExtractingExercisesError:
@@ -57,7 +63,7 @@ class TaskGenerator(Tool):
 
         # if generation attempts aren't left it means that the generating exercises failed
         if gen_attempts == 0:
-            return "I can't complete the given task"
+            raise ExercisesNotGenerated
 
         exercises = single_choice_questions + gap_filling_exercises + open_ended_questions
 
