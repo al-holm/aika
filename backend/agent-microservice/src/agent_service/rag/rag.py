@@ -13,7 +13,7 @@ class RAG(Tool):
     TEMPLATE = RETRIEVER_TEMPLATE
     
     COLLECTION_NAME = "LawAndLifeLibrary"
-    ROOT_PATH = "agent_service/tools/"
+    ROOT_PATH = "agent_service/rag/"
     DB_PATH = ROOT_PATH + "res/rag_db/"
     DOC_PATH = ROOT_PATH + "res/data/"
 

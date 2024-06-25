@@ -1,0 +1,56 @@
+[
+    {
+      "id": 1,
+      "name": "Sich vorstellen",
+      "grammar": "Perfekt",
+      "reading": "Ich stelle mich vor",
+      "listening": "Ich stelle mich vor",
+      "completed": [false, false, false],
+      "score": [0, 0, 0]
+    },
+    {
+      "id": 2,
+      "name": "Berufe und Tätigkeiten",
+      "grammar": "Die Nomengruppe",
+      "reading": "Mein Beruf",
+      "listening": "Mein Beruf",
+      "completed": [false, false, false],
+      "score": [0, 0, 0]
+    },
+    {
+      "id": 3,
+      "name": "Schule und Ausbidlung",
+      "grammar": "Reflexive Verben",
+      "reading": "Meine Schule",
+      "listening": "Meine Ausbildung",
+      "completed": [false, false, false],
+      "score": [0, 0, 0]
+    },
+    {
+        "id": 4,
+        "name": "Tagesablauf",
+        "grammar": "Die Negation",
+        "reading": "Mein typischer Tagesaublauf",
+        "listening": "Mein typisches Wochenende",
+        "completed": [false, false, false],
+        "score": [0, 0, 0]
+    }, 
+    {
+        "id": 5,
+        "name": "Freizeitaktivitäten",
+        "grammar": "Haupt- und Nebensätze(weil, denn, wenn)",
+        "reading": "Meine Hobbies",
+        "listening": "In meiner Freizeit",
+        "completed": [false, false, false],
+        "score": [0, 0, 0]
+    },
+    {
+        "id": 6,
+        "name": "Einkaufen",
+        "grammar": "Konkunktiv II",
+        "reading": "Ich gehe oft einkaufen",
+        "listening": "Meine Einkaufsliste",
+        "completed": [false, false, false],
+        "score": [0, 0, 0]
+    }
+]

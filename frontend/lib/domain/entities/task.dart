@@ -23,11 +23,14 @@ class Task {
   final String question;
   final List<List<String>> answerOptions;
   final List<String> solutions;
+  final int id;
+  final String lessonType;
   List<String> userAnswers = [];
   bool completed = false; 
 
   Task({
     required this.type, required this.question, 
-    required this.answerOptions, required this.solutions
+    required this.answerOptions, required this.solutions,
+    required this.id, required this.lessonType
     });
 }
