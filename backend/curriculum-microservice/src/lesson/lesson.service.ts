@@ -5,6 +5,7 @@ import { readLessonsFromFile, writeLessonsToFile } from "src/util/json.util";
 import { Task } from '../interfaces/task.interface';
 import { TaskDto } from './dto/task.dto';
 import axios, { AxiosRequestConfig, AxiosResponse, RawAxiosRequestHeaders } from 'axios';
+import { promises as fs } from 'fs';
 @ApiTags('Curriculum')
 @Injectable()
 export class LessonService {

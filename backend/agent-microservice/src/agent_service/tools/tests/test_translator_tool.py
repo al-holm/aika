@@ -1,4 +1,4 @@
-import unittest, xmlrunner
+import unittest
 from unittest.mock import patch, MagicMock
 import sys, os
 testdir = os.path.dirname(__file__)
