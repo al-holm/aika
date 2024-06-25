@@ -44,10 +44,18 @@ export class ChatController {
   }
 
   @Get('lesson')
-  async getLesson(): 
+  async getLesson():
     Promise<JSON> {
     console.log('lesson');
     const lesson = await this.germanChatService.get_lesson();
     return lesson;
+  }
+
+  @Get('tasks')
+  async getTasks():
+    Promise<JSON> {
+    console.log('tasks');
+    const tasks = await this.germanChatService.get_tasks();
+    return tasks;
   }
 }

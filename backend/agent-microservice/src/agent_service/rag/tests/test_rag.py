@@ -2,7 +2,7 @@ import sys, os
 testdir = os.path.dirname(__file__)
 sys.path.insert(0, os.path.abspath(os.path.join(testdir, '../../../')))
 from agent_service.rag.rag import RAG
-import unittest, xmlrunner
+import unittest
 from unittest.mock import patch, mock_open, MagicMock
 
 class TestRAG(unittest.TestCase):

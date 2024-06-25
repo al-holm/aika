@@ -1,0 +1,50 @@
+[
+    {
+        "type": "single-choice", 
+        "question": "Welchen Beruf hat Layla in Syrien und in Deutschland ausgeübt?", 
+        "answer_options": [
+            [
+                "Layla hat in Syrien als Lehrerin und in Deutschland als Bauingenieurin gearbeitet.", "Layla hat in Syrien als Bauingenieurin und in Deutschland als Lehrerin gearbeitet.", "Layla hat in Syrien als Bauingenieurin und in Deutschland als Bauingenieurin gearbeitet.", "Layla hat in Syrien als Lehrerin und in Deutschland als Lehrerin gearbeitet."
+            ]
+        ], 
+        "solution": [
+            " Layla hat in Syrien als Bauingenieurin und in Deutschland als Bauingenieurin gearbeitet."
+            ]
+    }, 
+    {
+        "type": "single-choice", 
+        "question": "Was ist Laylas Lieblingsbuch?", 
+        "answer_options": [
+            [
+                "'Der Alchimist' von Paulo Coelho", "'Der kleine Prinz' von Antoine de Saint-Exupéry", "'Harry Potter und der Stein der Weisen' von J.K. Rowling", "'Die unendliche Geschichte' von Michael Ende"
+            ]
+        ], 
+        "solution": ["'Der Alchimist' von Paulo Coelho"]
+    }, 
+    {
+        "type": "gaps", 
+        "question": "1. Hallo, ich bin __. 2. Ich komme aus __. In meiner Freizeit __ ich sehr gerne und lese Bücher.", 
+        "answer_options": 
+            [
+                [
+                    "Layla", "Maria", "Anna"
+                ], 
+                [
+                    "Syrien", "Österreich", "Deutschland"
+                ],
+                [
+                    "spiele", "koche", "mache", "spaziere"
+                ]
+            ], 
+        "solution": 
+            [
+                ["Layla", "Syrien", "koche"]
+            ]
+    }, 
+    {
+        "type": "open", 
+        "question": "Was ist Laylas Beruf und in welcher Stadt arbeitet sie?", 
+        "answer_options": [[""]], 
+        "solution": [""]
+    }
+]

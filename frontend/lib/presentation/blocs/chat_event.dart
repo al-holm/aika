@@ -45,6 +45,15 @@ class FetchLessonEvent extends ChatEvent {
   List<Object> get props => [chatID];
 }
 
+class FetchTaskEvent extends ChatEvent {
+  final String chatID;
+
+  FetchTaskEvent(this.chatID);
+
+  @override
+  List<Object> get props => [chatID];
+}
+
 class ProposeLessonEvent extends ChatEvent {
   final String chatID;
   final bool previousLessonCompleted;
