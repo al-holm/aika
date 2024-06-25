@@ -44,9 +44,10 @@ class LessonMaster:
             self.task_generator_query = query + f"[{text}]"
         else:
             text = self.tool_executor.execute('Lesetext erstellen', parsed_query["main-topic"])
-            # should look like that: [Reading][2][0][1][text]
+            # should look like that: [Listening][2][0][1][text]
             self.task_generator_query = f"[{parsed_query['type']}][{parsed_query['single-choice']}][{parsed_query['gap-filling']}][{parsed_query['open-ended']}][{text}]"
-
+            if parsed_query["type"] == "Listening":
+                text = self.tool_executor.execute('Audiodatei erstellen')
         return text
     
     def create_exercises(self):

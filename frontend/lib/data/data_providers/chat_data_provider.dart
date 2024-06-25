@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:frontend/data/models/message_model.dart';
 import 'package:frontend/data/models/task_model.dart';
+import 'package:frontend/domain/entities/message.dart';
 import 'package:http/http.dart' as http;
 
 class ChatDataProvider {
@@ -49,7 +50,7 @@ class ChatDataProvider {
         messageID: '', 
         role: 'bot', 
         timestamp: DateTime.now(),
-        hasTasks: false,
+        type: MessageTypeExtension.fromString(data['type'])
       );
     } else {
       throw Exception('Failed to fetch a lesson');

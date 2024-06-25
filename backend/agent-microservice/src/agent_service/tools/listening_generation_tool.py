@@ -5,7 +5,8 @@ import uuid, os
 import torch
 from typing import Literal
 from TTS.api import TTS
-
+import base64
+import os
 class ListeningGenerator(Tool):
     """
     a tool for the listening task generation
@@ -30,4 +31,7 @@ class ListeningGenerator(Tool):
         id = str(uuid.uuid4())
         filepath = "out/audio/" + id + ".wav"
         tts.tts_to_file(text=text, file_path=filepath)
-        return id
+        with open(filepath, "rb") as audio_file:
+            encoded_string = base64.b64encode(audio_file.read()).decode('utf-8')
+        os.remove(filepath) 
+        return encoded_string
