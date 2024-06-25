@@ -1,4 +1,5 @@
-import 'package:frontend/data/models/task_model.dart';
+
+import 'package:frontend/domain/entities/message.dart';
 
 class MessageModel {
   final String text;
@@ -7,11 +8,12 @@ class MessageModel {
   final String role;
   final DateTime timestamp;
   final bool hasTasks;
+  final MessageType type;
 
   MessageModel({required this.text, 
         required this.userID,
         required this.messageID, required this.role,
-        required this.timestamp, this.hasTasks=false});
+        required this.timestamp, this.hasTasks=false, this.type=MessageType.message});
   
    factory MessageModel.fromJson(Map<String, dynamic> json) {
     return MessageModel(
