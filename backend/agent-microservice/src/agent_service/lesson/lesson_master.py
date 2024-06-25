@@ -2,7 +2,7 @@ from agent_service.tools.tool_executor import ToolExecutor
 from agent_service.agent.task_type import TaskType
 from agent_service.parsers.exercises_parser import ExercisesParser
 from agent_service.lesson.lesson_generation_retriever import LessonRetriever
-from agent_service.exeptions.lesson_exceptions import TextNotFoundException
+from agent_service.exceptions.lesson_exceptions import TextNotFoundException, ExercisesNotGeneratedException
 from typing import Dict
 import re, logging
 
@@ -69,7 +69,7 @@ class LessonMaster:
         
         try:
             raw_lesson = self.tool_executor.execute('Deutschaufgaben generieren', self.task_generator_query)
-        except ExercisesNotGenerated:
+        except ExercisesNotGeneratedException:
             logging.error("ExercisesNotGenerated")
             return { "response": "I can't create exercises"}
         lesson = self.exercises_parser.parse(raw_lesson)

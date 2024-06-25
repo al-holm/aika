@@ -1,5 +1,5 @@
 from agent_service.agent.agent_step import AgentStep, AgentValidationStep
-from agent_service.exeptions.step_exception import ActionInputNotFoundException, ActionNotFoundException, InvalidToolException
+from agent_service.exceptions.step_exception import ActionInputNotFoundException, ActionNotFoundException, InvalidToolException
 from typing import List
 import re
 import logging
