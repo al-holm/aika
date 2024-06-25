@@ -3,7 +3,7 @@ import sys
 testdir = os.path.dirname(__file__)
 sys.path.insert(0, os.path.abspath(os.path.join(testdir, '../../../')))
 from pathlib import Path
-import unittest, xmlrunner
+import unittest
 from unittest.mock import patch, mock_open
 from agent_service.agent.agent_step import AgentStep, AgentValidationStep, AgentFinalStep
 from agent_service.agent.reasoning_trace import ReasoningLogger

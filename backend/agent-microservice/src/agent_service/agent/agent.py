@@ -7,7 +7,7 @@ from agent_service.agent.llm import LLMBedrock, LLMRunPod
 from agent_service.prompts.react_prompt import VAL_STOP_PREFIX, ACTION_PROMPT_QA, ACTION_PROMPT_LESSON, VALIDATION_PROMPT_LESSON, VALIDATION_PROMPT_QA
 from agent_service.agent.reasoning_trace import ReasoningLogger
 from agent_service.prompts.prompt_builder import PromptBuilder
-from agent_service.prompts.trajectory_library import TrajectoryInjector
+from agent_service.agent.trajectory_library import TrajectoryRetriever
 from agent_service.tools.tool_executor import ToolExecutor
 from agent_service.parsers.agent_step_parser import StepParser, ValidationParser
 import logging
@@ -92,7 +92,7 @@ class Agent:
         self.validation_parser = ValidationParser()
         self.step_parser = StepParser(self.tool_executor.tool_names)
         if task_type  == TaskType.ANSWERING:
-            self.trajectory_injector = TrajectoryInjector()
+            self.trajectory_injector = TrajectoryRetriever()
 
     def reset(self):
         """

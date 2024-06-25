@@ -1,5 +1,5 @@
-import unittest, xmlrunner
 import sys, os
+import unittest
 testdir = os.path.dirname(__file__)
 sys.path.insert(0, os.path.abspath(os.path.join(testdir, '../../../')))
 from unittest.mock import patch, MagicMock
@@ -12,7 +12,7 @@ from agent_service.tools.tool_executor import ToolExecutor
 from agent_service.agent.llm import LLMBedrock
 from agent_service.agent.agent_step import AgentValidationStep
 from agent_service.parsers.agent_step_parser import StepParser, ValidationParser
-from agent_service.prompts.trajectory_library import TrajectoryInjector
+from agent_service.agent.trajectory_library import TrajectoryRetriever
 
 
 class TestAgent(unittest.TestCase):

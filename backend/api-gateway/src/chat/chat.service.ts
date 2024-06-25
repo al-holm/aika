@@ -117,6 +117,30 @@ export class ChatService {
       }
   }
 
+   /**
+   * Makes a POST request to get an answer for the given question to the topic law and life.
+   * @returns {Promise<JSON>} The answer from the API or error if an error occurs.
+   */
+   async get_tasks(): Promise<JSON> 
+   {
+     
+     const client = axios.create({baseURL: 'http://127.0.0.1:3120/lesson',});
+ 
+     const config: AxiosRequestConfig = {
+       headers: {
+         'Accept': 'application/json',
+       } as RawAxiosRequestHeaders,
+     };
+ 
+     try {
+       const response: AxiosResponse = await client.get('/tasks', config);
+       return response.data;
+     } catch (err) {
+       console.log(err);
+       return err;
+     }
+ }
+
   async processAnswers(task_message: JSON){
     const client = axios.create({baseURL: 'http://127.0.0.1:3120/lesson',});
     const config: AxiosRequestConfig = {

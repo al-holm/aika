@@ -7,12 +7,11 @@ class MessageModel {
   final String role;
   final DateTime timestamp;
   final bool hasTasks;
-  List<TaskModel>? tasks;
 
   MessageModel({required this.text, 
         required this.userID,
         required this.messageID, required this.role,
-        required this.timestamp, this.hasTasks=false, this.tasks});
+        required this.timestamp, this.hasTasks=false});
   
    factory MessageModel.fromJson(Map<String, dynamic> json) {
     return MessageModel(
@@ -22,9 +21,6 @@ class MessageModel {
       role: json['role'],
       timestamp: DateTime.parse(json['timestamp']),
       hasTasks: json['hasTasks'] ?? false,
-      tasks: json['tasks'] != null
-          ? (json['tasks'] as List<dynamic>).map((taskJson) => TaskModel.fromJson(taskJson, json['id'], json['lessonType'])).toList()
-          : null,
     );
   }
 
@@ -36,7 +32,6 @@ class MessageModel {
       'timestamp': timestamp.toIso8601String(),
       'role' : role,
       'hasTasks' : hasTasks,
-      'tasks' : tasks?.map((task) => task.toJson()).toList(),
     };
   }
   // Getters

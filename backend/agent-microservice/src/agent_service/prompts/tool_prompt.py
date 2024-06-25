@@ -1,26 +1,27 @@
 READING_TEMPLATE = """
 [INST]
-You are a German teacher, you are given a task to generate a reading text. Use simple language. Here is your task: ${text}
+You are a German teacher, you are given a task to generate a reading text. Use simple language. Here is the topic for the text: ${text}
 
 For a reading text you have to invent a story. The texts should consist of 6-7 sentences that are connected to each other. The text should be a story and use the specific vocabulary.
 Do not generate questions about the text.
 
-Examples:
+Example:
+Thema: Musik
+Script: Hi, hier ist Layla wieder! Ich liebe Musik. Musik macht mich glücklich. Jeden Tag höre ich meine Lieblingslieder. Mein Lieblingssänger ist Ed Sheeran. Seine Lieder sind sehr schön. Ich höre oft Musik auf dem Weg zur Arbeit. Am Wochenende gehe ich manchmal auf Konzerte. Dort treffe ich Freunde und wir tanzen zusammen. Ich spiele auch ein Instrument. Ich spiele Gitarre. Es macht viel Spaß. Manchmal spiele ich Gitarre und singe. Musik ist ein wichtiger Teil meines Lebens.
 
-Aufgabe: Essen
-Answer:
-"Script:
-Anna geht jeden Freitag zum Markt, um frische Zutaten zu kaufen. Heute macht sie eine Gemüsesuppe. Sie wäscht Karotten, Kartoffeln und Brokkoli und schneidet alles klein. Das Gemüse kommt mit Wasser und Salz in einen Topf.
-Während die Suppe kocht, backt Anna Brot. Zum Abendessen genießen alle die heiße Suppe und das frische Brot."
+Thema: Restaurant
+Script: Hi, hier ist Mo wieder! Ich gehe gerne ins Restaurant. Mein Lieblingsrestaurant ist ein italienisches Restaurant. Es heißt "La Bella Italia". Dort gibt es leckere Pizza und Pasta. Mein Lieblingsgericht ist Spaghetti Carbonara. Ich esse auch gerne Tiramisu als Dessert. Das Restaurant hat eine schöne Atmosphäre. Es ist gemütlich und die Bedienung ist freundlich. Am Wochenende gehe ich oft mit meiner Familie oder Freunden dorthin. Wir essen, reden und lachen viel. Ein Restaurantbesuch ist immer ein besonderes Erlebnis für mich.
 
-Aufgabe: Sich vorstellen
-Answer:
-"Script: 
-Hallo, ich heiße Emma und ich komme aus Berlin. Ich bin 28 Jahre alt und arbeite als Grafikdesignerin. In meiner Freizeit male ich gerne und gehe oft wandern. 
-Ich liebe es, neue Kulturen zu entdecken und reise deshalb so oft es geht. Nächstes Jahr plane ich, Japan zu besuchen, um mehr über seine Kunst und Geschichte zu lernen.
-"
+Your story should be written as if you were ${person_name}. Below is ${person_name}'s story.
+${person_story}.
+Try to imagine how ${person_name} would tell the story from their point of view. 
+Select the relevant details from the ${person_name}'s biography and add some more details to it regarding the relevant aspect. 
+For example, if the topic is school, try to imagine how the school time would look for the person. If the topic is work, imagine more details about where the person works, what could the love about their work and what are their responsibilities.
+Use only relevant details from the story and try to imagine the rest. If there is no details in the story, imagine how the story would look like.
+You should only generate a story telling about one aspect from the life of ${person_name}.
+The story should always be in plain German.
 [/INST]
-Aufgabe: ${text}
+Thema: ${topic}
 Script:
 """
 
@@ -54,21 +55,11 @@ TASK_TEMPLATE = """
 [INST]
 You are a German teacher, you get an assignment to generate the tasks. 
 
-Use the following format:
-
-[START]
-Type: [single-choice, gaps, open]
-Question: [Deine Frage]
-Answer options: [for single-choice options, for gaps text with gaps, for open "None"]
-Solution: [Correct answer/s]
-[END]
-
 ${input_format_and_examples}  
 
 Start now!
 [/INST]
-Frage: ${text}
-1. 
+Query: ${text}
 """
 
 WEB_SUMMARY_TEMPLATE = """

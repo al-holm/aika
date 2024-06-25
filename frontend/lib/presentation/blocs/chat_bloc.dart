@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:frontend/domain/entities/message.dart';
+import 'package:frontend/domain/entities/task.dart';
 import 'package:frontend/domain/usecases/fetch_lesson.dart';
+import 'package:frontend/domain/usecases/fetch_tasks.dart';
 import 'package:frontend/domain/usecases/send_image.dart';
 import 'package:frontend/domain/usecases/send_message.dart';
 import 'package:frontend/utils/metadata_utils.dart';
@@ -14,19 +16,21 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final SendMessage sendMessage;
   final SendImage sendImage;
   final FetchLesson fetchLesson;
+  final FetchTasks fetchTasks;
   late String userID;
   final Map<String, List<Message>> chatMessages = {
     'german': [],
     'law': [],
   };
 
-  ChatBloc(this.sendMessage, this.sendImage, this.fetchLesson) : super(ChatInitial()) {
+  ChatBloc(this.sendMessage, this.sendImage, this.fetchLesson, this.fetchTasks) : super(ChatInitial()) {
     on<InitializeChatEvent>(_onInitializeChat);
     on<SendMessageEvent>(_onSendMessage);
     on<SendImageEvent>(_onSendImage);
     on<FetchLessonEvent>(_onFetchLesson);
     on<ProposeLessonEvent>(_onProposeLesson);
     on<ClearChatEvent>(_onClearChat);
+    on<FetchTaskEvent>(_onFetchTasks);
   }
 
   void _onInitializeChat(InitializeChatEvent event, Emitter<ChatState> emit) async {
@@ -107,9 +111,22 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
   }
 
+    void _onFetchTasks(FetchTaskEvent event, Emitter<ChatState> emit) async {
+    final currentState = state;
+    if (currentState is ChatLoaded || currentState is LessonLoaded || currentState is ChatError) {
+      emit(ChatLoading(chatID: event.chatID, messages: chatMessages[event.chatID]!));
+      try {
+        final tasks = await fetchTasks(event.chatID);
+        emit(TaskLoaded(chatMessages[event.chatID]!, tasks, chatID: event.chatID));
+      } catch (e) {
+        emit(ChatError("Could not fetch lesson", event, state, chatMessages[event.chatID]!));
+      }
+    }
+  }
+
   void _onProposeLesson(ProposeLessonEvent event, Emitter<ChatState> emit) {
     final currentState = state;
-    if (currentState is LessonLoaded) {
+    if (currentState is TaskLoaded || currentState is LessonLoaded) {
       if (event.previousLessonCompleted) {
         final updatedMessages = List<Message>.from(chatMessages[event.chatID]!);
         emit(ChatLoaded(updatedMessages, chatID: event.chatID, offerLesson: false));

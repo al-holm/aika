@@ -1,4 +1,4 @@
-import unittest, xmlrunner
+import unittest
 from pydantic import ValidationError
 import os
 import sys, os
