@@ -6,8 +6,8 @@ import 'package:frontend/presentation/blocs/task_bloc.dart';
 import 'package:frontend/presentation/screens/task_sequence_screen.dart';
 import 'package:frontend/presentation/widgets/app_bar_widgets.dart';
 import 'package:frontend/presentation/widgets/chat_widgets.dart';
+import 'package:frontend/presentation/widgets/message_tile.dart';
 import 'package:frontend/styles/app_styles.dart';
-import 'package:frontend/utils/l10n/app_localization.dart';
 import 'package:frontend/presentation/widgets/video_player_widget.dart';
 
 
@@ -20,7 +20,6 @@ class GermanChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final chatBloc = BlocProvider.of<ChatBloc>(context);
     final taskBloc = BlocProvider.of<TaskBloc>(context);
-    String newLessonText = AppLocalizations.of(context).translate('new_lesson');
 
     return SafeArea(
       child: Scaffold(
@@ -28,7 +27,7 @@ class GermanChatScreen extends StatelessWidget {
         appBar: GermanChatAppBar(),
         body: Column(
           children: <Widget>[
-            Expanded(child: _buildChatInteractionArea(chatBloc, taskBloc, newLessonText)),
+            Expanded(child: _buildChatInteractionArea(chatBloc, taskBloc)),
             const SizedBox(height: 15,),
             const Divider(height: 1, color: AppStyles.darkColor,),
             _buildTextInput(chatBloc),
@@ -38,7 +37,7 @@ class GermanChatScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildChatInteractionArea(ChatBloc chatBloc, TaskBloc taskBloc, String newLessonText) {
+  Widget _buildChatInteractionArea(ChatBloc chatBloc, TaskBloc taskBloc) {
     return MultiBlocListener(
           listeners: [
             BlocListener<TaskBloc, TaskState>(
@@ -50,19 +49,19 @@ class GermanChatScreen extends StatelessWidget {
             ),
           ],
           child: BlocBuilder<ChatBloc, ChatState>(
-            builder: (context, state) => _chatStateBuilder(state, chatBloc, taskBloc, newLessonText),
+            builder: (context, state) => _chatStateBuilder(state, chatBloc, taskBloc),
                   ),
           );
     }
 
-  Widget _chatStateBuilder(ChatState state, ChatBloc chatBloc, TaskBloc taskBloc, String newLessonText) {
+  Widget _chatStateBuilder(ChatState state, ChatBloc chatBloc, TaskBloc taskBloc) {
     if (state is ChatInitial) {
       chatBloc.add(InitializeChatEvent(chatID));
       return const LoadingIndicator();
     } else if (state is ChatLoading) {
       return _buildLoadingView(state);
     } else if (state is ChatLoaded) {
-      return _buildLoadedView(state, chatBloc, newLessonText);
+      return _buildLoadedView(state, chatBloc);
     } else if (state is LessonLoaded) {
       return _buildLessonView(state, chatBloc);
     } else if (state is TaskLoaded) {
@@ -84,14 +83,14 @@ class GermanChatScreen extends StatelessWidget {
           );
   }
 
-  Widget _buildLoadedView(ChatLoaded state, ChatBloc chatBloc, String newLessonText) {
+  Widget _buildLoadedView(ChatLoaded state, ChatBloc chatBloc) {
     return ListView(
           controller: _scrollController,
           children: [
             _buildMessageList(state.messages),
             if (state.offerLesson)
               ChatButton(
-                text: newLessonText,
+                text: 'Neue Lektion',
                 onPressed: () {
                   chatBloc.add(FetchLessonEvent(chatID));
                 },
@@ -105,12 +104,8 @@ class GermanChatScreen extends StatelessWidget {
     return ListView(
       controller: _scrollController,
       children: [
-        Container(
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-            child: VideoPlayerWidget(base64Video: state.messages.last.video),
-          ),
         _buildMessageList(state.messages),
-        if (state.messages.last.video != '')
+        if (state.messages.last.messageType  == MessageType.listeningVideo)
           Container(
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -130,7 +125,7 @@ class GermanChatScreen extends StatelessWidget {
       controller: _scrollController,
       children: [
         _buildMessageList(state.messages),
-        if (state.messages.last.video != '')
+        if (state.messages.last.messageType == MessageType.listeningVideo)
           Container(
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -146,7 +141,7 @@ class GermanChatScreen extends StatelessWidget {
               return const SizedBox();
             } else {
               return ChatButton(
-                text: AppLocalizations.of(context).translate('tasks'),
+                text: 'Aufgaben',
                 onPressed: () {
                   Navigator.push(
                     context,
