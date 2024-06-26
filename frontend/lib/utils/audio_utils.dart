@@ -9,7 +9,15 @@ class AudioUtils {
   Duration maxDuration = Duration();
   Duration elapsedDuration = Duration();
   Stream<Duration> get positionStream => _audioPlayer.onPositionChanged;
-  bool isCompleted = false;
+
+  AudioUtils() {
+    _audioPlayer.onDurationChanged.listen((duration) {
+      maxDuration = duration;
+    });
+    _audioPlayer.onPositionChanged.listen((duration) {
+      elapsedDuration = duration;
+    });
+  }
 
   Future<void> prepareAudioFile(String base64Audio) async {
     try {
@@ -18,28 +26,32 @@ class AudioUtils {
       final file = File('${dir.path}/audio.mp3');
       await file.writeAsBytes(bytes);
       audioFilePath = file.path;
-      _audioPlayer.setSourceDeviceFile(audioFilePath!);
-       _audioPlayer.onDurationChanged.listen((duration) {
-        maxDuration = duration;
-      });
-      _audioPlayer.onPlayerComplete.listen((event) {
-        isCompleted = true;
-        _audioPlayer.seek(Duration.zero);
-      });
+      await _audioPlayer.setSourceDeviceFile(audioFilePath!);
     } catch (e) {
       print('Error preparing audio file: $e');
     }
   }
 
   Future<void> playPauseAudio(bool isPlaying) async {
-    if (isPlaying) {
-      await _audioPlayer.pause();
-    } else {
-      if (isCompleted) {
-        isCompleted = false;
-        await _audioPlayer.seek(Duration.zero);
+    try {
+      if (isPlaying) {
+        await _audioPlayer.pause();
+      } else {
+        await _audioPlayer.resume();
       }
-      await _audioPlayer.resume();
+    } catch (e) {
+      print('Error in playPauseAudio: $e');
+    }
+  }
+
+  Future<void> resetAudio() async {
+    try {
+      await _audioPlayer.stop();
+      await _audioPlayer.setSourceDeviceFile(audioFilePath!);
+      elapsedDuration = Duration.zero;
+      print('reset audio');
+    } catch (e) {
+      print('Error in resetAudio: $e');
     }
   }
 
