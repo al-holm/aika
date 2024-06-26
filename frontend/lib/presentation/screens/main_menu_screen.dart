@@ -5,7 +5,6 @@ import 'package:frontend/presentation/screens/german_chat_screen.dart';
 import 'package:frontend/presentation/screens/law_chat_screen.dart';
 import 'package:frontend/presentation/widgets/main_menu_widgets.dart';
 import 'package:frontend/styles/app_styles.dart';
-import 'package:frontend/utils/l10n/app_localization.dart';
 class MainMenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -44,12 +43,12 @@ class MainMenuScreen extends StatelessWidget {
               ),
               SizedBox(height: screenSize.height * 0.05),
               MainMenuButton(
-                text: AppLocalizations.of(context).translate('germanChat'),
+                text: 'DEUTSCH!',
                 onPressed: () => _navigateToGermanChat(context),
               ),
               SizedBox(height: screenSize.height * 0.03),
               MainMenuButton(
-                text: AppLocalizations.of(context).translate('law&daily'),
+                text: 'RECHT & ALLTAG',
                 onPressed: () {
                    _navigateToLawChat(context);
                 },

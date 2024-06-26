@@ -1,146 +1,26 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:frontend/domain/entities/message.dart';
 import 'package:frontend/styles/app_styles.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:path_provider/path_provider.dart';
 
-class MessageTile extends StatefulWidget {
-  final String content;
-  final String role;
-  final MessageType messageType;
-  final String audio;
+class BotAvatar extends StatelessWidget {
+  const BotAvatar({
+    Key? key,
+    required this.unitW,
+  }) : super(key: key);
 
-  const MessageTile({
-    required this.content,
-    required this.role,
-    required this.messageType,
-    this.audio = ''
-  });
-
-  @override
-  _MessageTileState createState() => _MessageTileState();
-}
-
-class _MessageTileState extends State<MessageTile> {
-  late AudioPlayer _audioPlayer;
-  String? _audioFilePath;
-  bool _isPlaying = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _audioPlayer = AudioPlayer();
-    if (widget.messageType == MessageType.listening) {
-      _prepareAudioFile();
-    }
-  }
-
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    super.dispose();
-  }
-
-  Future<void> _prepareAudioFile() async {
-    try {
-      final bytes = base64Decode(widget.audio);
-      final dir = await getTemporaryDirectory();
-      final file = File('${dir.path}/audio.mp3');
-      await file.writeAsBytes(bytes);
-      setState(() {
-        _audioFilePath = file.path;
-      });
-    } catch (e) {
-      print('Error preparing audio file: $e');
-    }
-  }
-
-  void _playPauseAudio() async {
-    if (_isPlaying) {
-      await _audioPlayer.pause();
-    } else if (_audioFilePath != null) {
-      await _audioPlayer.play(DeviceFileSource(_audioFilePath!));
-    }
-    setState(() {
-      _isPlaying = !_isPlaying;
-    });
-  }
+  final double unitW;
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-    double unitW = screenSize.width * 0.01;
-    double unitH = screenSize.height * 0.01;
-    bool isBot = widget.role == 'bot';
-    double radius = unitW * 2;
-
-    var borderRadius = isBot
-        ? BorderRadius.only(
-            topLeft: Radius.circular(radius),
-            topRight: Radius.circular(radius),
-            bottomLeft: const Radius.circular(0),
-            bottomRight: Radius.circular(radius),
-          )
-        : BorderRadius.only(
-            topLeft: Radius.circular(radius),
-            topRight: Radius.circular(radius),
-            bottomLeft: Radius.circular(radius),
-            bottomRight: const Radius.circular(0),
-          );
-
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment:
-              isBot ? MainAxisAlignment.start : MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            if (isBot)
-              Container(
-                width: unitW * 15,
-                height: unitW * 15,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/bot_avatar.png'),
-                    fit: BoxFit.scaleDown,
-                  ),
-                  shape: BoxShape.circle,
-                ),
-              ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: unitW, vertical: unitH),
-              padding: EdgeInsets.symmetric(
-                  horizontal: unitW * 1.5, vertical: unitH),
-              constraints: BoxConstraints(maxWidth: screenSize.width * 0.7),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: borderRadius,
-                border: Border.all(color: Colors.black, width: 1.5),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                      widget.content,
-                      style: AppStyles.messageTextStyle,
-                      softWrap: true,
-                    ),
-                  if (widget.messageType == MessageType.listening)
-                     IconButton(
-                      icon: Icon(
-                        _isPlaying ? Icons.pause : Icons.play_arrow,
-                      ),
-                      onPressed: _playPauseAudio,
-                    ),
-                ],
-              ),
-            ),
-          ],
+    return Container(
+      width: unitW * 15,
+      height: unitW * 15,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/bot_avatar.png'),
+          fit: BoxFit.scaleDown,
         ),
-      ],
+        shape: BoxShape.circle,
+      ),
     );
   }
 }
