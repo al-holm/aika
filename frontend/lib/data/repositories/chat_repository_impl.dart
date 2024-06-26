@@ -37,7 +37,7 @@ class ChatRepositoryImpl implements ChatRepository {
       text: messageModel.text, userID: messageModel.userID, 
       messageID: messageModel.messageID, role: messageModel.role, 
       timestamp:messageModel.timestamp, messageType: messageModel.messageType,
-      audio: messageModel.audio
+      audio: messageModel.audio, video: messageModel.video
       );
   }
 

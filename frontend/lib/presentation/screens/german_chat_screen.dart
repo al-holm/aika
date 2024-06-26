@@ -105,10 +105,22 @@ class GermanChatScreen extends StatelessWidget {
     return ListView(
       controller: _scrollController,
       children: [
+        Container(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            child: VideoPlayerWidget(base64Video: state.messages.last.video),
+          ),
         _buildMessageList(state.messages),
-        if (state.base64Video != '')
-          VideoPlayerWidget(base64Video: state.base64Video),
-      ],
+        if (state.messages.last.video != '')
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.black, width: 1.5),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            margin: const EdgeInsets.all(15),
+            child: VideoPlayerWidget(base64Video: state.messages.last.video),
+          ),
+      ]
     );
   }
 
@@ -118,6 +130,16 @@ class GermanChatScreen extends StatelessWidget {
       controller: _scrollController,
       children: [
         _buildMessageList(state.messages),
+        if (state.messages.last.video != '')
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.black, width: 1.5),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            margin: const EdgeInsets.all(15),
+            child: VideoPlayerWidget(base64Video: state.messages.last.video),
+          ),
         BlocBuilder<TaskBloc, TaskState>(
           builder: (context, taskState) {
             if (taskState is TaskSubmissionSuccess) {

@@ -43,7 +43,7 @@ def get_german_answer():
     """
     answer =  aika_qa.run(request.json["question"])
     aika_qa.reset()
-    answer = '.'.join(answer.strip().split('.')[:-1]) + '.'
+    #answer = '.'.join(answer.strip().split('.')[:-1]) + '.'
     return {"answer": answer}
 
 @app.route("/get_lesson_text", methods=["Post"])
