@@ -148,6 +148,8 @@ class GermanChatScreen extends StatelessWidget {
         return MessageTile(
           content: message.text,
           role: message.role,
+          messageType: message.messageType,
+          audio: message.audio
         );
       },
     );

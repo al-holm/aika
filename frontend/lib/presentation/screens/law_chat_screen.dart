@@ -105,6 +105,7 @@ class LawChatScreen extends StatelessWidget {
         return MessageTile(
           content: message.text,
           role: message.role,
+          messageType: message.messageType,
         );
       },
     );

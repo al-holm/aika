@@ -19,7 +19,7 @@ class ListeningGenerator(Tool):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
-    def run(self, text:str, voice:Literal['m', 'f']='f'):
+    def run(self, text:str, voice:Literal['m', 'f']='m'):
         """
         runs LLM to get an answer,
         is the entry point for using the tool from the outside
