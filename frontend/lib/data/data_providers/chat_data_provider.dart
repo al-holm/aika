@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:frontend/data/models/message_model.dart';
 import 'package:frontend/data/models/task_model.dart';
+import 'package:frontend/domain/entities/message.dart';
 import 'package:http/http.dart' as http;
 
 class ChatDataProvider {
@@ -43,13 +44,16 @@ class ChatDataProvider {
       );
      if (response.statusCode == 200) {
       final dynamic data = json.decode(response.body);
+      MessageType type = MessageTypeExtension.fromString(data['type']);
+      print(data);
       return  MessageModel(
         text: data['text'], 
         userID:'lesson', 
         messageID: '', 
         role: 'bot', 
         timestamp: DateTime.now(),
-        hasTasks: false,
+        messageType: type,
+        audio: type == MessageType.listening ? data['audio'] : ''
       );
     } else {
       throw Exception('Failed to fetch a lesson');

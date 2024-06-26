@@ -18,14 +18,20 @@ class LessonProxy:
         string (mocking first listening with a video), otherwise it calls create_exercise function from the LessonMaster
         
         """
+        self.request = request
         if request.startswith("[Listening][Ich stelle mich vor."):
             video_path = os.path.join(self.DATA_PATH, "layla/layla.mp4")
             encoded_video = self.encode_video_to_base64(video_path)
             self.request = request
-            return encoded_video
+            return {"text": "Schaue die Aufnahme und löse im Anschluss die Aufgaben.\n", "video": encoded_video}
+        elif request.startswith("[Listening]"):
+            return {"text": "Höre die Aufnahme an und löse im Anschluss die Aufgaben.\n","audio": self.service_text(request)}
+        elif request.startswith("[Reading]"):
+            return {"text": "Lese den Text und löse im Anschluss die Aufgaben.\n" + self.service_text(request)}
+        elif request.startswith("[Grammar]"):
+            return {"text": "Hier ist die Grammatiklektion. Lese den Text und löse im Anschluss die Aufgaben.\n" + self.service_text(request)}
         else:
-            self.request = request
-            return self.service_text(request)
+            raise NotImplementedError
         
     def create_exercises(self):
         """
