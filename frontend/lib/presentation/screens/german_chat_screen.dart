@@ -8,6 +8,7 @@ import 'package:frontend/presentation/widgets/app_bar_widgets.dart';
 import 'package:frontend/presentation/widgets/chat_widgets.dart';
 import 'package:frontend/styles/app_styles.dart';
 import 'package:frontend/utils/l10n/app_localization.dart';
+import 'package:frontend/presentation/widgets/video_player_widget.dart';
 
 
 class GermanChatScreen extends StatelessWidget {
@@ -105,6 +106,8 @@ class GermanChatScreen extends StatelessWidget {
       controller: _scrollController,
       children: [
         _buildMessageList(state.messages),
+        if (state.base64Video != '')
+          VideoPlayerWidget(base64Video: state.base64Video),
       ],
     );
   }
