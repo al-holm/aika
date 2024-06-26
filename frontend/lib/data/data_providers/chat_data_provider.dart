@@ -45,16 +45,19 @@ class ChatDataProvider {
      if (response.statusCode == 200) {
       final dynamic data = json.decode(response.body);
       MessageType type = MessageTypeExtension.fromString(data['type']);
-      print(data);
-      return  MessageModel(
+      print(type);
+      MessageModel model = MessageModel(
         text: data['text'], 
         userID:'lesson', 
         messageID: '', 
         role: 'bot', 
         timestamp: DateTime.now(),
         messageType: type,
-        audio: type == MessageType.listening ? data['audio'] : ''
+        audio: type == MessageType.listening ? data['audio'] : '',
+        video: type == MessageType.listeningVideo ? data['video'] : ''
       );
+      print(model.video.length);
+      return  model;
     } else {
       throw Exception('Failed to fetch a lesson');
     }

@@ -36,13 +36,13 @@
   {
     "id": 3,
     "name": "Schule und Ausbidlung",
-    "grammar": "Reflexive Verben",
+    "grammar": "Die Negation",
     "reading": "Als ich Schüler war...",
     "listening": "Mein Studium",
     "completed": [
-      false,
-      false,
-      false
+      true,
+      true,
+      true
     ],
     "score": [
       0,
@@ -53,7 +53,7 @@
   {
     "id": 4,
     "name": "Tagesablauf",
-    "grammar": "Die Negation",
+    "grammar": "Reflexive Verben",
     "reading": "Mein typischer Tagesaublauf (mit zeitlichen Angaben)",
     "listening": "Mein typisches Wochenende",
     "completed": [

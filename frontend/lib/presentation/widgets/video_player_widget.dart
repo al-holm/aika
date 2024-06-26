@@ -14,7 +14,7 @@ class VideoPlayerWidget extends StatelessWidget {
   Future<VideoPlayerController> _initializeVideoPlayer() async {
     // Decode the base64 string into bytes
     Uint8List videoBytes = base64Decode(base64Video);
-
+    print('Decoding success');
     // Get the temporary directory
     final tempDir = await getTemporaryDirectory();
     final tempVideoFile = File('${tempDir.path}/temp_video.mp4');
@@ -23,8 +23,11 @@ class VideoPlayerWidget extends StatelessWidget {
     await tempVideoFile.writeAsBytes(videoBytes);
 
     // Initialize the video player controller with the temporary file
+    print("initializing video controller...");
     VideoPlayerController controller = VideoPlayerController.file(tempVideoFile);
+    print("initialized video controller!"); 
     await controller.initialize();
+    controller.setVolume(1.0);
     return controller;
   }
 
@@ -56,10 +59,34 @@ class VideoPlayerWidget extends StatelessWidget {
   }
 }
 
-class VideoControlButtons extends StatelessWidget {
+class VideoControlButtons extends StatefulWidget {
   final VideoPlayerController controller;
 
   VideoControlButtons({required this.controller});
+
+  @override
+  _VideoControlButtonsState createState() => _VideoControlButtonsState();
+}
+
+class _VideoControlButtonsState extends State<VideoControlButtons> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = widget.controller;
+    _controller.addListener(_updateState);
+  }
+
+  void _updateState() {
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(_updateState);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,16 +94,20 @@ class VideoControlButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
-          icon: Icon(controller.value.isPlaying ? Icons.pause : Icons.play_arrow),
+          icon: Icon(_controller.value.isPlaying ? Icons.pause : Icons.play_arrow),
           onPressed: () {
-            controller.value.isPlaying ? controller.pause() : controller.play();
+            setState(() {
+              _controller.value.isPlaying ? _controller.pause() : _controller.play();
+            });
           },
         ),
         IconButton(
-          icon: Icon(Icons.stop),
+          icon: const Icon(Icons.refresh),
           onPressed: () {
-            controller.pause();
-            controller.seekTo(Duration.zero);
+            setState(() {
+              _controller.pause();
+              _controller.seekTo(Duration.zero);
+            });
           },
         ),
       ],
