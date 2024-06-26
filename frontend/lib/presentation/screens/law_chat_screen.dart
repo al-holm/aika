@@ -4,9 +4,8 @@ import 'package:frontend/domain/entities/message.dart';
 import 'package:frontend/presentation/blocs/chat_bloc.dart';
 import 'package:frontend/presentation/widgets/app_bar_widgets.dart';
 import 'package:frontend/presentation/widgets/chat_widgets.dart';
+import 'package:frontend/presentation/widgets/message_tile.dart';
 import 'package:frontend/styles/app_styles.dart';
-import 'package:frontend/utils/l10n/app_localization.dart';
-
 
 class LawChatScreen extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
@@ -19,7 +18,7 @@ class LawChatScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppStyles.sandColor,
-        appBar: SimpleAppBar(text: AppLocalizations.of(context).translate('law&daily')),
+        appBar: SimpleAppBar(text: 'Recht & Alltag'),
         body: Column(
           children: <Widget>[
             Expanded(child: _buildChatContent(chatBloc)),
