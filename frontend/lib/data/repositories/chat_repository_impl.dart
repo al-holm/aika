@@ -22,7 +22,7 @@ class ChatRepositoryImpl implements ChatRepository {
     return Message(
       text: messageModel.text, userID: messageModel.userID, 
       messageID: messageModel.messageID, role: messageModel.role, 
-      timestamp:messageModel.timestamp, hasTasks: messageModel.hasTasks);
+      timestamp:messageModel.timestamp);
   }
 
   @override
@@ -36,7 +36,8 @@ class ChatRepositoryImpl implements ChatRepository {
      return Message(
       text: messageModel.text, userID: messageModel.userID, 
       messageID: messageModel.messageID, role: messageModel.role, 
-      timestamp:messageModel.timestamp, hasTasks: messageModel.hasTasks,
+      timestamp:messageModel.timestamp, messageType: messageModel.messageType,
+      audio: messageModel.audio
       );
   }
 

@@ -23,12 +23,13 @@ class Message {
   final String messageID;
   final String role;
   final DateTime timestamp;
-  final bool hasTasks;
+  final MessageType messageType;
+  final String audio;
 
   Message({required this.text, 
         required this.userID,
         required this.messageID, required this.role,
         required this.timestamp,
-        this.hasTasks = false});
+        this.messageType=MessageType.message, this.audio=''});
 }
 

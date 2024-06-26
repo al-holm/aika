@@ -53,8 +53,8 @@ def getLessonText():
     Returns generated exercises for a new lesson
     """
 
-    text = lesson_proxy.create_text(request.json["question"])
-    return jsonify({"text": text})
+    response = lesson_proxy.create_text(request.json["question"])
+    return jsonify(response)
 
 @app.route("/get_lesson_exercises", methods=["Get"])
 @swag_from(LESSON_API)

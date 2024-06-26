@@ -33,6 +33,7 @@ export class LessonService {
             const data = { 'question': request};
             const response: AxiosResponse = await client.post('/get_lesson_text', data, config);
             response.data.type = lesson_d['type']
+            console.log(response.data.type);
             return response.data;
         } catch (err) {
             console.log(err);
