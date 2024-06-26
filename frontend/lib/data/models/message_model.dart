@@ -1,4 +1,5 @@
-import 'package:frontend/data/models/task_model.dart';
+
+import 'package:frontend/domain/entities/message.dart';
 
 class MessageModel {
   final String text;
@@ -6,12 +7,13 @@ class MessageModel {
   final String messageID;
   final String role;
   final DateTime timestamp;
-  final bool hasTasks;
+  final MessageType messageType;
+  final String audio;
 
   MessageModel({required this.text, 
         required this.userID,
         required this.messageID, required this.role,
-        required this.timestamp, this.hasTasks=false});
+        required this.timestamp, this.messageType=MessageType.message, this.audio=''});
   
    factory MessageModel.fromJson(Map<String, dynamic> json) {
     return MessageModel(
@@ -20,7 +22,6 @@ class MessageModel {
       messageID: json['messageId'],
       role: json['role'],
       timestamp: DateTime.parse(json['timestamp']),
-      hasTasks: json['hasTasks'] ?? false,
     );
   }
 
@@ -31,7 +32,6 @@ class MessageModel {
       'messageId': messageID,
       'timestamp': timestamp.toIso8601String(),
       'role' : role,
-      'hasTasks' : hasTasks,
     };
   }
   // Getters
@@ -40,5 +40,4 @@ class MessageModel {
   String get getMessageID => messageID;
   String get getRole => role;
   DateTime get getTimestamp => timestamp;
-  bool get getGotTasks => hasTasks;
 }
