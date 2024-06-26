@@ -22,6 +22,12 @@ export class LessonService {
     async getNextLesson() : Promise<JSON> {
         let lesson_d = await this.getNextUncompletedLesson();
         let request = `[${lesson_d['type']}][${lesson_d['topic']}][None][2][1][1]`;
+        let type;
+        if (lesson_d['type'] == 'Listening' && lesson_d['id'] == 1) {
+            type = 'ListeningVideo';
+        } else {
+            type = lesson_d['type'];
+        }
         console.log(`Sending request to the agent: ${request}`)
         const client = axios.create({baseURL: 'http://127.0.0.1:5000',});
         const config: AxiosRequestConfig = {
@@ -32,7 +38,7 @@ export class LessonService {
         try {
             const data = { 'question': request};
             const response: AxiosResponse = await client.post('/get_lesson_text', data, config);
-            response.data.type = lesson_d['type']
+            response.data.type = type;
             console.log(response.data.type);
             return response.data;
         } catch (err) {
