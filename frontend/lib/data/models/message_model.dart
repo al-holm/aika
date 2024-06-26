@@ -9,11 +9,13 @@ class MessageModel {
   final DateTime timestamp;
   final MessageType messageType;
   final String audio;
+  final String video;
 
   MessageModel({required this.text, 
         required this.userID,
         required this.messageID, required this.role,
-        required this.timestamp, this.messageType=MessageType.message, this.audio=''});
+        required this.timestamp, this.messageType=MessageType.message, 
+        this.audio='', this.video=''});
   
    factory MessageModel.fromJson(Map<String, dynamic> json) {
     return MessageModel(
