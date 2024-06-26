@@ -53,6 +53,13 @@ class _MessageTileState extends State<MessageTile> {
     });
   }
 
+  void _resetAudio() async {
+    await _audioManager.resetAudio();
+    setState(() {
+      _isPlaying = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -105,6 +112,7 @@ class _MessageTileState extends State<MessageTile> {
       maxDuration: _audioManager.maxDuration,
       positionStream: _audioManager.positionStream,
       playPauseAudio: _playPauseAudio,
+      resetAudio: _resetAudio,
       isPlaying: _isPlaying,
     );
   }
