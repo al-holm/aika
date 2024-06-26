@@ -49,7 +49,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   void _onSendMessage(SendMessageEvent event, Emitter<ChatState> emit) async {
     ChatState currentState = state;
-    if (currentState is ChatLoaded || currentState is LessonLoaded || currentState is ChatError) {
+    if (currentState is ChatLoaded || currentState is TaskLoaded || currentState is ChatError) {
       emit(ChatLoading(chatID: event.chatID, messages: chatMessages[event.chatID]!));
       try {
         final messageId = MetadataUtils.generateMessageID();
@@ -69,14 +69,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         if (currentState is ChatError) {
            if (currentState.lastState is ChatLoaded) {
             currentState = currentState.lastState as ChatLoaded;
-          } else if (currentState.lastState is LessonLoaded) {
-            currentState = currentState.lastState as LessonLoaded;
+          } else if (currentState.lastState is TaskLoaded) {
+            currentState = currentState.lastState as TaskLoaded;
           }
         }
         if (currentState is ChatLoaded) {
           emit(ChatLoaded(updatedMessages, chatID: event.chatID, offerLesson: false));
-        } else if (currentState is LessonLoaded) {
-          emit(LessonLoaded(updatedMessages, currentState.lesson, chatID: event.chatID));
+        } else if (currentState is TaskLoaded) {
+          emit(TaskLoaded(updatedMessages, currentState.tasks, chatID: event.chatID));
         } 
       } catch (e) {
         emit(ChatError("Could not send message", event, state, chatMessages[event.chatID]!));
