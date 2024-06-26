@@ -22,8 +22,8 @@ import 'package:frontend/presentation/screens/settings_screen.dart';
 import 'package:frontend/styles/app_styles.dart';
 import 'package:frontend/utils/l10n/app_localization.dart';
 void main() {
-  final chatRepository = ChatRepositoryImpl(ChatDataProvider('http://192.168.122.1:3000'));
-  final taskRepository = TaskRepositoryImpl(TaskDataProvider('http://192.168.122.1:3000'));
+  final chatRepository = ChatRepositoryImpl(ChatDataProvider('http://192.168.178.181:3000'));
+  final taskRepository = TaskRepositoryImpl(TaskDataProvider('http://192.168.178.181:3000'));
   runApp(MyApp(chatRepository: chatRepository, taskRepository: taskRepository));
 }
 

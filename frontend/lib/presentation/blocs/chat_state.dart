@@ -35,12 +35,11 @@ class LessonLoaded extends ChatState {
   final List<Message> messages;
   final Message lesson;
   final String chatID;
-  final String base64Video;
 
-  LessonLoaded(this.messages, this.lesson, {required this.chatID, this.base64Video = this.messages[-1].video});
+  LessonLoaded(this.messages, this.lesson, {required this.chatID});
 
   @override
-  List<Object> get props => [messages, lesson, chatID, base64Video];
+  List<Object> get props => [messages, lesson, chatID];
 }
 
 class TaskLoaded extends ChatState {
