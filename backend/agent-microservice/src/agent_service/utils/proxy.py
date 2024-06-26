@@ -19,7 +19,7 @@ class LessonProxy:
         
         """
         if request.startswith("[Listening][Ich stelle mich vor."):
-            video_path = os.path.join(self.DATA_PATH, "layla.mp4")
+            video_path = os.path.join(self.DATA_PATH, "layla/layla.mp4")
             encoded_video = self.encode_video_to_base64(video_path)
             self.request = request
             return encoded_video
