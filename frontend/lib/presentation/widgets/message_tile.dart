@@ -77,6 +77,7 @@ class _MessageTileState extends State<MessageTile> {
     double radius = unitW * 2;
     lang = AppLocalizations.of(context).locale.languageCode;
 
+
     var borderRadius = isBot
         ? BorderRadius.only(
             topLeft: Radius.circular(radius),
