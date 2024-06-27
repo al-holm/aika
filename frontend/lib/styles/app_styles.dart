@@ -56,4 +56,11 @@ class AppStyles {
   static const TextStyle messageTextStyle = TextStyle(
     fontFamily: 'SFMono', fontSize: 17
     );
+
+  static const TextStyle questionListstextStyle = TextStyle(
+    color: Colors.black,
+    fontFamily: 'SFMono',
+    height: 1.1,
+    fontSize: 18
+  );
 }

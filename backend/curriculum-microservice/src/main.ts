@@ -7,11 +7,11 @@ async function bootstrap() {
     .setTitle('AIKA - Curriculum')
     .setDescription('Nest JS')
     .setVersion('1.0')
-    .addServer('http://localhost:3120/', 'Local environment')
+    .addServer('http://localhost:3543/', 'Local environment')
     .addTag('Curriculum')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api-docs', app, document);
-  await app.listen(process.env.PORT || 3120);
+  await app.listen(process.env.PORT || 3543);
 }
 bootstrap();
