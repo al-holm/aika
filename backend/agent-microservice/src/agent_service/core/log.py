@@ -4,13 +4,14 @@ from colorama import Fore, Style, init
 # Initialize Colorama
 init(autoreset=True)
 
+
 class ColoredFormatter(logging.Formatter):
     """Custom formatter to add colors to log levels based on the class name."""
 
     COLORS = {
-        'StepParser': Fore.CYAN,
-        'Observation': Fore.YELLOW,
-        'FinalAnswer': Fore.GREEN,
+        "StepParser": Fore.CYAN,
+        "Observation": Fore.YELLOW,
+        "FinalAnswer": Fore.GREEN,
     }
 
     def format(self, record):

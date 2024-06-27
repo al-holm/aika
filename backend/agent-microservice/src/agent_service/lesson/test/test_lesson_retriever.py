@@ -1,6 +1,7 @@
 import unittest
 from agent_service.lesson.lesson_generation_retriever import LessonRetriever
 
+
 class TestLessonRetriever(unittest.TestCase):
 
     def setUp(self):
@@ -107,7 +108,7 @@ Solution: [a) Wir sind gefahren]
         topic = "Perfekt"
         result = self.lesson_retriever.get_grammar_explanation(topic)
         self.assertEqual(result, self.expected_result)
-    
+
     def test_get_explanation_last_topic(self):
         self.setUp_get_explanation_last_topic()
         topic = "Konkunktiv II"

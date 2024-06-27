@@ -1,4 +1,4 @@
-READING_SINGLE_CHOICE  = """
+READING_SINGLE_CHOICE = """
 Your input format is: 
 [Single-Choice-Questions-Number][Text for which exercises must be provided]
 
@@ -63,7 +63,7 @@ Solution: [b) Frau Müller]
 [END]
 """
 
-READING_GAP_FILLING  = """
+READING_GAP_FILLING = """
 Your input format is: 
 [Gaps-filling-exercises-number][Text for which exercises must be provided]
 
