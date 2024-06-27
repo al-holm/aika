@@ -23,6 +23,37 @@ class GermanChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(Icons.settings),
           color: AppStyles.sandColor,
           onPressed: () {
+            Navigator.popAndPushNamed(context, '/settings');
+          },
+        ),
+      ],
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+
+class LawChatAppBar extends StatelessWidget implements PreferredSizeWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: const Text('Recht & Alltag',),
+      backgroundColor: AppStyles.darkColor,
+      foregroundColor: AppStyles.sandColor,
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.school),
+          color: AppStyles.sandColor,
+          onPressed: () {
+            Navigator.pushNamed(context, '/law_question_list');
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.settings),
+          color: AppStyles.sandColor,
+          onPressed: () {
             Navigator.pushNamed(context, '/settings');
           },
         ),
