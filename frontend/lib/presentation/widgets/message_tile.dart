@@ -4,6 +4,8 @@ import 'package:frontend/utils/audio_utils.dart';
 import 'package:frontend/presentation/widgets/chat_widgets.dart';
 import 'package:frontend/presentation/widgets/audio_player_widget.dart';
 import 'package:frontend/styles/app_styles.dart';
+import 'package:frontend/utils/l10n/app_localization.dart';
+import 'package:translator/translator.dart';
 
 class MessageTile extends StatefulWidget {
   final String content;
@@ -24,12 +26,18 @@ class MessageTile extends StatefulWidget {
 
 class _MessageTileState extends State<MessageTile> {
   late AudioUtils _audioManager;
+  late String text;
+  late String lang;
   bool _isPlaying = false;
+  bool _isTranslated = false;
+  final translator = GoogleTranslator();
+  String translation = '';
 
   @override
   void initState() {
     super.initState();
     _audioManager = AudioUtils();
+    text = widget.content;
     if (widget.messageType == MessageType.listening) {
       _prepareAudioFile();
     }
@@ -67,6 +75,8 @@ class _MessageTileState extends State<MessageTile> {
     double unitH = screenSize.height * 0.01;
     bool isBot = widget.role == 'bot';
     double radius = unitW * 2;
+    lang = AppLocalizations.of(context).locale.languageCode;
+
 
     var borderRadius = isBot
         ? BorderRadius.only(
@@ -95,16 +105,39 @@ class _MessageTileState extends State<MessageTile> {
               unitH: unitH,
               screenSize: screenSize,
               borderRadius: borderRadius,
-              content: widget.content,
+              content: text,
               messageType: widget.messageType,
               isPlaying: _isPlaying,
               playPauseAudio: _playPauseAudio,
               buildAudioWaveform: _buildAudioWaveform,
             ),
+            if (isBot) IconButton(onPressed: _handleTranslate, 
+              icon: _isTranslated ? const Icon(Icons.keyboard_backspace_sharp)  : const Icon(Icons.translate)
+              ),
           ],
         ),
       ],
     );
+  }
+
+  void _handleTranslate() async {
+    if (!_isTranslated) {
+      if (lang == 'de') {
+        translation = widget.content;
+      } else if (translation == '') {
+        final translated = await translator.translate(text, to: lang);
+        translation = 'Maschinelle Übersetzung lautet: ' + translated.text;
+      }
+      setState(() {
+        text = translation;
+        _isTranslated = true;
+        });
+    } else {
+      setState(() {
+        text = widget.content;
+        _isTranslated = false;
+      });
+    }
   }
 
   Widget _buildAudioWaveform() {
