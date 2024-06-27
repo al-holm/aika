@@ -16,6 +16,8 @@ describe('GermanChatController', () => {
       processMessage: jest.fn((dto) =>
         Promise.resolve({ ...dto, processed: true }),
       ),
+      getLesson : jest.fn(),
+      getTasks : jest.fn()
     };
 
     // Create a module with GermanChatController and the mock service
@@ -50,9 +52,34 @@ describe('GermanChatController', () => {
       const response = await controller.getAnswer(messageDto);
 
       expect(mockGermanChatService.processMessage).toHaveBeenCalledWith(
-        messageDto,
+        messageDto,  "language"
       );
       expect(response).toEqual({ message: { ...messageDto, processed: true } });
     });
+
+  it('should return the processed message', async () => {
+    const messageDto = new Message();
+    messageDto.text = 'Hello';
+    messageDto.messageId = '123';
+
+    const response = await controller.getAnswerLawLife(messageDto);
+
+    expect(mockGermanChatService.processMessage).toHaveBeenCalledWith(
+      messageDto,  "law-life"
+    );
+    expect(response).toEqual({ message: { ...messageDto, processed: true } });
   });
+
+  it('should return the lesson', async () => {
+    const response = await controller.getLesson();
+
+    expect(mockGermanChatService.getLesson).toHaveBeenCalled();
+   });
+
+   it('should return the tasls', async () => {
+    const response = await controller.getTasks();
+
+    expect(mockGermanChatService.getTasks).toHaveBeenCalled();
+   });
+});
 });
