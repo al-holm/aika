@@ -8,18 +8,19 @@ from agent_service.prompts.tool_prompt import READING_TEMPLATE
 from agent_service.rag.rag import RAG
 from agent_service.tools.reading_generation_tool import ReadingGenerator
 from agent_service.tools.listening_generation_tool import ListeningGenerator
+
 if __name__ == "__main__":
-    #setup_logging()
-    llm = 'bedrock' # bedrock or runpod
+    # setup_logging()
+    llm = "bedrock"  # bedrock or runpod
     task_type = TaskType.LESSON
     Config.set_llm(llm, task_type)
     rt = RAG(init=True)
     """ while True:
         print('\n\n')
         print(rt.run(input('\n\n\nType your question:'))) """
-    #tj = TrajectoryInjector(True)
-    #print(tj.inject_trajectories('Wie kann ich sagen ich komme später.'))
-    #a = Agent(task_type=task_type)
+    # tj = TrajectoryInjector(True)
+    # print(tj.inject_trajectories('Wie kann ich sagen ich komme später.'))
+    # a = Agent(task_type=task_type)
 """     tool = ReadingGenerator('', '', llm, 'reading', READING_TEMPLATE, 300)
     listening = ListeningGenerator('', '', llm, '', '', 1)
     query = "" 

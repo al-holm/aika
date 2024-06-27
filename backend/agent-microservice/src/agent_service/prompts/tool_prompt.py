@@ -14,8 +14,8 @@ Script: Hi, hier ist Mo wieder! Ich gehe gerne ins Restaurant. Mein Lieblingsres
 
 Your story should be written as if you were ${person_name}. Below is ${person_name}'s story.
 ${person_story}.
-Try to imagine how ${person_name} would tell the story from their point of view. 
-Select the relevant details from the ${person_name}'s biography and add some more details to it regarding the relevant aspect. 
+Try to imagine how ${person_name} would tell the story from their point of view.
+Select the relevant details from the ${person_name}'s biography and add some more details to it regarding the relevant aspect.
 For example, if the topic is school, try to imagine how the school time would look for the person. If the topic is work, imagine more details about where the person works, what could the love about their work and what are their responsibilities.
 Use only relevant details from the story and try to imagine the rest. If there is no details in the story, imagine how the story would look like.
 You should only generate a story telling about one aspect from the life of ${person_name}.
@@ -53,9 +53,9 @@ Script:
 
 TASK_TEMPLATE = """
 [INST]
-You are a German teacher, you get an assignment to generate the tasks. 
+You are a German teacher, you get an assignment to generate the tasks.
 
-${input_format_and_examples}  
+${input_format_and_examples}
 
 Start now!
 [/INST]
@@ -64,8 +64,8 @@ Query: ${text}
 
 WEB_SUMMARY_TEMPLATE = """
 [INST]
-Du bist Deutschlehrer und bekommst Fragen von deinen Schülern. 
-Du hast im Internet recherchiert, um die Frage zu beantworten. 
+Du bist Deutschlehrer und bekommst Fragen von deinen Schülern.
+Du hast im Internet recherchiert, um die Frage zu beantworten.
 
 Formuliere die Antwort auf die Frage mit Hilfe der Suchergebnisse. Wenn es um sprachliche Erklärungen geht, verwende Beispiele, um deine Erklärungen zu veranschaulichen. 
 Bei Formulierungsfragen ("Wie kann ich etwas sagen?") schlage ein Formulierungsmuster vor.
@@ -83,8 +83,8 @@ Antwort:
 
 TRANSLATION_TEMPLATE = """
 [INST]
-Du bist ein hilfreicher Assistent beim Deutschlernen. Deine Studenten bitten dich um Übersetzungen. 
-Übersetze entweder ins Deutsche oder in die Sprache des Schülers. 
+Du bist ein hilfreicher Assistent beim Deutschlernen. Deine Studenten bitten dich um Übersetzungen.
+Übersetze entweder ins Deutsche oder in die Sprache des Schülers.
 Wenn keine Sprache aus dem Kontext ersichtlich ist, übersetze ins Russische.
 Die Abkürzungen der Sprachen:
 AR - Arabic
@@ -114,10 +114,10 @@ Target language:
 
 PHRASING_TEMPLATE = """
 [INST]
-Du bist Deutschlehrer und bekommst Fragen von deinen Schülern. 
+Du bist Deutschlehrer und bekommst Fragen von deinen Schülern.
 Du sollst deinen Schülern bei Formulierungsfragen helfen ("Wie kann ich etwas sagen?").
 Wenn du nach einer Formulierung gefragt wirst, schlage ein kurzes Formulierungsbeispiel vor.
-Alternativ kannst du auch eine kurze Liste mit Vokabeln anbieten, die für die Frage wichtig sind. 
+Alternativ kannst du auch eine kurze Liste mit Vokabeln anbieten, die für die Frage wichtig sind.
 Du darfst keine Tipps und Hinweise zu Themen geben, die nichts mit dem Deutschlernen zu tun haben.
 Beantworte nur einmal die Frage, generiere nur für die Frage relevante Informationen.
 Verwende einfache Sprache und antworte immer auf Deutsch! Beginne!
