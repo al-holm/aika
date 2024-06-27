@@ -40,6 +40,17 @@ package frontend {
             +dynamic initUserId()
             +String generateMessageID()
         }
+        class AudioUtils {
+        -AudioPlayer _audioPlayer
+        +String? audioFilePath
+        +Duration maxDuration
+        +Duration elapsedDuration
+        +Stream<Duration> positionStream
+        +dynamic prepareAudioFile()
+        +dynamic playPauseAudio()
+        +dynamic resetAudio()
+        +void dispose()
+        }
     }
     package data {
         package models {
@@ -49,22 +60,24 @@ package frontend {
                 +String messageID
                 +String role
                 +DateTime timestamp
-                +bool hasTasks
-                +List<TaskModel>? tasks
+                +MessageType messageType
+                +String audio
+                +String video
                 +String getText
                 +String getUserID
                 +String getMessageID
                 +String getRole
                 +DateTime getTimestamp
-                +bool getGotTasks
-                +Map<String, dynamic> toJson()
-            }
+                +Map<String, dynamic> toJson()  
+                        }
 
             class TaskModel {
                 +TaskType type
                 +String question
                 +List<List<String>> answerOptions
                 +List<String> solutions
+                +int id
+                +String lessonType
                 +Map<String, dynamic> toJson()
             }
         }
@@ -74,6 +87,7 @@ package frontend {
                 +dynamic sendMessage()
                 +dynamic sendImage()
                 +dynamic fetchLesson()
+                +dynamic fetchTasks()
             }
             class TaskDataProvider {
                 +String baseUrl
@@ -86,6 +100,7 @@ package frontend {
                 +dynamic sendMessage()
                 +dynamic sendImage()
                 +dynamic fetchLesson()
+                +dynamic fetchTasks()
             }
             class TaskRepositoryImpl {
                 +TaskDataProvider dataProvider
@@ -99,6 +114,7 @@ package frontend {
                 +dynamic sendMessage()
                 +dynamic sendImage()
                 +dynamic fetchLesson()
+                +dynamic fetchTasks()
             }
             interface TaskRepository {
                 +dynamic submitUserAnswers()
@@ -121,6 +137,10 @@ package frontend {
                 +ChatRepository repository
                 +dynamic call()
             }
+            class FetchTasks {
+                +ChatRepository repository
+                +dynamic call()
+            }
         }
         package entities {
             class Message {
@@ -129,14 +149,17 @@ package frontend {
                 +String messageID
                 +String role
                 +DateTime timestamp
-                +bool hasTasks
-                +List<Task>? tasks
+                +MessageType messageType
+                +String audio
+                +String video
             }
             class Task {
                 +TaskType type
                 +String question
                 +List<List<String>> answerOptions
                 +List<String> solutions
+                +int id
+                +String lessonType
                 +List<String> userAnswers
                 +bool completed
             }
@@ -147,6 +170,13 @@ package frontend {
                 +TaskType fillTheGaps
                 +TaskType openQuestion
             }
+            class MessageType {
+                {static} +MessageType message
+                {static} +MessageType reading
+                {static} +MessageType listening
+                {static} +MessageType grammar
+                {static} +MessageType listeningVideo
+            }
         }
     }
     package presentation {
@@ -155,6 +185,7 @@ package frontend {
                 +SendMessage sendMessage
                 +SendImage sendImage
                 +FetchLesson fetchLesson
+                +FetchTasks fetchTasks
                 +String userID
                 +Map<String, List<Message>> chatMessages
                 +Message getLessonOfferingMessage()
@@ -188,85 +219,8 @@ package frontend {
             class MainMenuScreen {
                 +Widget build()
             }
-        }
-        package widgets {
-            class GermanChatAppBar {
-                +Size preferredSize
+            class QuestionListScreen {
                 +Widget build()
-            }
-            class SimpleAppBar {
-                +String text
-                +Size preferredSize
-                +Widget build()
-            }
-            class TaskControlButton {
-                +String text
-                +void Function() onPressed
-                +Widget build()
-            }
-            class TaskButtonGroup {
-                +void Function()? onBack
-                +void Function()? onNext
-                +Widget build()
-            }
-            class TaskWidget {
-                +Task task
-                +Widget build()
-            }
-            class OpenQuestionTask {
-                +Task task
-                +Widget build()
-            }
-            class FillInTheGapTask {
-                +Task task
-                +Widget build()
-            }
-            class MessageTile {
-                +String content
-                +String role
-                +Widget build()
-            }
-            class LoadingIndicator {
-                +Widget build()
-            }
-            class ChatButton {
-                +String text
-                +void Function() onPressed
-                +Widget build()
-            }
-            class ChatTextInput {
-                +TextEditingController controller
-                +Function handleSubmitted
-                +Widget build()
-            }
-            class MainMenuButton {
-                +String text
-                +void Function() onPressed
-                +Widget build()
-            }
-            class MainMenuSettingButton {
-                +void Function() onPressed
-                +Widget build()
-            }
-            class MainMenuTitleText {
-                +double leftPadding
-                +double topPadding
-                +double bottomPadding
-                +Widget build()
-            }
-            class MainMenuImageContainer {
-                +double dimension
-                +Widget build()
-            }
-            class MultipleChoiceTask {
-                +Task task
-                +Widget build()
-            }
-            class MultipleChoiceOptions {
-                +List<List<String>> options
-                +List<String> userAnswers
-                +void Function(String) onSelected
-                +_MultipleChoiceOptionsState createState()
             }
         }
     }

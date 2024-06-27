@@ -1,5 +1,6 @@
 GERMAN_ANSWER_API = {
     'summary': 'Get answer from the german learning agent',
+    'tags': ['AnswerAPI'],
     'parameters': [
         {
             'name': 'question',
@@ -34,6 +35,7 @@ GERMAN_ANSWER_API = {
 
 LAW_ANSWER_API = {
     'summary': 'Get answer from the agent (immigration law and everyday life counseling)',
+    'tags': ['AnswerAPI'],
     'parameters': [
         {
             'name': 'question',
@@ -67,7 +69,8 @@ LAW_ANSWER_API = {
 }
 
 LESSON_API = {
-    'summary': 'Get generated lesson unit with exercises for a lesson',
+    'summary': 'Get generated lesson unit',
+    'tags': ['LessonAPI'],
     'parameters': [
         {
             'name': 'question',
@@ -94,6 +97,21 @@ LESSON_API = {
                         'type': 'string',
                         'example': 'Dieses Jahr war Jacob in Griechenland...'
                     },
+                }
+            }
+        }
+    }
+}
+
+LESSON_TASK_API = {
+    'summary': 'Get generated tasks',
+    'tags': ['LessonAPI'],
+    'responses': {
+        '200': {
+            'description': 'A successful response with the generated exercises.',
+            'schema': {
+                'type': 'object',
+                'properties': {
                     'tasks': {
                         'type': 'array',
                         'items': {

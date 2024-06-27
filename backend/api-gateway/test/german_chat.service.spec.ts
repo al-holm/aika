@@ -5,7 +5,7 @@ import { setupServer } from 'msw/node';
 import { http } from 'msw';
 import { json } from 'express';
 export const server = setupServer(
-  http.post('http://127.0.0.1:5000/get_answer', () => {
+  http.post('http://127.0.0.1:5000/get_answer_german', () => {
     return new Response(JSON.stringify({answer: 'test msg' }), {
       headers: {
         'Content-Type': 'application/json',
