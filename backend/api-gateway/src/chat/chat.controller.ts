@@ -47,7 +47,7 @@ export class ChatController {
   async getLesson():
     Promise<JSON> {
     console.log('lesson');
-    const lesson = await this.germanChatService.get_lesson();
+    const lesson = await this.germanChatService.getLesson();
     return lesson;
   }
 
@@ -55,7 +55,7 @@ export class ChatController {
   async getTasks():
     Promise<JSON> {
     console.log('tasks');
-    const tasks = await this.germanChatService.get_tasks();
+    const tasks = await this.germanChatService.getTasks();
     return tasks;
   }
 }

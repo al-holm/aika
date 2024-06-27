@@ -97,7 +97,7 @@ export class ChatService {
    * Makes a POST request to get an answer for the given question to the topic law and life.
    * @returns {Promise<JSON>} The answer from the API or error if an error occurs.
    */
-    async get_lesson(): Promise<JSON> 
+    async getLesson(): Promise<JSON> 
     {
       
       const client = axios.create({baseURL: 'http://127.0.0.1:3543/lesson',});
@@ -121,7 +121,7 @@ export class ChatService {
    * Makes a POST request to get an answer for the given question to the topic law and life.
    * @returns {Promise<JSON>} The answer from the API or error if an error occurs.
    */
-   async get_tasks(): Promise<JSON> 
+   async getTasks(): Promise<JSON> 
    {
      
      const client = axios.create({baseURL: 'http://127.0.0.1:3543/lesson',});
