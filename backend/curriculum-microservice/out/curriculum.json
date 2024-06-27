@@ -40,9 +40,9 @@
     "reading": "Als ich Schüler war...",
     "listening": "Mein Studium",
     "completed": [
-      true,
-      true,
-      true
+      false,
+      false,
+      false
     ],
     "score": [
       0,
