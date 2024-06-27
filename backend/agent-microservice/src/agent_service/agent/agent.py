@@ -4,7 +4,13 @@ from agent_service.agent.agent_step import AgentStep
 from agent_service.agent.task_type import TaskType
 from pydantic import ValidationError
 from agent_service.agent.llm import LLMBedrock, LLMRunPod
-from agent_service.prompts.react_prompt import VAL_STOP_PREFIX, ACTION_PROMPT_QA, ACTION_PROMPT_LESSON, VALIDATION_PROMPT_LESSON, VALIDATION_PROMPT_QA
+from agent_service.prompts.react_prompt import (
+    VAL_STOP_PREFIX,
+    ACTION_PROMPT_QA,
+    ACTION_PROMPT_LESSON,
+    VALIDATION_PROMPT_LESSON,
+    VALIDATION_PROMPT_QA,
+)
 from agent_service.agent.reasoning_trace import ReasoningLogger
 from agent_service.prompts.prompt_builder import PromptBuilder
 from agent_service.agent.trajectory_library import TrajectoryRetriever
@@ -13,17 +19,20 @@ from agent_service.parsers.agent_step_parser import StepParser, ValidationParser
 import logging
 from enum import Enum
 
+
 class AgentMode(Enum):
-    """ 
+    """
     defines an enumeration `AgentMode` with two members `PLAN` and `VAL` representing
     different modes for an agent: action proposal & action validation.
     """
+
     PLAN = "plan"
     VAL = "validate"
 
+
 class Agent:
     """
-    Represents a ReAct agent that can plan actions, execute steps using tools, 
+    Represents a ReAct agent that can plan actions, execute steps using tools,
     validate results, and provide final answers based on reasoning traces and prompts.
 
     Attributes
@@ -82,16 +91,15 @@ class Agent:
     def __init__(self, task_type: TaskType = TaskType.ANSWERING) -> None:
         self.parse_config()
         self.reasoning_logger = ReasoningLogger(
-            model_id=self.llm.llm_id, 
-            task_type=task_type
-            )
+            model_id=self.llm.llm_id, task_type=task_type
+        )
         self.task_type = task_type
         self.tool_executor = ToolExecutor(task_type=task_type)
         self.prompt_builder = PromptBuilder()
-        self.init_prompts(task_type) 
+        self.init_prompts(task_type)
         self.validation_parser = ValidationParser()
         self.step_parser = StepParser(self.tool_executor.tool_names)
-        if task_type  == TaskType.ANSWERING:
+        if task_type == TaskType.ANSWERING:
             self.trajectory_injector = TrajectoryRetriever()
 
     def reset(self):
@@ -100,10 +108,9 @@ class Agent:
 
         """
         self.reasoning_logger = ReasoningLogger(
-             model_id=self.llm.llm_id, 
-             task_type=self.task_type
-            )
-        self.init_prompts(self.task_type) 
+            model_id=self.llm.llm_id, task_type=self.task_type
+        )
+        self.init_prompts(self.task_type)
 
     def init_prompts(self, task_type: TaskType):
         """
@@ -115,27 +122,26 @@ class Agent:
         elif task_type == TaskType.LESSON:
             plan_prompt = ACTION_PROMPT_LESSON
             val_prompt = VALIDATION_PROMPT_LESSON
-        else: 
-            raise NotImplementedError(f"No agent implemented for the task type: {task_type}")
+        else:
+            raise NotImplementedError(
+                f"No agent implemented for the task type: {task_type}"
+            )
         self.prompt_builder.create_prompts(
-            {
-                AgentMode.PLAN : plan_prompt,
-                AgentMode.VAL : val_prompt
-            }
+            {AgentMode.PLAN: plan_prompt, AgentMode.VAL: val_prompt}
         )
 
-    def run(self, query:str)->str:
+    def run(self, query: str) -> str:
         """
         runs the agent loop to execute a series of steps based on a query until a final answer is obtained.
-        
+
         Parameters
         ----------
         query : str
             representation of the query to be processed by the agent.
-        
+
         Returns
         -------
-        str 
+        str
             the final answer obtained after running the agent loop.
         """
         self.update_prompts_for_query(query)
@@ -158,10 +164,10 @@ class Agent:
     def take_step(self) -> bool:
         """
         plans a step, executes the step, validates the result if it's the final answer
-         
+
         Returns
         -------
-        is_final : bool 
+        is_final : bool
             whether the result is the final answer or not
         """
         step = self.plan_step()
@@ -176,7 +182,7 @@ class Agent:
 
         Returns
         -------
-        is_final : bool 
+        is_final : bool
             whether the result is the final answer or not
         """
         self.llm.set_max_tokens(self.config.max_tokens_val)
@@ -192,8 +198,8 @@ class Agent:
 
         Returns
         -------
-        step: AgentStep 
-                   
+        step: AgentStep
+
         """
         current_prompt = self.get_current_prompt(mode=AgentMode.PLAN)
         self.llm.set_max_tokens(self.config.max_tokens_plan)
@@ -201,10 +207,10 @@ class Agent:
         step = self.step_parser.parse(llm_answer)
         return step
 
-    def process_validation_thought(self, val_answer:str) -> bool:
+    def process_validation_thought(self, val_answer: str) -> bool:
         """
         parses the validation answer, adds it to a reasoning trace
-        
+
         Parameters
         ----------
         val_answer : str
@@ -212,7 +218,7 @@ class Agent:
 
         Returns
         -------
-        bool 
+        bool
             whether the final answer can be derived from the reasoning trace or not
         """
         val_step = self.validation_parser.parse(val_answer)
@@ -222,27 +228,30 @@ class Agent:
         else:
             return False
 
-    def execute_step(self, step:AgentStep) ->None:
+    def execute_step(self, step: AgentStep) -> None:
         """
-        executes an action using the tool executor and the provided agent step, 
+        executes an action using the tool executor and the provided agent step,
         updates the observation in the step, and logs the step with the reasoning logger.
 
         Parameters
         ----------
         step: AgentStep
-            The agent step that contains the action to be performed and the input for that action. 
+            The agent step that contains the action to be performed and the input for that action.
         """
         tool_input = step.action_input
-        if self.task_type == TaskType.LESSON and step.action=="Deutschaufgaben generieren":
+        if (
+            self.task_type == TaskType.LESSON
+            and step.action == "Deutschaufgaben generieren"
+        ):
             tool_input += "[" + self.reasoning_logger.get_last_observation() + "]"
         observation = self.tool_executor.execute(step.action, tool_input)
         step.observation = observation
         self.reasoning_logger.add_step(step)
-    
+
     def get_current_prompt(self, mode=AgentMode.PLAN) -> str:
         """
         returns a prompt with a reasoning trace based on the specified mode.
-        
+
         Parameters
         ----------
         mode, optional : AgentMode
@@ -254,13 +263,13 @@ class Agent:
             a prompt with a reasoning trace based on the specified mode
         """
         reasoning_steps = str(self.reasoning_logger)
-        current_prompt = self.prompt_builder.generate_prompt(name_id=mode,
-                                                             reasoning_trace=reasoning_steps)
+        current_prompt = self.prompt_builder.generate_prompt(
+            name_id=mode, reasoning_trace=reasoning_steps
+        )
         return current_prompt
 
-    
     def get_final_response(self, iteration: int) -> str:
-        """ 
+        """
         builds and returns final answer based on the last observation & the iteration number
 
         Parameters
@@ -279,51 +288,42 @@ class Agent:
         logging.info(final_answer)
         return final_answer
 
-    def update_prompts_for_query(self, query:str) -> None:
+    def update_prompts_for_query(self, query: str) -> None:
         """
         updates prompts with a query and availiable tools
-        
+
         """
         update = {
             "tools": str(self.tool_executor),
             "tool_names": self.tool_executor.tool_names,
-            "input": query
-        } 
+            "input": query,
+        }
 
-        self.prompt_builder.update_prompt(
-            name_id=AgentMode.PLAN,
-            **update
-        )
-        
-        self.prompt_builder.update_prompt(
-            name_id=AgentMode.VAL,
-            **update
-        )
+        self.prompt_builder.update_prompt(name_id=AgentMode.PLAN, **update)
+
+        self.prompt_builder.update_prompt(name_id=AgentMode.VAL, **update)
         self.reasoning_logger.set_query(query)
 
-        if self.task_type  == TaskType.ANSWERING:
+        if self.task_type == TaskType.ANSWERING:
             self.add_trajectory_examples_to_prompts(query)
 
-    def add_trajectory_examples_to_prompts(self, query)->None:
+    def add_trajectory_examples_to_prompts(self, query) -> None:
         """
         Injects relevant trajectory examples into the agent's prompt.
 
         """
-        plan_examples, val_examples = self.trajectory_injector.inject_trajectories(query)
-        self.prompt_builder.update_prompt(
-            name_id=AgentMode.PLAN,
-            examples=plan_examples
+        plan_examples, val_examples = self.trajectory_injector.inject_trajectories(
+            query
         )
-        
         self.prompt_builder.update_prompt(
-            name_id=AgentMode.VAL,
-            examples=val_examples
+            name_id=AgentMode.PLAN, examples=plan_examples
         )
 
+        self.prompt_builder.update_prompt(name_id=AgentMode.VAL, examples=val_examples)
 
     def parse_config(self) -> None:
         """
-        reads settings from a configuration file, creates a pydantic validation `AgentConfigModel` object, 
+        reads settings from a configuration file, creates a pydantic validation `AgentConfigModel` object,
         and sets additional attributes based on the configuration.
         """
         try:
@@ -331,12 +331,10 @@ class Agent:
             settings = config.get_settings()
 
             self.config = AgentConfigModel(**settings)
-            if self.config.llm=='bedrock':
+            if self.config.llm == "bedrock":
                 self.llm = LLMBedrock()
-            elif self.config.llm=='runpod':
+            elif self.config.llm == "runpod":
                 self.llm = LLMRunPod()
             self.max_iterations = self.config.max_iterations
         except ValidationError as e:
-            logging.ERROR(f'Agent attributes error: {e}')
-
-
+            logging.ERROR(f"Agent attributes error: {e}")

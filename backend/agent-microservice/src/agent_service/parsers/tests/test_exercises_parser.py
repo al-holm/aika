@@ -1,6 +1,7 @@
 import unittest
 from agent_service.parsers.exercises_parser import ExercisesParser
 
+
 class TestExercisesParser(unittest.TestCase):
 
     def setUp(self):
@@ -84,20 +85,38 @@ Solution: None
     def assert_correct_input(self, result):
         exercises = result["tasks"]
         self.assertEqual(exercises[0]["type"], "single-choice")
-        self.assertEqual(exercises[0]["question"], "Welches Verb ist richtig konjugiert im Präteritum?")
-        self.assertEqual(exercises[0]["answer_options"], [['Er gehe', 'Er ging', 'Er geht']])
-        self.assertEqual(exercises[0]["solution"], [' Er ging'])
+        self.assertEqual(
+            exercises[0]["question"],
+            "Welches Verb ist richtig konjugiert im Präteritum?",
+        )
+        self.assertEqual(
+            exercises[0]["answer_options"], [["Er gehe", "Er ging", "Er geht"]]
+        )
+        self.assertEqual(exercises[0]["solution"], [" Er ging"])
 
         self.assertEqual(exercises[1]["type"], "gaps")
-        self.assertEqual(exercises[1]["question"], "1. Gestern __ ich einen interessanten Film. 2. Wir __ letztes Jahr nach Spanien. 3. Er __ einen langen Brief.")
-        self.assertEqual(exercises[1]["answer_options"], [["sah", "sahen", "gesehen"], ["fuhren", "fahr", "fahrten"], ["schreibte", "schrieben", "schrieb"]])
+        self.assertEqual(
+            exercises[1]["question"],
+            "1. Gestern __ ich einen interessanten Film. 2. Wir __ letztes Jahr nach Spanien. 3. Er __ einen langen Brief.",
+        )
+        self.assertEqual(
+            exercises[1]["answer_options"],
+            [
+                ["sah", "sahen", "gesehen"],
+                ["fuhren", "fahr", "fahrten"],
+                ["schreibte", "schrieben", "schrieb"],
+            ],
+        )
         self.assertEqual(exercises[1]["solution"], [["sah", "fuhren", "schrieb"]])
-        
+
         self.assertEqual(exercises[2]["type"], "open")
-        self.assertEqual(exercises[2]["question"], "Schreiben Sie über ein Erlebnis aus Ihrer Kindheit im Präteritum. Beschreiben Sie, was passiert ist, und wie Sie sich dabei gefühlt haben.")
+        self.assertEqual(
+            exercises[2]["question"],
+            "Schreiben Sie über ein Erlebnis aus Ihrer Kindheit im Präteritum. Beschreiben Sie, was passiert ist, und wie Sie sich dabei gefühlt haben.",
+        )
         self.assertEqual(exercises[2]["answer_options"], [[""]])
         self.assertEqual(exercises[2]["solution"], [""])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

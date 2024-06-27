@@ -3,14 +3,15 @@ from pydantic import BaseModel
 
 class AgentStep(BaseModel):
     """
-    contains attributes for a single step in the agent's decision-making process, 
-    such as the agent's thought, the required action, the necessary input for the action, and 
+    contains attributes for a single step in the agent's decision-making process,
+    such as the agent's thought, the required action, the necessary input for the action, and
     an observation
     """
-    thought:str
-    action:str
-    action_input:str
-    observation:str=None
+
+    thought: str
+    action: str
+    action_input: str
+    observation: str = None
 
     def __str__(self) -> str:
         res = ""
@@ -21,28 +22,27 @@ class AgentStep(BaseModel):
             res += "\nObservation: " + self.observation
         res += "\n"
         return res
-    
+
 
 class AgentFinalStep(BaseModel):
     """
     represents the final step of the agent loop with the final answer
     """
-    final_answer:str
+
+    final_answer: str
 
     def __str__(self) -> str:
         res = "Final Answer: " + self.final_answer + "\n"
         return res
-    
+
 
 class AgentValidationStep(BaseModel):
     """
     represents a validation step
     """
-    validation_thought:str
+
+    validation_thought: str
 
     def __str__(self) -> str:
         res = "Hint : " + self.validation_thought + "\n"
         return res
-
-
-

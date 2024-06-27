@@ -1,12 +1,20 @@
 import os
 import sys, os
+
 testdir = os.path.dirname(__file__)
-sys.path.insert(0, os.path.abspath(os.path.join(testdir, '../../../')))
+sys.path.insert(0, os.path.abspath(os.path.join(testdir, "../../../")))
 from pydantic import ValidationError
 import unittest
 from agent_service.agent.agent_step import AgentStep
-from agent_service.exceptions.step_exception import ActionInputNotFoundException, ActionNotFoundException, InvalidToolException
-from agent_service.parsers.agent_step_parser import StepParser  # Ensure this import matches your module's structure
+from agent_service.exceptions.step_exception import (
+    ActionInputNotFoundException,
+    ActionNotFoundException,
+    InvalidToolException,
+)
+from agent_service.parsers.agent_step_parser import (
+    StepParser,
+)
+
 
 class TestStepParser(unittest.TestCase):
 
@@ -15,8 +23,12 @@ class TestStepParser(unittest.TestCase):
         self.parser = StepParser(self.tool_names)
 
     def test_parse_step(self):
-        input_str = "Thought: This is a thought\nAction: ToolA\nAction Input: Some input"
-        expected_step = AgentStep(thought="This is a thought", action="ToolA", action_input="Some input")
+        input_str = (
+            "Thought: This is a thought\nAction: ToolA\nAction Input: Some input"
+        )
+        expected_step = AgentStep(
+            thought="This is a thought", action="ToolA", action_input="Some input"
+        )
         result = self.parser.parse(input_str)
         self.assertEqual(result, expected_step)
 
@@ -26,7 +38,9 @@ class TestStepParser(unittest.TestCase):
             self.parser.parse(input_str)
 
     def test_parse_step_invalid_action(self):
-        input_str = "Thought: This is a thought\nAction: ToolX\nAction Input: Some input"
+        input_str = (
+            "Thought: This is a thought\nAction: ToolX\nAction Input: Some input"
+        )
         with self.assertRaises(InvalidToolException):
             self.parser.parse(input_str)
 
@@ -47,11 +61,13 @@ class TestStepParser(unittest.TestCase):
 
     def test_parse_step_model_validation(self):
         with self.assertRaises(ValidationError):
-            AgentStep(thought="This is a thought", action=None, action_input="Some input")
-        
+            AgentStep(
+                thought="This is a thought", action=None, action_input="Some input"
+            )
+
         with self.assertRaises(ValidationError):
             AgentStep(thought="This is a thought", action="ToolA", action_input=None)
-        
+
         with self.assertRaises(ValidationError):
             AgentStep(thought=None, action="ToolA", action_input="Some input")
 
@@ -72,10 +88,11 @@ class TestStepParser(unittest.TestCase):
         self.assertEqual(action_input, expected_action_input)
 
     def test_remove_quotes(self):
-        self.assertEqual(self.parser.remove_quotes('"Quoted"'), 'Quoted')
-        self.assertEqual(self.parser.remove_quotes("'Quoted'"), 'Quoted')
-        self.assertEqual(self.parser.remove_quotes('NoQuotes'), 'NoQuotes')
+        self.assertEqual(self.parser.remove_quotes('"Quoted"'), "Quoted")
+        self.assertEqual(self.parser.remove_quotes("'Quoted'"), "Quoted")
+        self.assertEqual(self.parser.remove_quotes("NoQuotes"), "NoQuotes")
         self.assertIsNone(self.parser.remove_quotes(None))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
