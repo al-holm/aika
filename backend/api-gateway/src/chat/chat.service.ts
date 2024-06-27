@@ -100,7 +100,7 @@ export class ChatService {
     async get_lesson(): Promise<JSON> 
     {
       
-      const client = axios.create({baseURL: 'http://127.0.0.1:3120/lesson',});
+      const client = axios.create({baseURL: 'http://127.0.0.1:3543/lesson',});
   
       const config: AxiosRequestConfig = {
         headers: {
@@ -124,7 +124,7 @@ export class ChatService {
    async get_tasks(): Promise<JSON> 
    {
      
-     const client = axios.create({baseURL: 'http://127.0.0.1:3120/lesson',});
+     const client = axios.create({baseURL: 'http://127.0.0.1:3543/lesson',});
  
      const config: AxiosRequestConfig = {
        headers: {
@@ -142,7 +142,7 @@ export class ChatService {
  }
 
   async processAnswers(task_message: JSON){
-    const client = axios.create({baseURL: 'http://127.0.0.1:3120/lesson',});
+    const client = axios.create({baseURL: 'http://127.0.0.1:3543/lesson',});
     const config: AxiosRequestConfig = {
       headers: {
         'Accept': 'application/json',

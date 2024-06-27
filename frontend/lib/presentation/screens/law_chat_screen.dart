@@ -18,7 +18,7 @@ class LawChatScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppStyles.sandColor,
-        appBar: SimpleAppBar(text: 'Recht & Alltag'),
+        appBar: LawChatAppBar(),
         body: Column(
           children: <Widget>[
             Expanded(child: _buildChatContent(chatBloc)),
