@@ -1,40 +1,69 @@
 @startuml
 !theme plain
 
-package "German Agent" {
-  [Flask App] <-- http
-  [Agent]
-  [DocumentHandler]
-  [Flask App] <--> [Agent]
-  [DocumentHandler] <--> [Agent]
+() AnswerAPI
+() LessonAPI
+() ChatAPI
+
+package "Agent Service" {
+  [FlaskApp] --> AnswerAPI
+  [FlaskApp] --> LessonAPI
+  [FlaskApp] <--> [Agent]
+  [FlaskApp] <--> [RAG]
+  [FlaskApp] <--> [LessonMaster]
 }
+
+package "Curriculum Service" {
+  () CurriculumAPI
+  [LessonController] --> CurriculumAPI
+  [LessonController] --> [LessonService]
+  [LessonService] --> LessonAPI
+}
+
 
 package "API Gateway" {
-  () HTTP
-  HTTP --> [GermanChatController] 
-  [GermanChatService] --> http
-  [GermanChatService]
-  [GermanChatController] --> [GermanChatService]
+  [ChatController] --> ChatAPI
+  [ChatService] --> AnswerAPI
+  [ChatService] --> CurriculumAPI
+  [ChatService]
+  [ChatController] --> [ChatService]
 }
 
 
-package "Frontend" {
-  [GermanChatPage] --> HTTP 
-  [HomePage]
-  [MyApp]
+package "Client" {
+  package "Presentation" {
+    [Screens]
+    [Widgets]
+    [Blocs]
+  }
+  package "Domain" {
+    [Entities] 
+    [Entities] 
+    [Repositories]
+    [Use Cases]
+  }
+    package "Data" {
+    [Models] 
+    [Data Providers]  --> ChatAPI
+    [Repositories Impl]
+  }
+  Domain <--> Presentation
+  Domain <--> Data
 }
 
-
-database "PostgreSql" {
-  folder "User Data" {
+database "MilvusVectorStore" {
+  folder "LawLifeKnowledgeBase" {
+ }
+ folder "TrajectoryLibrary" {
  }
 }
 
-database "WeviateVectorStore" {
-  folder "German Chat Index" {
+database "Curriculum" {
+  folder "curriculum.json" {
  }
+
+LessonService --> Curriculum
+FlaskApp --> MilvusVectorStore
 }
 
-[DocumentHandler]--> [German Chat Index]
-[GermanChatService] --> [User Data]
 @enduml

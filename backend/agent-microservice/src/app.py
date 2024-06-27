@@ -9,7 +9,7 @@ from agent_service.core.config import Config
 from agent_service.rag.rag import RAG
 from agent_service.lesson.lesson_master import LessonMaster
 from flasgger import Swagger
-from agent_service.core.swagger import GERMAN_ANSWER_API, LAW_ANSWER_API, LESSON_API
+from agent_service.core.swagger import GERMAN_ANSWER_API, LAW_ANSWER_API, LESSON_API, LESSON_TASK_API
 from flasgger.utils import swag_from
 # http://localhost:5000/apidocs/ for API docs
 import logging.config
@@ -35,11 +35,11 @@ lesson_proxy = LessonProxy(
 
 retriever = RAG()
 
-@app.route("/get_answer", methods=["Post"])
+@app.route("/get_answer_german", methods=["Post"])
 @swag_from(GERMAN_ANSWER_API)
 def get_german_answer():
     """
-    Returns agent's answer
+    Returns generated answer for the German learning chat
     """
     answer =  aika_qa.run(request.json["question"])
     aika_qa.reset()
@@ -50,14 +50,14 @@ def get_german_answer():
 @swag_from(LESSON_API)
 def getLessonText():
     """
-    Returns generated exercises for a new lesson
+    Returns generated lesson unit for a new lesson
     """
 
     response = lesson_proxy.create_text(request.json["question"])
     return jsonify(response)
 
 @app.route("/get_lesson_exercises", methods=["Get"])
-@swag_from(LESSON_API)
+@swag_from(LESSON_TASK_API)
 def getLessonExercises():
     """
     Returns generated exercises for a new lesson
@@ -70,7 +70,7 @@ def getLessonExercises():
 @swag_from(LAW_ANSWER_API)
 def getAnswerLawLife():
     """
-    Returns an answer to the law and life topic
+    Returns generated answer for the law and life chat
     """
     
     answer = retriever.run(request.json["question"])
