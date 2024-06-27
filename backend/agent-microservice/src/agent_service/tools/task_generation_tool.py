@@ -17,6 +17,13 @@ class TaskGenerator(Tool):
         """
         generates exercises for a given input
 
+        Parameters:
+        -----------
+        input: str
+            has two possible formats: 
+            1. [Type][Main-grammar-topic][Secondary-grammar-topic][Single-Choice-Questions-Number][Gaps-filling-exercises-number][Open-Questions-Number][Main-grammar-topic-explanation-text]
+            2. [Type][Single-Choice-Questions-Number][Gaps-filling-exercises-number][Open-Questions-Number][Text for which exercises must be provided]
+
         Returns:
         --------
         tool_answer: str
@@ -134,7 +141,7 @@ class TaskGenerator(Tool):
         tokens = self.llm.max_tokens
         self.llm.set_max_tokens(max_tokens)
         logging.info(f"TaskGenerator:generate_exercises: \nQUERY = \n{query}\nTYPE = \n{type}\nNUM = \n{num}\n\n")
-        if num == 0:
+        if num <= 0:
             return ""
         raw_exercises = self.llm.run(query)
         logging.info(f"TaskGenerator:generate_exercises: \nRAW_EXERCISES = \n{raw_exercises}\n\n")
