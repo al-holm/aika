@@ -6,7 +6,7 @@ import { Task } from '../interfaces/task.interface';
 import { TaskDto } from './dto/task.dto';
 import axios, { AxiosRequestConfig, AxiosResponse, RawAxiosRequestHeaders } from 'axios';
 import { promises as fs } from 'fs';
-@ApiTags('Curriculum')
+@ApiTags('CurriculumAPI')
 @Injectable()
 export class LessonService {
     private lessons: Lesson[] = [];

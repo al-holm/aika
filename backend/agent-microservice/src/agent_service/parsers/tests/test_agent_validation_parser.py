@@ -16,7 +16,7 @@ class TestValidationParser(unittest.TestCase):
         input_str = "This is a validation thought.\nAdditional information."
         expected_step = AgentValidationStep(validation_thought="This is a validation thought.")
 
-        result = self.parser.parse_step(input_str)
+        result = self.parser.parse(input_str)
         self.assertEqual(result, expected_step)
 
 
@@ -24,7 +24,7 @@ class TestValidationParser(unittest.TestCase):
         input_str = ""
         expected_step = AgentValidationStep(validation_thought="")
 
-        result = self.parser.parse_step(input_str)
+        result = self.parser.parse(input_str)
 
         self.assertEqual(result, expected_step)
 
