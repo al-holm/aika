@@ -10,7 +10,7 @@ class Parser(ABC):
     an abstract class with a method `parse_step` that must be implemented by subclasses
     """
     @abstractmethod
-    def parse_step(self, input:str):
+    def parse(self, input:str):
         """
         takes an input string and parses it
         """
@@ -27,7 +27,7 @@ class StepParser(Parser):
         self.logger = logging.getLogger('StepParser')
 
 
-    def parse_step(self, input:str) -> AgentStep:
+    def parse(self, input:str) -> AgentStep:
         """
         parses the input text to extract thought, action, and action input
         for an `AgentStep` object.
@@ -137,7 +137,7 @@ class ValidationParser(Parser):
     def __init__(self) -> None:
         self.logger = logging.getLogger("FinalAnswer")
          
-    def parse_step(self, input:str) -> AgentValidationStep:
+    def parse(self, input:str) -> AgentValidationStep:
         """
         parses an input string to extract the first line and returns it as an
         AgentValidationStep object.

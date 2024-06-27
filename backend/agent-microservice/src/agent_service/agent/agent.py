@@ -198,7 +198,7 @@ class Agent:
         current_prompt = self.get_current_prompt(mode=AgentMode.PLAN)
         self.llm.set_max_tokens(self.config.max_tokens_plan)
         llm_answer = self.llm.run(current_prompt)
-        step = self.step_parser.parse_step(llm_answer)
+        step = self.step_parser.parse(llm_answer)
         return step
 
     def process_validation_thought(self, val_answer:str) -> bool:
@@ -215,7 +215,7 @@ class Agent:
         bool 
             whether the final answer can be derived from the reasoning trace or not
         """
-        val_step = self.validation_parser.parse_step(val_answer)
+        val_step = self.validation_parser.parse(val_answer)
         self.reasoning_logger.add_step(val_step)
         if VAL_STOP_PREFIX in val_step.validation_thought:
             return True

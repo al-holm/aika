@@ -8,7 +8,7 @@ import { ApiTags } from '@nestjs/swagger';
  * Service class for processing German chat messages.
  * @class GermanChatService
  */
-@ApiTags('API-Gateway')
+@ApiTags('ChatAPI')
 @Injectable()
 export class ChatService {
   /**
@@ -60,7 +60,7 @@ export class ChatService {
 
     try {
       const data = { 'question': question };
-      const response: AxiosResponse = await client.post('/get_answer', data, config);
+      const response: AxiosResponse = await client.post('/get_answer_german', data, config);
       return response.data['answer'];
     } catch (err) {
       console.log(err);

@@ -49,7 +49,7 @@ describe('GermanChatController', () => {
       messageDto.text = 'Hello';
       messageDto.messageId = '123';
 
-      const response = await controller.getAnswer(messageDto);
+      const response = await controller.getAnswerGerman(messageDto);
 
       expect(mockGermanChatService.processMessage).toHaveBeenCalledWith(
         messageDto,  "language"

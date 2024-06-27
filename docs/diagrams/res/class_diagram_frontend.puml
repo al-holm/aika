@@ -11,6 +11,7 @@ class "frontend::styles::app_styles.dart::AppStyles" {
   {static} +TextStyle taskQuestionTextStyle
   {static} +TextStyle taskOptionTextStyle
   {static} +TextStyle messageTextStyle
+  {static} +TextStyle questionListstextStyle
   {static} +TextStyle buttonTextStyle()
 }
 
@@ -37,6 +38,21 @@ class "frontend::utils::l10n::app_localization.dart::_AppLocalizationsDelegate" 
 
 "flutter::src::widgets::localizations.dart::LocalizationsDelegate" <|-- "frontend::utils::l10n::app_localization.dart::_AppLocalizationsDelegate"
 
+class "frontend::utils::audio_utils.dart::AudioUtils" {
+  -AudioPlayer _audioPlayer
+  +String? audioFilePath
+  +Duration maxDuration
+  +Duration elapsedDuration
+  +Stream<Duration> positionStream
+  +dynamic prepareAudioFile()
+  +dynamic playPauseAudio()
+  +dynamic resetAudio()
+  +void dispose()
+}
+
+"frontend::utils::audio_utils.dart::AudioUtils" o-- "audioplayers::src::audioplayer.dart::AudioPlayer"
+"frontend::utils::audio_utils.dart::AudioUtils" o-- "dart::async::Stream<Duration>"
+
 class "frontend::utils::metadata_utils.dart::MetadataUtils" {
   {static} +dynamic initUserId()
   {static} +String generateMessageID()
@@ -48,22 +64,26 @@ class "frontend::data::models::message_model.dart::MessageModel" {
   +String messageID
   +String role
   +DateTime timestamp
-  +bool hasTasks
-  +List<TaskModel>? tasks
+  +MessageType messageType
+  +String audio
+  +String video
   +String getText
   +String getUserID
   +String getMessageID
   +String getRole
   +DateTime getTimestamp
-  +bool getGotTasks
   +Map<String, dynamic> toJson()
 }
+
+"frontend::data::models::message_model.dart::MessageModel" o-- "frontend::domain::entities::message.dart::MessageType"
 
 class "frontend::data::models::task_model.dart::TaskModel" {
   +TaskType type
   +String question
   +List<List<String>> answerOptions
   +List<String> solutions
+  +int id
+  +String lessonType
   +Map<String, dynamic> toJson()
 }
 
@@ -74,6 +94,7 @@ class "frontend::data::data_providers::chat_data_provider.dart::ChatDataProvider
   +dynamic sendMessage()
   +dynamic sendImage()
   +dynamic fetchLesson()
+  +dynamic fetchTasks()
 }
 
 class "frontend::data::data_providers::task_data_provider.dart::TaskDataProvider" {
@@ -86,6 +107,7 @@ class "frontend::data::repositories::chat_repository_impl.dart::ChatRepositoryIm
   +dynamic sendMessage()
   +dynamic sendImage()
   +dynamic fetchLesson()
+  +dynamic fetchTasks()
 }
 
 "frontend::data::repositories::chat_repository_impl.dart::ChatRepositoryImpl" o-- "frontend::data::data_providers::chat_data_provider.dart::ChatDataProvider"
@@ -103,12 +125,14 @@ class "frontend::presentation::blocs::chat_bloc.dart::ChatBloc" {
   +SendMessage sendMessage
   +SendImage sendImage
   +FetchLesson fetchLesson
+  +FetchTasks fetchTasks
   +String userID
   +Map<String, List<Message>> chatMessages
   -void _onInitializeChat()
   -void _onSendMessage()
   -void _onSendImage()
   -void _onFetchLesson()
+  -void _onFetchTasks()
   -void _onProposeLesson()
   -void _onClearChat()
   +Message getLessonOfferingMessage()
@@ -120,6 +144,7 @@ class "frontend::presentation::blocs::chat_bloc.dart::ChatBloc" {
 "frontend::presentation::blocs::chat_bloc.dart::ChatBloc" o-- "frontend::domain::usecases::send_message.dart::SendMessage"
 "frontend::presentation::blocs::chat_bloc.dart::ChatBloc" o-- "frontend::domain::usecases::send_image.dart::SendImage"
 "frontend::presentation::blocs::chat_bloc.dart::ChatBloc" o-- "frontend::domain::usecases::fetch_lesson.dart::FetchLesson"
+"frontend::presentation::blocs::chat_bloc.dart::ChatBloc" o-- "frontend::domain::usecases::fetch_tasks.dart::FetchTasks"
 "bloc::src::bloc.dart::Bloc" <|-- "frontend::presentation::blocs::chat_bloc.dart::ChatBloc"
 
 abstract class "frontend::presentation::blocs::chat_bloc.dart::ChatEvent" {
@@ -157,6 +182,13 @@ class "frontend::presentation::blocs::chat_bloc.dart::FetchLessonEvent" {
 }
 
 "frontend::presentation::blocs::chat_bloc.dart::ChatEvent" <|-- "frontend::presentation::blocs::chat_bloc.dart::FetchLessonEvent"
+
+class "frontend::presentation::blocs::chat_bloc.dart::FetchTaskEvent" {
+  +String chatID
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::chat_bloc.dart::ChatEvent" <|-- "frontend::presentation::blocs::chat_bloc.dart::FetchTaskEvent"
 
 class "frontend::presentation::blocs::chat_bloc.dart::ProposeLessonEvent" {
   +String chatID
@@ -210,6 +242,15 @@ class "frontend::presentation::blocs::chat_bloc.dart::LessonLoaded" {
 
 "frontend::presentation::blocs::chat_bloc.dart::LessonLoaded" o-- "frontend::domain::entities::message.dart::Message"
 "frontend::presentation::blocs::chat_bloc.dart::ChatState" <|-- "frontend::presentation::blocs::chat_bloc.dart::LessonLoaded"
+
+class "frontend::presentation::blocs::chat_bloc.dart::TaskLoaded" {
+  +List<Message> messages
+  +List<Task> tasks
+  +String chatID
+  +List<Object> props
+}
+
+"frontend::presentation::blocs::chat_bloc.dart::ChatState" <|-- "frontend::presentation::blocs::chat_bloc.dart::TaskLoaded"
 
 class "frontend::presentation::blocs::chat_bloc.dart::ChatError" {
   +String message
@@ -352,6 +393,15 @@ class "frontend::presentation::screens::law_chat_screen.dart::LawChatScreen" {
 "frontend::presentation::screens::law_chat_screen.dart::LawChatScreen" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
 "flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::screens::law_chat_screen.dart::LawChatScreen"
 
+class "frontend::presentation::screens::law_question_view_screen.dart::QuestionListScreen" {
+  +List<String> questions
+  +Widget build()
+  -Widget _buildQuestion()
+  -Widget _buildQuestionList()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::screens::law_question_view_screen.dart::QuestionListScreen"
+
 class "frontend::presentation::screens::german_chat_screen.dart::GermanChatScreen" {
   -TextEditingController _controller
   -ScrollController _scrollController
@@ -362,6 +412,7 @@ class "frontend::presentation::screens::german_chat_screen.dart::GermanChatScree
   -Widget _buildLoadingView()
   -Widget _buildLoadedView()
   -Widget _buildLessonView()
+  -Widget _buildTaskView()
   -Widget _buildMessageList()
   -Widget _buildErrorView()
   -Widget _buildTextInput()
@@ -420,6 +471,15 @@ class "frontend::presentation::widgets::app_bar_widgets.dart::GermanChatAppBar" 
 "flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::app_bar_widgets.dart::GermanChatAppBar"
 "flutter::src::widgets::preferred_size.dart::PreferredSizeWidget" <|-- "frontend::presentation::widgets::app_bar_widgets.dart::GermanChatAppBar"
 
+class "frontend::presentation::widgets::app_bar_widgets.dart::LawChatAppBar" {
+  +Size preferredSize
+  +Widget build()
+}
+
+"frontend::presentation::widgets::app_bar_widgets.dart::LawChatAppBar" o-- "dart::ui::Size"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::app_bar_widgets.dart::LawChatAppBar"
+"flutter::src::widgets::preferred_size.dart::PreferredSizeWidget" <|-- "frontend::presentation::widgets::app_bar_widgets.dart::LawChatAppBar"
+
 class "frontend::presentation::widgets::app_bar_widgets.dart::SimpleAppBar" {
   +String text
   +Size preferredSize
@@ -429,6 +489,33 @@ class "frontend::presentation::widgets::app_bar_widgets.dart::SimpleAppBar" {
 "frontend::presentation::widgets::app_bar_widgets.dart::SimpleAppBar" o-- "dart::ui::Size"
 "flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::app_bar_widgets.dart::SimpleAppBar"
 "flutter::src::widgets::preferred_size.dart::PreferredSizeWidget" <|-- "frontend::presentation::widgets::app_bar_widgets.dart::SimpleAppBar"
+
+class "frontend::presentation::widgets::video_player_widget.dart::VideoPlayerWidget" {
+  +String base64Video
+  -dynamic _initializeVideoPlayer()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::video_player_widget.dart::VideoPlayerWidget"
+
+class "frontend::presentation::widgets::video_player_widget.dart::VideoControlButtons" {
+  +VideoPlayerController controller
+  +_VideoControlButtonsState createState()
+}
+
+"frontend::presentation::widgets::video_player_widget.dart::VideoControlButtons" o-- "video_player::video_player.dart::VideoPlayerController"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "frontend::presentation::widgets::video_player_widget.dart::VideoControlButtons"
+
+class "frontend::presentation::widgets::video_player_widget.dart::_VideoControlButtonsState" {
+  -VideoPlayerController _controller
+  +void initState()
+  -void _updateState()
+  +void dispose()
+  +Widget build()
+}
+
+"frontend::presentation::widgets::video_player_widget.dart::_VideoControlButtonsState" o-- "video_player::video_player.dart::VideoPlayerController"
+"flutter::src::widgets::framework.dart::State" <|-- "frontend::presentation::widgets::video_player_widget.dart::_VideoControlButtonsState"
 
 class "frontend::presentation::widgets::task_buttons_widgets.dart::TaskControlButton" {
   +String text
@@ -448,6 +535,59 @@ class "frontend::presentation::widgets::task_buttons_widgets.dart::TaskButtonGro
 "frontend::presentation::widgets::task_buttons_widgets.dart::TaskButtonGroup" o-- "dart::ui::void Function()"
 "flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::task_buttons_widgets.dart::TaskButtonGroup"
 
+class "frontend::presentation::widgets::message_tile.dart::MessageTile" {
+  +String content
+  +String role
+  +MessageType messageType
+  +String audio
+  +_MessageTileState createState()
+}
+
+"frontend::presentation::widgets::message_tile.dart::MessageTile" o-- "frontend::domain::entities::message.dart::MessageType"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "frontend::presentation::widgets::message_tile.dart::MessageTile"
+
+class "frontend::presentation::widgets::message_tile.dart::_MessageTileState" {
+  -AudioUtils _audioManager
+  +String text
+  +String lang
+  -bool _isPlaying
+  -bool _isTranslated
+  +GoogleTranslator translator
+  +String translation
+  +void initState()
+  +void dispose()
+  -dynamic _prepareAudioFile()
+  -void _playPauseAudio()
+  -void _resetAudio()
+  +Widget build()
+  -void _handleTranslate()
+  -Widget _buildAudioWaveform()
+}
+
+"frontend::presentation::widgets::message_tile.dart::_MessageTileState" o-- "frontend::utils::audio_utils.dart::AudioUtils"
+"frontend::presentation::widgets::message_tile.dart::_MessageTileState" o-- "translator::src::google_translator.dart::GoogleTranslator"
+"flutter::src::widgets::framework.dart::State" <|-- "frontend::presentation::widgets::message_tile.dart::_MessageTileState"
+
+class "frontend::presentation::widgets::message_tile.dart::MessageContent" {
+  +double unitW
+  +double unitH
+  +Size screenSize
+  +BorderRadius borderRadius
+  +String content
+  +MessageType messageType
+  +bool isPlaying
+  +void Function() playPauseAudio
+  +Widget Function() buildAudioWaveform
+  +Widget build()
+}
+
+"frontend::presentation::widgets::message_tile.dart::MessageContent" o-- "dart::ui::Size"
+"frontend::presentation::widgets::message_tile.dart::MessageContent" o-- "flutter::src::painting::border_radius.dart::BorderRadius"
+"frontend::presentation::widgets::message_tile.dart::MessageContent" o-- "frontend::domain::entities::message.dart::MessageType"
+"frontend::presentation::widgets::message_tile.dart::MessageContent" o-- "dart::ui::void Function()"
+"frontend::presentation::widgets::message_tile.dart::MessageContent" o-- "null::Widget Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::message_tile.dart::MessageContent"
+
 class "frontend::presentation::widgets::task_widget.dart::TaskWidget" {
   +Task task
   +Widget build()
@@ -455,6 +595,27 @@ class "frontend::presentation::widgets::task_widget.dart::TaskWidget" {
 
 "frontend::presentation::widgets::task_widget.dart::TaskWidget" o-- "frontend::domain::entities::task.dart::Task"
 "flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::task_widget.dart::TaskWidget"
+
+class "frontend::presentation::widgets::audio_player_widget.dart::AudioPlayer" {
+  +Duration maxDuration
+  +void Function() playPauseAudio
+  +void Function() resetAudio
+  +bool isPlaying
+  +Stream<Duration> positionStream
+  +Widget build()
+}
+
+"frontend::presentation::widgets::audio_player_widget.dart::AudioPlayer" o-- "dart::ui::void Function()"
+"frontend::presentation::widgets::audio_player_widget.dart::AudioPlayer" o-- "dart::async::Stream<Duration>"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::audio_player_widget.dart::AudioPlayer"
+
+class "frontend::presentation::widgets::audio_player_widget.dart::ProgressBarPainter" {
+  +double progress
+  +void paint()
+  +bool shouldRepaint()
+}
+
+"flutter::src::rendering::custom_paint.dart::CustomPainter" <|-- "frontend::presentation::widgets::audio_player_widget.dart::ProgressBarPainter"
 
 class "frontend::presentation::widgets::open_ended.dart::OpenQuestionTask" {
   +Task task
@@ -507,13 +668,12 @@ class "frontend::presentation::widgets::fill_gaps.dart::_FillInTheGapQuestionSta
 
 "flutter::src::widgets::framework.dart::State" <|-- "frontend::presentation::widgets::fill_gaps.dart::_FillInTheGapQuestionState"
 
-class "frontend::presentation::widgets::chat_widgets.dart::MessageTile" {
-  +String content
-  +String role
+class "frontend::presentation::widgets::chat_widgets.dart::BotAvatar" {
+  +double unitW
   +Widget build()
 }
 
-"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::chat_widgets.dart::MessageTile"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "frontend::presentation::widgets::chat_widgets.dart::BotAvatar"
 
 class "frontend::presentation::widgets::chat_widgets.dart::LoadingIndicator" {
   +Widget build()
@@ -630,6 +790,13 @@ class "frontend::domain::usecases::send_message.dart::SendMessage" {
 
 "frontend::domain::usecases::send_message.dart::SendMessage" o-- "frontend::domain::repositories::chat_repository.dart::ChatRepository"
 
+class "frontend::domain::usecases::fetch_tasks.dart::FetchTasks" {
+  +ChatRepository repository
+  +dynamic call()
+}
+
+"frontend::domain::usecases::fetch_tasks.dart::FetchTasks" o-- "frontend::domain::repositories::chat_repository.dart::ChatRepository"
+
 class "frontend::domain::usecases::submit_answers.dart::SubmitAnswers" {
   +TaskRepository repository
   +dynamic call()
@@ -650,15 +817,33 @@ class "frontend::domain::entities::message.dart::Message" {
   +String messageID
   +String role
   +DateTime timestamp
-  +bool hasTasks
-  +List<Task>? tasks
+  +MessageType messageType
+  +String audio
+  +String video
 }
+
+"frontend::domain::entities::message.dart::Message" o-- "frontend::domain::entities::message.dart::MessageType"
+
+class "frontend::domain::entities::message.dart::MessageType" {
+  +int index
+  {static} +List<MessageType> values
+  {static} +MessageType message
+  {static} +MessageType reading
+  {static} +MessageType listening
+  {static} +MessageType grammar
+  {static} +MessageType listeningVideo
+}
+
+"frontend::domain::entities::message.dart::MessageType" o-- "frontend::domain::entities::message.dart::MessageType"
+"dart::core::Enum" <|-- "frontend::domain::entities::message.dart::MessageType"
 
 class "frontend::domain::entities::task.dart::Task" {
   +TaskType type
   +String question
   +List<List<String>> answerOptions
   +List<String> solutions
+  +int id
+  +String lessonType
   +List<String> userAnswers
   +bool completed
 }
@@ -684,6 +869,7 @@ abstract class "frontend::domain::repositories::chat_repository.dart::ChatReposi
   +dynamic sendMessage()
   +dynamic sendImage()
   +dynamic fetchLesson()
+  +dynamic fetchTasks()
 }
 
 

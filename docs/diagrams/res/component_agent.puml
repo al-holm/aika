@@ -1,46 +1,51 @@
 @startuml
 component LLMs {
-    LLM --> LLMBedrock
-    LLM --> LLMRunPod 
-    LLMBedrock --> BedrockLLMConfigModel
-    LLMRunPod --> RunpodLLMConfigModel
+    LLM <|-- LLMBedrock
+    LLM <|-- LLMRunPod 
 }
 
 component Parsers {
-    Parser  --> StepParser
-    Parser  --> ValidationParser
+    Parser  <|-- StepParser
+    Parser  <|-- ValidationParser
+    Parser <|-- ExercisesParser
 }
 
 component Prompts {
   PromptBuilder --> Prompt
 }
 
+component Lesson{
+  LessonMaster --> ExercisesParser
+  LessonMaster --> LessonRetriever
+}
+
 component Tools {
     Tool --> LLM
     Tool --> PromptBuilder
-    Tool --> WebSearch
-    Tool --> Translator
-    Tool --> TaskGenerator
-    Tool --> RetrievalTool
-    Tool --> ReadingGenerator
-    Tool --> PhrasingTool
-    Tool --> NoAnswerTool
-    Tool --> ListeningGenerator
+    Tool <|-- WebSearch
+    Tool <|-- Translator
+    Tool <|-- TaskGenerator
+    Tool <|-- ReadingGenerator
+    Tool <|-- PhrasingTool
+    Tool <|-- NoAnswerTool
+    Tool <|-- ListeningGenerator
 }
 
+component RAG {
+  Tool <|-- RAG
+}
 
 component ToolExecution {
     ToolExecutor --> ToolFactory
-    ToolExecutor --> ToolExecutorConfigModel
     ToolExecutor --> Tool
 }
 
 component Agent {
     Agent --> ReasoningLogger
-    Agent --> AgentConfigModel
-    Agent --> Parser
+    Agent --> StepParser
+    Agent --> ValidationParser
     Agent --> PromptBuilder
-    Agent --> TrajectoryInjector
+    Agent --> TrajectoryRetriever
     Agent --> ToolExecutor
     Agent --> LLM
 }

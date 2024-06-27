@@ -17,23 +17,23 @@ class TestStepParser(unittest.TestCase):
     def test_parse_step(self):
         input_str = "Thought: This is a thought\nAction: ToolA\nAction Input: Some input"
         expected_step = AgentStep(thought="This is a thought", action="ToolA", action_input="Some input")
-        result = self.parser.parse_step(input_str)
+        result = self.parser.parse(input_str)
         self.assertEqual(result, expected_step)
 
     def test_parse_step_missing_action(self):
         input_str = "Thought: This is a thought\nAction Input: Some input"
         with self.assertRaises(ActionNotFoundException):
-            self.parser.parse_step(input_str)
+            self.parser.parse(input_str)
 
     def test_parse_step_invalid_action(self):
         input_str = "Thought: This is a thought\nAction: ToolX\nAction Input: Some input"
         with self.assertRaises(InvalidToolException):
-            self.parser.parse_step(input_str)
+            self.parser.parse(input_str)
 
     def test_parse_step_missing_action_input(self):
         input_str = "Thought: This is a thought\nAction: ToolA"
         with self.assertRaises(ActionInputNotFoundException):
-            self.parser.parse_step(input_str)
+            self.parser.parse(input_str)
 
     def test_extract_thought(self):
         first_line = "Thought: This is a thought"
