@@ -13,3 +13,4 @@ FlagEmbedding
 Werkzeug==2.3.0
 tts>=0.20
 flasgger
+coverage
