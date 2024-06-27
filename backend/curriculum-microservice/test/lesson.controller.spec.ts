@@ -16,6 +16,7 @@ describe('LessonController', () => {
           useValue: {
             getNextLesson: jest.fn(),
             processUserAnswers: jest.fn(),
+            getTasks: jest.fn()
           },
         },
       ],
@@ -40,6 +41,19 @@ describe('LessonController', () => {
       expect(service.getNextLesson).toHaveBeenCalled();
     });
   });
+
+  describe('getTasks', () => {
+    it('should return the tasks', async () => {
+      const mockLesson = { id: 1, type: 'Reading', topic: 'Mein Beruf' };
+      jest.spyOn(service, 'getTasks').mockResolvedValue(mockLesson as any);
+
+      const result = await controller.getTasks();
+
+      expect(result).toEqual(mockLesson);
+      expect(service.getTasks).toHaveBeenCalled();
+    });
+  });
+
 
   describe('processAnswers', () => {
     it('should call processUserAnswers with correct parameters', async () => {
