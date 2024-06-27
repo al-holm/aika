@@ -8,7 +8,14 @@ import { TaskType } from 'src/interfaces/task.interface';
 import { setupServer } from 'msw/node';
 import { http } from 'msw';
 export const server = setupServer(
-  http.post('http://127.0.0.1:5000/get_lesson', () => {
+  http.post('http://127.0.0.1:5000/get_lesson_text', () => {
+    return new Response(JSON.stringify({text: 'lesson created' }), {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+  }),
+  http.get('http://127.0.0.1:5000/get_lesson_exercises', () => {
     return new Response(JSON.stringify({text: 'lesson created' }), {
       headers: {
         'Content-Type': 'application/json',
@@ -108,12 +115,20 @@ describe('LessonService', () => {
     const consoleLogMock = jest.spyOn(console, 'log').mockImplementation();
     const results = await service.getNextLesson();
     expect(results).toEqual({
-      text:'lesson created',id:1, lessonType:'Reading'
+      text:'lesson created', "type": "Reading"
     })
     expect(console.log).toHaveBeenCalledWith(
       'Sending request to the agent: [Reading][Read a short story about daily routines][None][2][1][1]'  
     )
   });
+
+  it('should send the correct request in getTasks', async () => {
+    const results = await service.getTasks();
+    expect(results).toEqual({
+      text:'lesson created', "lessonType": "Reading", 'id':1
+    })
+  });
+
 
   it('should process user answers and mark lesson as completed', async () => {
     const task: TaskDto[] = [{
