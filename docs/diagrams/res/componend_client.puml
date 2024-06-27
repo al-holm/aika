@@ -15,10 +15,12 @@ package "Domain Layer" {
     [SendMessage]
     [SendImage]
     [FetchLesson]
+    [FetchTasks]
     [SubmitAnswers]
     [Message]
     [Task]
     [TaskType]
+    [MessageType]
 }
 
 package "Presentation Layer" {
@@ -29,30 +31,35 @@ package "Presentation Layer" {
     [SettingsScreen]
     [TaskSequenceScreen]
     [MainMenuScreen]
+    [QuestionListScreen]
 }
 
-[ChatRepositoryImpl] --> [ChatRepository]
-[TaskRepositoryImpl] --> [TaskRepository]
+[ChatRepositoryImpl] <|-- [ChatRepository]
+[TaskRepositoryImpl] <|-- [TaskRepository]
 
 [ChatRepository] --> [SendMessage]
 [ChatRepository] --> [SendImage]
 [ChatRepository] --> [FetchLesson]
+[ChatRepository] --> [FetchTasks]
 [TaskRepository] --> [SubmitAnswers]
 
 [SendMessage] --> [ChatBloc]
 [SendImage] --> [ChatBloc]
 [FetchLesson] --> [ChatBloc]
+[FetchTasks] --> [ChatBloc]
 [SubmitAnswers] --> [TaskBloc]
 
 [ChatDataProvider] --> [ChatRepositoryImpl]
 [TaskDataProvider] --> [TaskRepositoryImpl]
 
-[MessageModel] --> [Message]
-[TaskModel] --> [Task]
+[MessageType] --> [MessageModel]
+[MessageType] --> [Message]
+[TaskType] --> [TaskModel]
 [TaskType] --> [Task]
 
 [ChatBloc] --> [LawChatScreen]
 [ChatBloc] --> [GermanChatScreen]
+[ChatBloc] --> [QuestionListScreen]
 [TaskBloc] --> [GermanChatScreen]
 [TaskBloc] --> [TaskSequenceScreen]
 
