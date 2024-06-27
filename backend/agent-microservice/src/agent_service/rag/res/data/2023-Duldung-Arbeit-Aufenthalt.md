@@ -137,7 +137,7 @@ Es gibt verschiedene Gründe, weswegen Sie keinen Chancenaufenthalt bekommen:
 
 Ihre Familienangehörigen (Ehe- oder Lebenspartner*in, minderjährige Kinder, volljährige Kinder, die bei der Einreise minderjährig waren) bekommen ebenfalls eine Aufenthaltserlaubnis nach § 104c AufenthG, auch wenn Sie noch nicht so lange in Deutschland sind.
 
-§ 25a AufenthG – Aufenthaltserlaubnis für gut integrierte Jugendliche und junge Volljährige
+# § 25a AufenthG – Aufenthaltserlaubnis für gut integrierte Jugendliche und junge Volljährige
 
 Jugendliche und junge Volljährige mit Duldung können eine Aufenthaltserlaubnis bekommen. Dafür müssen folgende Voraussetzungen erfüllt sein:
 

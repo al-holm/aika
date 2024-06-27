@@ -17,6 +17,7 @@ import 'package:frontend/presentation/blocs/language_bloc.dart';
 import 'package:frontend/presentation/blocs/task_bloc.dart';
 import 'package:frontend/presentation/screens/german_chat_screen.dart';
 import 'package:frontend/presentation/screens/law_chat_screen.dart';
+import 'package:frontend/presentation/screens/law_question_view_screen.dart';
 import 'package:frontend/presentation/screens/main_menu_screen.dart';
 import 'package:frontend/presentation/screens/settings_screen.dart';
 import 'package:frontend/styles/app_styles.dart';
@@ -82,6 +83,7 @@ class MyApp extends StatelessWidget {
               '/german': (context) => GermanChatScreen(),
               '/law': (context) => LawChatScreen(),
               '/settings': (context) => SettingsScreen(),
+              '/law_question_list': (context) => QuestionListScreen(),
             },
           );
         },

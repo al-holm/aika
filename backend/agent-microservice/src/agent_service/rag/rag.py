@@ -23,7 +23,7 @@ class RAG(Tool):
                     max_tokens:int=1000, init:bool=False, test:bool=False) -> None:
         super().__init__(name, description, llm, prompt_id, prompt_template, max_tokens)
         self.min_chunk_len = 200
-        self.max_chunk_len = 660
+        self.max_chunk_len = 1000
         if not test:
             self.ef = hybrid.BGEM3EmbeddingFunction(
                 model_name='BAAI/bge-m3', 
@@ -217,7 +217,7 @@ class RAG(Tool):
         results = self.client.search(
             collection_name=self.COLLECTION_NAME,
             data=query_vectors,               
-            limit=6,                          
+            limit=3,                          
             output_fields=["text", "source"], 
         )
         parsed_result = self.parse_retrieval_results(results[0])
