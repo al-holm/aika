@@ -8,7 +8,9 @@ class GermanChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final chatBloc = BlocProvider.of<ChatBloc>(context);
     return AppBar(
-      title: const Text('Deutsch',),
+      title: const Text(
+        'Deutsch',
+      ),
       backgroundColor: AppStyles.darkColor,
       foregroundColor: AppStyles.sandColor,
       actions: [
@@ -34,12 +36,13 @@ class GermanChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-
 class LawChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text('Recht & Alltag',),
+      title: const Text(
+        'Recht & Politik',
+      ),
       backgroundColor: AppStyles.darkColor,
       foregroundColor: AppStyles.sandColor,
       actions: [
@@ -76,7 +79,7 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(text),
       backgroundColor: AppStyles.darkColor,
       foregroundColor: AppStyles.sandColor,
-      actions:[
+      actions: [
         IconButton(
           icon: const Icon(Icons.settings),
           color: AppStyles.sandColor,
@@ -91,5 +94,3 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
-
-

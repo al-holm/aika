@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -22,9 +24,12 @@ import 'package:frontend/presentation/screens/main_menu_screen.dart';
 import 'package:frontend/presentation/screens/settings_screen.dart';
 import 'package:frontend/styles/app_styles.dart';
 import 'package:frontend/utils/l10n/app_localization.dart';
+
 void main() {
-  final chatRepository = ChatRepositoryImpl(ChatDataProvider('http://192.168.178.184:3000'));
-  final taskRepository = TaskRepositoryImpl(TaskDataProvider('http://192.168.178.184:3000'));
+  final chatRepository =
+      ChatRepositoryImpl(ChatDataProvider('http://192.168.122.1:3000'));
+  final taskRepository =
+      TaskRepositoryImpl(TaskDataProvider('http://192.168.122.1:3000'));
   runApp(MyApp(chatRepository: chatRepository, taskRepository: taskRepository));
 }
 
@@ -40,11 +45,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => ChatBloc(
-            SendMessage(chatRepository),
-            SendImage(chatRepository),
-            FetchLesson(chatRepository),
-            FetchTasks(chatRepository)
-          ),
+              SendMessage(chatRepository),
+              SendImage(chatRepository),
+              FetchLesson(chatRepository),
+              FetchTasks(chatRepository)),
         ),
         BlocProvider(
           create: (context) => LanguageBloc(),
