@@ -7,8 +7,8 @@
     "listening": "Ich stelle mich vor. Woher komme ich? Was mache ich beruflich (kurz)? Was mach ich mit meiner Familie?",
     "completed": [
       true,
-      true,
-      true
+      false,
+      false
     ],
     "score": [
       0,
@@ -23,9 +23,9 @@
     "reading": "Mein Beruf. Was mache ich beruflich? Was mag ich an meiner Beruf? Was sind meine Ziele für die Zukunft beruflich?",
     "listening": "Mein Beruf. Was mache ich beruflich? Was mag ich an meiner Beruf? Was sind meine Ziele für die Zukunft beruflich?",
     "completed": [
-      true,
-      true,
-      true
+      false,
+      false,
+      false
     ],
     "score": [
       0,
@@ -40,9 +40,9 @@
     "reading": "Als ich Schüler war...",
     "listening": "Mein Studium",
     "completed": [
-      true,
-      true,
-      true
+      false,
+      false,
+      false
     ],
     "score": [
       0,
