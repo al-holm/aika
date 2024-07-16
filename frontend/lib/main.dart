@@ -17,6 +17,7 @@ import 'package:frontend/domain/usecases/submit_answers.dart';
 import 'package:frontend/presentation/blocs/chat_bloc.dart';
 import 'package:frontend/presentation/blocs/language_bloc.dart';
 import 'package:frontend/presentation/blocs/task_bloc.dart';
+import 'package:frontend/presentation/screens/authentification_screen.dart';
 import 'package:frontend/presentation/screens/german_chat_screen.dart';
 import 'package:frontend/presentation/screens/law_chat_screen.dart';
 import 'package:frontend/presentation/screens/law_question_view_screen.dart';
@@ -81,8 +82,9 @@ class MyApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            initialRoute: '/',
+            initialRoute: '/auth',
             routes: {
+              '/auth': (context) => AuthentificationScreen(),
               '/': (context) => MainMenuScreen(),
               '/german': (context) => GermanChatScreen(),
               '/law': (context) => LawChatScreen(),
