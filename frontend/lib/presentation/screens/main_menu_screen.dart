@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frontend/presentation/blocs/chat_bloc.dart';
+import 'package:frontend/presentation/blocs/chat_bloc/chat_bloc.dart';
 import 'package:frontend/presentation/screens/german_chat_screen.dart';
 import 'package:frontend/presentation/screens/law_chat_screen.dart';
 import 'package:frontend/presentation/widgets/main_menu_widgets.dart';
