@@ -14,9 +14,10 @@ import 'package:frontend/domain/usecases/fetch_tasks.dart';
 import 'package:frontend/domain/usecases/send_image.dart';
 import 'package:frontend/domain/usecases/send_message.dart';
 import 'package:frontend/domain/usecases/submit_answers.dart';
-import 'package:frontend/presentation/blocs/chat_bloc.dart';
-import 'package:frontend/presentation/blocs/language_bloc.dart';
-import 'package:frontend/presentation/blocs/task_bloc.dart';
+import 'package:frontend/presentation/blocs/auth_bloc/auth_bloc.dart';
+import 'package:frontend/presentation/blocs/chat_bloc/chat_bloc.dart';
+import 'package:frontend/presentation/blocs/language_bloc/language_bloc.dart';
+import 'package:frontend/presentation/blocs/task_bloc/task_bloc.dart';
 import 'package:frontend/presentation/screens/authentification_screen.dart';
 import 'package:frontend/presentation/screens/german_chat_screen.dart';
 import 'package:frontend/presentation/screens/law_chat_screen.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
             BlocProvider.of<ChatBloc>(context),
           ),
         ),
+        BlocProvider(create: (context) => AuthentificationBloc())
       ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, state) {

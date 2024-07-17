@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/domain/entities/task.dart';
-import 'package:frontend/presentation/blocs/task_bloc.dart';
+import 'package:frontend/presentation/blocs/task_bloc/task_bloc.dart';
 import 'package:frontend/presentation/widgets/multiple_choice.dart';
 import 'package:frontend/styles/app_styles.dart';
+
 class OpenQuestionTask extends StatelessWidget {
   final Task task;
 
@@ -48,7 +49,8 @@ class _OpenQuestionInputState extends State<OpenQuestionInput> {
   @override
   void initState() {
     super.initState();
-    _controller.text = widget.task.userAnswers.isNotEmpty ? widget.task.userAnswers[0] : '';
+    _controller.text =
+        widget.task.userAnswers.isNotEmpty ? widget.task.userAnswers[0] : '';
   }
 
   @override
