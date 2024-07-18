@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/domain/entities/message.dart';
-import 'package:frontend/presentation/blocs/chat_bloc.dart';
-import 'package:frontend/presentation/blocs/task_bloc.dart';
+import 'package:frontend/presentation/blocs/chat_bloc/chat_bloc.dart';
+import 'package:frontend/presentation/blocs/task_bloc/task_bloc.dart';
 import 'package:frontend/presentation/screens/task_sequence_screen.dart';
 import 'package:frontend/presentation/widgets/app_bar_widgets.dart';
 import 'package:frontend/presentation/widgets/chat_widgets.dart';
 import 'package:frontend/presentation/widgets/message_tile.dart';
 import 'package:frontend/styles/app_styles.dart';
 import 'package:frontend/presentation/widgets/video_player_widget.dart';
-
 
 class GermanChatScreen extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
@@ -28,8 +27,13 @@ class GermanChatScreen extends StatelessWidget {
         body: Column(
           children: <Widget>[
             Expanded(child: _buildChatInteractionArea(chatBloc, taskBloc)),
-            const SizedBox(height: 15,),
-            const Divider(height: 1, color: AppStyles.darkColor,),
+            const SizedBox(
+              height: 15,
+            ),
+            const Divider(
+              height: 1,
+              color: AppStyles.darkColor,
+            ),
             _buildTextInput(chatBloc),
           ],
         ),
@@ -39,22 +43,24 @@ class GermanChatScreen extends StatelessWidget {
 
   Widget _buildChatInteractionArea(ChatBloc chatBloc, TaskBloc taskBloc) {
     return MultiBlocListener(
-          listeners: [
-            BlocListener<TaskBloc, TaskState>(
-              listener: (context, state) {
-                if (state is TaskSubmissionSuccess) {
-                  chatBloc.add(ProposeLessonEvent(true, chatID));
-                }
-              },
-            ),
-          ],
-          child: BlocBuilder<ChatBloc, ChatState>(
-            builder: (context, state) => _chatStateBuilder(state, chatBloc, taskBloc),
-                  ),
-          );
-    }
+      listeners: [
+        BlocListener<TaskBloc, TaskState>(
+          listener: (context, state) {
+            if (state is TaskSubmissionSuccess) {
+              chatBloc.add(ProposeLessonEvent(true, chatID));
+            }
+          },
+        ),
+      ],
+      child: BlocBuilder<ChatBloc, ChatState>(
+        builder: (context, state) =>
+            _chatStateBuilder(state, chatBloc, taskBloc),
+      ),
+    );
+  }
 
-  Widget _chatStateBuilder(ChatState state, ChatBloc chatBloc, TaskBloc taskBloc) {
+  Widget _chatStateBuilder(
+      ChatState state, ChatBloc chatBloc, TaskBloc taskBloc) {
     if (state is ChatInitial) {
       chatBloc.add(InitializeChatEvent(chatID));
       return const LoadingIndicator();
@@ -75,51 +81,49 @@ class GermanChatScreen extends StatelessWidget {
 
   Widget _buildLoadingView(ChatLoading state) {
     return ListView(
-          controller: _scrollController,
-          children: [
-            _buildMessageList(state.messages),
-            const LoadingIndicator(),
-          ],
-          );
+      controller: _scrollController,
+      children: [
+        _buildMessageList(state.messages),
+        const LoadingIndicator(),
+      ],
+    );
   }
 
   Widget _buildLoadedView(ChatLoaded state, ChatBloc chatBloc) {
     return ListView(
-          controller: _scrollController,
-          children: [
-            _buildMessageList(state.messages),
-            if (state.offerLesson)
-              ChatButton(
-                text: 'Neue Lektion',
-                onPressed: () {
-                  chatBloc.add(FetchLessonEvent(chatID));
-                },
-              ),
-          ],
-        );
+      controller: _scrollController,
+      children: [
+        _buildMessageList(state.messages),
+        if (state.offerLesson)
+          ChatButton(
+            text: 'Neue Lektion',
+            onPressed: () {
+              chatBloc.add(FetchLessonEvent(chatID));
+            },
+          ),
+      ],
+    );
   }
 
   Widget _buildLessonView(LessonLoaded state, ChatBloc chatBloc) {
     chatBloc.add(FetchTaskEvent(chatID));
-    return ListView(
-      controller: _scrollController,
-      children: [
-        _buildMessageList(state.messages),
-        if (state.messages.last.messageType  == MessageType.listeningVideo)
-          Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.black, width: 1.5),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-            margin: const EdgeInsets.all(15),
-            child: VideoPlayerWidget(base64Video: state.messages.last.video),
+    return ListView(controller: _scrollController, children: [
+      _buildMessageList(state.messages),
+      if (state.messages.last.messageType == MessageType.listeningVideo)
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: Colors.black, width: 1.5),
           ),
-      ]
-    );
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+          margin: const EdgeInsets.all(15),
+          child: VideoPlayerWidget(base64Video: state.messages.last.video),
+        ),
+    ]);
   }
 
-  Widget _buildTaskView(TaskLoaded state, TaskBloc taskBloc, ChatBloc chatBloc) {
+  Widget _buildTaskView(
+      TaskLoaded state, TaskBloc taskBloc, ChatBloc chatBloc) {
     taskBloc.add(InitializeTasksEvent(state.tasks));
     return ListView(
       controller: _scrollController,
@@ -128,8 +132,8 @@ class GermanChatScreen extends StatelessWidget {
         if (state.messages.last.messageType == MessageType.listeningVideo)
           Container(
             decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.black, width: 1.5),
+              color: Colors.white,
+              border: Border.all(color: Colors.black, width: 1.5),
             ),
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             margin: const EdgeInsets.all(15),
@@ -146,7 +150,8 @@ class GermanChatScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => TaskSequenceScreen(tasks: state.tasks),
+                      builder: (context) =>
+                          TaskSequenceScreen(tasks: state.tasks),
                     ),
                   );
                 },
@@ -166,51 +171,47 @@ class GermanChatScreen extends StatelessWidget {
       itemBuilder: (context, index) {
         final message = messages[index];
         return MessageTile(
-          content: message.text,
-          role: message.role,
-          messageType: message.messageType,
-          audio: message.audio
-        );
+            content: message.text,
+            role: message.role,
+            messageType: message.messageType,
+            audio: message.audio);
       },
     );
   }
 
   Widget _buildErrorView(ChatError state, ChatBloc chatBloc) {
-    return ListView(
-      controller: _scrollController,
-      children: [
-        _buildMessageList(state.messages),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              const Text(
-                "Etwas ist fehlgeschlagen. Erneut generieren.",
-                style: TextStyle(color: Colors.grey),
-              ),
-              IconButton(
-                icon: const Icon(Icons.refresh, color: Colors.grey),
-                onPressed: () {
-                  chatBloc.add(state.lastEvent!);
-                },
-              ),
-            ],
-          ),
+    return ListView(controller: _scrollController, children: [
+      _buildMessageList(state.messages),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            const Text(
+              "Etwas ist fehlgeschlagen. Erneut generieren.",
+              style: TextStyle(color: Colors.grey),
+            ),
+            IconButton(
+              icon: const Icon(Icons.refresh, color: Colors.grey),
+              onPressed: () {
+                chatBloc.add(state.lastEvent!);
+              },
+            ),
+          ],
         ),
-      ]
-    );
+      ),
+    ]);
   }
 
   Widget _buildTextInput(ChatBloc chatBloc) {
     return ChatTextInput(
-              controller: _controller,
-              handleSubmitted: () {
-                final content = _controller.text;
-                if (content.isNotEmpty) {
-                  chatBloc.add(SendMessageEvent(chatID, content));
-                  _controller.clear();
-                }
-              },
-            );
+      controller: _controller,
+      handleSubmitted: () {
+        final content = _controller.text;
+        if (content.isNotEmpty) {
+          chatBloc.add(SendMessageEvent(chatID, content));
+          _controller.clear();
+        }
+      },
+    );
   }
 }

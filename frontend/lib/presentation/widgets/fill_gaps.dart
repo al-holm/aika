@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/domain/entities/task.dart';
-import 'package:frontend/presentation/blocs/task_bloc.dart';
+import 'package:frontend/presentation/blocs/task_bloc/task_bloc.dart';
 import 'package:frontend/styles/app_styles.dart';
+
 class FillInTheGapTask extends StatelessWidget {
   final Task task;
 
@@ -95,7 +96,8 @@ class _FillInTheGapQuestionState extends State<FillInTheGapQuestion> {
         setState(() {
           selectedAnswers[index] = value!;
           widget.task.userAnswers = selectedAnswers;
-          widget.task.completed = selectedAnswers.every((answer) => answer.isNotEmpty);
+          widget.task.completed =
+              selectedAnswers.every((answer) => answer.isNotEmpty);
           context.read<TaskBloc>().add(UpdateTaskAnswerEvent(selectedAnswers));
         });
       },

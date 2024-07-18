@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/domain/entities/task.dart';
-import 'package:frontend/presentation/blocs/task_bloc.dart';
+import 'package:frontend/presentation/blocs/task_bloc/task_bloc.dart';
 import 'package:frontend/styles/app_styles.dart';
 
 class MultipleChoiceTask extends StatelessWidget {
@@ -25,7 +25,9 @@ class MultipleChoiceTask extends StatelessWidget {
                 options: task.answerOptions,
                 userAnswers: task.userAnswers,
                 onSelected: (selected) {
-                  context.read<TaskBloc>().add(UpdateTaskAnswerEvent([selected]));
+                  context
+                      .read<TaskBloc>()
+                      .add(UpdateTaskAnswerEvent([selected]));
                 },
               ),
             ],

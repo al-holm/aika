@@ -31,36 +31,46 @@ class AppStyles {
   );
 
   static const TextStyle mainMenuTitleTextStyle = TextStyle(
-      color: sandColor,
-      fontFamily: 'SFMono',
-      height: 1.1,
-      fontSize: 70,
-      fontWeight: FontWeight.bold,
-    );
-
-
-  static const TextStyle taskQuestionTextStyle = TextStyle(
-      color: darkColor,
-      fontFamily: 'SFMono',
-      height: 1.1,
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-    );
-
-  static const TextStyle taskOptionTextStyle = TextStyle(
-      color: darkColor,
-      fontFamily: 'SFMono',
-      height: 1.1,
-      fontSize: 18,
-    );
-  static const TextStyle messageTextStyle = TextStyle(
-    fontFamily: 'SFMono', fontSize: 17
-    );
-
-  static const TextStyle questionListstextStyle = TextStyle(
-    color: Colors.black,
+    color: sandColor,
     fontFamily: 'SFMono',
     height: 1.1,
-    fontSize: 18
+    fontSize: 70,
+    fontWeight: FontWeight.bold,
   );
+
+  static const TextStyle taskQuestionTextStyle = TextStyle(
+    color: darkColor,
+    fontFamily: 'SFMono',
+    height: 1.1,
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle errorMessageTextStyle = TextStyle(
+    color: Colors.yellowAccent,
+    fontFamily: 'SFMono',
+    height: 1.1,
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle systemMessageTextStyle = TextStyle(
+    color: sandColor,
+    fontFamily: 'SFMono',
+    height: 1.1,
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle taskOptionTextStyle = TextStyle(
+    color: darkColor,
+    fontFamily: 'SFMono',
+    height: 1.1,
+    fontSize: 18,
+  );
+  static const TextStyle messageTextStyle =
+      TextStyle(fontFamily: 'SFMono', fontSize: 17);
+
+  static const TextStyle questionListstextStyle = TextStyle(
+      color: Colors.black, fontFamily: 'SFMono', height: 1.1, fontSize: 18);
 }

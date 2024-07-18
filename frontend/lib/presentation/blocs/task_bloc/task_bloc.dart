@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:frontend/domain/entities/task.dart';
 import 'package:frontend/domain/usecases/submit_answers.dart';
-import 'package:frontend/presentation/blocs/chat_bloc.dart';
+import 'package:frontend/presentation/blocs/chat_bloc/chat_bloc.dart';
 part 'task_event.dart';
 part 'task_state.dart';
 
@@ -46,7 +46,8 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     }
   }
 
-  void _onUpdateTaskAnswer(UpdateTaskAnswerEvent event, Emitter<TaskState> emit) {
+  void _onUpdateTaskAnswer(
+      UpdateTaskAnswerEvent event, Emitter<TaskState> emit) {
     final currentState = state as TaskInProgress;
     final tasks = List<Task>.from(currentState.tasks);
     tasks[currentState.currentTaskIndex].userAnswers = event.userAnswers;
