@@ -56,4 +56,16 @@ class ChatRepositoryImpl implements ChatRepository {
         ).toList();
   }
 
+  @override
+  Future<List<Message>> fetchMessageHistory(String chatId) async {
+    final List<MessageModel> messageModels = await chatDataProvider.fetchMessageHistory(chatId);
+    return messageModels.map(
+        (messageModel) => Message(
+          text: messageModel.text, userID: messageModel.userID, 
+          messageID: messageModel.messageID, role: messageModel.role, 
+          timestamp:messageModel.timestamp,
+          )
+        ).toList();
+  }
+
 }

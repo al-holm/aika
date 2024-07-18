@@ -77,5 +77,24 @@ Future<List<TaskModel>> fetchTasks(String chatId) async {
       throw Exception('Failed to fetch a lesson');
     }
   }
+
+  Future<List<MessageModel>> fetchMessageHistory(String chatId) async {
+    print('fetching messages');
+    final response = await http.get(Uri.parse('$baseUrl/chat/history:$chatId'));
+    return []; // uncomment the code below as soon as server logics is done
+    if (response.statusCode == 200) {
+      final dynamic data = json.decode(response.body);
+      final messagesJson = data['messages'] as List<dynamic>;
+      final messages = messagesJson.map((messageJson) => MessageModel.fromJson(messageJson)).toList();
+      return messages;
+    } else {
+      //throw Exception('Failed to fetch a lesson');
+      if (chatId == 'law') {
+        return [MessageModel(text: 'Test Message History Law', userID: 'bot', messageID: 'ffe', role: 'bot', timestamp: DateTime.now())];
+      } else {
+        return [MessageModel(text: 'Test Message History German', userID: 'bot', messageID: 'ffe', role: 'bot', timestamp: DateTime.now())];
+      }
+    }
+  }
 }
 
