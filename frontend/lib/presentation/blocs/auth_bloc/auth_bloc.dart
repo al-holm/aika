@@ -2,31 +2,37 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:frontend/domain/entities/credentials.dart';
+
+import 'package:frontend/domain/usecases/send_credentials.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-class AuthentificationBloc
-    extends Bloc<AuthentificationEvent, AuthentificationState> {
-  AuthentificationBloc() : super(AuthentificationRequired()) {
+class AuthentificationBloc extends Bloc<AuthentificationEvent, AuthentificationState> {
+
+  final SendCredentials sendCredentials;
+
+  AuthentificationBloc(this.sendCredentials) : super(AuthentificationRequired()) {
     on<SendCredentialsEvent>(_onCredentialsSent);
   }
 
   void _onCredentialsSent(
-      SendCredentialsEvent event, Emitter<AuthentificationState> emit) {
+      SendCredentialsEvent event, Emitter<AuthentificationState> emit) async {
     emit(AuthentificationPending());
     try {
       // send request to data provider
-      print(event.username);
-      print(event.password);
-      print(event.isSignUp);
-      Random random = new Random();
-      bool success = random.nextBool(); // dummy logics
-      String info = 'Invalid credentials';
-      if (success) {
-        emit(AuthentificationSucceed(sessionToken: info));
+
+      Credentials userCredentials = Credentials(
+        username: event.username, 
+        password: event.password, 
+        isSignUp: event.isSignUp);
+      String token = await sendCredentials(userCredentials);
+
+      if (token == 'Invalid credentials') {
+        emit(AuthentificationSucceed(sessionToken: token));
       } else {
-        emit(AuthentificationFailed(errorMessage: info));
+        emit(AuthentificationFailed(errorMessage: token));
       }
     } catch (e) {
       emit(AuthentificationFailed(
