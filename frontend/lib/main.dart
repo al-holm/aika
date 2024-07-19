@@ -3,14 +3,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:frontend/data/data_providers/auth_data_provider.dart';
 import 'package:frontend/data/data_providers/chat_data_provider.dart';
 import 'package:frontend/data/data_providers/task_data_provider.dart';
+import 'package:frontend/data/repositories/auth_repository_impl.dart';
 import 'package:frontend/data/repositories/chat_repository_impl.dart';
 import 'package:frontend/data/repositories/task_repository_impl.dart';
+import 'package:frontend/domain/repositories/auth_repository.dart';
 import 'package:frontend/domain/repositories/chat_repository.dart';
 import 'package:frontend/domain/repositories/task_repository.dart';
 import 'package:frontend/domain/usecases/fetch_lesson.dart';
 import 'package:frontend/domain/usecases/fetch_tasks.dart';
+import 'package:frontend/domain/usecases/send_credentials.dart';
 import 'package:frontend/domain/usecases/send_image.dart';
 import 'package:frontend/domain/usecases/send_message.dart';
 import 'package:frontend/domain/usecases/submit_answers.dart';
@@ -32,14 +36,17 @@ void main() {
       ChatRepositoryImpl(ChatDataProvider('http://192.168.122.1:3000'));
   final taskRepository =
       TaskRepositoryImpl(TaskDataProvider('http://192.168.122.1:3000'));
-  runApp(MyApp(chatRepository: chatRepository, taskRepository: taskRepository));
+  final authRepository = 
+      AuthRepositoryImpl(AuthDataProvider('http://192.168.122.1:3000'));
+  runApp(MyApp(chatRepository: chatRepository, taskRepository: taskRepository, authRepository: authRepository));
 }
 
 class MyApp extends StatelessWidget {
   final ChatRepository chatRepository;
   final TaskRepository taskRepository;
+  final AuthRepository authRepository;
 
-  MyApp({required this.chatRepository, required this.taskRepository});
+  MyApp({required this.chatRepository, required this.taskRepository, required this.authRepository});
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +68,7 @@ class MyApp extends StatelessWidget {
             BlocProvider.of<ChatBloc>(context),
           ),
         ),
-        BlocProvider(create: (context) => AuthentificationBloc())
+        BlocProvider(create: (context) => AuthentificationBloc(SendCredentials(authRepository)))
       ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, state) {
