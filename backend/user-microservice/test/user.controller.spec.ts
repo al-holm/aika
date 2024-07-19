@@ -13,7 +13,7 @@ describe('UserController', () => {
         create: jest.fn(dto => {
             return {
                 id: Date.now(),
-                email: dto.email,
+                username: dto.username,
                 password: dto.password,
                 role: UserRole.USER,
                 createdAt: new Date(),
@@ -23,7 +23,7 @@ describe('UserController', () => {
         findAll: jest.fn(() => [
             {
                 id: 1,
-                email: 'test1@example.com',
+                username: 'test1@example.com',
                 role: UserRole.USER,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -31,7 +31,7 @@ describe('UserController', () => {
         ]),
         findOne: jest.fn(id => ({
             id,
-            email: 'test@example.com',
+            username: 'test@example.com',
             role: UserRole.USER,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -65,10 +65,10 @@ describe('UserController', () => {
     });
 
     it('should create a user', async () => {
-        const dto: CreateUserDto = { email: 'test@example.com', password: 'password' };
+        const dto: CreateUserDto = { username: 'test@example.com', password: 'password' };
         expect(await controller.create(dto)).toEqual({
             id: expect.any(Number),
-            email: dto.email,
+            username: dto.username,
             role: UserRole.USER,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date),
@@ -80,7 +80,7 @@ describe('UserController', () => {
         expect(await controller.findAll()).toEqual([
             {
                 id: 1,
-                email: 'test1@example.com',
+                username: 'test1@example.com',
                 role: UserRole.USER,
                 createdAt: expect.any(Date),
                 updatedAt: expect.any(Date),
@@ -93,7 +93,7 @@ describe('UserController', () => {
         const req = { user: { userId: 1, role: UserRole.USER } };
         expect(await controller.findOne('1', req as any)).toEqual({
             id: 1,
-            email: 'test@example.com',
+            username: 'test@example.com',
             role: UserRole.USER,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date),
@@ -102,11 +102,11 @@ describe('UserController', () => {
     });
 
     it('should update a user', async () => {
-        const dto: UpdateUserDto = { email: 'updated@example.com' };
+        const dto: UpdateUserDto = { username: 'updated@example.com' };
         const req = { user: { userId: 1, role: UserRole.USER } };
         expect(await controller.update('1', dto, req as any)).toEqual({
             id: 1,
-            email: dto.email,
+            username: dto.username,
             role: UserRole.USER,
             updatedAt: expect.any(Date),
         });

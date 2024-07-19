@@ -9,7 +9,6 @@ import { UserService } from './../../domain/user.service';
 export class AuthController {
     constructor(
         private readonly authService: AuthService,
-        private readonly userService: UserService,
     ) {}
 
     @Post('register')
