@@ -12,8 +12,8 @@ export class AuthService implements IAuthService {
         private readonly jwtService: JwtService,
     ) {}
 
-    async validateUser(email: string, pass: string): Promise<any> {
-        const user = await this.userService.findOneByEmail(email);
+    async validateUser(username: string, pass: string): Promise<any> {
+        const user = await this.userService.findOneByUsername(username);
         if (user && await bcrypt.compare(pass, user.password)) {
             const { password, ...result } = user;
             return result;
@@ -22,7 +22,7 @@ export class AuthService implements IAuthService {
     }
 
     async login(user: any) {
-        const payload = { email: user.email, sub: user.id };
+        const payload = { username: user.username, sub: user.id };
         return {
             access_token: this.jwtService.sign(payload),
         };
@@ -30,7 +30,7 @@ export class AuthService implements IAuthService {
 
     async register(createUserDto: CreateUserDto) {
         const user = await this.userService.create(createUserDto);
-        const payload = { email: user.email, sub: user.id };
+        const payload = { username: user.username, sub: user.id };
         return {
             access_token: this.jwtService.sign(payload),
         };
