@@ -12,6 +12,7 @@ import 'package:frontend/data/repositories/task_repository_impl.dart';
 import 'package:frontend/domain/repositories/auth_repository.dart';
 import 'package:frontend/domain/repositories/chat_repository.dart';
 import 'package:frontend/domain/repositories/task_repository.dart';
+import 'package:frontend/domain/usecases/fetch_history.dart';
 import 'package:frontend/domain/usecases/fetch_lesson.dart';
 import 'package:frontend/domain/usecases/fetch_tasks.dart';
 import 'package:frontend/domain/usecases/send_credentials.dart';
@@ -57,7 +58,8 @@ class MyApp extends StatelessWidget {
               SendMessage(chatRepository),
               SendImage(chatRepository),
               FetchLesson(chatRepository),
-              FetchTasks(chatRepository)),
+              FetchTasks(chatRepository),
+              FetchMessageHistory(chatRepository)),
         ),
         BlocProvider(
           create: (context) => LanguageBloc(),

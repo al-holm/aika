@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:frontend/domain/entities/message.dart';
 import 'package:frontend/domain/entities/task.dart';
+import 'package:frontend/domain/usecases/fetch_history.dart';
 import 'package:frontend/domain/usecases/fetch_lesson.dart';
 import 'package:frontend/domain/usecases/fetch_tasks.dart';
 import 'package:frontend/domain/usecases/send_image.dart';
@@ -16,13 +17,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final SendImage sendImage;
   final FetchLesson fetchLesson;
   final FetchTasks fetchTasks;
+  final FetchMessageHistory fetchMessageHistory;
   late String userID;
   final Map<String, List<Message>> chatMessages = {
     'german': [],
     'law': [],
   };
 
-  ChatBloc(this.sendMessage, this.sendImage, this.fetchLesson, this.fetchTasks)
+  ChatBloc(this.sendMessage, this.sendImage, this.fetchLesson, this.fetchTasks, this.fetchMessageHistory)
       : super(ChatInitial()) {
     on<InitializeChatEvent>(_onInitializeChat);
     on<SendMessageEvent>(_onSendMessage);
@@ -38,6 +40,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     emit(ChatLoading(
         chatID: event.chatID, messages: chatMessages[event.chatID]!));
     try {
+      chatMessages[event.chatID] = await fetchMessageHistory(event.chatID);
       if (chatMessages[event.chatID]!.isEmpty) {
         final messages = await _initializeMessages(event.chatID);
         chatMessages[event.chatID] = messages;
