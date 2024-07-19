@@ -16,6 +16,9 @@ class AudioUtils {
     });
     _audioPlayer.onPositionChanged.listen((duration) {
       elapsedDuration = duration;
+      if (maxDuration <= elapsedDuration) {
+        _audioPlayer.pause();
+      }
     });
   }
 
@@ -46,6 +49,7 @@ class AudioUtils {
 
   Future<void> resetAudio() async {
     try {
+      await _audioPlayer.pause();
       await _audioPlayer.stop();
       await _audioPlayer.setSourceDeviceFile(audioFilePath!);
       elapsedDuration = Duration.zero;
