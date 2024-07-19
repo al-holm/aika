@@ -3,14 +3,10 @@ import { ApiTags, ApiResponse, ApiExtraModels, getSchemaPath, ApiOperation} from
 import { Credentials } from './models/credentials';
 import { AuthService } from './auth.service';
 
-/**
- * Controller class for handling POST requests for processing messages in a
-German chat application.
- * @class GermanChatController
- */
+
 @ApiTags('AuthAPI')
 @Controller('auth')
-export class ChatController {
+export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
 
