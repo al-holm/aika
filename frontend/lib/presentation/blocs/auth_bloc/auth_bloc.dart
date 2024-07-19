@@ -28,9 +28,9 @@ class AuthentificationBloc extends Bloc<AuthentificationEvent, AuthentificationS
       String token = await sendCredentials(userCredentials);
 
       if (token == 'Invalid credentials') {
-        emit(AuthentificationSucceed(sessionToken: token));
-      } else {
         emit(AuthentificationFailed(errorMessage: token));
+      } else {
+        emit(AuthentificationSucceed(sessionToken: token));
       }
     } catch (e) {
       emit(AuthentificationFailed(

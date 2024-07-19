@@ -13,12 +13,16 @@ export class AuthController {
 
     @Post('register')
     async register(@Body() createUserDto: CreateUserDto) {
+        console.log('reg');
+        console.log(createUserDto.username);
         return this.authService.register(createUserDto);
     }
 
     @UseGuards(LocalAuthGuard)
     @Post('login')
     async login(@Request() req: ExpressRequest) {
+        console.log('log in');
+        console.log(req);
         return this.authService.login(req.user);
     }
 }

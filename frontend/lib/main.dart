@@ -32,11 +32,11 @@ import 'package:frontend/utils/l10n/app_localization.dart';
 
 void main() {
   final chatRepository =
-      ChatRepositoryImpl(ChatDataProvider('http://192.168.122.1:3000'));
+      ChatRepositoryImpl(ChatDataProvider('http://192.168.178.184:3000'));
   final taskRepository =
-      TaskRepositoryImpl(TaskDataProvider('http://192.168.122.1:3000'));
+      TaskRepositoryImpl(TaskDataProvider('http://192.168.178.184:3000'));
   final authRepository = 
-      AuthRepositoryImpl(AuthDataProvider('http://192.168.122.1:3000'));
+      AuthRepositoryImpl(AuthDataProvider('http://192.168.178.184:3000'));
   runApp(MyApp(chatRepository: chatRepository, taskRepository: taskRepository, authRepository: authRepository));
 }
 

@@ -30,7 +30,8 @@ export class AuthService {
     try {
       const data = { 'username': credentials.username, 'password': credentials.password};
       const response: AxiosResponse = await client.post('/auth/' + pattern, data, config);
-      return response.data['token'];
+      console.log(response.data);
+      return response.data['access_token'];
     } catch (err) {
       console.log(err);
       return err;
