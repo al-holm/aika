@@ -1,6 +1,7 @@
 ---
 Category: good_a, good_v, grammar
 Frage: Was ist der Konjunktiv II und wann wird er benutzt?
+Memory: nicht vorhanden
 Thought: Ich muss die Bedeutung und Anwendung des Konjunktiv II erklären.
 Action: Web-Suche
 Action Input: Konjunktiv II Bedeutung und Anwendung
@@ -9,6 +10,7 @@ My Thought: Die Antwort ist vorhanden.
 ---
 Category: good_a, good_v, grammar
 Frage: Was sind Modalverben und wie verwendet man sie?
+Memory: nicht vorhanden
 Thought: Ich muss die Bedeutung und Verwendung von Modalverben im Deutschen erklären.
 Action: Web-Suche
 Action Input: Modalverben Bedeutung und Verwendung Deutsch
@@ -17,6 +19,7 @@ My Thought: Die Antwort ist vorhanden.
 ---
 Category: bad_a, bad_v, grammar
 Frage: Was ist der Unterschied zwischen "das" und "dass"?
+Memory: nicht vorhanden
 Thought: Ich muss den Unterschied zwischen "das" und "dass" erklären.
 Action: Web-Suche
 Action Input: "das" oder "dass" richtig schreiben
@@ -25,6 +28,7 @@ My Thought: Die Antwort ist noch nicht vorhanden. Das Action Input ist zu ungena
 ---
 Category:  bad_a, bad_v, grammar
 Frage: Was sind die starken und schwachen Verben im Deutschen?
+Memory: nicht vorhanden
 Thought: Ich muss die Unterschiede zwischen starken und schwachen Verben im Deutschen erklären.
 Action: Web-Suche
 Action Input: Verben Deutsch
@@ -33,6 +37,7 @@ My Thought: Die Antwort ist noch nicht vorhanden. Das Action Input ist zu allgem
 ---
 Category: bad_a, bad_v, grammar
 Frage: Was sind die starken und schwachen Verben im Deutschen?
+Memory: nicht vorhanden
 Thought: Ich muss die Unterschiede zwischen starken und schwachen Verben im Deutschen erklären.
 Action: Web-Suche
 Action Input: Verben Deutsch
@@ -41,6 +46,7 @@ My Thought: Die Antwort ist noch nicht vorhanden. Das Action Input ist zu allgem
 ---
 Category: bad_a, bad_v, grammar
 Frage: Was sind die starken und schwachen Verben im Deutschen?
+Memory: nicht vorhanden
 Thought: Ich muss die Unterschiede zwischen starken und schwachen Verben im Deutschen erklären.
 Action: Web-Suche
 Action Input: Verben Deutsch
@@ -49,6 +55,7 @@ My Thought: Die Antwort ist noch nicht vorhanden. Das Action Input ist zu allgem
 ---
 Category: good_a, bad_v, grammar
 Frage: Gehen in Präsensform
+Memory: nicht vorhanden
 Thought: Ich muss die Unterschiede zwischen starken und schwachen Verben im Deutschen erklären.
 Action: Web-Suche
 Action Input: Gehen Konjugation Presens
