@@ -130,21 +130,25 @@ class Agent:
             {AgentMode.PLAN: plan_prompt, AgentMode.VAL: val_prompt}
         )
 
-    def run(self, query: str) -> str:
+    def run(self, 
+            query: str, 
+            memory: str) -> str:
         """
         runs the agent loop to execute a series of steps based on a query until a final answer is obtained.
 
         Parameters
         ----------
-        query : str
+        query: str
             representation of the query to be processed by the agent.
+        memory: str
+            the previous message from the dialogue giving more context
 
         Returns
         -------
         str
             the final answer obtained after running the agent loop.
         """
-        self.update_prompts_for_query(query)
+        self.update_prompts_for_query(query=query, memory=memory)
         logging.info("Entering agent loop...")
         iteration = 0
         while iteration < self.max_iterations:
@@ -288,7 +292,9 @@ class Agent:
         logging.info(final_answer)
         return final_answer
 
-    def update_prompts_for_query(self, query: str) -> None:
+    def update_prompts_for_query(self, 
+                                 query: str, 
+                                 memory: str) -> None:
         """
         updates prompts with a query and availiable tools
 
@@ -297,12 +303,14 @@ class Agent:
             "tools": str(self.tool_executor),
             "tool_names": self.tool_executor.tool_names,
             "input": query,
+            "memory": memory
         }
 
         self.prompt_builder.update_prompt(name_id=AgentMode.PLAN, **update)
 
         self.prompt_builder.update_prompt(name_id=AgentMode.VAL, **update)
         self.reasoning_logger.set_query(query)
+        self.reasoning_logger.set_memory(memory)
 
         if self.task_type == TaskType.ANSWERING:
             self.add_trajectory_examples_to_prompts(query)
