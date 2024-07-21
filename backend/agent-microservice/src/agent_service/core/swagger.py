@@ -13,6 +13,10 @@ GERMAN_ANSWER_API = {
                     "question": {
                         "type": "string",
                         "example": "What is the Partizip II of gehen?",
+                    },
+                    "memory": {
+                        "type": "string",
+                        "example": "nicht vorhanden"
                     }
                 },
             },
