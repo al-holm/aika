@@ -2,8 +2,8 @@ import { IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-vali
 
 export class UpdateUserDto {
     @IsOptional()
-    @IsEmail()
-    email?: string;
+    @IsString()
+    username?: string;
 
     @IsOptional()
     @IsString()

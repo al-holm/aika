@@ -9,17 +9,20 @@ import { UserService } from './../../domain/user.service';
 export class AuthController {
     constructor(
         private readonly authService: AuthService,
-        private readonly userService: UserService,
     ) {}
 
     @Post('register')
     async register(@Body() createUserDto: CreateUserDto) {
+        console.log('reg');
+        console.log(createUserDto.username);
         return this.authService.register(createUserDto);
     }
 
     @UseGuards(LocalAuthGuard)
     @Post('login')
     async login(@Request() req: ExpressRequest) {
+        console.log('log in');
+        console.log(req);
         return this.authService.login(req.user);
     }
 }

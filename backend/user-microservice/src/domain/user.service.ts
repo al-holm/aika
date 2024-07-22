@@ -19,7 +19,7 @@ export class UserService implements IUserService{
         const hashedPassword = await bcrypt.hash(createUserDto.password, salt);
         const newUser = new User(
             users.length ? users[users.length - 1].id + 1 : 1,
-            createUserDto.email,
+            createUserDto.username,
             hashedPassword,
             UserRole.USER,
             new Date(),
@@ -33,9 +33,9 @@ export class UserService implements IUserService{
         return this.userRepository.findOne(id);
     }
 
-    async findOneByEmail(email: string): Promise<User | null> {
+    async findOneByUsername(username: string): Promise<User | null> {
         const users = await this.userRepository.findAll();
-        return users.find(user => user.email === email) || null;
+        return users.find(user => user.username === username) || null;
     }
 
     async remove(id: number): Promise<void> {
