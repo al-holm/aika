@@ -47,10 +47,9 @@ def get_german_answer():
     """
     Returns generated answer for the German learning chat
     """
-    question, memory = request.json["question"], request.json["memory"]
-    answer = aika_qa.run(query=question, memory=memory)
+    question, prev_message = request.json["question"], request.json["prev_message"]
+    answer = aika_qa.run(query=question, prev_message=prev_message)
     aika_qa.reset()
-    # answer = '.'.join(answer.strip().split('.')[:-1]) + '.'
     return {"answer": answer}
 
 

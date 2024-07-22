@@ -21,7 +21,7 @@ class ReasoningLogger:
         self.task_type = task_type.value
         self.trace: List[Union[AgentStep, AgentValidationStep, AgentFinalStep]] = []
         self.query = None
-        self.memory = None
+        self.prev_message = None
         self.errors: List[Exception] = []
 
     def set_query_id(self, query_id: str):
@@ -120,16 +120,16 @@ class ReasoningLogger:
         """
         self.query = query
     
-    def set_memory(self, memory: str):
+    def set_prev_message(self, prev_message: str):
         """
-        sets the memory
+        sets the prev_message
 
         Parameters
         ----------
-        memory : str
-            the provided memory
+        prev_message : str
+            the provided prev_message
         """
-        self.memory = memory
+        self.prev_message = prev_message
 
     def get_final_answer(self, reached_max_iterations: bool):
         """

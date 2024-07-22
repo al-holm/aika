@@ -1,7 +1,7 @@
 ---
 Category: good_a, good_v, translation
 Frage: Wie kann ich "Guten Morgen" auf Türkisch sagen?
-Memory: nicht vorhanden
+Vorherige Nachricht: nicht vorhanden
 Thought: Ich muss "Guten Morgen" ins Türkische übersetzen.
 Action: Übersetzer
 Action Input: Guten Morgen - [TR]
@@ -10,7 +10,7 @@ My Thought: Die Antwort ist vorhanden.
 ---
 Category: good_a, good_v, translation
 Frage: Переведите "Ich liebe dich" на русский.
-Memory: nicht vorhanden
+Vorherige Nachricht: nicht vorhanden
 Thought: Ich muss "Ich liebe dich" ins Russische übersetzen.
 Action: Übersetzer
 Action Input: Ich liebe dich - [RU]
@@ -19,7 +19,7 @@ My Thought: Die Antwort ist vorhanden.
 ---
 Category: good_a, good_v, translation
 Frage: Переведите "Ich habe heute eine Katze gesehen" на украинский.
-Memory: nicht vorhanden
+Vorherige Nachricht: nicht vorhanden
 Thought: Ich muss "Ich habe heute eine Katze gesehen" ins Ukrainische übersetzen.
 Action: Übersetzer
 Action Input: Ich habe heute eine Katze gesehen - [UK]
@@ -28,7 +28,7 @@ My Thought: Die Antwort ist vorhanden.
 ---
 Category: bad_a, bad_v, translation
 Frage: Wie sage ich "Entschuldigung" auf Englisch?
-Memory: nicht vorhanden
+Vorherige Nachricht: nicht vorhanden
 Thought: Ich muss "Entschuldigung" ins Englische übersetzen.
 Action: Web-Suche
 Action Input: Entschuldigung auf Englisch
@@ -37,7 +37,7 @@ My Thought: Die Antwort ist noch nicht vorhanden. Das Action Input sollte das Or
 ---
 Category: bad_a, bad_v, translation
 Frage: Переведите "Wo ist die nächste U-Bahn-Station?" на русский.
-Memory: nicht vorhanden
+Vorherige Nachricht: nicht vorhanden
 Thought: Ich muss "Wo ist die nächste U-Bahn-Station?" ins Russische übersetzen.
 Action: Web-Suche
 Action Input: Wo ist die nächste U-Bahn-Station? auf Russisch
@@ -46,7 +46,7 @@ My Thought: Die Antwort ist noch nicht vorhanden. Das Action Input sollte das Or
 ---
 Category: good_a, good_v, translation
 Frage: Как я могу сказать "Меня зовут Али" по-немецки?
-Memory: nicht vorhanden
+Vorherige Nachricht: nicht vorhanden
 Thought: Ich muss "Меня зовут Али" ins Deutsche übersetzen.
 Action: Übersetzer
 Action Input: Меня зовут Али - [DE]

@@ -132,7 +132,7 @@ class Agent:
 
     def run(self, 
             query: str, 
-            memory: str) -> str:
+            prev_message: str) -> str:
         """
         runs the agent loop to execute a series of steps based on a query until a final answer is obtained.
 
@@ -140,7 +140,7 @@ class Agent:
         ----------
         query: str
             representation of the query to be processed by the agent.
-        memory: str
+        prev_message: str
             the previous message from the dialogue giving more context
 
         Returns
@@ -148,7 +148,7 @@ class Agent:
         str
             the final answer obtained after running the agent loop.
         """
-        self.update_prompts_for_query(query=query, memory=memory)
+        self.update_prompts_for_query(query=query, prev_message=prev_message)
         logging.info("Entering agent loop...")
         iteration = 0
         while iteration < self.max_iterations:
@@ -294,7 +294,7 @@ class Agent:
 
     def update_prompts_for_query(self, 
                                  query: str, 
-                                 memory: str) -> None:
+                                 prev_message: str) -> None:
         """
         updates prompts with a query and availiable tools
 
@@ -303,14 +303,14 @@ class Agent:
             "tools": str(self.tool_executor),
             "tool_names": self.tool_executor.tool_names,
             "input": query,
-            "memory": memory
+            "prev_message": prev_message
         }
 
         self.prompt_builder.update_prompt(name_id=AgentMode.PLAN, **update)
 
         self.prompt_builder.update_prompt(name_id=AgentMode.VAL, **update)
         self.reasoning_logger.set_query(query)
-        self.reasoning_logger.set_memory(memory)
+        self.reasoning_logger.set_prev_message(prev_message)
 
         if self.task_type == TaskType.ANSWERING:
             self.add_trajectory_examples_to_prompts(query)
