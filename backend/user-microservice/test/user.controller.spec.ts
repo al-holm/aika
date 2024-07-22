@@ -66,14 +66,14 @@ describe('UserController', () => {
 
     it('should create a user', async () => {
         const dto: CreateUserDto = { username: 'test@example.com', password: 'password' };
-        expect(await controller.create(dto)).toEqual({
+        expect(await controller.createUser(dto)).toEqual({
             id: expect.any(Number),
             username: dto.username,
             role: UserRole.USER,
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date),
         });
-        expect(service.create).toHaveBeenCalledWith(dto);
+        expect(service.createUser).toHaveBeenCalledWith(dto);
     });
 
     it('should find all users', async () => {
@@ -86,7 +86,7 @@ describe('UserController', () => {
                 updatedAt: expect.any(Date),
             },
         ]);
-        expect(service.findAll).toHaveBeenCalled();
+        expect(service.getAllUsers).toHaveBeenCalled();
     });
 
     it('should find one user by id', async () => {
@@ -98,7 +98,7 @@ describe('UserController', () => {
             createdAt: expect.any(Date),
             updatedAt: expect.any(Date),
         });
-        expect(service.findOne).toHaveBeenCalledWith(1);
+        expect(service.getUserbyID).toHaveBeenCalledWith(1);
     });
 
     it('should update a user', async () => {
