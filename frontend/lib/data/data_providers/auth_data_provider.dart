@@ -22,9 +22,9 @@ class AuthDataProvider {
       headers: {'Content-Type': 'application/json'},
       body: json.encode(userCredentials.toJson()),
     );
-
     if (response.statusCode == 201) {
       final String token = json.decode(response.body)['token'];
+      print(token);
       return token;
     } else {
       throw Exception('Failed to fetch a response');
