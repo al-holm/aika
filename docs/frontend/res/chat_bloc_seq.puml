@@ -1,0 +1,31 @@
+title ChatBloc: Sequence Diagram
+
+actor User
+participant GermanChatScreen
+participant ChatBloc
+participant ChatRepository
+participant ChatDataProvider
+
+User -> GermanChatScreen: Type a message and send
+GermanChatScreen -> ChatBloc: SendMessageEvent
+ChatBloc -> ChatRepository: sendMessage(chatID, message)
+ChatRepository -> ChatDataProvider: sendMessage(chatID, message)
+ChatDataProvider -> ChatRepository: return responseMessage
+ChatRepository -> ChatBloc: return responseMessage
+ChatBloc -> GermanChatScreen: ChatLoaded with new message
+
+User -> GermanChatScreen: Click on "New Lesson" button
+GermanChatScreen -> ChatBloc: FetchLessonEvent
+ChatBloc -> ChatRepository: fetchLesson(chatID)
+ChatRepository -> ChatDataProvider: fetchLesson(chatID)
+ChatDataProvider -> ChatRepository: return messageWithLesson
+ChatRepository -> ChatBloc: return messageWithLesson
+ChatBloc -> GermanChatScreen: LessonLoaded with new lesson as message
+GermanChatScreen -> ChatBloc: FetchTaskEvent
+ChatBloc -> ChatRepository: fetchTasks(chatID)
+ChatRepository -> ChatDataProvider: fetchTasks(chatID)
+ChatDataProvider -> ChatRepository: return Task[]
+ChatRepository -> ChatBloc: return Task[]
+ChatBloc -> GermanChatScreen: TasksLoaded with "Tasks" button
+
+@enduml
