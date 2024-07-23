@@ -11,7 +11,7 @@ The Curriculum Microservice manages curriculum-related operations and data. It p
 ## Services Interacted With
 
 - **API Gateway**: Routes requests from clients to the curriculum microservice.
-- **Agent Microservice**: Provides AI/ML operations for advanced processing.
+- **Agent Microservice**: Performs specialized tasks such as LLM-driven question-answering, lesson & exercises creation.
 
 # Curriculum Microservice Architecture
 
