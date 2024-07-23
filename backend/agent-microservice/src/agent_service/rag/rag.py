@@ -206,7 +206,7 @@ class RAG(Tool):
             for i in range(len(self.list_docs))
         ]
 
-        self.client.insert(collection_name=self.COLLECTION_NAME, data=data)
+        self.client.insert_data(collection_name=self.COLLECTION_NAME, data=data)
         logging.info("Vector store reinitialized")
 
     def run(self, input: str) -> str:
