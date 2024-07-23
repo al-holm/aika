@@ -10,14 +10,12 @@ class ChatDataProvider {
   ChatDataProvider(this.baseUrl);
 
   Future<MessageModel> sendMessage(
-    String chatId, MessageModel userMessage) async {
-    print('sending message..');
+    String chatId, MessageModel userMessage, String accessToken) async {
     final response = await http.post(
       Uri.parse('$baseUrl/chat/$chatId'),
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer $accessToken'},
       body: json.encode(userMessage.toJson()),
     );
-    print(response.statusCode);
     if (response.statusCode == 201) {
       final dynamic data = json.decode(response.body)['message'];
       MessageModel model = MessageModel.fromJson(data);
@@ -37,10 +35,11 @@ class ChatDataProvider {
     }
   }
 
-  Future<MessageModel> fetchLesson(String chatId) async {
+  Future<MessageModel> fetchLesson(String chatId, String accessToken) async {
     print('fetching lesson');
     final response = await http.get(
-      Uri.parse('$baseUrl/chat/lesson')
+      Uri.parse('$baseUrl/chat/lesson'),
+      headers: {'Authorization': 'Bearer $accessToken'}
       );
      if (response.statusCode == 200) {
       final dynamic data = json.decode(response.body);
@@ -48,10 +47,8 @@ class ChatDataProvider {
       print(type);
       MessageModel model = MessageModel(
         text: data['text'], 
-        userID:'lesson', 
-        messageID: '', 
-        role: 'bot', 
-        timestamp: DateTime.now(),
+        role: 'bot',
+        chatID: chatId,
         messageType: type,
         audio: type == MessageType.listening ? data['audio'] : '',
         video: type == MessageType.listeningVideo ? data['video'] : ''
@@ -78,10 +75,12 @@ Future<List<TaskModel>> fetchTasks(String chatId) async {
     }
   }
 
-  Future<List<MessageModel>> fetchMessageHistory(String chatId) async {
+  Future<List<MessageModel>> fetchMessageHistory(String chatId, String accessToken) async {
     print('fetching messages');
-    final response = await http.get(Uri.parse('$baseUrl/chat/history:$chatId'));
-    return []; // uncomment the code below as soon as server logics is done
+    final response = await http.get(Uri.parse('$baseUrl/chat/history:$chatId'),
+      headers: {'Authorization': 'Bearer $accessToken'}
+    );
+    //return []; // uncomment the code below as soon as server logics is done
     if (response.statusCode == 200) {
       final dynamic data = json.decode(response.body);
       final messagesJson = data['messages'] as List<dynamic>;
@@ -90,9 +89,9 @@ Future<List<TaskModel>> fetchTasks(String chatId) async {
     } else {
       //throw Exception('Failed to fetch a lesson');
       if (chatId == 'law') {
-        return [MessageModel(text: 'Test Message History Law', userID: 'bot', messageID: 'ffe', role: 'bot', timestamp: DateTime.now())];
+        return [MessageModel(text: 'Test Message History Law', role: 'bot', chatID: chatId)];
       } else {
-        return [MessageModel(text: 'Test Message History German', userID: 'bot', messageID: 'ffe', role: 'bot', timestamp: DateTime.now())];
+        return [MessageModel(text: 'Test Message History German', role: 'bot', chatID: chatId)];
       }
     }
   }

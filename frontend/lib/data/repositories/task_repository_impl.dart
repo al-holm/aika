@@ -8,7 +8,7 @@ class TaskRepositoryImpl implements TaskRepository {
   TaskRepositoryImpl(this.dataProvider);
 
   @override
-  Future<void> submitUserAnswers(List<Task> tasks) {
-    return dataProvider.submitUserAnswers(tasks);
+  Future<void> submitUserAnswers(List<Task> tasks, String accessToken) {
+    return dataProvider.submitUserAnswers(tasks, accessToken);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/presentation/blocs/auth_bloc/auth_bloc.dart';
+import 'package:frontend/presentation/blocs/chat_bloc/chat_bloc.dart';
 import 'package:frontend/presentation/widgets/chat_widgets.dart';
 import 'package:frontend/presentation/widgets/main_menu_widgets.dart';
 import 'package:frontend/presentation/widgets/auth_widgets.dart';
@@ -45,6 +46,7 @@ class AuthentificationScreen extends StatelessWidget {
     return BlocListener<AuthentificationBloc, AuthentificationState>(
         listener: (context, state) {
           if (state is AuthentificationSucceed) {
+            BlocProvider.of<ChatBloc>(context).add(UpdateTokenEvent(state.sessionToken));
             Navigator.pop(context);
             Navigator.pushNamed(context, '/');
           }

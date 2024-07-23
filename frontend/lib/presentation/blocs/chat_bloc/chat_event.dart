@@ -36,6 +36,15 @@ class SendImageEvent extends ChatEvent {
   List<Object> get props => [chatID, path];
 }
 
+class UpdateTokenEvent extends ChatEvent {
+  final String token;
+
+  UpdateTokenEvent(this.token);
+
+  @override
+  List<Object> get props => [token];
+}
+
 class FetchLessonEvent extends ChatEvent {
   final String chatID;
 

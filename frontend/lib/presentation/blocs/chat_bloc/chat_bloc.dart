@@ -7,8 +7,6 @@ import 'package:frontend/domain/usecases/fetch_lesson.dart';
 import 'package:frontend/domain/usecases/fetch_tasks.dart';
 import 'package:frontend/domain/usecases/send_image.dart';
 import 'package:frontend/domain/usecases/send_message.dart';
-import 'package:frontend/utils/metadata_utils.dart';
-
 part 'chat_event.dart';
 part 'chat_state.dart';
 
@@ -18,7 +16,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final FetchLesson fetchLesson;
   final FetchTasks fetchTasks;
   final FetchMessageHistory fetchMessageHistory;
-  late String userID;
+  late String accessToken;
   final Map<String, List<Message>> chatMessages = {
     'german': [],
     'law': [],
@@ -26,21 +24,27 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   ChatBloc(this.sendMessage, this.sendImage, this.fetchLesson, this.fetchTasks, this.fetchMessageHistory)
       : super(ChatInitial()) {
-    on<InitializeChatEvent>(_onInitializeChat);
+    on<UpdateTokenEvent>(_onUpdateToken);
     on<SendMessageEvent>(_onSendMessage);
     on<SendImageEvent>(_onSendImage);
     on<FetchLessonEvent>(_onFetchLesson);
     on<ProposeLessonEvent>(_onProposeLesson);
     on<ClearChatEvent>(_onClearChat);
     on<FetchTaskEvent>(_onFetchTasks);
+    on<InitializeChatEvent>(_onInitializeChat);
   }
+
+   void _onUpdateToken(
+      UpdateTokenEvent event, Emitter<ChatState> emit) async {
+        accessToken = event.token;
+    }
 
   void _onInitializeChat(
       InitializeChatEvent event, Emitter<ChatState> emit) async {
     emit(ChatLoading(
         chatID: event.chatID, messages: chatMessages[event.chatID]!));
     try {
-      chatMessages[event.chatID] = await fetchMessageHistory(event.chatID);
+      chatMessages[event.chatID] = await fetchMessageHistory(event.chatID, accessToken);
       if (chatMessages[event.chatID]!.isEmpty) {
         final messages = await _initializeMessages(event.chatID);
         chatMessages[event.chatID] = messages;
@@ -62,18 +66,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       emit(ChatLoading(
           chatID: event.chatID, messages: chatMessages[event.chatID]!));
       try {
-        final messageId = MetadataUtils.generateMessageID();
         const role = 'user';
-        final timestamp = DateTime.now();
         final message = Message(
           text: event.content,
-          userID: userID,
-          messageID: messageId,
           role: role,
-          timestamp: timestamp,
         );
         chatMessages[event.chatID]!.add(message);
-        final responseMessage = await sendMessage(event.chatID, message);
+        final responseMessage = await sendMessage(event.chatID, message, accessToken);
         chatMessages[event.chatID]!.add(responseMessage);
         final updatedMessages = List<Message>.from(chatMessages[event.chatID]!);
         if (currentState is ChatError) {
@@ -118,7 +117,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       emit(ChatLoading(
           chatID: event.chatID, messages: chatMessages[event.chatID]!));
       try {
-        final lesson = await fetchLesson(event.chatID);
+        final lesson = await fetchLesson(event.chatID, accessToken);
         chatMessages[event.chatID]!.add(lesson);
         final updatedMessages = List<Message>.from(chatMessages[event.chatID]!);
         emit(LessonLoaded(updatedMessages, lesson, chatID: event.chatID));
@@ -172,34 +171,24 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Message getLessonOfferingMessage() {
     final message = Message(
       text: "Gut gemacht! Willst du mit dem neuen Unterricht starten?",
-      userID: 'system',
-      messageID: MetadataUtils.generateMessageID(),
       role: 'bot',
-      timestamp: DateTime.now(),
     );
     return message;
   }
 
   Future<List<Message>> _initializeMessages(String chatId) async {
-    userID = await MetadataUtils.initUserId();
     if (chatId == 'german') {
       return [
         Message(
           text: getInitMessageGerman(),
-          userID: userID,
-          messageID: '0',
           role: 'bot',
-          timestamp: DateTime.now(),
         )
       ];
     } else if (chatId == 'law') {
       return [
         Message(
           text: getInitMessageLaw(),
-          userID: userID,
-          messageID: '0',
           role: 'bot',
-          timestamp: DateTime.now(),
         ),
       ];
     } else {

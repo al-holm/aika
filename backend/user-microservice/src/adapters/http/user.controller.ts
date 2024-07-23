@@ -1,62 +1,51 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put, UseGuards, Request } from '@nestjs/common';
 import { Request as ExpressRequest } from 'express';
-import { UserResponseDto } from '../../domain/dto/user-response.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { UserRole } from '../../common/enums/user-role.enum';
 import { UserRequest } from '../../common/user-request.interface';
-import { UpdateUserDto } from '../../domain/dto/update-user.dto';
 import { UserService } from './../../domain/user.service';
+import { Message } from 'src/domain/entities/message.entity';
+import { CreateMessageDto } from 'src/domain/dto/create-message.dto';
+import { UpdateLessonDto } from 'src/domain/dto/update-lesson.dto';
 
 
 
-@Controller('users')
+@Controller('user')
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
     @UseGuards(JwtAuthGuard)
     @Get('last-message')
-    async getLastBotMessage(): Promise<UserResponseDto[]> {
-        const users = await this.userService.getAllUsers();
-        return users.map(user => UserResponseDto.fromEntity(user));
+    async getLastBotMessage( @Request() req: ExpressRequest & { user: UserRequest }): Promise<{'last-message': Message }> {
+        const message: Message = await this.userService.getLastBotMessage(req.user.userId);
+        return {'last-message': message};;
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get()
-    async getMessageHistory(@Param('id') id: string, @Request() req: ExpressRequest & { user: UserRequest }): Promise<UserResponseDto> {
-        const userId = parseInt(id, 10);
-        const user = await this.userService.getUserbyID(userId);
-        if (!user || (user.id !== req.user.userId && req.user.role !== UserRole.ADMIN)) {
-            throw new NotFoundException(`User with id ${id} not found or unauthorized`);
-        }
-        return UserResponseDto.fromEntity(user);
+    @Get(':chat-id')
+    async getMessageHistory(@Param('chat-id') chatID: string, @Request() req: ExpressRequest & { user: UserRequest }): 
+    Promise<{'messages': Message[]}> {
+        const messages = await this.userService.getMessageHistory(req.user.userID, chatID);
+        return {'messages': messages};
     }
 
     @UseGuards(JwtAuthGuard)
     @Put('put-message')
-    async putMessage(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, @Request() req: ExpressRequest & { user: UserRequest }): Promise<UserResponseDto> {
-        const userId = parseInt(id, 10);
-        const user = await this.userService.getUserbyID(userId);
-        if (!user || (user.id !== req.user.userId && req.user.role !== UserRole.ADMIN)) {
-            throw new NotFoundException(`User with id ${id} not found or unauthorized`);
-        }
-        const updatedUser = await this.userService.update(userId, updateUserDto);
-        if (!updatedUser) {
-            throw new NotFoundException(`User with id ${id} not found`);
-        }
-        return UserResponseDto.fromEntity(updatedUser);
+    async putMessage(@Body() createMessageDto: CreateMessageDto, @Request() req: ExpressRequest & { user: UserRequest }): 
+    Promise<void> {
+        await this.userService.addMessage(req.user.userID, createMessageDto);
     }
 
     @UseGuards(JwtAuthGuard)
     @Get('next-topic')
-    async getNextTopic(): Promise<UserResponseDto[]> {
-        const users = await this.userService.getAllUsers();
-        return users.map(user => UserResponseDto.fromEntity(user));
+    async getNextTopic(@Request() req: ExpressRequest & { user: UserRequest }): Promise<{'next-topic': string}> {
+        const topic = await this.userService.getNextLesson(req.user.userID);
+        return {'next-topic': topic};
     }
 
     @UseGuards(JwtAuthGuard)
     @Post('update-progress')
-    async updateProgress(): Promise<UserResponseDto[]> {
-        const users = await this.userService.getAllUsers();
-        return users.map(user => UserResponseDto.fromEntity(user));
+    async updateProgress(@Body() updateLessonDto: UpdateLessonDto, @Request() req: ExpressRequest & { user: UserRequest }): 
+    Promise<void> {
+        await this.userService.updateLesson(req.user.userID, updateLessonDto);
     }
 }

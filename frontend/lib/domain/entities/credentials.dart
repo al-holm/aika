@@ -1,7 +1,3 @@
-
-
-
-
 class Credentials {
   final String username;
   final String password;

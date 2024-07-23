@@ -6,7 +6,7 @@ class FetchLesson {
 
   FetchLesson(this.repository);
 
-  Future<Message> call(String chatId) {
-    return repository.fetchLesson(chatId);
+  Future<Message> call(String chatId, String accessToken) {
+    return repository.fetchLesson(chatId, accessToken);
   }
 }

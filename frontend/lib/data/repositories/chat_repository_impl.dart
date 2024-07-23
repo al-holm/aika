@@ -12,17 +12,13 @@ class ChatRepositoryImpl implements ChatRepository {
 
   @override
   Future<Message> sendMessage(
-    String chatId, Message message) async {
+    String chatId, Message message, String accessToken) async {
     MessageModel userMessage = MessageModel(
-      text: message.text, userID: message.userID, 
-      messageID: message.messageID, role: message.role, 
-      timestamp: message.timestamp);
+      text: message.text, role: message.role, chatID: chatId);
     final MessageModel messageModel = await chatDataProvider.sendMessage(
-      chatId, userMessage);
+      chatId, userMessage, accessToken);
     return Message(
-      text: messageModel.text, userID: messageModel.userID, 
-      messageID: messageModel.messageID, role: messageModel.role, 
-      timestamp:messageModel.timestamp);
+      text: messageModel.text, role: messageModel.role);
   }
 
   @override
@@ -31,12 +27,10 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<Message> fetchLesson(String chatId) async {
-     final MessageModel messageModel = await chatDataProvider.fetchLesson(chatId);
+  Future<Message> fetchLesson(String chatId, String accessToken) async {
+     final MessageModel messageModel = await chatDataProvider.fetchLesson(chatId, accessToken);
      return Message(
-      text: messageModel.text, userID: messageModel.userID, 
-      messageID: messageModel.messageID, role: messageModel.role, 
-      timestamp:messageModel.timestamp, messageType: messageModel.messageType,
+      text: messageModel.text, role: messageModel.role, messageType: messageModel.messageType,
       audio: messageModel.audio, video: messageModel.video
       );
   }
@@ -57,13 +51,12 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<List<Message>> fetchMessageHistory(String chatId) async {
-    final List<MessageModel> messageModels = await chatDataProvider.fetchMessageHistory(chatId);
+  Future<List<Message>> fetchMessageHistory(String chatId, String accessToken) async {
+    final List<MessageModel> messageModels = await chatDataProvider.fetchMessageHistory(chatId, accessToken);
     return messageModels.map(
         (messageModel) => Message(
-          text: messageModel.text, userID: messageModel.userID, 
-          messageID: messageModel.messageID, role: messageModel.role, 
-          timestamp:messageModel.timestamp,
+          text: messageModel.text,
+          role: messageModel.role
           )
         ).toList();
   }

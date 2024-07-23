@@ -16,15 +16,19 @@ export class ChatService {
    * @param {Message} userMessage - The German chat message DTO to process.
    * @returns {Promise<String>} A promise that resolves to a string containing the echoed message.
    */
-  async processMessage (userMessage: Message, type: String): Promise<Message> {
-    
+  async processMessage (userMessage: Message, type: String, token: string): Promise<Message> {
+    const client = axios.create({
+      baseURL: 'http://127.0.0.1:3501/user/',
+    });
+    const config: AxiosRequestConfig = {
+      headers: {
+        'Accept': 'application/json', 'Authorization': `Bearer ${token}`
+      } as RawAxiosRequestHeaders,
+    };
+    await client.put('put-message', JSON.stringify(userMessage), config);
     const botMessage = new Message();
-    botMessage.userId= userMessage.userId;
-    botMessage.messageId= uuidv4();
     botMessage.role = UserRole.Bot;
-    botMessage.timestamp = new Date();
     console.log(type);
-
     switch(type) {
       case "language": {
         botMessage.text = await this.get_answer(userMessage.text);
@@ -39,7 +43,7 @@ export class ChatService {
         console.log("processMessage: unexpected type")
       }
     }
-
+    await client.put('put-message', JSON.stringify(botMessage), config);
     return Promise.resolve(botMessage);
   }
 
@@ -97,7 +101,7 @@ export class ChatService {
    * Makes a POST request to get an answer for the given question to the topic law and life.
    * @returns {Promise<JSON>} The answer from the API or error if an error occurs.
    */
-    async getLesson(): Promise<JSON> 
+    async getLesson(token: string): Promise<JSON> 
     {
       
       const client = axios.create({baseURL: 'http://127.0.0.1:3543/lesson',});
@@ -141,7 +145,7 @@ export class ChatService {
      }
  }
 
-  async processAnswers(task_message: JSON){
+  async processAnswers(task_message: JSON, token: string){
     const client = axios.create({baseURL: 'http://127.0.0.1:3543/lesson',});
     const config: AxiosRequestConfig = {
       headers: {
@@ -153,5 +157,17 @@ export class ChatService {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  async getChatHistory(chatID: string, token: string) {
+    const client = axios.create({
+      baseURL: 'http://127.0.0.1:3501/user/',
+    });
+    const config: AxiosRequestConfig = {
+      headers: {
+        'Accept': 'application/json', 'Authorization': `Bearer ${token}`
+      } as RawAxiosRequestHeaders,
+    };
+    return (await client.get(`:${chatID}`, config)).data.messages;
   }
 }

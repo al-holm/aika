@@ -7,7 +7,7 @@ class TaskDataProvider {
 
   TaskDataProvider(this.baseUrl);
 
-  Future<void> submitUserAnswers(List<Task> tasks) async {
+  Future<void> submitUserAnswers(List<Task> tasks, String accessToken) async {
     final data = tasks.map((task) => {
           'id': task.id,
           'lessonType': task.lessonType,
@@ -18,7 +18,7 @@ class TaskDataProvider {
         }).toList();
     final response = await http.post(
       Uri.parse('$baseUrl/chat/submit_answers'),
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer $accessToken'},
       body: json.encode(data),
     );
     print(response);

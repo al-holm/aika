@@ -3,7 +3,6 @@ import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { IUserRepository } from './ports/orm/user.repository.interface';
 import { UserRole } from '../common/enums/user-role.enum';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { IUserService } from './ports/http/user.service.interface';
 import { IMessageRepository } from './ports/orm/message.repository.interface';
@@ -12,6 +11,7 @@ import { ChatType } from 'src/common/enums/chat-type.enum';
 import { Message } from './entities/message.entity';
 import { MessageRole } from 'src/common/enums/message-role.enum';
 import { CreateMessageDto } from './dto/create-message.dto';
+import { UpdateLessonDto } from './dto/update-lesson.dto';
 
 @Injectable()
 export class UserService implements IUserService{
@@ -59,8 +59,9 @@ export class UserService implements IUserService{
         return filteredMessages.length > 0 ? filteredMessages[0] : null;
     }
 
-    async getMessageHistory(userID: number, chatID: ChatType): Promise<Message[] | null> {
+    async getMessageHistory(userID: number, chatID: string): Promise<Message[] | null> {
         const messages = await this.messageRepository.findAll();
+        chatID = this.getChatType(chatID);
         return messages.filter(
             message => message.chatID == chatID && message.userID == userID
         );
@@ -98,6 +99,14 @@ export class UserService implements IUserService{
         }
     }
 
-    getNextLesson(userID: number): Promise<string>;
-    updateLesson(userID: number, updateLessonDto: UpdateLessonDto);
+    async getNextLesson(userID: number): Promise<string> {
+        const lesson = (await this.lessonRepository.findOne(userID)).progress;
+        const entry = Array.from(lesson.entries()).find(([key, value]) => !value);
+        return entry ? entry[0] : null;
+    }
+
+    async updateLesson(userID: number, updateLessonDto: UpdateLessonDto) {
+        await this.lessonRepository.update(userID, updateLessonDto.topic, updateLessonDto.value);
+    }
 }
+

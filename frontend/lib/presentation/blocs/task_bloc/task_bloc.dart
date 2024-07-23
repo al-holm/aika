@@ -38,7 +38,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   void _onSubmitTasks(SubmitTasksEvent event, Emitter<TaskState> emit) async {
     emit(TaskSubmissionInProgress());
     try {
-      await submitAnswers(event.tasks);
+      await submitAnswers(event.tasks, chatBloc.accessToken);
       emit(TaskSubmissionSuccess());
       chatBloc.add(ProposeLessonEvent(true, 'german'));
     } catch (error) {

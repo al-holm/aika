@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:frontend/domain/entities/credentials.dart';
-
 import 'package:frontend/domain/usecases/send_credentials.dart';
 
 part 'auth_event.dart';

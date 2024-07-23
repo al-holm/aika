@@ -6,7 +6,7 @@ class SubmitAnswers {
 
   SubmitAnswers(this.repository);
 
-  Future<void> call(List<Task> tasks) {
-    return repository.submitUserAnswers(tasks);
+  Future<void> call(List<Task> tasks, String accessToken) {
+    return repository.submitUserAnswers(tasks, accessToken);
   }
 }

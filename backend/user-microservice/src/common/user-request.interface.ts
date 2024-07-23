@@ -1,4 +1,4 @@
 export interface UserRequest {
-    userId: number;
+    userID: number;
     role: string;
 }

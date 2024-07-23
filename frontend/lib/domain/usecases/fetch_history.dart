@@ -6,7 +6,7 @@ class FetchMessageHistory{
 
   FetchMessageHistory(this.repository);
 
-  Future<List<Message>> call(String chatId) {
-    return repository.fetchMessageHistory(chatId);
+  Future<List<Message>> call(String chatId, String accessToken) {
+    return repository.fetchMessageHistory(chatId, accessToken);
   }
 }

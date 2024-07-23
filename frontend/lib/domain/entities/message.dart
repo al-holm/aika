@@ -21,18 +21,13 @@ extension MessageTypeExtension on MessageType {
 
 class Message {
   final String text;
-  final String userID;
-  final String messageID;
   final String role;
-  final DateTime timestamp;
   final MessageType messageType;
   final String audio;
   final String video;
 
   Message({required this.text, 
-        required this.userID,
-        required this.messageID, required this.role,
-        required this.timestamp,
+        required this.role,
         this.messageType=MessageType.message, this.audio='', this.video=''});
 }
 
