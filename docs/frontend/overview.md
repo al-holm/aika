@@ -12,3 +12,6 @@ This document provides an overview of the frontend part of the application built
 
 - **main.dart**: The entry point of the Flutter application.
 
+## Components
+![](res/component_diagram_frontend.png)
+
