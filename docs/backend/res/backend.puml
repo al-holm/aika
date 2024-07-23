@@ -1,0 +1,92 @@
+@startuml
+!define RECTANGLE class
+
+title Backend Architecture 
+
+package "Client" {}
+
+package "API Gateway" {
+    RECTANGLE ChatController
+    RECTANGLE ChatService
+    RECTANGLE GateAuthController
+    RECTANGLE GateAuthService
+}
+
+package "Agent Service" {
+    RECTANGLE FlaskApp
+    RECTANGLE Agent
+    RECTANGLE RAG
+    RECTANGLE LessonMaster
+}
+
+package "Curriculum Service" {
+    RECTANGLE LessonController
+    RECTANGLE LessonService
+}
+
+package "User Service" {
+    RECTANGLE AuthController
+    RECTANGLE AuthService
+    RECTANGLE UserService
+}
+
+database "MilvusVectorStore" {
+  folder "LawLifeKnowledgeBase" {
+ }
+ folder "TrajectoryLibrary" {
+ }
+}
+
+database "Curriculum" {
+    folder "CurriculumJson" {
+    }
+}
+
+database "User" {
+    folder "Users" {
+    }
+}
+
+ChatController --> ChatService
+AuthController --> AuthService
+GateAuthController --> GateAuthService
+AuthService --> UserService
+LessonController --> LessonService
+LessonService --> CurriculumJson
+
+' API Gateway connections
+Client --(0- ChatController : POST /chat/law
+Client --(0- ChatController: POST /chat/german
+Client --(0- ChatController: POST /chat/submit_answers
+Client --(0- ChatController: GET /chat/lesson
+Client --(0- ChatController: GET /chat/tasks
+Client --(0- GateAuthController: POST /auth
+
+  
+ChatService --(0- FlaskApp  : POST /get_answer_german
+ChatService --(0- FlaskApp : POST /get_answer_law_life
+
+GateAuthService--(0- AuthController : POST /auth/login
+GateAuthService -(0- AuthController : POST /auth/register 
+  
+LessonService --(0- FlaskApp : POST /get_lesson_text
+LessonService --(0- FlaskApp : GET /get_lesson_exercises
+
+' Agent Service connections
+FlaskApp --> Agent
+FlaskApp --> RAG
+FlaskApp --> LessonMaster
+
+' Curriculum Service connections
+ChatService --(0- LessonController : GET /lesson/next
+ChatService --(0- LessonController: GET /lesson/tasks
+ChatService --(0- LessonController : POST /lesson/process_answers
+
+' MilvusVectorStore connections
+Agent --> TrajectoryLibrary
+RAG --> LawLifeKnowledgeBase
+
+'Auth User connections
+UserService --> Users
+
+@enduml

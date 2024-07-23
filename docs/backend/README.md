@@ -23,10 +23,10 @@ Each microservice is designed to be independent and scalable, with its own datab
 - **Python (Flask)**: Used for the Agent Microservice.
 
 ## Documentation
-- [API Gateway Documentation](docs/backend/api-gateway/overview.md)
-- [Curriculum Microservice Documentation](docs/backend/curriculum-microservice/overview.md)
-- [User Microservice Documentation](docs/backend/user-microservice/overview.md)
-- [Agent Microservice Documentation](docs/backend/agent-microservice/overview.md)
+- [API Gateway Documentation](microservices/api-gateway.md)
+- [Curriculum Microservice Documentation](microservices/curriculum-microservice.md)
+- [User Microservice Documentation](microservices/user-microservice.md)
+- [Agent Microservice Documentation](microservices/agent-microservice.md)
 
 ## Getting Started
 
