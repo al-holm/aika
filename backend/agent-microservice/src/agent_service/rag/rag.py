@@ -4,7 +4,7 @@ from agent_service.prompts.tool_prompt import RETRIEVER_TEMPLATE
 import os
 from typing import Dict, List
 import logging
-from pymilvus import MilvusClient
+from milvus_db.milvus_db import MilvusDBClient
 from pymilvus.model import hybrid
 from tqdm import tqdm
 
@@ -182,7 +182,7 @@ class RAG(Tool):
         """
         Initialize the vector store client and create a new collection.
         """
-        self.client = MilvusClient(self.DB_PATH + "milvus_rag.db")
+        self.client = MilvusDBClient(self.DB_PATH + "milvus_rag.db")
         if init:
             self.collection = self.client.create_collection(
                 collection_name=self.COLLECTION_NAME, dimension=1024
