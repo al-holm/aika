@@ -37,7 +37,10 @@ class ListeningGenerator(Tool):
             model = self.MALE_VOICE_MODEL
         tts = TTS(model).to(self.device)
         id = str(uuid.uuid4())
-        filepath = "out/audio/" + id + ".wav"
+        folderpath = "out/audio/"
+        if not os.path.exists(folderpath):
+            os.makedirs(folderpath)
+        filepath = folderpath + id + ".wav"
         tts.tts_to_file(text=text, file_path=filepath)
         with open(filepath, "rb") as audio_file:
             encoded_string = base64.b64encode(audio_file.read()).decode("utf-8")

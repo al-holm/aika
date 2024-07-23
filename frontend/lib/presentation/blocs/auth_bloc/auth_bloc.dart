@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:frontend/domain/entities/credentials.dart';
@@ -30,9 +28,9 @@ class AuthentificationBloc extends Bloc<AuthentificationEvent, AuthentificationS
       String token = await sendCredentials(userCredentials);
 
       if (token == 'Invalid credentials') {
-        emit(AuthentificationSucceed(sessionToken: token));
-      } else {
         emit(AuthentificationFailed(errorMessage: token));
+      } else {
+        emit(AuthentificationSucceed(sessionToken: token));
       }
     } catch (e) {
       emit(AuthentificationFailed(

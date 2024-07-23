@@ -11,9 +11,9 @@ class CredentialsModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'email': username,
+      'username': username,
       'password': password,
-      'alreadySignedUp': isSignUp,
+      'isSignUp': isSignUp,
     };
   }
 
