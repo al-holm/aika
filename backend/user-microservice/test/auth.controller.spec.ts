@@ -59,7 +59,7 @@ describe('AuthController', () => {
     });
 
     it('should register a user and return a token', async () => {
-        const dto: CreateUserDto = { email: 'test@example.com', password: 'password' };
+        const dto: CreateUserDto = { username: 'test@example.com', password: 'password' };
         expect(await controller.register(dto)).toEqual({
             access_token: 'test_token',
         });
@@ -67,7 +67,7 @@ describe('AuthController', () => {
     });
 
     it('should login a user and return a token', async () => {
-        const req = { user: { userId: 1, email: 'test@example.com', role: 'USER' } };
+        const req = { user: { userId: 1, username: 'test@example.com', role: 'USER' } };
         expect(await controller.login(req as any)).toEqual({
             access_token: 'test_token',
         });

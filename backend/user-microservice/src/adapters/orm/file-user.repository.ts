@@ -18,7 +18,7 @@ export class FileUserRepository implements IUserRepository {
         const fileData = fs.readFileSync(this.filePath, 'utf8');
         return JSON.parse(fileData).map((user: any) => new User(
             user.id,
-            user.email,
+            user.username,
             user.password,
             user.role,
             new Date(user.createdAt),
