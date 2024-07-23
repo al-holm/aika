@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="510px" preserveAspectRatio="none" style="width:1337px;height:510px;background:#FFFFFF;" version="1.1" viewBox="0 0 1337 510" width="1337px" zoomAndPan="magnify"><defs/><g><!--MD5=[121a8bf1197281ab89ed693fab589f94]
+cluster Domain--><g id="cluster_Domain"><path d="M36.02,6 L95.02,6 A3.75,3.75 0 0 1 97.52,8.5 L104.52,28.2969 L582.02,28.2969 A2.5,2.5 0 0 1 584.52,30.7969 L584.52,500.5 A2.5,2.5 0 0 1 582.02,503 L36.02,503 A2.5,2.5 0 0 1 33.52,500.5 L33.52,8.5 A2.5,2.5 0 0 1 36.02,6 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="33.52" x2="104.52" y1="28.2969" y2="28.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="58" x="37.52" y="20.9951">Domain</text></g><!--MD5=[33547aab9a37fff93e77e1ef2ce5d818]
+cluster Ports--><g id="cluster_Ports"><path d="M231.02,59 L274.02,59 A3.75,3.75 0 0 1 276.52,61.5 L283.52,81.2969 L552.02,81.2969 A2.5,2.5 0 0 1 554.52,83.7969 L554.52,139.5 A2.5,2.5 0 0 1 552.02,142 L231.02,142 A2.5,2.5 0 0 1 228.52,139.5 L228.52,61.5 A2.5,2.5 0 0 1 231.02,59 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="228.52" x2="283.52" y1="81.2969" y2="81.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="42" x="232.52" y="73.9951">Ports</text></g><!--MD5=[aedc30b8666742a3000193d7e0a0b93e]
+cluster Adapters--><g id="cluster_Adapters"><path d="M611.02,195 L684.02,195 A3.75,3.75 0 0 1 686.52,197.5 L693.52,217.2969 L1328.02,217.2969 A2.5,2.5 0 0 1 1330.52,219.7969 L1330.52,383.5 A2.5,2.5 0 0 1 1328.02,386 L611.02,386 A2.5,2.5 0 0 1 608.52,383.5 L608.52,197.5 A2.5,2.5 0 0 1 611.02,195 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="608.52" x2="693.52" y1="217.2969" y2="217.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="72" x="612.52" y="209.9951">Adapters</text></g><!--MD5=[08cfbaecb6317b1e15f6360cd8b42728]
+cluster http--><g id="cluster_http"><path d="M853.02,238 L886.02,238 A3.75,3.75 0 0 1 888.52,240.5 L895.52,260.2969 L1304.02,260.2969 A2.5,2.5 0 0 1 1306.52,262.7969 L1306.52,359.5 A2.5,2.5 0 0 1 1304.02,362 L853.02,362 A2.5,2.5 0 0 1 850.52,359.5 L850.52,240.5 A2.5,2.5 0 0 1 853.02,238 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="850.52" x2="895.52" y1="260.2969" y2="260.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="32" x="854.52" y="252.9951">http</text></g><!--MD5=[55e56c6495907da7bd861c9a73b5c237]
+cluster orm--><g id="cluster_orm"><path d="M635.02,258.5 L667.02,258.5 A3.75,3.75 0 0 1 669.52,261 L676.52,280.7969 L824.02,280.7969 A2.5,2.5 0 0 1 826.52,283.2969 L826.52,339 A2.5,2.5 0 0 1 824.02,341.5 L635.02,341.5 A2.5,2.5 0 0 1 632.52,339 L632.52,261 A2.5,2.5 0 0 1 635.02,258.5 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="632.52" x2="676.52" y1="280.7969" y2="280.7969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="31" x="636.52" y="273.4951">orm</text></g><!--MD5=[3fd616f346a44cd59a91eb10b19e157c]
+class User--><g id="elem_User"><rect codeLine="11" fill="#F1F1F1" height="137.7813" id="User" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="144" x="60.52" y="41"/><ellipse cx="112.27" cy="57" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M115.2388,62.6406 Q114.6606,62.9375 114.02,63.0781 Q113.3794,63.2344 112.6763,63.2344 Q110.1763,63.2344 108.8481,61.5938 Q107.5356,59.9375 107.5356,56.8125 Q107.5356,53.6875 108.8481,52.0313 Q110.1763,50.375 112.6763,50.375 Q113.3794,50.375 114.02,50.5313 Q114.6763,50.6875 115.2388,50.9844 L115.2388,53.7031 Q114.6138,53.125 114.02,52.8594 Q113.4263,52.5781 112.8013,52.5781 Q111.4575,52.5781 110.77,53.6563 Q110.0825,54.7188 110.0825,56.8125 Q110.0825,58.9063 110.77,59.9844 Q111.4575,61.0469 112.8013,61.0469 Q113.4263,61.0469 114.02,60.7813 Q114.6138,60.5 115.2388,59.9219 L115.2388,62.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="132.77" y="61.8467">User</text><line style="stroke:#181818;stroke-width:0.5;" x1="61.52" x2="203.52" y1="73" y2="73"/><ellipse cx="71.52" cy="86.6484" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75" x="80.52" y="89.9951">id: number</text><ellipse cx="71.52" cy="102.9453" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="118" x="80.52" y="106.292">username: string</text><ellipse cx="71.52" cy="119.2422" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="115" x="80.52" y="122.5889">password: string</text><ellipse cx="71.52" cy="135.5391" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="98" x="80.52" y="138.8857">role: UserRole</text><ellipse cx="71.52" cy="151.8359" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="109" x="80.52" y="155.1826">createdAt: Date</text><ellipse cx="71.52" cy="168.1328" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="114" x="80.52" y="171.4795">updatedAt: Date</text></g><!--MD5=[e4ac4745f81aec2db60ad4ddae80b659]
+class UserService--><g id="elem_UserService"><rect codeLine="19" fill="#F1F1F1" height="72.5938" id="UserService" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="417" x="84.02" y="414"/><ellipse cx="247.27" cy="430" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M250.2387,435.6406 Q249.6606,435.9375 249.02,436.0781 Q248.3794,436.2344 247.6762,436.2344 Q245.1762,436.2344 243.8481,434.5938 Q242.5356,432.9375 242.5356,429.8125 Q242.5356,426.6875 243.8481,425.0313 Q245.1762,423.375 247.6762,423.375 Q248.3794,423.375 249.02,423.5313 Q249.6762,423.6875 250.2387,423.9844 L250.2387,426.7031 Q249.6137,426.125 249.02,425.8594 Q248.4262,425.5781 247.8012,425.5781 Q246.4575,425.5781 245.77,426.6563 Q245.0825,427.7188 245.0825,429.8125 Q245.0825,431.9063 245.77,432.9844 Q246.4575,434.0469 247.8012,434.0469 Q248.4262,434.0469 249.02,433.7813 Q249.6137,433.5 250.2387,432.9219 L250.2387,435.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="267.77" y="434.8467">UserService</text><line style="stroke:#181818;stroke-width:0.5;" x1="85.02" x2="500.02" y1="446" y2="446"/><ellipse cx="95.02" cy="459.6484" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="388" x="104.02" y="462.9951">create(createUserDto: CreateUserDto): Promise&lt;User&gt;</text><ellipse cx="95.02" cy="475.9453" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="391" x="104.02" y="479.292">findOneByUsername(username: string): Promise&lt;User&gt;</text></g><!--MD5=[b4f586f7c628b5a371c8c0ac9af5f898]
+class AuthService--><g id="elem_AuthService"><rect codeLine="24" fill="#F1F1F1" height="88.8906" id="AuthService" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="482" x="86.52" y="265"/><ellipse cx="282.27" cy="281" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M285.2388,286.6406 Q284.6606,286.9375 284.02,287.0781 Q283.3794,287.2344 282.6763,287.2344 Q280.1763,287.2344 278.8481,285.5938 Q277.5356,283.9375 277.5356,280.8125 Q277.5356,277.6875 278.8481,276.0313 Q280.1763,274.375 282.6763,274.375 Q283.3794,274.375 284.02,274.5313 Q284.6763,274.6875 285.2388,274.9844 L285.2388,277.7031 Q284.6138,277.125 284.02,276.8594 Q283.4263,276.5781 282.8013,276.5781 Q281.4575,276.5781 280.77,277.6563 Q280.0825,278.7188 280.0825,280.8125 Q280.0825,282.9063 280.77,283.9844 Q281.4575,285.0469 282.8013,285.0469 Q283.4263,285.0469 284.02,284.7813 Q284.6138,284.5 285.2388,283.9219 L285.2388,286.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="302.77" y="285.8467">AuthService</text><line style="stroke:#181818;stroke-width:0.5;" x1="87.52" x2="567.52" y1="297" y2="297"/><ellipse cx="97.52" cy="310.6484" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="243" x="106.52" y="313.9951">login(user: User): Promise&lt;string&gt;</text><ellipse cx="97.52" cy="326.9453" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="397" x="106.52" y="330.292">register(createUserDto: CreateUserDto): Promise&lt;User&gt;</text><ellipse cx="97.52" cy="343.2422" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="456" x="106.52" y="346.5889">validateUser(username: string, password: string): Promise&lt;User&gt;</text></g><!--MD5=[22a889b802578031d2e420ffa83150b8]
+class IUserRepository--><g id="elem_IUserRepository"><rect codeLine="6" fill="#F1F1F1" height="32" id="IUserRepository" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="141" x="245.02" y="94"/><ellipse cx="260.02" cy="110" fill="#B4A7E5" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M255.9419,105.7656 L255.9419,103.6094 L263.3325,103.6094 L263.3325,105.7656 L260.8638,105.7656 L260.8638,113.8438 L263.3325,113.8438 L263.3325,116 L255.9419,116 L255.9419,113.8438 L258.4106,113.8438 L258.4106,105.7656 L255.9419,105.7656 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="109" x="274.02" y="114.8467">IUserRepository</text></g><!--MD5=[1a70795ac229e48b124a99137acc095a]
+class IAuthService--><g id="elem_IAuthService"><rect codeLine="8" fill="#F1F1F1" height="32" id="IAuthService" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="117" x="421.02" y="94"/><ellipse cx="436.02" cy="110" fill="#B4A7E5" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M431.9419,105.7656 L431.9419,103.6094 L439.3325,103.6094 L439.3325,105.7656 L436.8638,105.7656 L436.8638,113.8438 L439.3325,113.8438 L439.3325,116 L431.9419,116 L431.9419,113.8438 L434.4106,113.8438 L434.4106,105.7656 L431.9419,105.7656 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="85" x="450.02" y="114.8467">IAuthService</text></g><!--MD5=[9878be2e161685c2af42b541dee0842e]
+class AuthController--><g id="elem_AuthController"><rect codeLine="33" fill="#F1F1F1" height="72.5938" id="AuthController" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="423" x="867.02" y="273"/><ellipse cx="1024.77" cy="289" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M1027.7388,294.6406 Q1027.1606,294.9375 1026.52,295.0781 Q1025.8794,295.2344 1025.1763,295.2344 Q1022.6763,295.2344 1021.3481,293.5938 Q1020.0356,291.9375 1020.0356,288.8125 Q1020.0356,285.6875 1021.3481,284.0313 Q1022.6763,282.375 1025.1763,282.375 Q1025.8794,282.375 1026.52,282.5313 Q1027.1763,282.6875 1027.7388,282.9844 L1027.7388,285.7031 Q1027.1138,285.125 1026.52,284.8594 Q1025.9263,284.5781 1025.3013,284.5781 Q1023.9575,284.5781 1023.27,285.6563 Q1022.5825,286.7188 1022.5825,288.8125 Q1022.5825,290.9063 1023.27,291.9844 Q1023.9575,293.0469 1025.3013,293.0469 Q1025.9263,293.0469 1026.52,292.7813 Q1027.1138,292.5 1027.7388,291.9219 L1027.7388,294.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="99" x="1045.27" y="293.8467">AuthController</text><line style="stroke:#181818;stroke-width:0.5;" x1="868.02" x2="1289.02" y1="305" y2="305"/><ellipse cx="878.02" cy="318.6484" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="317" x="887.02" y="321.9951">login(req: ExpressRequest): Promise&lt;string&gt;</text><ellipse cx="878.02" cy="334.9453" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="397" x="887.02" y="338.292">register(createUserDto: CreateUserDto): Promise&lt;User&gt;</text></g><!--MD5=[653cf269e4ed6196de72b6671fad94c1]
+class FileUserRepository--><g id="elem_FileUserRepository"><rect codeLine="39" fill="#F1F1F1" height="32" id="FileUserRepository" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="161" x="649.02" y="293.5"/><ellipse cx="664.02" cy="309.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M666.9888,315.1406 Q666.4106,315.4375 665.77,315.5781 Q665.1294,315.7344 664.4263,315.7344 Q661.9263,315.7344 660.5981,314.0938 Q659.2856,312.4375 659.2856,309.3125 Q659.2856,306.1875 660.5981,304.5313 Q661.9263,302.875 664.4263,302.875 Q665.1294,302.875 665.77,303.0313 Q666.4263,303.1875 666.9888,303.4844 L666.9888,306.2031 Q666.3638,305.625 665.77,305.3594 Q665.1763,305.0781 664.5513,305.0781 Q663.2075,305.0781 662.52,306.1563 Q661.8325,307.2188 661.8325,309.3125 Q661.8325,311.4063 662.52,312.4844 Q663.2075,313.5469 664.5513,313.5469 Q665.1763,313.5469 665.77,313.2813 Q666.3638,313 666.9888,312.4219 L666.9888,315.1406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129" x="678.02" y="314.3467">FileUserRepository</text></g><!--MD5=[c8afdb741b3cf31c2a92d0736105e96c]
+link UserService to IUserRepository--><g id="link_UserService_IUserRepository"><path codeLine="45" d="M101.32,413.88 C86.7,408.07 75.36,401.47 69.52,394 C12.86,321.51 6,253.55 69.52,187 C82.73,173.16 223.86,186.36 241.52,179 C266.17,168.73 287.79,146.44 301.2,130.17 " fill="none" id="UserService-to-IUserRepository" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="304.43,126.17,295.6601,130.6521,301.2857,130.0576,301.8802,135.6831,304.43,126.17" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[922af680e416606ab64d3ab251d2ed55]
+reverse link IUserRepository to FileUserRepository--><g id="link_IUserRepository_FileUserRepository"><path codeLine="46" d="M343.96,140.31 C359.96,154.76 381.18,170.82 403.52,179 C441.33,192.84 546.99,172.41 584.52,187 C642.99,209.73 694.93,266.18 717.53,293.38 " fill="none" id="IUserRepository-backto-FileUserRepository" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="338.88,145.14,329.34,126.22,348.6,135.06,338.88,145.14" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[d334e2be6e8837c9aa582d04c03a336d]
+reverse link IAuthService to AuthService--><g id="link_IAuthService_AuthService"><path codeLine="47" d="M455.43,142.3 C430.03,175.3 389.82,227.55 361.27,264.64 " fill="none" id="IAuthService-backto-AuthService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="450.1,137.75,467.85,126.17,461.19,146.29,450.1,137.75" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[ff8c12844df96ba832e0e7a4a621b386]
+link AuthController to IAuthService--><g id="link_AuthController_IAuthService"><path codeLine="48" d="M1015.28,272.88 C965.34,246.03 893.2,210.02 826.52,187 C730.17,153.73 613.59,131.74 543.06,120.34 " fill="none" id="AuthController-to-IAuthService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="538.06,119.53,546.3028,124.9203,542.9954,120.3311,547.5846,117.0237,538.06,119.53" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[3b84de5b0c7da42aab304dd9edee7f78]
+link AuthService to UserService--><g id="link_AuthService_UserService"><path codeLine="49" d="M316.54,354.1 C312.15,371.56 307.11,391.57 302.78,408.73 " fill="none" id="AuthService-to-UserService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="301.47,413.96,307.5334,406.1989,302.6827,409.1093,299.7723,404.2586,301.47,413.96" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[293ef8a6062367e88984a16735574382]
+@startuml
+!define RECTANGLE class
+hide empty members
+
+package "Domain" {
+  package "Ports" {
+    interface IUserRepository {
+    }
+    interface IAuthService {
+    }
+  }
+    RECTANGLE User {
+        + id: number
+        + username: string
+        + password: string
+        + role: UserRole
+        + createdAt: Date
+        + updatedAt: Date
+    }
+    RECTANGLE UserService {
+        + create(createUserDto: CreateUserDto): Promise<User>
+        + findOneByUsername(username: string): Promise<User>
+    }
+    
+    RECTANGLE AuthService {
+        + login(user: User): Promise<string>
+        + register(createUserDto: CreateUserDto): Promise<User>
+        + validateUser(username: string, password: string): Promise<User>
+    }
+}
+
+package "Adapters" {
+  package "http" {
+    RECTANGLE AuthController {
+        + login(req: ExpressRequest): Promise<string>
+        + register(createUserDto: CreateUserDto): Promise<User>
+    }
+  }
+  package "orm" {
+    RECTANGLE FileUserRepository {
+    }
+  }
+}
+
+' Connections between components
+UserService - -> IUserRepository
+IUserRepository <|- - FileUserRepository
+IAuthService <|- - AuthService
+AuthController - -> IAuthService
+AuthService - -> UserService
+@enduml
+
+@startuml
+hide empty members
+
+package "Domain" {
+  package "Ports" {
+    interface IUserRepository {
+    }
+    interface IAuthService {
+    }
+  }
+    class User {
+        + id: number
+        + username: string
+        + password: string
+        + role: UserRole
+        + createdAt: Date
+        + updatedAt: Date
+    }
+    class UserService {
+        + create(createUserDto: CreateUserDto): Promise<User>
+        + findOneByUsername(username: string): Promise<User>
+    }
+    
+    class AuthService {
+        + login(user: User): Promise<string>
+        + register(createUserDto: CreateUserDto): Promise<User>
+        + validateUser(username: string, password: string): Promise<User>
+    }
+}
+
+package "Adapters" {
+  package "http" {
+    class AuthController {
+        + login(req: ExpressRequest): Promise<string>
+        + register(createUserDto: CreateUserDto): Promise<User>
+    }
+  }
+  package "orm" {
+    class FileUserRepository {
+    }
+  }
+}
+
+UserService - -> IUserRepository
+IUserRepository <|- - FileUserRepository
+IAuthService <|- - AuthService
+AuthController - -> IAuthService
+AuthService - -> UserService
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 17:01:30 UTC 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>

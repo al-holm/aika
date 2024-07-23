@@ -30,7 +30,7 @@ The architecture of the Curriculum Microservice is illustrated in the following 
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/yourrepo.git
+    git clone https://github.com/a-kholmovaia/aika.git
     ```
 
 2. Navigate to the curriculum-microservice directory:
