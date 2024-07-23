@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from pymilvus import MilvusClient
+from milvus_db.milvus_db import MilvusDBClient
 from pymilvus.model import hybrid
 from typing import Dict, Tuple
 import logging
@@ -86,7 +86,7 @@ class TrajectoryRetriever:
         """
         Initialize the vector store client and create a new collection.
         """
-        self.client = MilvusClient(self.DB_PATH + "milvus_memory.db")
+        self.client = MilvusDBClient()
         if init:
             self.collection = self.client.create_collection(
                 collection_name=self.COLLECTION_NAME, dimension=1024
