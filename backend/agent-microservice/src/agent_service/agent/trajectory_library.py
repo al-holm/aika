@@ -1,8 +1,9 @@
 import os
 import pandas as pd
-from pymilvus import MilvusClient
+from milvus_db.milvus_db import MilvusDBClient
 from pymilvus.model import hybrid
 from typing import Dict, Tuple
+from agent_service.utils.document_handler import DocumentHandler, DocumentType
 import logging
 
 
@@ -19,11 +20,9 @@ class TrajectoryRetriever:
     COLLECTION_NAME = "trajectoryLibrary"
     ROOT_PATH = "agent_service/agent/"
     DOC_PATH = ROOT_PATH + "res/trajectories_data/"
-    DB_PATH = ROOT_PATH + "res/db/"
 
     def __init__(self, init=False) -> None:
-        markdown_text_list = self.read_markdown_folder(self.DOC_PATH)
-        self.df_docs = self.parse_trajectories(markdown_text_list)
+        self.document_handler = DocumentHandler()
         self.ef = hybrid.BGEM3EmbeddingFunction(
             model_name="BAAI/bge-m3",  # Specify the model name
             device="cpu",  # Specify the device to use, e.g., 'cpu' or 'cuda:0'
@@ -33,60 +32,11 @@ class TrajectoryRetriever:
         if init:
             self.add_docs()
 
-    def read_markdown_folder(self, folder_path):
-        """
-        Reads all markdown files in a folder and saves the text in a list.
-
-        Parameters
-        ----------
-            folder_path: The path to the folder containing the markdown files.
-
-        Returns
-        -------
-            A list of strings, where each string is the text content of a markdown file.
-        """
-        markdown_text_list = []
-        for filename in os.listdir(folder_path):
-            if filename.endswith(".md"):
-                file_path = os.path.join(folder_path, filename)
-                with open(file_path, "r", encoding="utf-8") as f:
-                    markdown_text_list.append(f.read())
-        return markdown_text_list
-
-    def parse_trajectories(self, markdown_text_list):
-        """
-        Parse a list of markdown texts into a DataFrame containing document information.
-
-        Parameters
-        ----------
-        markdown_text_list : List[str]
-            A list of markdown formatted strings to be parsed.
-
-        Returns
-        -------
-        pd.DataFrame
-            A DataFrame containing the parsed document information with columns
-            'cat_act', 'cat_val', 'context', and 'doc'.
-        """
-        list_docs = []
-        for text in markdown_text_list:
-            chunks = text.split("---")[1:]
-            for chunk in chunks:
-                text = chunk.split("Category: ")[1].split("\n")
-                dict_doc = {}
-                dict_doc["cat_act"], dict_doc["cat_val"], dict_doc["context"] = text[
-                    0
-                ].split(", ")
-                dict_doc["doc"] = "\n".join(text[1:]).strip()
-                list_docs.append(dict_doc)
-        df_docs = pd.DataFrame(list_docs)
-        return df_docs
-
     def start_vector_store(self, init):
         """
         Initialize the vector store client and create a new collection.
         """
-        self.client = MilvusClient(self.DB_PATH + "milvus_memory.db")
+        self.client = MilvusDBClient()
         if init:
             self.collection = self.client.create_collection(
                 collection_name=self.COLLECTION_NAME, dimension=1024
@@ -96,22 +46,22 @@ class TrajectoryRetriever:
         """
         Prepare document embeddings and add them to the vector store collection.
         """
-        doc_list = list(self.df_docs["doc"])
-        list_act = list(self.df_docs["cat_act"])
-        list_val = list(self.df_docs["cat_val"])
-        doc_embeddings = self.ef.encode_documents(doc_list)["dense"]
+
+        tmp = self.document_handler.load_docs(self.DOC_PATH, DocumentType.TRAJECTORY)
+
+        doc_embeddings = self.ef.encode_documents(tmp["docs"])["dense"]
         data = [
             {
                 "id": i,
                 "vector": doc_embeddings[i],
-                "text": doc_list[i],
-                "cat_act": list_act[i],
-                "cat_val": list_val[i],
+                "text": tmp["docs"][i],
+                "cat_act": tmp["cat_act"][i],
+                "cat_val": tmp["cat_val"][i],
             }
-            for i in range(len(doc_list))
+            for i in range(len(doc_embeddings))
         ]
 
-        self.client.insert(collection_name=self.COLLECTION_NAME, data=data)
+        self.client.insert_data(collection_name=self.COLLECTION_NAME, data=data)
         logging.info("Vector store reinitialized")
 
     def inject_trajectories(self, query: str, top_k=5) -> Tuple[str, str]:
