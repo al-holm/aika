@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="1130px" preserveAspectRatio="none" style="width:1499px;height:1130px;background:#FFFFFF;" version="1.1" viewBox="0 0 1499 1130" width="1499px" zoomAndPan="magnify"><defs/><g><rect fill="none" height="26.2969" id="_title" style="stroke:none;stroke-width:1.0;" width="178" x="653.675" y="5"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="168" x="658.675" y="22.9951">Architecture Diagram</text><!--MD5=[406b65fecc21e832f7a9b6ebadc6dce1]
+cluster Client--><g id="cluster_Client"><path d="M565.85,43.2969 L611.85,43.2969 A3.75,3.75 0 0 1 614.35,45.7969 L621.35,65.5938 L931.85,65.5938 A2.5,2.5 0 0 1 934.35,68.0938 L934.35,160.7969 A2.5,2.5 0 0 1 931.85,163.2969 L565.85,163.2969 A2.5,2.5 0 0 1 563.35,160.7969 L563.35,45.7969 A2.5,2.5 0 0 1 565.85,43.2969 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="563.35" x2="621.35" y1="65.5938" y2="65.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="45" x="567.35" y="58.292">Client</text></g><!--MD5=[0beeaa73e5f38c2929aa114db6466b4c]
+cluster APIGateway--><g id="cluster_APIGateway"><path d="M392.85,296.2969 L487.85,296.2969 A3.75,3.75 0 0 1 490.35,298.7969 L497.35,318.5938 L634.85,318.5938 A2.5,2.5 0 0 1 637.35,321.0938 L637.35,397.7969 A2.5,2.5 0 0 1 634.85,400.2969 L392.85,400.2969 A2.5,2.5 0 0 1 390.35,397.7969 L390.35,298.7969 A2.5,2.5 0 0 1 392.85,296.2969 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="390.35" x2="497.35" y1="318.5938" y2="318.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="94" x="394.35" y="311.292">APIGateway</text></g><!--MD5=[40c0af249a257dc19cd0ed9639d01a38]
+cluster AgentService--><g id="cluster_AgentService"><path d="M635.85,832.2969 L742.85,832.2969 A3.75,3.75 0 0 1 745.35,834.7969 L752.35,854.5938 L949.85,854.5938 A2.5,2.5 0 0 1 952.35,857.0938 L952.35,949.7969 A2.5,2.5 0 0 1 949.85,952.2969 L635.85,952.2969 A2.5,2.5 0 0 1 633.35,949.7969 L633.35,834.7969 A2.5,2.5 0 0 1 635.85,832.2969 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="633.35" x2="752.35" y1="854.5938" y2="854.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="106" x="637.35" y="847.292">AgentService</text></g><!--MD5=[4adc20ff935032db8738ac4a52234fc3]
+cluster MilvusVectorStore--><g id="cluster_MilvusVectorStore"><path d="M585.35,1003.2969 C585.35,993.2969 785.85,993.2969 785.85,993.2969 C785.85,993.2969 986.35,993.2969 986.35,1003.2969 L986.35,1103.2969 C986.35,1113.2969 785.85,1113.2969 785.85,1113.2969 C785.85,1113.2969 585.35,1113.2969 585.35,1103.2969 L585.35,1003.2969 " fill="none" style="stroke:#181818;stroke-width:1.0;"/><path d="M585.35,1003.2969 C585.35,1013.2969 785.85,1013.2969 785.85,1013.2969 C785.85,1013.2969 986.35,1013.2969 986.35,1003.2969 " fill="none" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="145" x="713.35" y="1028.292">MilvusVectorStore</text></g><!--MD5=[0f6e84fbb62de67079327d203d8ce838]
+cluster Curriculum--><g id="cluster_Curriculum"><path d="M815.35,657.2969 C815.35,647.2969 915.85,647.2969 915.85,647.2969 C915.85,647.2969 1016.35,647.2969 1016.35,657.2969 L1016.35,773.2969 C1016.35,783.2969 915.85,783.2969 915.85,783.2969 C915.85,783.2969 815.35,783.2969 815.35,773.2969 L815.35,657.2969 " fill="none" style="stroke:#181818;stroke-width:1.0;"/><path d="M815.35,657.2969 C815.35,667.2969 915.85,667.2969 915.85,667.2969 C915.85,667.2969 1016.35,667.2969 1016.35,657.2969 " fill="none" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="86" x="872.85" y="682.292">Curriculum</text></g><!--MD5=[d0083cf0b2d9f17e335f85bf9624e57e]
+cluster User--><g id="cluster_User"><path d="M47.35,665.2969 C47.35,655.2969 98.35,655.2969 98.35,655.2969 C98.35,655.2969 149.35,655.2969 149.35,665.2969 L149.35,765.2969 C149.35,775.2969 98.35,775.2969 98.35,775.2969 C98.35,775.2969 47.35,775.2969 47.35,765.2969 L47.35,665.2969 " fill="none" style="stroke:#181818;stroke-width:1.0;"/><path d="M47.35,665.2969 C47.35,675.2969 98.35,675.2969 98.35,675.2969 C98.35,675.2969 149.35,675.2969 149.35,665.2969 " fill="none" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="37" x="79.85" y="690.292">User</text></g><path d="M860.85,86.2969 L893.85,86.2969 A3.75,3.75 0 0 1 896.35,88.7969 L903.35,108.5938 L907.85,108.5938 A2.5,2.5 0 0 1 910.35,111.0938 L910.35,136.3906 A2.5,2.5 0 0 1 907.85,138.8906 L860.85,138.8906 A2.5,2.5 0 0 1 858.35,136.3906 L858.35,88.7969 A2.5,2.5 0 0 1 860.85,86.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="858.35" x2="903.35" y1="108.5938" y2="108.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="862.35" y="101.292">Data</text><path d="M752.35,86.2969 L806.35,86.2969 A3.75,3.75 0 0 1 808.85,88.7969 L815.85,108.5938 L820.35,108.5938 A2.5,2.5 0 0 1 822.85,111.0938 L822.85,136.3906 A2.5,2.5 0 0 1 820.35,138.8906 L752.35,138.8906 A2.5,2.5 0 0 1 749.85,136.3906 L749.85,88.7969 A2.5,2.5 0 0 1 752.35,86.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="749.85" x2="815.85" y1="108.5938" y2="108.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="53" x="753.85" y="101.292">Domain</text><path d="M608.85,86.2969 L697.85,86.2969 A3.75,3.75 0 0 1 700.35,88.7969 L707.35,108.5938 L711.85,108.5938 A2.5,2.5 0 0 1 714.35,111.0938 L714.35,136.3906 A2.5,2.5 0 0 1 711.85,138.8906 L608.85,138.8906 A2.5,2.5 0 0 1 606.35,136.3906 L606.35,88.7969 A2.5,2.5 0 0 1 608.85,86.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="606.35" x2="707.35" y1="108.5938" y2="108.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="88" x="610.35" y="101.292">Presentation</text><path d="M409.35,331.2969 L517.35,331.2969 A3.75,3.75 0 0 1 519.85,333.7969 L526.85,353.5938 L531.35,353.5938 A2.5,2.5 0 0 1 533.85,356.0938 L533.85,381.3906 A2.5,2.5 0 0 1 531.35,383.8906 L409.35,383.8906 A2.5,2.5 0 0 1 406.85,381.3906 L406.85,333.7969 A2.5,2.5 0 0 1 409.35,331.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="406.85" x2="526.85" y1="353.5938" y2="353.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="107" x="410.85" y="346.292">Authentification</text><path d="M571.85,331.2969 L604.85,331.2969 A3.75,3.75 0 0 1 607.35,333.7969 L614.35,353.5938 L618.85,353.5938 A2.5,2.5 0 0 1 621.35,356.0938 L621.35,381.3906 A2.5,2.5 0 0 1 618.85,383.8906 L571.85,383.8906 A2.5,2.5 0 0 1 569.35,381.3906 L569.35,333.7969 A2.5,2.5 0 0 1 571.85,331.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="569.35" x2="614.35" y1="353.5938" y2="353.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="573.35" y="346.292">Chat</text><path d="M678.85,875.2969 L709.85,875.2969 A3.75,3.75 0 0 1 712.35,877.7969 L719.35,897.5938 L723.85,897.5938 A2.5,2.5 0 0 1 726.35,900.0938 L726.35,925.3906 A2.5,2.5 0 0 1 723.85,927.8906 L678.85,927.8906 A2.5,2.5 0 0 1 676.35,925.3906 L676.35,877.7969 A2.5,2.5 0 0 1 678.85,875.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="676.35" x2="719.35" y1="897.5938" y2="897.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="30" x="680.35" y="890.292">RAG</text><path d="M763.85,875.2969 L814.85,875.2969 A3.75,3.75 0 0 1 817.35,877.7969 L824.35,897.5938 L828.85,897.5938 A2.5,2.5 0 0 1 831.35,900.0938 L831.35,925.3906 A2.5,2.5 0 0 1 828.85,927.8906 L763.85,927.8906 A2.5,2.5 0 0 1 761.35,925.3906 L761.35,877.7969 A2.5,2.5 0 0 1 763.85,875.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="761.35" x2="824.35" y1="897.5938" y2="897.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50" x="765.35" y="890.292">Lesson</text><path d="M869.35,875.2969 L911.35,875.2969 A3.75,3.75 0 0 1 913.85,877.7969 L920.85,897.5938 L925.35,897.5938 A2.5,2.5 0 0 1 927.85,900.0938 L927.85,925.3906 A2.5,2.5 0 0 1 925.35,927.8906 L869.35,927.8906 A2.5,2.5 0 0 1 866.85,925.3906 L866.85,877.7969 A2.5,2.5 0 0 1 869.35,875.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="866.85" x2="920.85" y1="897.5938" y2="897.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="870.85" y="890.292">Agent</text><path d="M529.85,539.2969 L654.85,539.2969 A3.75,3.75 0 0 1 657.35,541.7969 L664.35,561.5938 L668.85,561.5938 A2.5,2.5 0 0 1 671.35,564.0938 L671.35,589.3906 A2.5,2.5 0 0 1 668.85,591.8906 L529.85,591.8906 A2.5,2.5 0 0 1 527.35,589.3906 L527.35,541.7969 A2.5,2.5 0 0 1 529.85,539.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="527.35" x2="664.35" y1="561.5938" y2="561.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="124" x="531.35" y="554.292">CurriculumService</text><path d="M49.85,539.2969 L132.85,539.2969 A3.75,3.75 0 0 1 135.35,541.7969 L142.35,561.5938 L146.85,561.5938 A2.5,2.5 0 0 1 149.35,564.0938 L149.35,589.3906 A2.5,2.5 0 0 1 146.85,591.8906 L49.85,591.8906 A2.5,2.5 0 0 1 47.35,589.3906 L47.35,541.7969 A2.5,2.5 0 0 1 49.85,539.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="47.35" x2="142.35" y1="561.5938" y2="561.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="51.35" y="554.292">UserService</text><!--MD5=[77688e44e194426d521287ac03cad0f3]
+entity LawLifeKnowledgeBase--><g id="elem_LawLifeKnowledgeBase"><path d="M604.35,1043.2969 L645.35,1043.2969 A3.75,3.75 0 0 1 647.85,1045.7969 L654.85,1064.2969 L790.35,1064.2969 A2.5,2.5 0 0 1 792.85,1066.7969 L792.85,1095.0938 A2.5,2.5 0 0 1 790.35,1097.5938 L604.35,1097.5938 A2.5,2.5 0 0 1 601.85,1095.0938 L601.85,1045.7969 A2.5,2.5 0 0 1 604.35,1043.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="601.85" x2="654.85" y1="1064.2969" y2="1064.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="161" x="611.85" y="1084.292">LawLifeKnowledgeBase</text></g><!--MD5=[c6d75e1f281dcda73d475e041e015273]
+entity TrajectoryLibrary--><g id="elem_TrajectoryLibrary"><path d="M830.85,1043.2969 L871.85,1043.2969 A3.75,3.75 0 0 1 874.35,1045.7969 L881.35,1064.2969 L967.85,1064.2969 A2.5,2.5 0 0 1 970.35,1066.7969 L970.35,1095.0938 A2.5,2.5 0 0 1 967.85,1097.5938 L830.85,1097.5938 A2.5,2.5 0 0 1 828.35,1095.0938 L828.35,1045.7969 A2.5,2.5 0 0 1 830.85,1043.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="828.35" x2="881.35" y1="1064.2969" y2="1064.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112" x="838.35" y="1084.292">TrajectoryLibrary</text></g><!--MD5=[a208a1947dae456ffa42b3f3f5ab1004]
+entity CurriculumJson--><g id="elem_CurriculumJson"><path d="M861.35,705.2969 L902.35,705.2969 A3.75,3.75 0 0 1 904.85,707.7969 L911.85,726.2969 L989.35,726.2969 A2.5,2.5 0 0 1 991.85,728.7969 L991.85,757.0938 A2.5,2.5 0 0 1 989.35,759.5938 L861.35,759.5938 A2.5,2.5 0 0 1 858.85,757.0938 L858.85,707.7969 A2.5,2.5 0 0 1 861.35,705.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="858.85" x2="911.85" y1="726.2969" y2="726.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="103" x="868.85" y="746.292">CurriculumJson</text></g><!--MD5=[feb5939ce823acf5a8245c3205b3c7a1]
+entity Users--><g id="elem_Users"><path d="M65.85,705.2969 L106.85,705.2969 A3.75,3.75 0 0 1 109.35,707.7969 L116.35,726.2969 L130.85,726.2969 A2.5,2.5 0 0 1 133.35,728.7969 L133.35,757.0938 A2.5,2.5 0 0 1 130.85,759.5938 L65.85,759.5938 A2.5,2.5 0 0 1 63.35,757.0938 L63.35,707.7969 A2.5,2.5 0 0 1 65.85,705.2969 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="63.35" x2="116.35" y1="726.2969" y2="726.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40" x="73.35" y="746.292">Users</text></g><!--MD5=[6e7e8e6eedbcf34926582b7e6e9cc3ee]
+link Client to Chat--><g id="link_Client_Chat"><path d="M563.1751,114.7019 C562.7381,114.7528 562.285,114.8058 561.8162,114.8611 C559.941,115.0822 557.8142,115.339 555.4583,115.6326 C546.0345,116.8067 532.9449,118.5684 517.6317,120.9836 C487.0053,125.8141 447.4844,133.2587 410.6063,143.8456 C336.85,165.0194 273.665,198.7619 313.35,249.2969 C349.23,294.9969 382.95,271.2869 440.35,280.2969 C464.78,284.1269 530.09,275.6669 551.35,288.2969 C567.51,297.8969 578.76,316.0069 585.83,331.1969 " fill="none" id="Client-Chat" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="94" x="321.35" y="238.3638">POST /chat/law</text><path d="M548.8823,278.6061 A10,10 0 0 0 541.6593 290.7646" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="551.35" cy="288.2969" fill="#FFFFFF" rx="6" ry="6" style="stroke:#181818;stroke-width:1.5;"/></g><!--MD5=[6e7e8e6eedbcf34926582b7e6e9cc3ee]
+link Client to Chat--><g id="link_Client_Chat"><path d="M563.0554,119.7576 C562.1262,120.4539 561.1329,121.2065 560.083,122.0128 C557.9832,123.6254 555.657,125.4529 553.1634,127.4748 C543.1894,135.5628 530.5388,146.7637 518.9975,159.7806 C495.915,185.8144 477.27,219.1119 493.35,249.2969 C507.95,276.7169 529.62,266.1069 551.35,288.2969 C563.71,300.9169 574.49,317.5469 582.29,331.2569 " fill="none" id="Client-Chat-1" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="124" x="501.35" y="238.3638">POST /chat/german</text><path d="M551.4547,278.2974 A10,10 0 0 0 541.3505 288.1921" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="551.35" cy="288.2969" fill="#FFFFFF" rx="6" ry="6" style="stroke:#181818;stroke-width:1.5;"/></g><!--MD5=[6e7e8e6eedbcf34926582b7e6e9cc3ee]
+link Client to Chat--><g id="link_Client_Chat"><path d="M582.2333,163.3597 C582.277,163.4695 582.321,163.5793 582.3651,163.689 C582.4533,163.9083 582.5422,164.1275 582.6318,164.3463 C583.3486,166.0971 584.1097,167.8301 584.9177,169.5334 C586.5337,172.9398 588.3375,176.2269 590.35,179.2969 C605.23,201.9969 625.81,193.7269 637.35,218.2969 C655.03,255.9369 632.29,302.7969 614.01,331.2169 " fill="none" id="Client-Chat-2" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="177" x="651.35" y="238.3638">POST /chat/submit_answers</text><path d="M640.7442,208.8905 A10,10 0 0 0 627.9437 214.9027" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="637.35" cy="218.2969" fill="#FFFFFF" rx="6" ry="6" style="stroke:#181818;stroke-width:1.5;"/></g><!--MD5=[6e7e8e6eedbcf34926582b7e6e9cc3ee]
+link Client to Chat--><g id="link_Client_Chat"><path d="M579.0112,163.5104 C579.0593,163.6152 579.1078,163.7199 579.1566,163.8244 C579.5467,164.6605 579.9552,165.487 580.3831,166.3019 C581.2388,167.9318 582.1717,169.5154 583.1885,171.037 C585.222,174.0803 587.5912,176.8756 590.35,179.2969 C601.08,188.7169 835.05,207.4669 844.35,218.2969 C912.48,297.6869 698.08,340.4369 621.48,352.8969 " fill="none" id="Client-Chat-3" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="106" x="865.35" y="238.3638">GET /chat/lesson</text><path d="M589.6998,169.318 A10,10 0 0 0 580.3712 179.947" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="590.35" cy="179.2969" fill="#FFFFFF" rx="6" ry="6" style="stroke:#181818;stroke-width:1.5;"/></g><!--MD5=[6e7e8e6eedbcf34926582b7e6e9cc3ee]
+link Client to Chat--><g id="link_Client_Chat"><path d="M578.6524,163.4484 C578.7488,163.6573 578.8462,163.8656 578.9449,164.0732 C579.3397,164.9038 579.7535,165.724 580.1874,166.5318 C581.0552,168.1475 582.003,169.7135 583.0379,171.2138 C585.1078,174.2144 587.5263,176.9519 590.35,179.2969 C594.61,182.8369 983.63,214.1969 987.35,218.2969 C1094.37,336.3469 725.34,353.7869 621.69,356.3569 " fill="none" id="Client-Chat-4" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="99" x="1013.35" y="238.3638">GET /chat/tasks</text><path d="M589.4277,169.3395 A10,10 0 0 0 580.3926 180.2192" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="590.35" cy="179.2969" fill="#FFFFFF" rx="6" ry="6" style="stroke:#181818;stroke-width:1.5;"/></g><!--MD5=[599d84a362c5c671c9b9c28eb55294e0]
+link Client to Authentification--><g id="link_Client_Authentification"><path d="M563.0021,114.8322 C562.7867,114.8597 562.5674,114.8876 562.3443,114.9162 C560.5594,115.1443 558.5281,115.4073 556.2677,115.7049 C547.226,116.8953 534.5183,118.6396 519.2491,120.9267 C488.7106,125.5009 447.9263,132.2463 405.7325,141.0731 C321.345,158.7269 231.32,184.7069 206.35,218.2969 C149.38,294.9369 311.65,333.0469 406.74,348.3569 " fill="none" id="Client-Authentification" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="71" x="214.35" y="238.3638">POST /auth</text><path d="M475.0416,135.1572 A10,10 0 0 0 472.6135 121.2251" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="466.8615" cy="129.4052" fill="#FFFFFF" rx="6" ry="6" style="stroke:#181818;stroke-width:1.5;"/></g><!--MD5=[8b54e48c200873b888d6e1795e8833bd]
+link Chat to AgentService--><g id="link_Chat_AgentService"><path d="M621.57,358.9769 C719.51,360.3569 1058.35,371.6269 1058.35,461.7969 C1058.35,461.7969 1058.35,461.7969 1058.35,733.2969 C1058.35,770.0969 1040.9,782.1169 1008.35,799.2969 C974.11,817.3669 689.98,791.3769 660.35,816.2969 C656.725,819.3456 653.7044,822.9234 651.1943,826.854 C650.5668,827.8366 649.9711,828.8413 649.406,829.8652 C649.1234,830.3772 648.8484,830.894 648.5808,831.4153 C648.4471,831.676 648.3152,831.9377 648.1851,832.2006 " fill="none" id="Chat-AgentService" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="172" x="1066.35" y="570.3638">POST /get_answer_german</text><path d="M670.3129,817.1571 A10,10 0 0 0 661.2102 806.3339" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="660.35" cy="816.2969" fill="#FFFFFF" rx="6" ry="6" style="stroke:#181818;stroke-width:1.5;"/></g><!--MD5=[8b54e48c200873b888d6e1795e8833bd]
+link Chat to AgentService--><g id="link_Chat_AgentService"><path d="M621.44,359.7169 C750.7,364.6069 1316.35,390.1169 1316.35,461.7969 C1316.35,461.7969 1316.35,461.7969 1316.35,733.2969 C1316.35,840.4969 1190.21,782.3669 1084.35,799.2969 C1061.07,803.0169 678.46,801.2069 660.35,816.2969 C656.7113,819.3294 653.6803,822.895 651.1627,826.8166 C650.5333,827.7971 649.936,828.7997 649.3693,829.8219 C649.0859,830.3329 648.8102,830.8489 648.5419,831.3693 C648.4078,831.6296 648.2756,831.8909 648.1452,832.1534 " fill="none" id="Chat-AgentService-1" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="167" x="1324.35" y="570.3638">POST /get_answer_law_life</text><path d="M670.3089,817.2028 A10,10 0 0 0 661.2559 806.338" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="660.35" cy="816.2969" fill="#FFFFFF" rx="6" ry="6" style="stroke:#181818;stroke-width:1.5;"/></g><!--MD5=[bdd4a2a2480ea3fb7c90f3692c908224]
+link Authentification to UserService--><g id="link_Authentification_UserService"><path d="M406.77,361.8569 C296.17,368.6869 75.7,389.3769 29.35,447.2969 C6,476.4769 37.75,514.3969 65.49,539.1569 " fill="none" id="Authentification-UserService" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="105" x="37.35" y="467.3638">POST /auth/login</text><path d="M202.1643,391.1445 A10,10 0 0 0 199.6926 377.22" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="193.9663" cy="385.4181" fill="#FFFFFF" rx="6" ry="6" style="stroke:#181818;stroke-width:1.5;"/></g><!--MD5=[bdd4a2a2480ea3fb7c90f3692c908224]
+link Authentification to UserService--><g id="link_Authentification_UserService"><path d="M407.98,384.3069 C369.34,400.8369 319.1,423.6269 276.35,447.2969 C224.84,475.8169 168.65,514.2369 133.47,539.2569 " fill="none" id="Authentification-UserService-1" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="124" x="284.35" y="467.3638">POST /auth/register</text><path d="M285.9613,450.0578 A10,10 0 0 0 279.111 437.6856" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="276.35" cy="447.2969" fill="#FFFFFF" rx="6" ry="6" style="stroke:#181818;stroke-width:1.5;"/></g><!--MD5=[69c187e8781683379e7ebbcd45a140a2]
+link CurriculumService to AgentService--><g id="link_CurriculumService_AgentService"><path d="M527.19,569.9969 C483.12,576.1369 429.92,591.9469 401.35,631.2969 C357.48,691.7169 360.1,737.0569 401.35,799.2969 C432.845,846.8069 491.4775,872.1369 542.9038,885.6119 C568.6169,892.3494 592.5284,896.1231 610.3455,898.2237 C619.254,899.2741 626.6389,899.9061 631.9635,900.2812 C632.2963,900.3046 632.621,900.3271 632.9376,900.3485 " fill="none" id="CurriculumService-AgentService" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="143" x="409.35" y="736.8638">POST /get_lesson_text</text><path d="M537.8559,876.9794 A10,10 0 0 0 534.2713 890.6597" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="542.9038" cy="885.6119" fill="#FFFFFF" rx="6" ry="6" style="stroke:#181818;stroke-width:1.5;"/></g><!--MD5=[69c187e8781683379e7ebbcd45a140a2]
+link CurriculumService to AgentService--><g id="link_CurriculumService_AgentService"><path d="M601.15,592.3469 C604.34,635.2369 611.66,724.4069 622.35,799.2969 C623.92,810.2994 625.8437,821.9263 627.8578,833.2297 C628.8648,838.8814 629.8945,844.4523 630.9137,849.8238 C631.4233,852.5096 631.9304,855.1455 632.4307,857.7168 C632.6809,859.0024 632.9294,860.2719 633.1757,861.5234 C633.2065,861.6798 633.2372,861.8359 633.2679,861.9918 " fill="none" id="CurriculumService-AgentService-1" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="169" x="630.35" y="736.8638">GET /get_lesson_exercises</text><path d="M615.2981,676.1055 A10,10 0 0 0 601.2211 677.4613" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="608.9375" cy="683.8219" fill="#FFFFFF" rx="6" ry="6" style="stroke:#181818;stroke-width:1.5;"/></g><!--MD5=[a6a869d63808b3450ea36b3bc529e973]
+link Chat to CurriculumService--><g id="link_Chat_CurriculumService"><path d="M576.97,384.5369 C569.8,393.0869 560.98,402.0169 551.35,408.2969 C504.03,439.1669 463.61,401.6269 430.35,447.2969 C422.24,458.4369 423.16,466.5469 430.35,478.2969 C451.5,512.8869 491.34,534.2069 527.03,547.0169 " fill="none" id="Chat-CurriculumService" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="106" x="438.35" y="467.3638">GET /lesson/next</text><path d="M561.1354,410.3573 A10,10 0 0 0 553.4104 398.5114" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="551.35" cy="408.2969" fill="#FFFFFF" rx="6" ry="6" style="stroke:#181818;stroke-width:1.5;"/></g><!--MD5=[a6a869d63808b3450ea36b3bc529e973]
+link Chat to CurriculumService--><g id="link_Chat_CurriculumService"><path d="M595.85,384.4669 C596.62,424.0569 598.08,499.5369 598.85,539.1269 " fill="none" id="Chat-CurriculumService-1" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="112" x="605.35" y="467.3638">GET /lesson/tasks</text><path d="M604.2827,454.5901 A10,10 0 0 0 590.1433 454.8641" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="597.35" cy="461.7969" fill="#FFFFFF" rx="6" ry="6" style="stroke:#181818;stroke-width:1.5;"/></g><!--MD5=[a6a869d63808b3450ea36b3bc529e973]
+link Chat to CurriculumService--><g id="link_Chat_CurriculumService"><path d="M621.44,366.8469 C654.38,378.5769 709.59,403.8469 733.35,447.2969 C754.65,486.2569 709.96,518.4569 666.58,539.2369 " fill="none" id="Chat-CurriculumService-2" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="196" x="746.35" y="467.3638">POST /lesson/process_answers</text><path d="M678.642,385.4209 A10,10 0 0 0 671.0815 397.3724" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="680.8375" cy="395.1769" fill="#FFFFFF" rx="6" ry="6" style="stroke:#181818;stroke-width:1.5;"/></g><!--MD5=[c64aaaf1759139255b6f978a1b767ec8]
+link Agent to TrajectoryLibrary--><g id="link_Agent_TrajectoryLibrary"><path d="M897.66,928.4469 C898.01,957.8569 898.59,1006.0669 898.97,1037.7469 " fill="none" id="Agent-to-TrajectoryLibrary" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="899.03,1043.0669,902.9269,1034.0218,898.9729,1038.0672,894.9274,1034.1132,899.03,1043.0669" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[f69f7321ac5f04d69f5e7ca61f3962b6]
+link RAG to LawLifeKnowledgeBase--><g id="link_RAG_LawLifeKnowledgeBase"><path d="M700.73,928.4469 C700.03,957.8569 698.87,1006.0669 698.11,1037.7469 " fill="none" id="RAG-to-LawLifeKnowledgeBase" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="697.98,1043.0669,702.1846,1034.1606,698.0943,1038.0682,694.1867,1033.9778,697.98,1043.0669" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[69e6289ac8e02a0ee38715584b895bda]
+link UserService to Users--><g id="link_UserService_Users"><path d="M98.35,592.4969 C98.35,621.5469 98.35,668.8169 98.35,699.9869 " fill="none" id="UserService-to-Users" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="98.35,705.2269,102.35,696.2269,98.35,700.2269,94.35,696.2269,98.35,705.2269" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[6ba1af16ee54bb2794d28f266c707506]
+link CurriculumService to Curriculum--><g id="link_CurriculumService_Curriculum"><path d="M671.66,573.5369 C713.47,581.1269 764.03,597.2269 796.35,631.2969 C804.1475,639.5169 809.7425,649.7475 813.7467,660.5013 C814.2472,661.8455 814.7229,663.1979 815.1749,664.5555 C815.2314,664.7252 815.2876,664.895 815.3433,665.0649 " fill="none" id="CurriculumService-to-Curriculum" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="815.3433,665.0649,816.3366,655.2662,813.7838,660.3143,808.7357,657.7615,815.3433,665.0649" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[a0f7b0374733aac55b2621dae3325132]
+@startuml
+!define RECTANGLE class
+
+title Architecture Diagram
+
+package "Client" {
+  package Data {}
+  package Domain {}
+  package Presentation {}
+}
+
+package "APIGateway" {
+  package Authentification {}
+  package Chat {}
+}
+
+package "AgentService" {
+  package RAG {}
+  package Lesson {}
+  package Agent {}
+}
+
+package "CurriculumService" {
+}
+
+package "UserService" {
+}
+
+database "MilvusVectorStore" {
+  folder "LawLifeKnowledgeBase" {
+ }
+ folder "TrajectoryLibrary" {
+ }
+}
+
+database "Curriculum" {
+    folder "CurriculumJson" {
+    }
+}
+
+database "User" {
+    folder "Users" {
+    }
+}
+
+
+' API Gateway connections
+Client - -(0- Chat: POST /chat/law
+Client - -(0- Chat: POST /chat/german
+Client - -(0- Chat: POST /chat/submit_answers
+Client - -(0- Chat: GET /chat/lesson
+Client - -(0- Chat: GET /chat/tasks
+Client - -(0- Authentification: POST /auth
+
+  
+Chat - -(0- AgentService  : POST /get_answer_german
+Chat - -(0- AgentService : POST /get_answer_law_life
+
+Authentification- -(0- UserService : POST /auth/login
+Authentification -(0- UserService : POST /auth/register 
+  
+CurriculumService - -(0- AgentService : POST /get_lesson_text
+CurriculumService - -(0- AgentService : GET /get_lesson_exercises
+
+' Curriculum Service connections
+Chat - -(0- CurriculumService : GET /lesson/next
+Chat - -(0- CurriculumService: GET /lesson/tasks
+Chat - -(0- CurriculumService : POST /lesson/process_answers
+
+' MilvusVectorStore connections
+Agent - -> TrajectoryLibrary
+RAG - -> LawLifeKnowledgeBase
+
+'Auth User connections
+UserService - -> Users
+
+CurriculumService - -> Curriculum
+@enduml
+
+@startuml
+
+title Architecture Diagram
+
+package "Client" {
+  package Data {}
+  package Domain {}
+  package Presentation {}
+}
+
+package "APIGateway" {
+  package Authentification {}
+  package Chat {}
+}
+
+package "AgentService" {
+  package RAG {}
+  package Lesson {}
+  package Agent {}
+}
+
+package "CurriculumService" {
+}
+
+package "UserService" {
+}
+
+database "MilvusVectorStore" {
+  folder "LawLifeKnowledgeBase" {
+ }
+ folder "TrajectoryLibrary" {
+ }
+}
+
+database "Curriculum" {
+    folder "CurriculumJson" {
+    }
+}
+
+database "User" {
+    folder "Users" {
+    }
+}
+
+
+Client - -(0- Chat: POST /chat/law
+Client - -(0- Chat: POST /chat/german
+Client - -(0- Chat: POST /chat/submit_answers
+Client - -(0- Chat: GET /chat/lesson
+Client - -(0- Chat: GET /chat/tasks
+Client - -(0- Authentification: POST /auth
+
+  
+Chat - -(0- AgentService  : POST /get_answer_german
+Chat - -(0- AgentService : POST /get_answer_law_life
+
+Authentification- -(0- UserService : POST /auth/login
+Authentification -(0- UserService : POST /auth/register 
+  
+CurriculumService - -(0- AgentService : POST /get_lesson_text
+CurriculumService - -(0- AgentService : GET /get_lesson_exercises
+
+Chat - -(0- CurriculumService : GET /lesson/next
+Chat - -(0- CurriculumService: GET /lesson/tasks
+Chat - -(0- CurriculumService : POST /lesson/process_answers
+
+Agent - -> TrajectoryLibrary
+RAG - -> LawLifeKnowledgeBase
+
+UserService - -> Users
+
+CurriculumService - -> Curriculum
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 17:01:30 UTC 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>

@@ -63,7 +63,7 @@ Manages lesson & exercise generation on a defined topic.
 
 6. Initialize the vector store:
     ```sh
-    n/a
+    python -m scripts.init_milvus_db
     ```
 
 6. Run the service:
