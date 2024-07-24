@@ -14,6 +14,7 @@ To install, see: [Setup Instructions](setup.md).
 - **main.dart**: The entry point of the Flutter application.
 
 ## Components
+We used **Clean Architecture** Pattern as a template.
 ![](res/component_diagram_frontend.png)
 
 ## State Management

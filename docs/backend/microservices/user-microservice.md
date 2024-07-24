@@ -13,7 +13,7 @@ The User Microservice handles user-related operations and data. It provides endp
 
 # User Microservice Architecture
 
-The architecture of the User Microservice is illustrated in the following diagram:
+We used hexagonal architecture pattern as a template. The architecture of the User Microservice is illustrated in the following diagram:
 
 ![Architecture](../res/user-microservice.svg)
 
