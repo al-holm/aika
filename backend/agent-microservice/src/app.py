@@ -60,7 +60,7 @@ def getLessonText():
     Returns generated lesson unit for a new lesson
     """
 
-    response = lesson_proxy.create_text(request.json["question"])
+    response = lesson_proxy.create_text(request.json["request"])
     return jsonify(response)
 
 
