@@ -30,9 +30,9 @@ class RAG(Tool):
         test: bool = False,
     ) -> None:
         super().__init__(name, description, llm, prompt_id, prompt_template, max_tokens)
-        self.document_handler = DocumentHandler()
         self.min_chunk_len = 200
         self.max_chunk_len = 1000
+        self.document_handler = DocumentHandler(self.max_chunk_len)
         if not test:
             self.ef = hybrid.BGEM3EmbeddingFunction(
                 model_name="BAAI/bge-m3", device="cpu", use_fp16=False
