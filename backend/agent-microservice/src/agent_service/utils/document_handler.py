@@ -31,12 +31,12 @@ class DocumentHandler:
         self, docs: List[List[str]], mode: DocumentType
     ) -> Dict[str, List[str]]:
         if mode == DocumentType.TRAJECTORY:
-            data = self.split_trajectories(docs)
+            data = self.__split_trajectories(docs)
         elif mode == DocumentType.RAG:
-            data = self.split_rag(docs)
+            data = self.__split_rag(docs)
         return data
 
-    def split_trajectories(self, docs) -> Dict[str, List[str]]:
+    def __split_trajectories(self, docs) -> Dict[str, List[str]]:
         cat_act_list, cat_val_list, context_list, chunks_list = [], [], [], []
         for item in docs:
             text = item[1]
@@ -57,32 +57,32 @@ class DocumentHandler:
         }
         return data
 
-    def split_rag(self, docs) -> Dict[str, List[str]]:
+    def __split_rag(self, docs) -> Dict[str, List[str]]:
         src_list, chunk_list = [], []
         for item in docs:
             if item[0] == "md":
-                src, chunks = self.split_rag_src_md(item[1])
+                src, chunks = self.__split_rag_src_md(item[1])
             else:
-                src, chunks = self.split_rag_src_txt(item[1])
-            chunks = self.split_recursive(chunks)
+                src, chunks = self.__split_rag_src_txt(item[1])
+            chunks = self.__split_recursive(chunks)
             src_list.extend([src for _ in chunks])
             chunk_list.extend(chunks)
         data = {"source": src_list, "docs": chunk_list}
         return data
 
-    def split_rag_src_md(self, doc):
+    def __split_rag_src_md(self, doc):
         blocks = doc.split("\n# ")
         src = blocks[1]
         chunks = blocks[2:]
         return src, chunks
 
-    def split_rag_src_txt(self, doc):
+    def __split_rag_src_txt(self, doc):
         src = doc.split("URL: ")[1].split("\n")[0]
         chunk = doc.split("Body Text:\n")[1].split("Related:")[0]
         chunks = [chunk.strip()]
         return src, chunks
 
-    def split_recursive(self, chunks) -> List[str]:
+    def __split_recursive(self, chunks) -> List[str]:
         """
         recursively splits a list of strings into chunks based on a
         maximum chunk length while ensuring that the split occurs at delimiter '.'.
