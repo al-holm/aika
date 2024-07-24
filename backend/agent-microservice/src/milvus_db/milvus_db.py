@@ -14,7 +14,7 @@ class MilvusDBClient(metaclass=SingletonMeta):
         self.collections_dir_path = 'milvus_db/db/'
         self.client = MilvusClient(self.collections_dir_path + 'milvus_db')
 
-        self.collections = [] 
+        self.collections = self.client.list_collections()
 
 
     def create_collection(self, 
