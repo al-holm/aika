@@ -1,0 +1,26 @@
+title ChatBloc Law: Sequence Diagram
+
+actor User
+participant LawChatScreen
+participant QuestionListScreen
+participant ChatBloc
+participant ChatRepository
+participant ChatDataProvider
+
+User -> LawChatScreen: Type a message and send
+LawChatScreen -> ChatBloc: SendMessageEvent
+ChatBloc -> ChatRepository: sendMessage(chatID, message)
+ChatRepository -> ChatDataProvider: sendMessage(chatID, message)
+ChatDataProvider -> ChatRepository: return responseMessage
+ChatRepository -> ChatBloc: return responseMessage
+ChatBloc -> LawChatScreen: ChatLoaded with new message
+
+User -> QuestionListScreen: Click on a question from the list
+QuestionListScreen -> ChatBloc: SendMessageEvent
+ChatBloc -> ChatRepository: sendMessage(chatID, question)
+ChatRepository -> ChatDataProvider: sendMessage(chatID, question)
+ChatDataProvider -> ChatRepository: return responseMessage
+ChatRepository -> ChatBloc: return responseMessage
+ChatBloc -> LawChatScreen: ChatLoaded with new message
+
+@enduml
