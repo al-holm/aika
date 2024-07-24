@@ -56,7 +56,6 @@ class RAG(Tool):
         """
         Prepare document embeddings and add them to the vector store collection.
         """
-        logging.info(f"starting embedding #{len(self.list_docs)} docs")
         tmp = self.document_handler.load_docs(self.DOC_PATH, DocumentType.RAG)
         doc_embeddings = self.ef.encode_documents(tmp["docs"])["dense"]
         logging.info("embeddings ready")
