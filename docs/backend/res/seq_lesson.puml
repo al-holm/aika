@@ -1,0 +1,38 @@
+@startuml
+Title Lesson Master: Sequence Diagram
+
+actor CurriculumService
+
+participant "FlaskApp" as FApp
+participant "Lesson Master" as LM
+participant "Lesson Retriever" as LR
+participant "ToolExecutor" as TE
+participant "ExerciseParser" as EP
+
+CurriculumService -> FApp: POST /get_lesson_text
+FApp -> LM: createLesson(lessonTopic, lessonType)
+alt lessonType is grammar
+  LM -> LR: retrieveExplanation(lessonTopic)
+  LR -> LM: return lesson as grammar explanation
+else lessonType is not grammar
+  LM -> TE: execute(readingGenerator, lessonTopic)
+  TE -> LM: return lesson as reading text
+  alt lessonType is listening
+    LM -> TE: execute(audioGenerator, readingText)
+    TE -> LM: return lesson as audio file
+  end
+end
+LM -> FApp: return lesson
+FApp -> CurriculumService: return lesson
+
+CurriculumService -> FApp: POST /get_lesson_exercises
+FApp -> LM: createExercises(lessonTopic, lessonType)
+LM -> TE: execute(exerciseGenerator, lessonTopic, examples)
+TE -> LM: return exercises
+LM -> EP: parse exercises
+EP -> LM: return parsed exercises
+
+LM -> FApp: return exercises
+FApp -> CurriculumService: return exercises
+
+@enduml
