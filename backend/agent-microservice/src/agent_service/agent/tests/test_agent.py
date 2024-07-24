@@ -19,13 +19,13 @@ from agent_service.agent.agent_step import AgentValidationStep
 
 class TestAgent(unittest.TestCase):
     @patch(
-        "agent_service.prompts.trajectory_library.TrajectoryInjector.__init__",
+        "agent_service.agent.trajectory_library.TrajectoryRetriever.__init__",
         lambda x: None,
     )
     def setUp(self):
         """Sets up a new Agent instance before each test."""
         with patch(
-            "agent_service.prompts.trajectory_library.TrajectoryInjector"
+            "agent_service.agent.trajectory_library.TrajectoryRetriever"
         ) as MockTrajectoryInjector:
             MockTrajectoryInjector.return_value = MagicMock()
             self.agent = Agent()
@@ -113,26 +113,26 @@ class TestAgent(unittest.TestCase):
         self.agent.llm = LLMBedrock()
         with patch.object(
             self.agent.step_parser,
-            "parse_step",
+            "parse",
             return_value=AgentStep(
                 thought="Planned thought", action="Action", action_input="Input"
             ),
-        ) as mock_parse_step:
+        ) as mock_parse:
             step = self.agent.plan_step()
             self.assertEqual(step.thought, "Planned thought")
             mock_llm_run.assert_called_once()
-            mock_parse_step.assert_called_once_with("Planned Step")
+            mock_parse.assert_called_once_with("Planned Step")
 
     @patch(
-        "agent_service.parsers.agent_step_parser.ValidationParser.parse_step",
+        "agent_service.parsers.agent_step_parser.ValidationParser.parse",
         return_value=AgentValidationStep(validation_thought=VAL_STOP_PREFIX),
     )
-    def test_process_validation_thought(self, mock_parse_step):
+    def test_process_validation_thought(self, mock_parse):
         """Tests processing a validation thought and updating the reasoning trace."""
         val_answer = VAL_STOP_PREFIX
         is_final = self.agent.process_validation_thought(val_answer)
-        mock_parse_step.assert_called_once_with(val_answer)
-        self.assertIn(mock_parse_step.return_value, self.agent.reasoning_logger.trace)
+        mock_parse.assert_called_once_with(val_answer)
+        self.assertIn(mock_parse.return_value, self.agent.reasoning_logger.trace)
         self.assertTrue(is_final)
 
     @patch(
@@ -152,7 +152,7 @@ class TestAgent(unittest.TestCase):
         final_response = self.agent.get_final_response(iteration=1)
         self.assertIn("Test observation", final_response)
 
-    @patch("agent_service.prompts.trajectory_library.TrajectoryInjector")
+    @patch("agent_service.agent.trajectory_library.TrajectoryRetriever")
     def test_reset(self, mock_trajectory_injector):
         """Tests resetting the agent."""
         mock_trajectory_injector.return_value = MagicMock()

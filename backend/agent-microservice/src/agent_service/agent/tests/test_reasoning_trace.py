@@ -116,7 +116,7 @@ class TestReasoningLogger(unittest.TestCase):
         )
         self.trace.add_step(step)
         self.trace.set_query("Test query")
-        self.trace.get_final_answer()
+        self.trace.get_final_answer(reached_max_iterations=False)
         final_step = AgentFinalStep(final_answer="Test observation")
         self.trace.to_json()
 
@@ -155,7 +155,7 @@ class TestReasoningLogger(unittest.TestCase):
             observation="Test observation",
         )
         self.trace.add_step(step)
-        self.trace.get_final_answer()
+        self.trace.get_final_answer(reached_max_iterations=False)
         final_step = self.trace.get_last_step()
         self.assertIsInstance(final_step, AgentFinalStep)
         self.assertEqual(final_step.final_answer, "Test observation")
