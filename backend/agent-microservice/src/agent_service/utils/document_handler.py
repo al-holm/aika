@@ -14,8 +14,8 @@ class DocumentHandler:
 
     def load_docs(self, path: str, mode: DocumentType) -> Dict[str, List[str]]:
         docs = self.read_docs(path)
-        metadata, chunks = self.split_docs(docs, mode)
-        return metadata, chunks
+        data = self.split_docs(docs, mode)
+        return data
 
     def read_docs(self, path: str) -> List[List[str]]:
         docs = []
