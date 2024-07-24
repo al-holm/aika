@@ -1,0 +1,30 @@
+@startuml
+Title Q/A Agent: Sequence Diagram
+
+actor ApiGateway
+
+participant "FlaskApp" as FApp
+participant "Agent" as A
+participant "LLM" as LLM
+participant "Reasoning Trajectory Retriever" as TR
+participant "Tool Executor" as TE
+
+ApiGateway -> FApp: POST /get_answer_german
+FApp -> A: run(query)
+A -> TR: retrieve(query)
+TR -> A: return past successful trajectories
+
+loop Is Final Answer?
+    A -> LLM: generateThought(query, trajectories)
+    LLM -> A: return thought, tool, toolInput
+    A -> TE: useTool(tool, toolInput)
+    TE -> A: return observation
+    A -> LLM: validateReasoningStep(thought, tool, toolInput, observation)
+    LLM -> A: return is final answer?, refining feedback
+end
+
+A -> FApp: return final answer
+
+FApp -> ApiGateway: return final answer
+
+@enduml
