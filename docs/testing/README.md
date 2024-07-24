@@ -56,7 +56,7 @@ We aim to verify that all the specified requirements and use cases for the appli
 
 File                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 -----------------------|---------|----------|---------|---------|-------------------
-All files              |   93.47 |    83.33 |     100 |   92.77 |                   
+**All files**             |   **93.47** |    **83.33**|     **100**|   **92.77** |                   
  lesson                |    93.5 |    81.81 |     100 |   92.85 |                   
   lesson.controller.ts |     100 |      100 |     100 |     100 |                   
   lesson.service.ts    |   92.06 |    81.81 |     100 |   91.37 | 27,45-46,65-66    
@@ -67,7 +67,7 @@ All files              |   93.47 |    83.33 |     100 |   92.77 |
 
 File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s           
 ---------------------|---------|----------|---------|---------|-----------------------------
-All files            |    82.5 |      100 |   73.33 |   81.25 |                             
+**All files**          |    **82.5** |      **100** |   **73.33** |   **81.25** |                             
  auth                |      80 |      100 |   33.33 |   76.92 |                             
   auth.controller.ts |   66.66 |      100 |       0 |      60 | 10,19-21                    
   auth.service.ts    |   88.88 |      100 |     100 |    87.5 | 36-37                       
@@ -78,3 +78,14 @@ All files            |    82.5 |      100 |   73.33 |   81.25 |
   chat.service.ts    |   77.19 |      100 |   83.33 |   76.36 | 66-67,91-92,115-116,139-154 
 
 ### User Microservice
+File                      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------------------|---------|----------|---------|---------|-------------------
+All files                 |      50 |       24 |   29.41 |   49.15 |                   
+ adapters/http            |   92.98 |    46.15 |     100 |    92.3 |                   
+  auth.controller.ts      |     100 |      100 |     100 |     100 |                   
+  user.controller.ts      |   90.24 |    46.15 |     100 |   89.47 | 39,50,61,65       
+ adapters/orm             |       0 |        0 |       0 |       0 |                   
+  file-user.repository.ts |       0 |        0 |       0 |       0 | 1-61              
+ domain                   |   31.11 |        0 |       0 |      25 |                   
+  auth.service.ts         |   36.84 |        0 |       0 |   29.41 | 11-34             
+  user.service.ts         |   26.92 |        0 |       0 |   21.73 | 13-56
