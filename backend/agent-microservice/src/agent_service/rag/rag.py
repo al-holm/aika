@@ -15,7 +15,6 @@ class RAG(Tool):
 
     COLLECTION_NAME = "LawAndLifeLibrary"
     ROOT_PATH = "agent_service/rag/"
-    DB_PATH = ROOT_PATH + "res/rag_db/"
     DOC_PATH = ROOT_PATH + "res/data/"
 
     def __init__(
@@ -182,7 +181,7 @@ class RAG(Tool):
         """
         Initialize the vector store client and create a new collection.
         """
-        self.client = MilvusDBClient(self.DB_PATH + "milvus_rag.db")
+        self.client = MilvusDBClient()
         if init:
             self.collection = self.client.create_collection(
                 collection_name=self.COLLECTION_NAME, dimension=1024

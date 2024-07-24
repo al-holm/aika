@@ -19,7 +19,6 @@ class TrajectoryRetriever:
     COLLECTION_NAME = "trajectoryLibrary"
     ROOT_PATH = "agent_service/agent/"
     DOC_PATH = ROOT_PATH + "res/trajectories_data/"
-    DB_PATH = ROOT_PATH + "res/db/"
 
     def __init__(self, init=False) -> None:
         markdown_text_list = self.read_markdown_folder(self.DOC_PATH)
@@ -37,11 +36,11 @@ class TrajectoryRetriever:
         """
         Reads all markdown files in a folder and saves the text in a list.
 
-        Parameters
+        Parameters:
         ----------
             folder_path: The path to the folder containing the markdown files.
 
-        Returns
+        Returns:
         -------
             A list of strings, where each string is the text content of a markdown file.
         """
