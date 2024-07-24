@@ -4,7 +4,10 @@
 The `ChatBloc` is responsible for managing the state and business logic of chat interactions within the application. It handles events related to sending messages, sending images, fetching lessons, fetching tasks, and initializing chat sessions.
 
 ## Sequence Diagram
+**German Chat**
 ![](../res/chatBloc.png)
+**Law & Politcs Chat**
+![](../res/law_chat_seq.png)
 
 ## Dependencies
 - **SendMessage**: Use case for sending text messages.
