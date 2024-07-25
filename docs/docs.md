@@ -1527,4 +1527,22 @@ Consistent.
     npm run start
     ```
 
-# Erfahrungsbericht
+# Experience Report
+- Solutions that turned out to be good
+  - Using microservices architecture for the backend
+    * Implementing individual small microservices communicating through HTTP requests proved to be quite simple and efficient. 
+    * The microservices are independent, so it was possible to work parallel on a task without waiting until the work on the related task on other part of the system had been done. 
+    * It was possible to test the microservice independently.
+  - Using Flutter framework for frontend prototyping
+    * It was much simpler to write code in Dart & build it on Android & IOS devices without writing any platform specific code
+    * It was also simpler to write Dart Code as well for the visual components, as for the client specific logics without having 3 diferent code bases (HTML, CSS, JavaScript).
+  - Using the NestJS framework for most microservices
+    * It was simple to write server specific logics (ORM, handling  & sending HTTP requests) in NestJS as in Python. 
+    * It was simpler to write Unit tests and mocking objects and other microservices endpoints, generate detailed coverage reports and configure testing in NestJs as in Python.
+  - Moving the implementation of progress tracker outside the current prototype.
+    * We found that the implementation of the progress tracker initially planned at the end of the prototype could move our attention away from the essential details of the app (agent-microservice, frontend) & made the overall software quality a lot worse.
+  - 3 modular independent parts in agent microservice
+    * initially, we wantend to create an universal REACT agent for all 3 "AI" parts of the system. However, after evaluating the "universal" agents we came to the conclusion that we should make 3 simpler modular parts for each user case: question-answering in German Chat (React Agent), lesson creation (Lesson Master, hardcoded use of lesson creation tools) and basic RAG setup. All three parts became less complex and could be implemented and tested independently.
+- Solutions that turned out to be bad:
+
+- Tips for future developers
