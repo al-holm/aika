@@ -1544,6 +1544,10 @@ Consistent.
   5. 3 modular independent parts in the agent microservice
     * Initially, we wanted to create a universal REACT agent for all 3 "AI" parts of the system. However, after evaluating the "universal" agents, we came to the conclusion that we should build 3 simpler modular parts for each user case: answering questions in German chat (React Agent), creating lessons (Lesson Master, hardcoded use of lesson creation tools) and basic RAG setup. All three parts became less complex and could be implemented and tested independently.
 - Solutions that turned out to be bad:
-- 
-
-- Tips for future developers
+  1. We tried to communicate with our third software developer, but still the tasks were very unevenly distributed and in the end we had to refactor the code for the user microservice, which was very time-consuming. That's why we didn't finish 2 tasks we had planned for this prototype:
+    * (re)storing message history 
+    * persisting user progress & messages in an SQL database. 
+    - The code for these tasks was implemented on the client side and partly on the server side. 
+    - We also noticed only at the end that the implemented test cases for the user microservice (the task was not assigned to us) had very low code coverage.
+  2. Using Python for the agent microservice. 
+    * Initially, we planned to use Python libraries for the agent and all LLM communication. However, in practice these libraries turned out to be "too" abstract and full of bugs, so we rewrote all the "AI" parts from scratch, using only AWS calls for communication with the LLM. So the original reason for using Python became obsolete. Our current implementation could also be done in Typescript, then we would use the same programming language and framework for all microservices.
