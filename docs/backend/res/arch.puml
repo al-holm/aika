@@ -1,0 +1,78 @@
+@startuml
+!define RECTANGLE class
+
+title Architecture Diagram
+
+package "Client" {
+  package Data {}
+  package Domain {}
+  package Presentation {}
+}
+
+package "APIGateway" {
+  package Authentification {}
+  package Chat {}
+}
+
+package "AgentService" {
+  package RAG {}
+  package Lesson {}
+  package Agent {}
+}
+
+package "CurriculumService" {
+}
+
+package "UserService" {
+}
+
+database "MilvusVectorStore" {
+  folder "LawLifeKnowledgeBase" {
+ }
+ folder "TrajectoryLibrary" {
+ }
+}
+
+database "Curriculum" {
+    folder "CurriculumJson" {
+    }
+}
+
+database "User" {
+    folder "Users" {
+    }
+}
+
+
+' API Gateway connections
+Client --(0- Chat: POST /chat/law
+Client --(0- Chat: POST /chat/german
+Client --(0- Chat: POST /chat/submit_answers
+Client --(0- Chat: GET /chat/lesson
+Client --(0- Chat: GET /chat/tasks
+Client --(0- Authentification: POST /auth
+
+  
+Chat --(0- AgentService  : POST /get_answer_german
+Chat --(0- AgentService : POST /get_answer_law_life
+
+Authentification--(0- UserService : POST /auth/login
+Authentification -(0- UserService : POST /auth/register 
+  
+CurriculumService --(0- AgentService : POST /get_lesson_text
+CurriculumService --(0- AgentService : GET /get_lesson_exercises
+
+' Curriculum Service connections
+Chat --(0- CurriculumService : GET /lesson/next
+Chat --(0- CurriculumService: GET /lesson/tasks
+Chat --(0- CurriculumService : POST /lesson/process_answers
+
+' MilvusVectorStore connections
+Agent --> TrajectoryLibrary
+RAG --> LawLifeKnowledgeBase
+
+'Auth User connections
+UserService --> Users
+
+CurriculumService --> Curriculum
+@enduml

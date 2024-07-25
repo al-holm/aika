@@ -36,7 +36,7 @@ export class LessonService {
         } as RawAxiosRequestHeaders,
         };
         try {
-            const data = { 'question': request};
+            const data = { 'request':  request};
             const response: AxiosResponse = await client.post('/get_lesson_text', data, config);
             response.data.type = type;
             console.log(response.data.type);

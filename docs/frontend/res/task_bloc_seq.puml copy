@@ -1,0 +1,40 @@
+title TaskBloc: Sequence Diagram
+
+actor User
+participant GermanChatScreen
+participant TaskSequenceScreen
+participant TaskBloc
+participant TaskRepository
+participant TaskDataProvider
+
+User -> GermanChatScreen: Click on "Tasks" Button
+GermanChatScreen -> TaskBloc: InitializeTasksEvent
+TaskBloc -> TaskSequenceScreen: TaskInProgress(index 0)
+
+User -> TaskSequenceScreen: Click on "Continue" Button
+TaskSequenceScreen -> TaskBloc: CompleteTaskEvent
+TaskBloc -> TaskSequenceScreen: TaskInProgress(index 1)
+
+User -> TaskSequenceScreen: Click on "Back" Button
+TaskSequenceScreen -> TaskBloc: CompleteTaskEvent
+TaskBloc -> TaskSequenceScreen: TaskInProgress(index 0)
+
+User -> TaskSequenceScreen: Click on "Submit" Button
+TaskSequenceScreen -> TaskBloc: SubmitTasksEvent
+TaskBloc -> TaskRepository: SubmitAnswers(tasks)
+TaskRepository -> TaskDataProvider: submitAnswers(tasks)
+
+alt Submission Successful
+TaskDataProvider -> TaskRepository: return success
+TaskRepository -> TaskBloc: return success
+TaskBloc -> TaskSequenceScreen: TaskSubmissionSuccess
+
+else Submission Failed
+TaskDataProvider -> TaskRepository: return failed
+TaskRepository -> TaskBloc: return failed
+TaskBloc -> TaskSequenceScreen: TaskSubmissionFailure
+end
+
+@enduml
+
+@enduml
