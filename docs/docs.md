@@ -131,7 +131,38 @@ The chatbot only answers using information from a knowledge base that we have ma
 *Example of a chatbot response*
 
 # Risk Management
-TODO
+
+## Possible risks
+
+### Availability of team members
+
+Two of the four team members have jobs in addition to their studies and are not able to work consistently and continuously on the project
+
+###  Lack of protection layers in the LLM used
+
+The responses from the open source LLM we use are not filtered and validated, which can lead to misuse of the application.
+
+## Weighting of the identified risks
+
+### Availability of team members
+
+There is a high probability that the bulk of the work will fall on half the team. This may limit the amount of functionality we can implement during the semester.
+
+### Lack of protection layers in the LLM used
+
+We consider the likelihood of unfair use of LLMs to be imminent. We consider the elimination of this problem to be a priority.
+
+## Strategies for each identified risk
+
+### Availability of team members
+
+
+Tasks are initially distributed unevenly to avoid unforeseen delays in the completion of tasks by team members who cannot work on the project all the time.  
+
+### Lack of protection layers in the LLM used
+
+Using prompt engineering methods, we build a layer of protection that minimises the risk of unfair and unintended use of LLM functionality.
+
 # Non-Functional Requirements
 
 ## Technic Requirements
