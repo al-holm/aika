@@ -9,22 +9,23 @@ AIKA is an AI-based app that can be used to replace or support the earlier stage
 We are developing an AI-powered integration app aimed at supporting the early stages of the integration process for migrants. Our curriculum is divided into three areas: German, Law, and Politics. By using artificial intelligence, the system generates all learning content and related exercises. Questions about the learning materials could be answered in a dialogue with the system. The system can give legal advices on refugee law and political structure of Germany. The system can understand German, English, Russian, Ukrainian, Arabic, and Turkish. 
 
 # Table of Contents
-- [Team](#b2-team)
-- [Development process](#b1-development-process)
-- [Timeline](#b4-timeline)
-- [Description of the System](#c1-e3-description-of-the-system)
-- [Risk Management](#b3-risk-management)
-- [Non-Functional Requirements](#c3-d2-non-functional-requirements)
-- [Use Cases](#c2-use-cases)
-- [Software Architecture](#d1-architecture-overview)
-- [Frontend Oveview](#d3-f2-frontend-overview)
-- [Backend Oveview](#d3-f2-backend-overview)
-- [API](#d3-f2-api-documentation)
-- [Testing](#e1-e2-testing)
+- [(A1) Short Description of the System](#a1-short-description-of-the-system)
+- [(B2) Team](#b2-team)
+- [(B1) Development process](#b1-development-process)
+- [(B4) Timeline](#b4-timeline)
+- [(C1) Description of the System](#c1-e3-description-of-the-system)
+- [(B3) Risk Management](#b3-risk-management)
+- [(C3, D2) Non-Functional Requirements](#c3-d2-non-functional-requirements)
+- [(C2) Use Cases](#c2-use-cases)
+- [(D1) Software Architecture](#d1-architecture-overview)
+- [(D3, F2) Frontend Oveview](#d3-f2-frontend-overview)
+- [(D3, F2) Backend Oveview](#d3-f2-backend-overview)
+- [(D3, F2) API](#d3-f2-api-documentation)
+- [(E1-2) Testing](#e1-e2-testing)
 - [UI Tests](#ui-tests)
-- [Installation Guide](#f1-installation-guide)
-- [Experience Report](#a3-experience-report)
-- [Summary](#a2-summary)
+- [(F1) Installation Guide](#f1-installation-guide)
+- [(A3) Experience Report](#a3-experience-report)
+- [(A2) Summary](#a2-summary)
 
 # (B2) Team
 ### Team Responsibilities
