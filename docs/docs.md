@@ -67,8 +67,8 @@ We are developing an AI-powered integration app aimed at supporting the early st
 # Timeline
 The project had following timeline:
 ![](general/zeitplan.png)
+*Image: Gantt-Diagram - Timeline*
 
----
 # Description of the System
 
 ## German
@@ -76,33 +76,33 @@ Our German learning module focuses on developing users' writing, reading and lis
 The intelligent system understands German, English, Russian, Ukrainian, Arabic and Turkish. Users can also choose to have all system messages translated into their preferred language.
 
 ![Introductory message](general/res/1.png)
-Image 1: Introductory message, Image 2: Single-choice question, Image 3: Open-ended question, Image 4: Widget of a listening
+*Image 1: Introductory message, Image 2: Single-choice question, Image 3: Open-ended question, Image 4: Widget of a listening*
 
 ![Introductory message](general/res/2.png)
-Image 1: Grammar explanation, Image 2: Grammar explanation, Image 3: Gap-filling exercise
+*Image 1: Grammar explanation, Image 2: Grammar explanation, Image 3: Gap-filling exercise*
 
 In addition, the tutoring system enables a dialogue-based learning approach. Users can ask questions in real time about grammatical details, the meaning of expressions, or for more examples. The system also offers situational phrase help to help users apply and deepen their language skills in different everyday situations.
 
 ![Introductory message](general/res/3.png)
-Image 1: Widget of a listening exercise, Image 2: Example of a question on the grammar, Image 3: Example of phrase help
+*Image 1: Widget of a listening exercise, Image 2: Example of a question on the grammar, Image 3: Example of phrase help*
 
 This interactive and user-centred approach ensures that each learner is supported individually and can progress effectively according to the A2 syllabus.
 
-## Law and Politic
+## Law and Politics
 
 Our law and politics curriculum is designed as an interactive question catalogue. Users can choose from a list of questions covering both legal and political topics. After selecting a question, detailed information on the topic is displayed. There is also the option to enter into a dialogue with our chatbot and explore the topic in more depth.
 
 ![Introductory message](general/res/4.png)
-Image 1: Introductory message, Image 2: Legal questions, Image 3: Anti-discrimination questions
+*Image 1: Introductory message, Image 2: Legal questions, Image 3: Anti-discrimination questions*
 
 
 ![Question catalogue categories](general/res/ui_examples/law_question_list.png)\
-*Question catalogue categories*
+*Image: Question catalogue categories*
 
 The chatbot only answers using information from a knowledge base that we have manually compiled based on official guidelines and guidance. This is to ensure accurate and reliable answers that help learners develop a sound understanding of Germany's legal foundations and political structures.
 
 ![Example of a chatbot response](general/res/ui_examples/law_answer.png)\
-*Example of a chatbot response*
+*Image: Example of a chatbot response*
 
 # Risk Management
 
@@ -159,8 +159,8 @@ Using prompt engineering methods, we build a layer of protection that minimises 
 ---
 # Use Cases
 ## Use Case Diagram
-![](general/use_cases.png)
-
+[<img src="general/use_cases.png" width="550" />](general/use_cases.png) 
+*Image: Use-Case-Diagram*
 ## Definitions
 
 **Progress tracker** is a component within the German chat interface that monitors, records, and displays a user's progress through users messages and task completion.
@@ -518,7 +518,7 @@ Using prompt engineering methods, we build a layer of protection that minimises 
 
 # Overview
 ![](backend/res/arch.svg)
-
+*Image: Architecture-Diagram (abstracted)*
 # Frontend Overview
 
 This document provides an overview of the frontend part of the application built using Flutter.
@@ -536,7 +536,7 @@ This document provides an overview of the frontend part of the application built
 ## Components
 We used **Clean Architecture** Pattern as a template.
 ![](frontend/res/component_diagram_frontend.png)
-
+*Image: Frontend Component-Diagram (abstracted)*
 ## Key Visual Screens
 
 ## Authentication Screen (`authentification_screen.dart`)
@@ -576,7 +576,7 @@ The Authentification BLoC manages the state for user authentication, including l
 
 #### Sequence Diagram
 ![](frontend/res/auth_bloc_seq.png)
-
+*Image: Sequence-Diagram - Auth-Bloc*
 #### Dependencies
 - **SendCredentials**: Use case for submitting user credentials.
 
@@ -608,9 +608,10 @@ The `ChatBloc` is responsible for managing the state and business logic of chat 
 #### Sequence Diagram
 **German Chat**
 ![](frontend/res/chatBloc.png)
+*Image: Sequence-Diagram - German Chat-Bloc*
 **Law & Politcs Chat**
 ![](frontend/res/law_chat_seq.png)
-
+*Image: Sequence-Diagram - Law & Politics Chat-Bloc*
 #### Dependencies
 - **SendMessage**: Use case for sending text messages.
 - **SendImage**: Use case for sending image messages.
@@ -684,7 +685,7 @@ The Task BLoC manages the state of tasks within the chat, especially for the Ger
 
 #### Sequence Diagram
 ![](frontend/res/task-bloc-seq.png)
-
+*Image: Sequence-Diagram -Task-Bloc*
 #### Dependencies
 - **SubmitAnswers**: Use case for submitting user answers.
 
@@ -736,7 +737,7 @@ For the server part we chose a microservice architecture consisting of four serv
 Each microservice is designed to be independent and scalable, with its own database or/and dependencies.
 
 ![](backend/res/backend.svg)
-
+*Image: Architecture-Diagram - Backend (abstracted)*
 ## Communication
 
 - **API Gateway**: Uses HTTP/REST for communication with other services.
@@ -763,6 +764,7 @@ The API Gateway is the entry point for all client requests in the microservice a
 The architecture of the API Gateway is illustrated in the following diagram:
 
 ![Architecture](backend/res/api_gateway.png)
+*Image: Class-Diagram - API-Gateway*
 
 ### Services Interacted With
 
@@ -792,6 +794,7 @@ The Agent Microservice is a Python-based service designed to perform specialized
 The architecture of the Agent Microservice is illustrated in the following diagram:
 
 ![Architecture](backend/res/agent_class.svg)
+*Image: Class-Diagram - Agent Microservice*
 
 ## Components
 ### Entry point
@@ -800,14 +803,17 @@ The architecture of the Agent Microservice is illustrated in the following diagr
 ### Agent
 Performs the reasoning and query processing for queries related to German learning.
 ![QA Sequence Diagram](backend/res/seq_agent.svg)
+*Image: Sequence-Diagram: Q&A Agent - German Learning*
 
 ### Retrieval-Augmented Generation
 Retrieval-Augmented Generation for handling queries related to law and politics.
 ![RAG Sequence Diagram](backend/res/seq_rag.svg)
+*Image: Sequence-Diagram: Q&A RAG - Law & Politics*
 
 ### LessonMaster 
 Manages lesson & exercise generation on a defined topic.
 ![Lesson Master Sequence Diagram](backend/res/seq_lesson.svg)
+*Image: Sequence-Diagram: Lesson Creation - German Learning*
 
 ## Curriculum Microservice Overview
 
@@ -829,6 +835,7 @@ The Curriculum Microservice manages curriculum-related operations and data. It p
 The architecture of the Curriculum Microservice is illustrated in the following diagram:
 
 ![Architecture](backend/res/curriculum.png)
+*Image: Class-Diagram: Curriculum Microservice*
 
 ## User Microservice Overview
 
@@ -848,6 +855,7 @@ The User Microservice handles user-related operations and data. It provides endp
 We used hexagonal architecture pattern as a template. The architecture of the User Microservice is illustrated in the following diagram:
 
 ![Architecture](backend/res/user-microservice.svg)
+*Image: Class-Diagram (abstracted): User Microservice*
 
 # API Documentation
 
