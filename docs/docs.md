@@ -1551,6 +1551,7 @@ Consistent.
     - We also noticed only at the end that the implemented test cases for the user microservice (the task was not assigned to us) had very low code coverage.
   2. Using Python for the agent microservice. 
     * Initially, we planned to use Python libraries for the agent and all LLM communication. However, in practice these libraries turned out to be "too" abstract and full of bugs, so we rewrote all the "AI" parts from scratch, using only AWS calls for communication with the LLM. So the original reason for using Python became obsolete. Our current implementation could also be done in Typescript, then we would use the same programming language and framework for all microservices.
+
 # (A2) Summary
 
 ## Summary of the results achieved
