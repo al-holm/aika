@@ -1547,3 +1547,43 @@ Consistent.
 - 
 
 - Tips for future developers
+
+
+# (A2) Summary
+
+## Summary of the results achieved
+
+### Summary of Results Achieved
+
+- **User Authentication and Account Management:**
+  - Implemented a secure login system allowing users to log in using a username and password.
+  - Developed a user-friendly account creation process for new users.
+
+- **Interactive German Language Chatbot:**
+  - Enabled users to send messages to a German chatbot and receive AI-generated responses.
+  - Integrated an audio and video player component for messages containing audio and video content.
+
+- **Lesson Management and Task Completion:**
+  - Developed an AI-driven lesson system that generates tasks based on user progress and curriculum topics.
+  - Allowed users to complete various types of tasks (multiple-choice, open questions, fill-in-the-gap).
+  - Enabled automatic translation of system messages into the user’s selected interface language.
+
+- **Law and Daily Life Chatbot:**
+  - Implemented a chatbot for legal and daily life queries using a Retrieval-Augmented Generation System.
+  - Supported message attachments (PDFs) to enhance interaction and provide detailed responses.
+
+- **User-Friendly Interface:**
+  - Designed intuitive chat interfaces for both German language learning and law & daily life interactions.
+  - Provided seamless navigation between chat interfaces and task widgets.
+
+## Possible future work
+
+To improve our learning app, we plan to implement and improve several key components:
+
++ **Persisting messages**: Persisting messages and responses in a SQL database for consistent data tracking.
++ **Progress Tracker Module**: The introduction of an enhanced progress tracking module will allow us to more accurately track users' learning progress in order to dynamically adapt the learning content.
++ **Improving task generation**: We aim to improve the quality of tasks.
++ **Generating tasks on request**: The development of a function that allows users to generate specific tasks - for example, ‘Create 5 tasks on the topic of perfect with “to be” for me’.
++ **Expansion of the curriculum**: We are planning to expand our German curriculum to include additional topics from levels A2 and B1.
++ **Trial language tests**: The introduction of trial language tests will help users to prepare for official language exams and evaluate their learning progress.
++ **Expansion of legal** and political topics: In addition, we want to expand our range of legal and political content to offer more specific content for different migrant groups.
