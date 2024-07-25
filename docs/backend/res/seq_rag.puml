@@ -1,0 +1,21 @@
+@startuml
+Title Q/A RAG: Sequence Diagram
+
+actor ApiGateway
+
+participant "FlaskApp" as FApp
+participant "RAG" as R
+participant "LLM" as LLM
+database "Vector DB" as DB
+
+ApiGateway -> FApp: POST /get_answer_law
+FApp -> R: run(query)
+R -> DB: retrieve_docs(query)
+DB -> R: return related docs
+R -> LLM: generate_answer(query, docs)
+LLM -> R: return final answer
+R -> FApp: return final answer
+
+FApp -> ApiGateway: return final answer
+
+@enduml

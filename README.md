@@ -16,7 +16,11 @@ The user interacts with AIKA mainly via a chat in which he communicates with a b
 ![](docs/general/res/interface_ex.png)
 
 
-AIKA's curriculum consists of three parts: Language, Law and Everyday Life. 
+AIKA's curriculum consists of three parts: Language, Law and Politics. 
+
+## Architecture
+
+![](docs/backend/res/arch.svg)
 
 ### Language
 

@@ -1,0 +1,61 @@
+@startuml
+title Agent Service: Class diagram
+
+package LLMs {
+  abstract LLM
+  LLM <|-- LLMBedrock
+  LLM <|-- LLMRunPod 
+}
+
+package Parsers {
+  abstract Parser
+  Parser  <|-- StepParser
+  Parser  <|-- ValidationParser
+  Parser <|-- ExercisesParser
+}
+
+package Prompts {
+  PromptBuilder --> Prompt
+}
+
+package Tools {
+    abstract Tool
+    Tool --> LLM
+    Tool --> PromptBuilder
+    Tool <|-- WebSearch
+    Tool <|-- Translator
+    Tool <|-- TaskGenerator
+    Tool <|-- ReadingGenerator
+    Tool <|-- PhrasingTool
+    Tool <|-- NoAnswerTool
+    Tool <|-- ListeningGenerator
+}
+
+package Lesson{
+  LessonMaster --> ExercisesParser
+  LessonMaster --> LessonRetriever
+  LessonMaster --> ToolExecutor
+}
+
+
+package RAG {
+  Tool <|-- RAG
+}
+
+package ToolExecution {
+    ToolExecutor --> ToolFactory
+    ToolExecutor --> Tool
+}
+
+package Agent {
+    Agent --> ReasoningLogger
+    Agent --> StepParser
+    Agent --> ValidationParser
+    Agent --> PromptBuilder
+    Agent --> TrajectoryRetriever
+    Agent --> ToolExecutor
+    Agent --> LLM
+}
+
+
+@enduml

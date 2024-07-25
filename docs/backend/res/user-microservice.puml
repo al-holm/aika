@@ -1,0 +1,51 @@
+@startuml
+!define RECTANGLE class
+hide empty members
+
+package "Domain" {
+  package "Ports" {
+    interface IUserRepository {
+    }
+    interface IAuthService {
+    }
+  }
+    RECTANGLE User {
+        + id: number
+        + username: string
+        + password: string
+        + role: UserRole
+        + createdAt: Date
+        + updatedAt: Date
+    }
+    RECTANGLE UserService {
+        + create(createUserDto: CreateUserDto): Promise<User>
+        + findOneByUsername(username: string): Promise<User>
+    }
+    
+    RECTANGLE AuthService {
+        + login(user: User): Promise<string>
+        + register(createUserDto: CreateUserDto): Promise<User>
+        + validateUser(username: string, password: string): Promise<User>
+    }
+}
+
+package "Adapters" {
+  package "http" {
+    RECTANGLE AuthController {
+        + login(req: ExpressRequest): Promise<string>
+        + register(createUserDto: CreateUserDto): Promise<User>
+    }
+  }
+  package "orm" {
+    RECTANGLE FileUserRepository {
+    }
+  }
+}
+
+' Connections between components
+UserService --> IUserRepository
+IUserRepository <|-- FileUserRepository
+IAuthService <|-- AuthService
+AuthController --> IAuthService
+AuthService --> UserService
+@enduml
