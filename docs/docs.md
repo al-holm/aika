@@ -200,7 +200,9 @@ Using prompt engineering methods, we build a layer of protection that minimises 
 
 **Actor:** User
 
-**Goal:** To securely log into the system using a username and password.
+**Goal:** Securely log into the system using a username and password.
+
+**Prerequisites**: User is not logged in.
 
 **Basic Flow:**
 
