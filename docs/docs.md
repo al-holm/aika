@@ -30,42 +30,42 @@ We are developing an AI-powered integration app aimed at supporting the early st
 # (B2) Team
 ### Team Responsibilities
 
-- **Tim Ushakov**
-  - **Student B.Sc. Computer Science**
-  - **Main Responsibilities:**
+- Timofei Ushakov 
+  - Student B.Sc. Computer Science (Matr.Nr. 3667130)
+  - Main Responsibilities:
     - Development and maintenance of the server logic.
     - Development and maintenance of the user interface in Flutter.
     - Development and maintenance of the AI-powered lesson and exercise generation.
     - Conducting code reviews (rotating).
     - Writing and maintaining tests (unit tests, integration tests, widget tests) (rotating).
 
-- **Ali Kholmovaia**
-  - **Student B.Sc. Computer Science**
-  - **Main Responsibilities:**
+- Alina Kholmovaia
+  - Student B.Sc. Computer Science (Matr.Nr. 3496837)
+  - Main Responsibilities:
     - Development and maintenance of the user interface in Flutter.
     - Development and maintenance of the server logic.
     - Development and maintenance of the AI-powered message processing system.
     - Conducting code reviews (rotating).
     - Writing and maintaining tests (unit tests, integration tests, widget tests) (rotating).
 
-- **Daria Gubina** (limited participation)
-  - **M.A. Political Science, Social Educator**
-  - **Main Responsibilities:**
+- Daria Gubina (limited participation)
+  - M.A. Political Science, Social Educator
+  - Main Responsibilities:
     - Creation of the 'German' curriculum.
     - Testing the 'Law & Politics' interface.
 
-- **Yury Kazantsev** (limited participation)
-  - **Student B.Sc. Computer Science**
-  - **Main Responsibilities:**
+- Yury Kazantsev (limited participation)
+  - Student B.Sc. Computer Science
+  - Main Responsibilities:
     - Development of the authorization microservice.
 ---
 # (B1) Development process
-
-- **Sprints**: The project is developed in regular iterations called sprints. Each sprint lasts two weeks, during which the functionalities defined in the backlog are implemented. At the end of each sprint, a review session is held to reflect on how the sprint went, whether the sprint goal was achieved, and to adjust the backlog.
-- **Refactoring**: Continuous improvement of the existing code to optimize its structure without changing its external behavior.
-- **Code Reviews**: Every pull request is reviewed by one or more team members before it is approved.
-- **Incremental Development**: The project is developed gradually by implementing use cases in a specific order.
-- **Use Cases**: The project is divided into use cases.
+- Scrum: We used a Scrum-like Kanban board (to manage backlog and sprints). But we didn't follow the typical roles. We found that our work was more efficient when we didn't have strict roles in managing the development process.
+- Sprints: The project is developed in regular iterations called sprints. Each sprint lasts two weeks, during which the functionalities defined in the backlog are implemented. At the end of each sprint, a review session is held to reflect on how the sprint went, whether the sprint goal was achieved, and to adjust the backlog.
+- Refactoring: Continuous improvement of the existing code to optimize its structure without changing its external behavior.
+- Code Reviews: Every pull request is reviewed by one or more team members before it is approved.
+- Incremental Development: The project is developed gradually by implementing use cases in a specific order.
+- Use Cases: The project is divided into use cases.
 
 # (B4) Timeline
 The project had following timeline:
@@ -129,6 +129,10 @@ There is a high probability that the bulk of the work will fall on half the team
 
 We consider the likelihood of unfair use of LLMs to be imminent. We consider the elimination of this problem to be a priority.
 
+### Legal risks regarding the use of LLMs for legal consulting
+
+The user shouldn't fully rely on the legal tips from the Law-Chatbot, there is a risk of desinformation.
+
 ## Strategies for each identified risk
 
 ### Availability of team members
@@ -140,25 +144,31 @@ Tasks are initially distributed unevenly to avoid unforeseen delays in the compl
 
 Using prompt engineering methods, we build a layer of protection that minimises the risk of unfair and unintended use of LLM functionality.
 
+### Legal risks regarding the use of LLMs for legal consulting
+
+We've added a warning that our model does not provide legal advice, but rather legal tips. The actual details should be discussed with a qualified attorney.
+
 # (C3, D2) Non-Functional Requirements
 
 ## Technic Requirements
 ### Technology Stack:
-- **OS:** Android, IOS;
-- **UI Stack:** Flutter
-- **Backend Stack:** Typescript(NestJS), Python (Flask)
-- **Data Storage:** MilvusDB, PostgreSQL
+- OS: Android, IOS;
+- UI Stack: Flutter
+- Backend Stack: Typescript(NestJS), Python (Flask)
+- Data Storage: MilvusDB, PostgreSQL
 
 ### Tools, API & Software:
-- **Version Control:** Git
-- **Containerization:** Docker, Kubernetes
-- **API Dependencies**: Deepl, OpenSearch
-- **LLM Hosting:** AWS Bedrock
+- Version Control: Git
+- Containerization: Docker, Kubernetes
+- API Dependencies: Deepl, OpenSearch
+- LLM Hosting: AWS Bedrock
 
-## Code-Conventions
-- **PEP 8 Standard for Python-Code.** 
-- **Use of Linters (e.g. pylint).** 
-- **DocStrings style: NumPy**
+## Code-Conventions & Documentation
+- PEP 8 Standard for Python-Code. 
+- Use of Linters (e.g. pylint). 
+- DocStrings style: NumPy
+- Swagger API for API documentation
+- PlantUML for creating UML diagrams
 ---
 # (C2) Use Cases
 ## Use Case Diagram
