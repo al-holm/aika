@@ -4,20 +4,12 @@
 title Architecture Diagram
 
 package "Client" {
-  package Data {}
-  package Domain {}
-  package Presentation {}
 }
 
 package "APIGateway" {
-  package Authentification {}
-  package Chat {}
 }
 
 package "AgentService" {
-  package RAG {}
-  package Lesson {}
-  package Agent {}
 }
 
 package "CurriculumService" {
@@ -27,7 +19,7 @@ package "UserService" {
 }
 
 database "MilvusVectorStore" {
-  folder "LawLifeKnowledgeBase" {
+ folder "LawLifeKnowledgeBase" {
  }
  folder "TrajectoryLibrary" {
  }
