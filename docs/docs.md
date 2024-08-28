@@ -350,7 +350,7 @@ Using prompt engineering methods, we build a layer of protection that minimises 
 
 ---
 
-=> the system displays the message history and the new message with a button under the message 'New lesson'. 
+=> The system displays the message history and the new message with a button under the message 'New lesson'. 
 
 => The user presses a button to start a new lesson.
 
