@@ -393,7 +393,7 @@ Using prompt engineering methods, we build a layer of protection that minimises 
 
 **Actor:** User
 
-**Goal:** To complete the tasks.
+**Goal:** Complete the tasks.
 
 **Prerequisites**: User is logged in and and navigated to the german chat interface, system generated a set of tasks.
 
