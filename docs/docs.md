@@ -532,7 +532,7 @@ We've added a warning that our model does not provide legal advice, but rather l
 
 
 # (D1) Architecture Overview
-![](backend/res/arch.svg)
+![](backend/res/arch.png)
 *Image: Architecture-Diagram (abstracted)*
 # (D3, F2) Frontend Overview
 
