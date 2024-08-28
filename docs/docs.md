@@ -526,6 +526,8 @@ Using prompt engineering methods, we build a layer of protection that minimises 
 
 This document provides an overview of the frontend part of the application built using Flutter.
 
+We used Flutter as we found it to be the most suitable framework for rapid cross-platform prototyping. It eliminates the need for a JS, HTML, CSS stack and allows you to add components with minimal code.
+
 ## Project Structure
 
 - **data/**: Contains models, repositories, and data providers.
