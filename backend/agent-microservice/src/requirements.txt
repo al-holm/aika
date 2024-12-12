@@ -9,7 +9,7 @@ pymilvus==2.4.3
 python-dotenv==1.0.1
 Requests==2.32.3
 milvus-model
-FlagEmbedding
 Werkzeug==2.3.0
-tts>=0.20
 flasgger
+torch
+FlagEmbedding>=1.2.2

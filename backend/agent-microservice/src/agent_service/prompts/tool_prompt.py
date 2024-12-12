@@ -19,7 +19,7 @@ Select the relevant details from the ${person_name}'s biography and add some mor
 For example, if the topic is school, try to imagine how the school time would look for the person. If the topic is work, imagine more details about where the person works, what could the love about their work and what are their responsibilities.
 Use only relevant details from the story and try to imagine the rest. If there is no details in the story, imagine how the story would look like.
 You should only generate a story telling about one aspect from the life of ${person_name}.
-The story should always be in plain German.
+The story should always be in plain German. Use simple words for A2 language proficiency level.
 [/INST]
 Thema: ${topic}
 Script:

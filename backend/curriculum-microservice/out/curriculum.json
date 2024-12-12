@@ -7,7 +7,7 @@
     "listening": "Ich stelle mich vor. Woher komme ich? Was mache ich beruflich (kurz)? Was mach ich mit meiner Familie?",
     "completed": [
       true,
-      false,
+      true,
       false
     ],
     "score": [
@@ -25,7 +25,7 @@
     "completed": [
       false,
       false,
-      false
+      true
     ],
     "score": [
       0,

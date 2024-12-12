@@ -46,6 +46,8 @@ class ChatDataProvider {
       final dynamic data = json.decode(response.body);
       MessageType type = MessageTypeExtension.fromString(data['type']);
       print(type);
+      print(data['text']);
+      print(type == MessageType.listening);
       MessageModel model = MessageModel(
         text: data['text'], 
         userID:'lesson', 
