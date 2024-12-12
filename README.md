@@ -47,7 +47,7 @@ The chatbot only answers using information from a knowledge base that we have ma
 
 The architecture of the Agent Microservice is illustrated in the following diagram:
 
-![Architecture](backend/res/agent_class.svg)
+![Architecture](docs/backend/res/agent_class.svg)
 *Image: Class-Diagram - Agent Microservice*
 
 ## Technic Requirements
