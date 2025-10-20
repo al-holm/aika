@@ -70,6 +70,7 @@ The architecture of the Agent Microservice is illustrated in the following diagr
 - Swagger API for API documentation
 - PlantUML for creating UML diagrams
 
-For the further implementation details and installation guide, see [Documentation](docs/docs.md).
+For the further implementation details and installation guide, see [Documentation](docs/).
+
 
 
